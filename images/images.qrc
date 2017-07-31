@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>about.svg</file>
+        <file>back.svg</file>
+        <file>donate.svg</file>
+        <file>monetization.svg</file>
+        <file>more.svg</file>
+        <file>settings.svg</file>
+        <file>share.svg</file>
+        <file>store.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/music">
+        <file>HolFix-Mistery.ogg</file>
+        <file>SamKuzel-WilliamAlone.ogg</file>
+    </qresource>
+</RCC>

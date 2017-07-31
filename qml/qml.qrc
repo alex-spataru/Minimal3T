@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>main.qml</file>
+        <file>Components/Field.qml</file>
+        <file>Components/Symbol.qml</file>
+        <file>Dialogs/About.qml</file>
+        <file>Dialogs/Addons.qml</file>
+        <file>Dialogs/Settings.qml</file>
+        <file>Pages/GameOptions.qml</file>
+        <file>Pages/MainMenu.qml</file>
+        <file>Components/Logo.qml</file>
+        <file>Components/GameBoard.qml</file>
+        <file>Pages/BoardPage.qml</file>
+    </qresource>
+</RCC>

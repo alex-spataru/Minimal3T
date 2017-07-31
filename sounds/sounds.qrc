@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>loose.wav</file>
+        <file>p1_field.wav</file>
+        <file>p2_field.wav</file>
+        <file>win.wav</file>
+        <file>click.wav</file>
+    </qresource>
+</RCC>
