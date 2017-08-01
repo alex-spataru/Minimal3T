@@ -88,7 +88,7 @@ Item {
     // Calculates the appropiate size of the game fields/tiles
     //
     function updateSize() {
-        var side = Math.min (app.paneHeight, app.paneWidth) * 0.8
+        var side = Math.min (app.height, app.width) * 0.8
         gameBoard.width = side
         gameBoard.height = side
     }

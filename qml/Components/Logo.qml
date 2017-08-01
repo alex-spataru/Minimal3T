@@ -39,9 +39,9 @@ Item {
 
             Field {
                 clickable: false
+                border.color: "#484750"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                border.color: "#484750"
                 border.width: grid.rowSpacing * -1
                 symbol: index % 3 ? app.p2Symbol : app.p1Symbol
             }

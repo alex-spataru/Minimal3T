@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2017 Alex Spataru <alex_spataru@outlook.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,8 +29,9 @@ import QtMultimedia 5.0
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
-import "Pages" as Pages
-import "Dialogs" as Dialogs
+import "Pages"
+import "Dialogs"
+import "Components"
 
 ApplicationWindow {
     id: app
@@ -39,36 +40,29 @@ ApplicationWindow {
     // Custom properties
     //
     readonly property int spacing: 8
-    property alias caption: _title.text
+    readonly property int paneWidth: Math.min (app.width * 0.8, 520)
 
     //
     // Set game symbols
     //
     readonly property string p1Symbol: "X"
     readonly property string p2Symbol: "O"
-    readonly property alias symbolFont: _loader.name
+    readonly property alias symbolFont: fontLoader.name
 
     //
     // Theme options
     //
-    readonly property string borderColor: "#2f2e34"
+    readonly property string fieldColor: "#ffffff"
     readonly property string primaryColor: "#5486d1"
     readonly property string secondaryColor: "#d93344"
     readonly property string paneBackground: "#25232e"
     readonly property string backgroundColor: "#1f1c23"
 
     //
-    // Pane properties
-    //
-    readonly property int paneElevation: 6
-    readonly property int paneWidth: Math.min (_stack.width - 2 * spacing, 520)
-    readonly property int paneHeight: Math.min (_stack.height - 2 * spacing, 520)
-
-    //
     // Generates a dynamic SoundEffect item to play the given audio file
     //
     function playSoundEffect (effect) {
-        if (_settings.enableSoundEffects && app.visible) {
+        if (settingsDlg.enableSoundEffects && app.visible) {
             var source = "qrc:/sounds/" + effect
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
@@ -85,8 +79,8 @@ ApplicationWindow {
     // Displays the interstitial ad (if its loaded)
     //
     function showInterstitialAd() {
-        if (_interstitial.isLoaded)
-            _interstitial.visible = true
+        if (interstitialAd.isLoaded)
+            interstitialAd.visible = true
     }
 
     //
@@ -98,7 +92,7 @@ ApplicationWindow {
     title: AppName
 
     //
-    // Theme options
+    // Material theme options
     //
     Material.theme: Material.Dark
     Material.primary: primaryColor
@@ -108,17 +102,17 @@ ApplicationWindow {
     //
     // Re-position the banner ad when window size is changed
     //
-    onWidthChanged: _banner.locateBanner()
-    onHeightChanged: _banner.locateBanner()
+    onWidthChanged: bannerAd.locateBanner()
+    onHeightChanged: bannerAd.locateBanner()
 
     //
     // Pause audio when window is not visible (very important on Android!)
     //
     onVisibleChanged: {
         if (app.active)
-            _player.playMusic()
+            audioPlayer.playMusic()
         else
-            _player.pause()
+            audioPlayer.pause()
     }
 
     //
@@ -141,7 +135,7 @@ ApplicationWindow {
     // Load the font used to display the cross/nough symbols
     //
     FontLoader {
-        id: _loader
+        id: fontLoader
         source: "qrc:/fonts/UbuntuMono-R.ttf"
     }
 
@@ -149,19 +143,23 @@ ApplicationWindow {
     // Soundtrack list
     //
     ListModel {
-        id: model
+        id: soundtracks
         property int track: -1
 
         ListElement {
-            artist: "Sam Kuzel"
-            title: "William Alone"
-            source: "SamKuzel-WilliamAlone.ogg"
+            source: "Flan.ogg"
         }
 
         ListElement {
-            artist: "HolFix"
-            title: "Mistery"
-            source: "HolFix-Mistery.ogg"
+            source: "LionsTigersAndApes.ogg"
+        }
+
+        ListElement {
+            source: "Shona.ogg"
+        }
+
+        ListElement {
+            source: "Hanami.ogg"
         }
     }
 
@@ -169,27 +167,27 @@ ApplicationWindow {
     // Music player
     //
     Audio {
-        id: _player
+        id: audioPlayer
 
         function playMusic() {
-            if (_settings.enableMusic && app.active)
+            if (settingsDlg.enableMusic && app.active)
                 play()
             else
                 stop()
         }
 
         function updateTrack() {
-            if (model.track == -1)
-                model.track = Math.random() * model.count
+            if (soundtracks.track == -1)
+                soundtracks.track = Math.random() * soundtracks.count
 
-            if (model.track < model.count - 1)
-                ++model.track
+            if (soundtracks.track < soundtracks.count - 1)
+                ++soundtracks.track
             else
-                model.track = 0
+                soundtracks.track = 0
 
-            source = "qrc:/music/" + model.get (model.track).source
+            source = "qrc:/music/" + soundtracks.get (soundtracks.track).source
 
-            if (_settings.enableMusic)
+            if (settingsDlg.enableMusic)
                 play()
         }
 
@@ -199,130 +197,63 @@ ApplicationWindow {
     }
 
     //
-    // Toolbar and navigation controls
+    // Background rectangles
     //
-    header: ToolBar {
-        Material.background: app.paneBackground
-
-        contentItem: RowLayout {
-            Behavior on spacing { NumberAnimation{} }
-            spacing: _stack.depth > 1 ? app.spacing / 2 : app.spacing * 3/2
-
-            ToolButton {
-                opacity: enabled ? 1 : 0
-                enabled: _stack.depth > 1
-                Layout.preferredWidth: enabled ? implicitWidth : 0
-
-                onClicked: {
-                    _stack.pop()
-                    playSoundEffect ("click.wav")
-                }
-
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    source: "qrc:/images/back.svg"
-                    verticalAlignment: Image.AlignVCenter
-                    horizontalAlignment: Image.AlignHCenter
-                }
-
-                Behavior on opacity { NumberAnimation{} }
-                Behavior on Layout.preferredWidth { NumberAnimation{} }
+    background: Rectangle {
+        gradient: Gradient {
+            GradientStop {
+                position: 0
+                color: app.primaryColor
             }
 
-            Label {
-                id: _title
-                font.bold: true
-                font.pixelSize: 18
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            ToolButton {
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    source: "qrc:/images/more.svg"
-                    verticalAlignment: Image.AlignVCenter
-                    horizontalAlignment: Image.AlignHCenter
-                }
+            GradientStop {
+                position: 1
+                color: app.secondaryColor
             }
         }
     }
 
     //
-    // Application content
+    // Toolbar buttons
     //
-    StackView {
-        id: _stack
-        initialItem: _mainMenu
+    header: RowLayout {
+        ToolButton {
+            opacity: enabled ? 1 : 0
+            enabled: _stack.depth > 1
 
-        anchors {
-            fill: parent
-            margins: app.spacing
-            bottomMargin: _bannerContainer.height > 0 ? _bannerContainer.height + 2 * app.spacing :
-                                                        app.spacing
+            onClicked: {
+                _stack.pop()
+                playSoundEffect ("click.wav")
+            }
+
+            contentItem: Image {
+                fillMode: Image.Pad
+                source: "qrc:/images/back.svg"
+                verticalAlignment: Image.AlignVCenter
+                horizontalAlignment: Image.AlignHCenter
+            }
+
+            Behavior on opacity { NumberAnimation{} }
         }
 
-        //
-        // Main menu
-        //
-        Pages.MainMenu {
-            id: _mainMenu
-            visible: false
-            onExitClicked: app.close()
-            onAboutClicked: _about.open()
-            onSettingsClicked: _settings.open()
-
-            onSinglePlayerClicked: {
-                _gameOpt.showAiControls = true
-                _stack.push (_gameOpt)
-            }
-
-            onMultiPlayerClicked: {
-                _gameOpt.showAiControls = false
-                _stack.push (_gameOpt)
-            }
-
-            onVisibleChanged: {
-                if (visible)
-                    caption = qsTr ("Welcome")
-            }
+        Label {
+            id: title
+            font.bold: true
+            font.pixelSize: 18
+            opacity: text.length > 0
+            Behavior on opacity { NumberAnimation{} }
         }
 
-        //
-        // Game options
-        //
-        Pages.GameOptions {
-            id: _gameOpt
-            visible: false
-            onStartGameClicked: {
-                Board.resetBoard()
-                _stack.push (_board)
-            }
-
-            onVisibleChanged: {
-                if (visible)
-                    caption = qsTr ("Configure Game")
-            }
+        Item {
+            Layout.fillWidth: true
         }
 
-        //
-        // Game Board
-        //
-        Pages.BoardPage {
-            id: _board
-            visible: false
-            enabled: visible
-            enableAiVsHuman: _gameOpt.showAiControls
-            startNewGamesAutomatically: _settings.autoStartGames
-
-            onVisibleChanged: {
-                resetScores()
-                Board.resetBoard()
-
-                if (visible)
-                    caption = qsTr ("Match")
+        ToolButton {
+            contentItem: Image {
+                fillMode: Image.Pad
+                source: "qrc:/images/more.svg"
+                verticalAlignment: Image.AlignVCenter
+                horizontalAlignment: Image.AlignHCenter
             }
         }
     }
@@ -331,7 +262,7 @@ ApplicationWindow {
     // Banner container
     //
     Item {
-        id: _bannerContainer
+        id: bannerContainer
 
         anchors {
             left: parent.left
@@ -345,23 +276,23 @@ ApplicationWindow {
     // Banner add
     //
     AdMobBanner {
-        id: _banner
+        id: bannerAd
 
         function locateBanner() {
-            var w = _banner.width / DevicePixelRatio
-            var h = _banner.height / DevicePixelRatio
+            var w = bannerAd.width / DevicePixelRatio
+            var h = bannerAd.height / DevicePixelRatio
 
-            _bannerContainer.height = h
+            bannerContainer.height = h
             x = (app.width - w) / 2
-            y = (_bannerContainer.y + h + 2 * app.spacing) * 2
+            y = (bannerContainer.y + h + 2 * app.spacing) * 2
         }
 
         onLoaded: locateBanner()
 
         Component.onCompleted: {
-            _banner.unitId = BannerId
-            _banner.size = AdMobBanner.SmartBanner
-            _banner.visible = true
+            bannerAd.unitId = BannerId
+            bannerAd.size = AdMobBanner.SmartBanner
+            bannerAd.visible = true
             locateBanner()
         }
     }
@@ -370,23 +301,68 @@ ApplicationWindow {
     // Interstitial ad
     //
     AdMobInterstitial {
-        id: _interstitial
-        onClosed: _interstitial.unitId = InterstitialId
-        Component.onCompleted: _interstitial.unitId = InterstitialId
+        id: interstitialAd
+        onClosed: interstitialAd.unitId = InterstitialId
+        Component.onCompleted: interstitialAd.unitId = InterstitialId
     }
 
     //
     // Settings dialog
     //
-    Dialogs.Settings {
-        id: _settings
-        onEnableMusicChanged: _player.playMusic()
+    Settings {
+        id: settingsDlg
+        onEnableMusicChanged: audioPlayer.playMusic()
     }
 
     //
     // About dialog
     //
-    Dialogs.About {
-        id: _about
+    About {
+        id: aboutDlg
+    }
+
+    //
+    // Stack View
+    //
+    StackView {
+        id: _stack
+        anchors.fill: parent
+        initialItem: mainMenu
+        anchors.margins: app.spacing
+        anchors.bottomMargin: bannerContainer.height + app.spacing
+
+        MainMenu {
+            id: mainMenu
+            visible: false
+            onAboutClicked: aboutDlg.open()
+            onSettingsClicked: settingsDlg.open()
+            onMultiplayerClicked: _stack.push (multiPlayer)
+            onSingleplayerClicked: _stack.push (singlePlayer)
+
+            onVisibleChanged: {
+                if (visible)
+                    title.text = ""
+            }
+        }
+
+        Singleplayer {
+            visible: false
+            id: singlePlayer
+
+            onVisibleChanged: {
+                if (visible)
+                    title.text = qsTr ("Match")
+            }
+        }
+
+        Multiplayer {
+            visible: false
+            id: multiPlayer
+
+            onVisibleChanged: {
+                if (visible)
+                    title.text = qsTr ("Match")
+            }
+        }
     }
 }

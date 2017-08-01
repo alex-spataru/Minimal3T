@@ -29,237 +29,223 @@ import "../Components"
 
 Page {
     //
-    // Custom properties
+    // Constant for setting tool buttons width
     //
     property var utilityWidth: 56
-    property var buttonWidth: Math.min (app.paneWidth - (4 * app.spacing), _utility.implicitWidth)
 
     //
     // Signals
     //
-    signal exitClicked()
-    signal aboutClicked()
-    signal shareClicked()
-    signal addonsClicked()
-    signal settingsClicked()
-    signal multiPlayerClicked()
-    signal singlePlayerClicked()
+    signal aboutClicked
+    signal shareClicked
+    signal addonsClicked
+    signal settingsClicked
+    signal multiplayerClicked
+    signal singleplayerClicked
 
     //
     // Sound effects
     //
-    onExitClicked: app.playSoundEffect ("click.wav")
     onAboutClicked: app.playSoundEffect ("click.wav")
     onShareClicked: app.playSoundEffect ("click.wav")
     onAddonsClicked: app.playSoundEffect ("click.wav")
     onSettingsClicked: app.playSoundEffect ("click.wav")
-    onMultiPlayerClicked: app.playSoundEffect ("click.wav")
-    onSinglePlayerClicked: app.playSoundEffect ("click.wav")
+    onMultiplayerClicked: app.playSoundEffect ("click.wav")
+    onSingleplayerClicked: app.playSoundEffect ("click.wav")
 
     //
-    // Background pane
+    // Transparent bacground
     //
-    background: Pane {
-        width: app.paneWidth
-        height: app.paneHeight
+    background: Item {}
+
+    //
+    // Main layout
+    //
+    ColumnLayout {
+        spacing: app.spacing
         anchors.centerIn: parent
-        Material.elevation: app.paneElevation
-        Material.background: app.paneBackground
 
         //
-        // Controls
+        // App name label
         //
-        ColumnLayout {
-            spacing: app.spacing
+        Label {
+            font.bold: true
+            font.pixelSize: 36
+            text: qsTr ("Tic | Tac | Toe")
+            font.capitalization: Font.AllUppercase
+            horizontalAlignment: Label.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
 
-            anchors {
-                fill: parent
-                centerIn: parent
-                margins: app.spacing
-            }
+        //
+        // Spacer
+        //
+        Item {
+            Layout.fillHeight: true
+            Layout.minimumHeight: 3 * app.spacing
+        }
 
-            //
-            // Spacer
-            //
-            Item {
-                Layout.fillHeight: true
-            }
+        //
+        // Play button
+        //
+        Button {
+            flat: true
+            Layout.fillHeight: true
+            onClicked: singleplayerClicked()
+            Layout.preferredWidth: app.paneWidth
+            anchors.horizontalCenter: parent.horizontalCenter
 
-            //
-            // Logo
-            //
-            Logo {
-                id: _logo
-                Component.onCompleted: calculateSize()
-                anchors.horizontalCenter: parent.horizontalCenter
+            contentItem: ColumnLayout {
+                spacing: app.spacing
 
-                function calculateSize() {
-                    var size = Math.min (app.paneHeight * 0.25, 156)
-                    width = size
-                    height = size
-                    Layout.preferredWidth = size
-                    Layout.preferredHeight = size
+                Image {
+                    fillMode: Image.Pad
+                    source: "qrc:/images/play.svg"
+                    sourceSize: Qt.size (128, 128)
+                    verticalAlignment: Image.AlignVCenter
+                    horizontalAlignment: Image.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
 
-                Connections {
-                    target: app
-                    onHeightChanged: _logo.calculateSize()
+                Label {
+                    font.bold: true
+                    font.pixelSize: 24
+                    text: qsTr ("Play")
+                    Layout.preferredWidth: app.paneWidth
+                    horizontalAlignment: Label.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Item {
+                    height: app.spacing
                 }
             }
+        }
+
+        //
+        // Multiplayer button
+        //
+        Button {
+            flat: true
+            font.pixelSize: 24
+            text: qsTr ("Multiplayer")
+            onClicked: multiplayerClicked()
+            font.capitalization: Font.MixedCase
+            Layout.preferredWidth: app.paneWidth
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        //
+        // Spacer
+        //
+        Item {
+            Layout.fillHeight: true
+        }
+
+        //
+        // Utility buttons
+        //
+        RowLayout {
+            spacing: 0
+            Layout.fillWidth: true
+            anchors.horizontalCenter: parent.horizontalCenter
 
             //
-            // Spacer
+            // About button
             //
-            Item {
-                Layout.fillHeight: true
-            }
+            ToolButton {
+                onClicked: aboutClicked()
+                contentItem: ColumnLayout {
+                    spacing: app.spacing
 
-            //
-            // Single player button
-            //
-            Button {
-                text: qsTr ("Single Player")
-                Material.theme: Material.Light
-                onClicked: singlePlayerClicked()
-                Layout.preferredWidth: buttonWidth
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+                    Image {
+                        fillMode: Image.Pad
+                        source: "qrc:/images/about.svg"
+                        verticalAlignment: Image.AlignVCenter
+                        horizontalAlignment: Image.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
 
-            //
-            // Multiplayer button
-            //
-            Button {
-                text: qsTr ("Multiplayer")
-                Material.theme: Material.Light
-                onClicked: multiPlayerClicked()
-                Layout.preferredWidth: buttonWidth
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            //
-            // Exit button
-            //
-            Button {
-                text: qsTr ("Exit")
-                onClicked: exitClicked()
-                Material.theme: Material.Light
-                Layout.preferredWidth: buttonWidth
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            //
-            // Spacer
-            //
-            Item {
-                Layout.fillHeight: true
-            }
-
-            //
-            // Utility buttons
-            //
-            RowLayout {
-                id: _utility
-                spacing: 0
-                Layout.fillWidth: true
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                //
-                // About button
-                //
-                ToolButton {
-                    onClicked: aboutClicked()
-                    contentItem: ColumnLayout {
-                        spacing: app.spacing
-
-                        Image {
-                            fillMode: Image.Pad
-                            source: "qrc:/images/about.svg"
-                            verticalAlignment: Image.AlignVCenter
-                            horizontalAlignment: Image.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-
-                        Label {
-                            text: qsTr ("About")
-                            Layout.preferredWidth: utilityWidth
-                            horizontalAlignment: Label.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Label {
+                        text: qsTr ("About")
+                        Layout.preferredWidth: utilityWidth
+                        horizontalAlignment: Label.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
+            }
 
-                //
-                // Store button
-                //
-                ToolButton {
-                    onClicked: addonsClicked()
-                    contentItem: ColumnLayout {
-                        spacing: app.spacing
+            //
+            // Store button
+            //
+            ToolButton {
+                onClicked: addonsClicked()
+                contentItem: ColumnLayout {
+                    spacing: app.spacing
 
-                        Image {
-                            fillMode: Image.Pad
-                            source: "qrc:/images/store.svg"
-                            verticalAlignment: Image.AlignVCenter
-                            horizontalAlignment: Image.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Image {
+                        fillMode: Image.Pad
+                        source: "qrc:/images/store.svg"
+                        verticalAlignment: Image.AlignVCenter
+                        horizontalAlignment: Image.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
 
-                        Label {
-                            text: qsTr ("Addons")
-                            Layout.preferredWidth: utilityWidth
-                            horizontalAlignment: Label.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Label {
+                        text: qsTr ("Addons")
+                        Layout.preferredWidth: utilityWidth
+                        horizontalAlignment: Label.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
+            }
 
-                //
-                // Share button
-                //
-                ToolButton {
-                    onClicked: shareClicked()
-                    contentItem: ColumnLayout {
-                        spacing: app.spacing
+            //
+            // Share button
+            //
+            ToolButton {
+                onClicked: shareClicked()
+                contentItem: ColumnLayout {
+                    spacing: app.spacing
 
-                        Image {
-                            fillMode: Image.Pad
-                            source: "qrc:/images/share.svg"
-                            verticalAlignment: Image.AlignVCenter
-                            horizontalAlignment: Image.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Image {
+                        fillMode: Image.Pad
+                        source: "qrc:/images/share.svg"
+                        verticalAlignment: Image.AlignVCenter
+                        horizontalAlignment: Image.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
 
-                        Label {
-                            text: qsTr ("Share")
-                            Layout.preferredWidth: utilityWidth
-                            horizontalAlignment: Label.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Label {
+                        text: qsTr ("Share")
+                        Layout.preferredWidth: utilityWidth
+                        horizontalAlignment: Label.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
+            }
 
-                //
-                // Preferences button
-                //
-                ToolButton {
-                    onClicked: settingsClicked()
-                    contentItem: ColumnLayout {
-                        spacing: app.spacing
+            //
+            // Preferences button
+            //
+            ToolButton {
+                onClicked: settingsClicked()
+                contentItem: ColumnLayout {
+                    spacing: app.spacing
 
-                        Image {
-                            fillMode: Image.Pad
-                            verticalAlignment: Image.AlignVCenter
-                            horizontalAlignment: Image.AlignHCenter
-                            source: "qrc:/images/settings.svg"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Image {
+                        fillMode: Image.Pad
+                        source: "qrc:/images/settings.svg"
+                        verticalAlignment: Image.AlignVCenter
+                        horizontalAlignment: Image.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
 
-                        Label {
-                            text: qsTr ("Settings")
-                            Layout.preferredWidth: utilityWidth
-                            horizontalAlignment: Label.AlignHCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                    Label {
+                        text: qsTr ("Settings")
+                        Layout.preferredWidth: utilityWidth
+                        horizontalAlignment: Label.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
             }

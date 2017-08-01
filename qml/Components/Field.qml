@@ -35,7 +35,7 @@ Item {
     // Custom properties
     //
     property int fieldNumber: -1
-    property bool clickable: false
+    property bool clickable: true
     property alias border: bg.border
     property alias symbol: _symbol.text
 
@@ -46,17 +46,19 @@ Item {
         id: bg
         color: "transparent"
         anchors.fill: parent
-        border.color: app.borderColor
+        border.color: app.fieldColor
         border.width: app.spacing / 2
     }
 
     //
     // Symbol icon
     //
-    Symbol {
+    Label {
         text: " "
         id: _symbol
+        color: "#fff"
         anchors.centerIn: parent
+        font.family: app.symbolFont
         font.pixelSize: bg.height * 0.8
         opacity: fieldNumber == -1 ? 1 : 0
         onOpacityChanged: {

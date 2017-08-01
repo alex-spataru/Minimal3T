@@ -107,5 +107,14 @@ Dialog {
             id: autoStartGames
             text: qsTr ("Start new games without asking")
         }
+
+        //
+        // Game options
+        //
+        Button {
+            Layout.fillWidth: true
+            text: qsTr ("Game Options")
+            Material.theme: Material.Light
+        }
     }
 }

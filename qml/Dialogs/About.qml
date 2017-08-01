@@ -38,8 +38,9 @@ Dialog {
     //
     title: ""
     modal: true
+    height: implicitHeight
+    width: implicitWidth * 1.2
     parent: ApplicationWindow.overlay
-    width: layout.implicitWidth * 1.3
 
     //
     // Main layout
@@ -51,12 +52,6 @@ Dialog {
         Layout.fillHeight: true
         anchors.centerIn: parent
 
-        Logo {
-            width: 128
-            height: 128
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
         Label {
             text: qsTr ("%1 v%2").arg (AppName).arg (Version)
             font.bold: true
@@ -67,15 +62,25 @@ Dialog {
         }
 
         Label {
-            font.pixelSize: 16
+            opacity: 0.75
+            font.pixelSize: 14
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
             text: qsTr ("Developed by %1").arg (Company)
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
+        Label {
+            opacity: 0.75
+            font.pixelSize: 14
+            Layout.fillWidth: true
+            horizontalAlignment: Label.AlignHCenter
+            text: qsTr ("Music by %1").arg ("Jake Chudnow")
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
         Button {
-            text: qsTr ("Credits")
+            text: qsTr ("Rate")
             Layout.fillWidth: true
             Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter

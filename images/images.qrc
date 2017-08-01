@@ -8,5 +8,6 @@
         <file>settings.svg</file>
         <file>share.svg</file>
         <file>store.svg</file>
+        <file>play.svg</file>
     </qresource>
 </RCC>
