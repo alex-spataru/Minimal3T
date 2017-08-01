@@ -53,11 +53,12 @@ Dialog {
         anchors.centerIn: parent
 
         Label {
-            text: qsTr ("%1 v%2").arg (AppName).arg (Version)
             font.bold: true
             font.pixelSize: 24
             Layout.fillWidth: true
+            font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
+            text: qsTr ("%1 %2").arg (AppName).arg (Version)
             anchors.horizontalCenter: parent.horizontalCenter
         }
 

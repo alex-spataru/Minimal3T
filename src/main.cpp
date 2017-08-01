@@ -35,7 +35,7 @@
 
 int main (int argc, char **argv) {
     QGuiApplication::setApplicationVersion ("1.0");
-    QGuiApplication::setApplicationName ("QTicTacToe");
+    QGuiApplication::setApplicationName ("Super Trig");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
 

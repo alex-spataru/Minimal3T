@@ -69,9 +69,17 @@ Page {
         // App name label
         //
         Label {
+            text: AppName
             font.bold: true
             font.pixelSize: 36
-            text: qsTr ("Tic | Tac | Toe")
+            font.capitalization: Font.AllUppercase
+            horizontalAlignment: Label.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Label {
+            font.pixelSize: 18
+            text: qsTr ("Tic-Tac-Toe Game")
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter

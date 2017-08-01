@@ -26,6 +26,8 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 
 import QtMultimedia 5.0
+import QtGraphicalEffects 1.0
+
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
@@ -120,8 +122,8 @@ ApplicationWindow {
     //
     onClosing: {
         if (Qt.platform.os == "android") {
-            if (_stack.depth > 1) {
-                _stack.pop()
+            if (stack.depth > 1) {
+                stack.pop()
                 playSoundEffect ("click.wav")
                 close.accepted = false
             }
@@ -211,6 +213,12 @@ ApplicationWindow {
                 color: app.secondaryColor
             }
         }
+
+        layer.enabled: true
+        layer.effect: GaussianBlur {
+            radius: 18
+            samples: 24
+        }
     }
 
     //
@@ -219,10 +227,10 @@ ApplicationWindow {
     header: RowLayout {
         ToolButton {
             opacity: enabled ? 1 : 0
-            enabled: _stack.depth > 1
+            enabled: stack.depth > 1
 
             onClicked: {
-                _stack.pop()
+                stack.pop()
                 playSoundEffect ("click.wav")
             }
 
@@ -249,12 +257,36 @@ ApplicationWindow {
         }
 
         ToolButton {
+            onClicked: menu.open()
             contentItem: Image {
                 fillMode: Image.Pad
                 source: "qrc:/images/more.svg"
                 verticalAlignment: Image.AlignVCenter
                 horizontalAlignment: Image.AlignHCenter
             }
+
+            Menu {
+                id: menu
+                x: app.width - width
+                transformOrigin: Menu.TopRight
+
+                MenuItem {
+                    text: qsTr ("Reset")
+                    enabled: stack.depth == 2
+                    onClicked: Board.resetBoard()
+                }
+
+                MenuItem {
+                    text: qsTr ("Settings")
+                    onClicked: settingsDlg.open()
+                }
+
+                MenuItem {
+                    text: qsTr ("Rate")
+                    onClicked: Qt.openUrlExternally ("https://google.com")
+                }
+            }
+
         }
     }
 
@@ -325,7 +357,7 @@ ApplicationWindow {
     // Stack View
     //
     StackView {
-        id: _stack
+        id: stack
         anchors.fill: parent
         initialItem: mainMenu
         anchors.margins: app.spacing
@@ -336,8 +368,8 @@ ApplicationWindow {
             visible: false
             onAboutClicked: aboutDlg.open()
             onSettingsClicked: settingsDlg.open()
-            onMultiplayerClicked: _stack.push (multiPlayer)
-            onSingleplayerClicked: _stack.push (singlePlayer)
+            onMultiplayerClicked: stack.push (multiPlayer)
+            onSingleplayerClicked: stack.push (singlePlayer)
 
             onVisibleChanged: {
                 if (visible)
