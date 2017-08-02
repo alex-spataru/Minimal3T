@@ -86,6 +86,8 @@ Item {
     //
     Connections {
         target: Board
+        enabled: parent.enabled
+
         onGameStateChanged: {
             if (fieldNumber >= 0) {
                 field.clickable = true

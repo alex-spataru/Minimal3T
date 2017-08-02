@@ -200,6 +200,10 @@ ApplicationWindow {
         ListElement {
             source: "Hanami.ogg"
         }
+
+        ListElement {
+            source: "DreamSequence.ogg"
+        }
     }
 
     //

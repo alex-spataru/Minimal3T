@@ -79,6 +79,7 @@ Item {
             Field {
                 id: field
                 fieldNumber: index
+                enabled: board.enabled
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clickable: board.clickableFields

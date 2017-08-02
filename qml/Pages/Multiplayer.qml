@@ -25,50 +25,160 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
 
+import Board 1.0
+
 import "../Components"
 
 Page {
+    id: page
+
     //
     // Transparent bacground
     //
     background: Item {}
 
+    //
+    // Holds the number of games played, used to show
+    // the interstital ad every three games
+    //
+    property int gamesPlayed: 0
+    onGamesPlayedChanged: {
+        if (gamesPlayed >= 2) {
+            gamesPlayed = 0
+            app.showInterstitialAd()
+        }
+    }
+
+    //
+    // Disable AI when page is not visible
+    //
+    enabled: visible
+    onEnabledChanged: {
+        if (enabled)
+            app.startNewGame()
+
+        else {
+            p1Wins = 0
+            p2Wins = 0
+        }
+    }
+
+    //
+    // Used to count the number of wins by each player
+    //
+    property int p1Wins: 0
+    property int p2Wins: 0
+    property int numberOfGames: 3
+
+    //
+    // Updates the win indicators
+    //
+    function updateScores() {
+        board.clickableFields = Board.gameInProgress
+
+        if (Board.gameWon) {
+            if (Board.winner === TicTacToe.Player1) {
+                if (p2Wins > 0)
+                    --p2Wins
+                else
+                    ++p1Wins
+            }
+
+            else if (Board.winner === TicTacToe.Player2) {
+                if (p1Wins > 0)
+                    --p1Wins
+                else
+                    ++p2Wins
+            }
+        }
+
+        if (!Board.gameInProgress)
+            Board.resetBoard()
+
+        if (p1Wins > numberOfGames || p2Wins >= numberOfGames)
+            ++numberOfGames
+    }
+
+    //
+    // React to game events
+    //
+    Connections {
+        target: Board
+        onBoardReset: board.clickableFields = Board.gameInProgress
+        onGameStateChanged: {
+            if (!Board.gameInProgress && page.enabled)
+                timer.start()
+
+            if (Board.gameWon)
+                app.playSoundEffect ("win.wav")
+
+            else if (Board.gameDraw)
+                app.playSoundEffect ("loose.wav")
+        }
+    }
+
+    //
+    // Waits a little before starting a new game
+    //
+    Timer {
+        id: timer
+        interval: 1680
+        onTriggered: updateScores()
+    }
+
+    //
+    // Main layout
+    //
     ColumnLayout {
         spacing: 5 * app.spacing
         anchors.centerIn: parent
 
+        //
+        // P1 points
+        //
         Row {
             spacing: app.spacing * 2
+            LayoutMirroring.enabled: true
             anchors.horizontalCenter: parent.horizontalCenter
 
             Repeater {
-                model: 5
+                model: numberOfGames
                 delegate: Rectangle {
                     width: 12
                     height: 12
                     color: "#fff"
                     radius: width / 2
+                    opacity: p1Wins > index ? 1 : 0.4
+                    Behavior on opacity { NumberAnimation{} }
                 }
             }
         }
 
+        //
+        // Game board
+        //
         GameBoard {
+            id: board
             enabled: parent.visible
-            clickableFields: Board.gameInProgress
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
+        //
+        // P2 points
+        //
         Row {
             spacing: app.spacing * 2
             anchors.horizontalCenter: parent.horizontalCenter
 
             Repeater {
-                model: 5
+                model: numberOfGames
                 delegate: Rectangle {
                     width: 12
                     height: 12
                     color: "#fff"
                     radius: width / 2
+                    opacity: p2Wins > index ? 1 : 0.4
+                    Behavior on opacity { NumberAnimation{} }
                 }
             }
         }

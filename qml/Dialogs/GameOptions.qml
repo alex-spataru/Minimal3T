@@ -79,7 +79,7 @@ Dialog {
             id: _boardSize
             Layout.fillWidth: true
             Material.background: "#dedede"
-            Material.theme: Material.Light
+            Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
             model: ["3x3", "4x4", "5x5", "6x6", "7x7"]
             onCurrentIndexChanged: {
@@ -97,7 +97,7 @@ Dialog {
             currentIndex: 2
             Layout.fillWidth: true
             Material.background: "#dedede"
-            Material.theme: Material.Light
+            Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
             model: [
                 qsTr ("Very Easy"),
@@ -110,13 +110,13 @@ Dialog {
             onCurrentIndexChanged: {
                 switch (currentIndex) {
                 case 0:
-                    AiPlayer.randomness = 7
+                    AiPlayer.randomness = 10
                     break
                 case 1:
-                    AiPlayer.randomness = 5
+                    AiPlayer.randomness = 6
                     break
                 case 2:
-                    AiPlayer.randomness = 3
+                    AiPlayer.randomness = 4
                     break
                 case 3:
                     AiPlayer.randomness = 2

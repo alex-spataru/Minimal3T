@@ -25,6 +25,8 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 
+import Board 1.0
+
 import "../Components"
 
 Page {
@@ -34,6 +36,13 @@ Page {
     // Transparent background
     //
     background: Item {}
+
+    //
+    // Used to count the number of wins by each player
+    //
+    property int p1Wins: 0
+    property int p2Wins: 0
+    property int numberOfGames: 3
 
     //
     // Holds the number of games played, used to show
@@ -56,6 +65,11 @@ Page {
             aiTimer.start()
             app.startNewGame()
         }
+
+        else {
+            p1Wins = 0
+            p2Wins = 0
+        }
     }
 
     //
@@ -70,11 +84,40 @@ Page {
     }
 
     //
+    // Updates the win indicators
+    //
+    function updateScores() {
+        board.clickableFields = Board.gameInProgress
+
+        if (Board.gameWon) {
+            if (Board.winner === TicTacToe.Player1) {
+                if (p2Wins > 0)
+                    --p2Wins
+                else
+                    ++p1Wins
+            }
+
+            else if (Board.winner === TicTacToe.Player2) {
+                if (p1Wins > 0)
+                    --p1Wins
+                else
+                    ++p2Wins
+            }
+        }
+
+        if (!Board.gameInProgress)
+            Board.resetBoard()
+
+        if (p1Wins > numberOfGames || p2Wins >= numberOfGames)
+            ++numberOfGames
+    }
+
+
+    //
     // Make the computer move when the turn is changed
     //
     Connections {
         target: Board
-        enabled: page.visible
         onBoardReset: makeAiMove()
         onTurnChanged: aiTimer.restart()
     }
@@ -107,8 +150,11 @@ Page {
         onBoardReset: updateClickableFields()
         onTurnChanged: updateClickableFields()
         onGameStateChanged: {
+            if (!parent.enabled)
+                return
+
             if (!Board.gameInProgress) {
-                if (Board.winner === AiPlayer.opponent)
+                if (Board.winner === AiPlayer.opponent && !Board.gameDraw)
                     app.playSoundEffect ("win.wav")
                 else
                     app.playSoundEffect ("loose.wav")
@@ -119,12 +165,61 @@ Page {
     }
 
     //
-    // Game board
+    // Main layout
     //
-    GameBoard {
-        id: board
-        enabled: parent.visible
+    ColumnLayout {
+        spacing: 5 * app.spacing
         anchors.centerIn: parent
+
+        //
+        // P1 points
+        //
+        Row {
+            spacing: app.spacing * 2
+            LayoutMirroring.enabled: true
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Repeater {
+                model: numberOfGames
+                delegate: Rectangle {
+                    width: 12
+                    height: 12
+                    color: "#fff"
+                    radius: width / 2
+                    opacity: p1Wins > index ? 1 : 0.4
+                    Behavior on opacity { NumberAnimation{} }
+                }
+            }
+        }
+
+        //
+        // Game board
+        //
+        GameBoard {
+            id: board
+            enabled: parent.visible
+            anchors.centerIn: parent
+        }
+
+        //
+        // P2 points
+        //
+        Row {
+            spacing: app.spacing * 2
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Repeater {
+                model: numberOfGames
+                delegate: Rectangle {
+                    width: 12
+                    height: 12
+                    color: "#fff"
+                    radius: width / 2
+                    opacity: p2Wins > index ? 1 : 0.4
+                    Behavior on opacity { NumberAnimation{} }
+                }
+            }
+        }
     }
 
     //
@@ -175,9 +270,8 @@ Page {
         //
         Connections {
             target: Board
-            enabled: page.visible
             onGameStateChanged: {
-                if (!Board.gameInProgress)
+                if (!Board.gameInProgress && page.enabled)
                     timer.start()
             }
         }
@@ -201,7 +295,7 @@ Page {
             }
 
             else if (Board.gameDraw) {
-                title.text = qsTr ("Game Draw")
+                title.text = qsTr ("Draw")
                 logo.source = "qrc:/images/draw.svg"
             }
 
@@ -212,6 +306,8 @@ Page {
                 opacity = 0
                 app.startNewGame()
             }
+
+            updateScores()
         }
 
         //
@@ -235,14 +331,8 @@ Page {
             Label {
                 id: title
                 font.bold: true
-                font.pixelSize: 24
+                font.pixelSize: 36
                 anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Label {
-                font.pixelSize: 18
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr ("Would you like to play another game?")
             }
 
             Item {
@@ -252,8 +342,8 @@ Page {
 
             Button {
                 font.bold: true
-                text: qsTr ("Yes")
                 font.pixelSize: 18
+                text: qsTr ("New Game")
                 Material.theme: Material.Light
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -266,8 +356,8 @@ Page {
 
             Button {
                 font.pixelSize: 16
+                text: qsTr ("Main menu")
                 Material.theme: Material.Light
-                text: qsTr ("No, go to main menu")
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
 
