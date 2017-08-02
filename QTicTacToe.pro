@@ -34,7 +34,7 @@ OBJECTS_DIR = obj
 #-------------------------------------------------------------------------------
 
 TEMPLATE = app
-TARGET = QTicTacToe
+TARGET = SuperTac
 
 CONFIG += qtc_runnable
 CONFIG += resources_big

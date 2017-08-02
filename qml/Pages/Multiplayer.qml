@@ -23,7 +23,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
-import QtGraphicalEffects 1.0
 
 import Board 1.0
 
@@ -54,6 +53,8 @@ Page {
     //
     enabled: visible
     onEnabledChanged: {
+        Board.resetBoard()
+
         if (enabled)
             app.startNewGame()
 
@@ -110,10 +111,10 @@ Page {
             if (!Board.gameInProgress && page.enabled)
                 timer.start()
 
-            if (Board.gameWon)
+            if (Board.gameWon && page.enabled)
                 app.playSoundEffect ("win.wav")
 
-            else if (Board.gameDraw)
+            else if (Board.gameDraw && page.enabled)
                 app.playSoundEffect ("loose.wav")
         }
     }

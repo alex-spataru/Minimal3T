@@ -86,7 +86,6 @@ Item {
     //
     Connections {
         target: Board
-        enabled: parent.enabled
 
         onGameStateChanged: {
             if (fieldNumber >= 0) {
@@ -113,13 +112,13 @@ Item {
 
             var owner = Board.fieldOwner (fieldNumber)
 
-            if (owner === TicTacToe.Player1) {
+            if (owner === TicTacToe.Player1 && field.enabled) {
                 field.symbol = app.p1Symbol
                 app.playSoundEffect ("p1_field.wav")
                 _symbol.opacity = 1
             }
 
-            else if (owner === TicTacToe.Player2) {
+            else if (owner === TicTacToe.Player2 && field.enabled) {
                 field.symbol = app.p2Symbol
                 app.playSoundEffect ("p2_field.wav")
                 _symbol.opacity = 1

@@ -61,6 +61,8 @@ Page {
     //
     enabled: visible
     onEnabledChanged: {
+        Board.resetBoard()
+
         if (enabled) {
             aiTimer.start()
             app.startNewGame()
@@ -300,7 +302,7 @@ Page {
                 logo.source = "qrc:/images/draw.svg"
             }
 
-            if (!settingsDlg.autoStartGames)
+            if (!settingsDlg.autoStartGames && page.enabled)
                 opacity = Board.gameInProgress ? 0 : 1
 
             else {

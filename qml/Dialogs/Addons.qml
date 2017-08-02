@@ -40,7 +40,6 @@ Dialog {
     modal: true
     title: qsTr ("Addons")
     width: implicitWidth * 1.2
-    height: implicitHeight * 1.1
     standardButtons: Dialog.Close
     parent: ApplicationWindow.overlay
 
