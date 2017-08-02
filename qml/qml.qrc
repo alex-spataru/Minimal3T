@@ -10,5 +10,7 @@
         <file>Pages/Singleplayer.qml</file>
         <file>Dialogs/About.qml</file>
         <file>Dialogs/GameOptions.qml</file>
+        <file>Dialogs/Addons.qml</file>
+        <file>Components/PurchaseItem.qml</file>
     </qresource>
 </RCC>

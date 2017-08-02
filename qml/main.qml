@@ -447,6 +447,13 @@ ApplicationWindow {
     }
 
     //
+    // Addons dialog
+    //
+    Addons {
+        id: addonsDlg
+    }
+
+    //
     // Game options dialog
     //
     GameOptions {
@@ -468,6 +475,7 @@ ApplicationWindow {
             id: mainMenu
             visible: false
             onAboutClicked: aboutDlg.open()
+            onAddonsClicked: addonsDlg.open()
             onSettingsClicked: settingsDlg.open()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
