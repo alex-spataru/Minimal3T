@@ -60,6 +60,7 @@ Page {
         else {
             p1Wins = 0
             p2Wins = 0
+            numberOfGames = 3
         }
     }
 
