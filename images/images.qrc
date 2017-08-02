@@ -1,17 +1,16 @@
 <RCC>
     <qresource prefix="/images">
-        <file>about.svg</file>
-        <file>back.svg</file>
-        <file>donate.svg</file>
-        <file>monetization.svg</file>
         <file>more.svg</file>
-        <file>settings.svg</file>
+        <file>no-ads.svg</file>
         <file>share.svg</file>
-        <file>store.svg</file>
+        <file>smile.svg</file>
+        <file>wrench.svg</file>
+        <file>back.svg</file>
+        <file>circle.svg</file>
+        <file>cross.svg</file>
+        <file>frown.svg</file>
+        <file>meh.svg</file>
         <file>play.svg</file>
-        <file>dice.svg</file>
-        <file>draw.svg</file>
-        <file>win.svg</file>
-        <file>loose.svg</file>
+        <file>info.svg</file>
     </qresource>
 </RCC>

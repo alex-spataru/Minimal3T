@@ -5,8 +5,6 @@
         <file>Shona.ogg</file>
         <file>Hanami.ogg</file>
         <file>PreludeToShona.ogg</file>
-    </qresource>
-    <qresource prefix="/">
         <file>DreamSequence.ogg</file>
     </qresource>
 </RCC>

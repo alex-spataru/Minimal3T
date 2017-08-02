@@ -75,13 +75,13 @@ HEADERS += \
     $$PWD/src/Board.h \
     $$PWD/src/AdInfo.h \
     $$PWD/src/Minimax.h \
-    $$PWD/src/ComputerPlayer.h 
+    $$PWD/src/ComputerPlayer.h \ 
 
 SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/Board.cpp \
     $$PWD/src/Minimax.cpp \
-    $$PWD/src/ComputerPlayer.cpp
+    $$PWD/src/ComputerPlayer.cpp \
 
 OTHER_FILES += \
     $$PWD/qml/*.qml \
@@ -91,17 +91,22 @@ OTHER_FILES += \
 
 RESOURCES += \
     $$PWD/qml/qml.qrc \
-    $$PWD/fonts/fonts.qrc \
     $$PWD/music/music.qrc \
     $$PWD/images/images.qrc \
     $$PWD/sounds/sounds.qrc
 
 DISTFILES += \
-    $$PWD/deploy/android/AndroidManifest.xml \
-    $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.jar \
-    $$PWD/deploy/android/gradlew \
-    $$PWD/deploy/android/res/values/libs.xml \
-    $$PWD/deploy/android/build.gradle \
-    $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.properties \
-    $$PWD/deploy/android/gradlew.bat \
-    $$PWD/lib/QtAdMob/platform/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java
+    deploy/android/AndroidManifest.xml \
+    deploy/android/gradle/wrapper/gradle-wrapper.jar \
+    deploy/android/gradlew \
+    deploy/android/res/values/libs.xml \
+    deploy/android/res/mipmap-hdpi/ic_launcher.png \
+    deploy/android/res/mipmap-mdpi/ic_launcher.png \
+    deploy/android/res/mipmap-xhdpi/ic_launcher.png \
+    deploy/android/res/mipmap-xxhdpi/ic_launcher.png \
+    deploy/android/gradle/wrapper/gradle-wrapper.properties \
+    deploy/android/build.gradle \
+    deploy/android/gradlew.bat \
+    deploy/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java \
+    deploy/android/gradle.properties \
+    deploy/android/local.properties

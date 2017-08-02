@@ -28,6 +28,7 @@ import QtQuick.Controls.Universal 2.0
 
 import Board 1.0
 import QtMultimedia 5.0
+import QtPurchasing 1.0
 
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
@@ -42,15 +43,9 @@ ApplicationWindow {
     //
     // Custom properties
     //
+    property bool adsEnabled: false
     readonly property int spacing: 8
     readonly property int paneWidth: Math.min (app.width * 0.8, 520)
-
-    //
-    // Set game symbols
-    //
-    readonly property string p1Symbol: "X"
-    readonly property string p2Symbol: "O"
-    readonly property alias symbolFont: fontLoader.name
 
     //
     // Theme options
@@ -82,8 +77,20 @@ ApplicationWindow {
     // Displays the interstitial ad (if its loaded)
     //
     function showInterstitialAd() {
-        if (interstitialAd.isLoaded)
+        if (interstitialAd.isLoaded && adsEnabled)
             interstitialAd.visible = true
+    }
+
+    //
+    // Configures the banner ad
+    //
+    function configureAds() {
+        if (adsEnabled) {
+            bannerAd.unitId = BannerId
+            bannerAd.size = AdMobBanner.SmartBanner
+            bannerAd.visible = true
+            bannerAd.locateBanner()
+        }
     }
 
     //
@@ -164,14 +171,6 @@ ApplicationWindow {
             else
                 close.accepted = true
         }
-    }
-
-    //
-    // Load the font used to display the cross/nough symbols
-    //
-    FontLoader {
-        id: fontLoader
-        source: "qrc:/fonts/UbuntuMono-R.ttf"
     }
 
     //
@@ -323,7 +322,9 @@ ApplicationWindow {
 
             contentItem: Image {
                 fillMode: Image.Pad
+                anchors.centerIn: parent
                 source: "qrc:/images/back.svg"
+                anchors.horizontalCenterOffset: -2
                 verticalAlignment: Image.AlignVCenter
                 horizontalAlignment: Image.AlignHCenter
             }
@@ -412,13 +413,6 @@ ApplicationWindow {
         }
 
         onLoaded: locateBanner()
-
-        Component.onCompleted: {
-            bannerAd.unitId = BannerId
-            bannerAd.size = AdMobBanner.SmartBanner
-            bannerAd.visible = true
-            locateBanner()
-        }
     }
 
     //
@@ -447,13 +441,6 @@ ApplicationWindow {
     }
 
     //
-    // Addons dialog
-    //
-    Addons {
-        id: addonsDlg
-    }
-
-    //
     // Game options dialog
     //
     GameOptions {
@@ -475,7 +462,6 @@ ApplicationWindow {
             id: mainMenu
             visible: false
             onAboutClicked: aboutDlg.open()
-            onAddonsClicked: addonsDlg.open()
             onSettingsClicked: settingsDlg.open()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
@@ -505,5 +491,24 @@ ApplicationWindow {
                     title.text = qsTr ("Match")
             }
         }
+    }
+
+    //
+    // Init. black rectangle
+    //
+    Rectangle {
+        color: "#000"
+        opacity: {
+            if (Qt.platform.os == "android")
+                return 1
+
+            return 0
+        }
+
+        anchors.fill: parent
+        enabled: opacity > 0
+        visible: opacity > 0
+        Component.onCompleted: opacity = 0
+        Behavior on opacity { NumberAnimation { duration: 2000 } }
     }
 }

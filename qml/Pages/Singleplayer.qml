@@ -108,9 +108,6 @@ Page {
             }
         }
 
-        if (!Board.gameInProgress)
-            Board.resetBoard()
-
         if (p1Wins > numberOfGames || p2Wins >= numberOfGames)
             ++numberOfGames
     }
@@ -148,6 +145,8 @@ Page {
     // Do not allow the human player to change field states when
     // the AI is thinking or when the game has ended
     //
+    // Also, play sound effects when game is won or lost
+    //
     Connections {
         target: Board
         onBoardReset: updateClickableFields()
@@ -156,13 +155,17 @@ Page {
             if (!parent.enabled)
                 return
 
-            if (!Board.gameInProgress) {
-                if (Board.winner === AiPlayer.opponent && !Board.gameDraw)
+            if (Board.gameWon) {
+                if (Board.winner === AiPlayer.opponent)
                     app.playSoundEffect ("win.wav")
                 else
                     app.playSoundEffect ("loose.wav")
             }
 
+            if (Board.gameDraw)
+                app.playSoundEffect ("loose.wav")
+
+            updateScores()
             updateClickableFields()
         }
     }
@@ -287,19 +290,19 @@ Page {
             ++gamesPlayed
             if (Board.gameWon) {
                 if (Board.winner === AiPlayer.player) {
-                    logo.source = "qrc:/images/loose.svg"
+                    logo.source = "qrc:/images/frown.svg"
                     title.text = qsTr ("You lost the game!")
                 }
 
                 else {
-                    logo.source = "qrc:/images/win.svg"
+                    logo.source = "qrc:/images/smile.svg"
                     title.text = qsTr ("You won the game!")
                 }
             }
 
             else if (Board.gameDraw) {
                 title.text = qsTr ("Draw")
-                logo.source = "qrc:/images/draw.svg"
+                logo.source = "qrc:/images/meh.svg"
             }
 
             if (!settingsDlg.autoStartGames && page.enabled)
@@ -309,8 +312,6 @@ Page {
                 opacity = 0
                 app.startNewGame()
             }
-
-            updateScores()
         }
 
         //

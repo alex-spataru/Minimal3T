@@ -37,7 +37,7 @@ Item {
     property int fieldNumber: -1
     property bool clickable: true
     property alias border: bg.border
-    property alias symbol: _symbol.text
+    property alias symbol: _symbol.source
 
     //
     // Background rectangle
@@ -53,19 +53,11 @@ Item {
     //
     // Symbol icon
     //
-    Label {
-        text: " "
+    Image {
         id: _symbol
-        color: "#fff"
         anchors.centerIn: parent
-        font.family: app.symbolFont
-        font.pixelSize: bg.height * 0.8
         opacity: fieldNumber == -1 ? 1 : 0
-        onOpacityChanged: {
-            if (opacity === 0)
-                text = " "
-        }
-
+        sourceSize: Qt.size (bg.width * 0.8, bg.width * 0.8)
         Behavior on opacity { NumberAnimation{} }
     }
 
@@ -113,19 +105,21 @@ Item {
             var owner = Board.fieldOwner (fieldNumber)
 
             if (owner === TicTacToe.Player1 && field.enabled) {
-                field.symbol = app.p1Symbol
+                field.symbol = "qrc:/images/cross.svg"
                 app.playSoundEffect ("p1_field.wav")
                 _symbol.opacity = 1
             }
 
             else if (owner === TicTacToe.Player2 && field.enabled) {
-                field.symbol = app.p2Symbol
+                field.symbol = "qrc:/images/circle.svg"
                 app.playSoundEffect ("p2_field.wav")
                 _symbol.opacity = 1
             }
 
-            else
+            else {
+                field.symbol = ""
                 _symbol.opacity = 0
+            }
         }
     }
 }

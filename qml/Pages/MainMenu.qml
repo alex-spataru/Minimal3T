@@ -38,7 +38,7 @@ Page {
     //
     signal aboutClicked
     signal shareClicked
-    signal addonsClicked
+    signal disableAdsClicked
     signal settingsClicked
     signal multiplayerClicked
     signal singleplayerClicked
@@ -48,8 +48,8 @@ Page {
     //
     onAboutClicked: app.playSoundEffect ("click.wav")
     onShareClicked: app.playSoundEffect ("click.wav")
-    onAddonsClicked: app.playSoundEffect ("click.wav")
     onSettingsClicked: app.playSoundEffect ("click.wav")
+    onDisableAdsClicked: app.playSoundEffect ("click.wav")
     onMultiplayerClicked: app.playSoundEffect ("click.wav")
     onSingleplayerClicked: app.playSoundEffect ("click.wav")
 
@@ -168,7 +168,7 @@ Page {
 
                     Image {
                         fillMode: Image.Pad
-                        source: "qrc:/images/about.svg"
+                        source: "qrc:/images/info.svg"
                         verticalAlignment: Image.AlignVCenter
                         horizontalAlignment: Image.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -184,23 +184,29 @@ Page {
             }
 
             //
-            // Store button
+            // No Ads button
             //
             ToolButton {
-                onClicked: addonsClicked()
+                visible: opacity > 0
+                onClicked: disableAdsClicked()
+                opacity: app.adsEnabled ? 1 : 0
+
+                Behavior on width { NumberAnimation{} }
+                Behavior on opacity { NumberAnimation{} }
+
                 contentItem: ColumnLayout {
                     spacing: app.spacing
 
                     Image {
                         fillMode: Image.Pad
-                        source: "qrc:/images/store.svg"
+                        source: "qrc:/images/no-ads.svg"
                         verticalAlignment: Image.AlignVCenter
                         horizontalAlignment: Image.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
 
                     Label {
-                        text: qsTr ("Addons")
+                        text: qsTr ("Remove Ads")
                         Layout.preferredWidth: utilityWidth
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -243,7 +249,7 @@ Page {
 
                     Image {
                         fillMode: Image.Pad
-                        source: "qrc:/images/settings.svg"
+                        source: "qrc:/images/wrench.svg"
                         verticalAlignment: Image.AlignVCenter
                         horizontalAlignment: Image.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter

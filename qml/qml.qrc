@@ -3,14 +3,12 @@
         <file>main.qml</file>
         <file>Components/Field.qml</file>
         <file>Dialogs/Settings.qml</file>
-        <file>Components/Logo.qml</file>
         <file>Components/GameBoard.qml</file>
         <file>Pages/Multiplayer.qml</file>
         <file>Pages/MainMenu.qml</file>
         <file>Pages/Singleplayer.qml</file>
         <file>Dialogs/About.qml</file>
         <file>Dialogs/GameOptions.qml</file>
-        <file>Dialogs/Addons.qml</file>
         <file>Components/PurchaseItem.qml</file>
     </qresource>
 </RCC>
