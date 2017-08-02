@@ -320,7 +320,7 @@ ApplicationWindow {
                 playSoundEffect ("click.wav")
             }
 
-            contentItem: Image {
+            contentItem: SvgImage {
                 fillMode: Image.Pad
                 anchors.centerIn: parent
                 source: "qrc:/images/back.svg"
@@ -346,7 +346,7 @@ ApplicationWindow {
 
         ToolButton {
             onClicked: menu.open()
-            contentItem: Image {
+            contentItem: SvgImage {
                 fillMode: Image.Pad
                 source: "qrc:/images/more.svg"
                 verticalAlignment: Image.AlignVCenter

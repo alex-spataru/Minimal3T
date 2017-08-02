@@ -106,7 +106,7 @@ Page {
             contentItem: ColumnLayout {
                 spacing: app.spacing
 
-                Image {
+                SvgImage {
                     fillMode: Image.Pad
                     source: "qrc:/images/play.svg"
                     sourceSize: Qt.size (128, 128)
@@ -166,7 +166,7 @@ Page {
                 contentItem: ColumnLayout {
                     spacing: app.spacing
 
-                    Image {
+                    SvgImage {
                         fillMode: Image.Pad
                         source: "qrc:/images/info.svg"
                         verticalAlignment: Image.AlignVCenter
@@ -197,7 +197,7 @@ Page {
                 contentItem: ColumnLayout {
                     spacing: app.spacing
 
-                    Image {
+                    SvgImage {
                         fillMode: Image.Pad
                         source: "qrc:/images/no-ads.svg"
                         verticalAlignment: Image.AlignVCenter
@@ -222,7 +222,7 @@ Page {
                 contentItem: ColumnLayout {
                     spacing: app.spacing
 
-                    Image {
+                    SvgImage {
                         fillMode: Image.Pad
                         source: "qrc:/images/share.svg"
                         verticalAlignment: Image.AlignVCenter
@@ -247,7 +247,7 @@ Page {
                 contentItem: ColumnLayout {
                     spacing: app.spacing
 
-                    Image {
+                    SvgImage {
                         fillMode: Image.Pad
                         source: "qrc:/images/wrench.svg"
                         verticalAlignment: Image.AlignVCenter

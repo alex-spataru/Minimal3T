@@ -326,7 +326,7 @@ Page {
             spacing: app.spacing
             anchors.centerIn: parent
 
-            Image {
+            SvgImage {
                 id: logo
                 sourceSize: Qt.size (96, 96)
                 anchors.horizontalCenter: parent.horizontalCenter

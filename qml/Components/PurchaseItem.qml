@@ -45,7 +45,7 @@ ColumnLayout {
             button.text += " (" + price + ")"
     }
 
-    Image {
+    SvgImage {
         id: image
         sourceSize: Qt.size (48, 48)
         source: "qrc:/images/monetization.svg"

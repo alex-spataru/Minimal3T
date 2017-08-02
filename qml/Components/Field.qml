@@ -53,7 +53,7 @@ Item {
     //
     // Symbol icon
     //
-    Image {
+    SvgImage {
         id: _symbol
         anchors.centerIn: parent
         opacity: fieldNumber == -1 ? 1 : 0
