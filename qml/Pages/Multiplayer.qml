@@ -42,7 +42,7 @@ Page {
     //
     property int gamesPlayed: 0
     onGamesPlayedChanged: {
-        if (gamesPlayed >= 2) {
+        if (gamesPlayed >= 3) {
             gamesPlayed = 0
             app.showInterstitialAd()
         }
@@ -94,8 +94,10 @@ Page {
             }
         }
 
-        if (!Board.gameInProgress)
+        if (!Board.gameInProgress) {
+            ++gamesPlayed
             Board.resetBoard()
+        }
 
         if (p1Wins > numberOfGames || p2Wins >= numberOfGames)
             ++numberOfGames

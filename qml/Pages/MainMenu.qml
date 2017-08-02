@@ -31,7 +31,7 @@ Page {
     //
     // Constant for setting tool buttons width
     //
-    property var utilityWidth: 56
+    property var utilityBtSize: 82
 
     //
     // Signals
@@ -56,13 +56,22 @@ Page {
     //
     // Transparent bacground
     //
-    background: Item {}
+    background: Pane {
+        opacity: 0.41
+        width: app.paneWidth
+        height: app.paneWidth
+        anchors.centerIn: parent
+        visible: app.showTabletUi
+
+        Material.elevation: 6
+        Material.background: "#bebebe"
+    }
 
     //
     // Main layout
     //
     ColumnLayout {
-        spacing: app.spacing
+        spacing: 0
         anchors.centerIn: parent
 
         //
@@ -77,6 +86,9 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
+        //
+        // Subtitle
+        //
         Label {
             font.pixelSize: 18
             text: qsTr ("Tic-Tac-Toe Game")
@@ -161,10 +173,18 @@ Page {
             //
             // About button
             //
-            ToolButton {
-                onClicked: aboutClicked()
-                contentItem: ColumnLayout {
+            Item {
+                Layout.preferredWidth: utilityBtSize
+                Layout.preferredHeight: utilityBtSize
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: aboutClicked()
+                }
+
+                ColumnLayout {
                     spacing: app.spacing
+                    anchors.centerIn: parent
 
                     SvgImage {
                         fillMode: Image.Pad
@@ -176,7 +196,7 @@ Page {
 
                     Label {
                         text: qsTr ("About")
-                        Layout.preferredWidth: utilityWidth
+                        Layout.preferredWidth: utilityBtSize
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -186,16 +206,24 @@ Page {
             //
             // No Ads button
             //
-            ToolButton {
+            Item {
                 visible: opacity > 0
-                onClicked: disableAdsClicked()
                 opacity: app.adsEnabled ? 1 : 0
+                Layout.preferredWidth: utilityBtSize
+                Layout.preferredHeight: utilityBtSize
+
+                MouseArea {
+                    anchors.fill: parent
+                    enabled: parent.visible
+                    onClicked: disableAdsClicked()
+                }
 
                 Behavior on width { NumberAnimation{} }
                 Behavior on opacity { NumberAnimation{} }
 
-                contentItem: ColumnLayout {
+                ColumnLayout {
                     spacing: app.spacing
+                    anchors.centerIn: parent
 
                     SvgImage {
                         fillMode: Image.Pad
@@ -207,7 +235,7 @@ Page {
 
                     Label {
                         text: qsTr ("Remove Ads")
-                        Layout.preferredWidth: utilityWidth
+                        Layout.preferredWidth: utilityBtSize
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -217,10 +245,18 @@ Page {
             //
             // Share button
             //
-            ToolButton {
-                onClicked: shareClicked()
-                contentItem: ColumnLayout {
+            Item {
+                Layout.preferredWidth: utilityBtSize
+                Layout.preferredHeight: utilityBtSize
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: shareClicked()
+                }
+
+                ColumnLayout {
                     spacing: app.spacing
+                    anchors.centerIn: parent
 
                     SvgImage {
                         fillMode: Image.Pad
@@ -232,7 +268,7 @@ Page {
 
                     Label {
                         text: qsTr ("Share")
-                        Layout.preferredWidth: utilityWidth
+                        Layout.preferredWidth: utilityBtSize
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -242,10 +278,18 @@ Page {
             //
             // Preferences button
             //
-            ToolButton {
-                onClicked: settingsClicked()
-                contentItem: ColumnLayout {
+            Item {
+                Layout.preferredWidth: utilityBtSize
+                Layout.preferredHeight: utilityBtSize
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: settingsClicked()
+                }
+
+                ColumnLayout {
                     spacing: app.spacing
+                    anchors.centerIn: parent
 
                     SvgImage {
                         fillMode: Image.Pad
@@ -257,7 +301,7 @@ Page {
 
                     Label {
                         text: qsTr ("Settings")
-                        Layout.preferredWidth: utilityWidth
+                        Layout.preferredWidth: utilityBtSize
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                     }

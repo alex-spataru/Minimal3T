@@ -22,6 +22,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls.Universal 2.0
@@ -45,7 +46,9 @@ ApplicationWindow {
     //
     property bool adsEnabled: false
     readonly property int spacing: 8
+    property bool removeAdsBought: false
     readonly property int paneWidth: Math.min (app.width * 0.8, 520)
+    readonly property bool showTabletUi: width > height && stack.height >= 560
 
     //
     // Theme options
@@ -77,13 +80,14 @@ ApplicationWindow {
     // Displays the interstitial ad (if its loaded)
     //
     function showInterstitialAd() {
-        if (interstitialAd.isLoaded && adsEnabled)
+        if (interstitialAd.isLoaded && adsEnabled && !removeAdsBought)
             interstitialAd.visible = true
     }
 
     //
     // Configures the banner ad
     //
+    onAdsEnabledChanged: configureAds()
     function configureAds() {
         if (adsEnabled) {
             bannerAd.unitId = BannerId
@@ -121,8 +125,8 @@ ApplicationWindow {
     //
     // Window options
     //
-    width: 340
-    height: 520
+    width: 768
+    height: 590
     visible: true
     title: AppName
 
@@ -170,6 +174,65 @@ ApplicationWindow {
 
             else
                 close.accepted = true
+        }
+    }
+
+    //
+    // Available purchase ittems
+    //
+    Store {
+        Component.onCompleted: restorePurchases()
+
+        Product {
+            id: removeAds
+            type: Product.Unlockable
+            identifier: "org.alex_spataru.supertac_remove_ads"
+
+            onPurchaseSucceeded: {
+                transaction.finalize()
+                messageBox.text = qsTr ("Thanks for your purchase!")
+                messageBox.open()
+
+                adsEnabled = false
+                removeAdsBought = true
+            }
+
+            onPurchaseFailed: {
+                transition.finalize()
+                messageBox.text = qsTr ("Failed to perform transaction")
+                messageBox.open()
+            }
+
+            onPurchaseRestored: {
+                adsEnabled = false
+                removeAdsBought = true
+            }
+
+            onStatusChanged: loadAdsTimer.start()
+        }
+    }
+
+    //
+    // Used to confirm purchases
+    //
+    MessageDialog {
+        id: messageBox
+        title: app.title
+        icon: StandardIcon.Information
+        standardButtons: StandardButton.Close
+    }
+
+    //
+    // 5-second timer to let the app check if
+    // user has already purchased the remove ads extension
+    // before enabling the ads
+    //
+    Timer {
+        id: loadAdsTimer
+        interval: 5000
+        onTriggered: {
+            if (!removeAdsBought)
+                adsEnabled = true
         }
     }
 
@@ -297,6 +360,25 @@ ApplicationWindow {
             color: "#000000"
             anchors.fill: parent
         }
+    }
+
+
+    //
+    // Toolbar background
+    //
+    Pane {
+        opacity: 0.41
+        visible: app.showTabletUi
+        height: toolbar.implicitHeight
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+
+        Material.elevation: 6
+        Material.background: "#bebebe"
     }
 
     //
@@ -455,14 +537,15 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: mainMenu
         anchors.margins: app.spacing
-        anchors.topMargin: toolbar.height + app.spacing
-        anchors.bottomMargin: bannerContainer.height + app.spacing
+        anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
+        anchors.bottomMargin: bannerContainer.height + 2 * app.spacing
 
         MainMenu {
             id: mainMenu
             visible: false
             onAboutClicked: aboutDlg.open()
             onSettingsClicked: settingsDlg.open()
+            onDisableAdsClicked: removeAds.purchase()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
 
