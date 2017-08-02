@@ -27,57 +27,12 @@ import QtQuick.Controls 2.2
 import Board 1.0
 
 Item {
-    id: gameBoard
-    enabled: false
-    onEnabledChanged: {
-        if (enabled && visible)
-            aiTimer.start()
-    }
+    id: board
 
     //
-    // Custom properties
+    // Allows or disallows the human player to change field states
     //
-    property bool enableAiVsHuman: false
-
-    //
-    // Decides which AI should make a move
-    //
-    function makeAiMove() {
-        if (!gameBoard.enabled)
-            return
-
-        if (enableAiVsHuman && Board.currentPlayer === AiPlayer.player)
-            AiPlayer.makeMove()
-    }
-
-    //
-    // Make the computer move when the turn is changed
-    //
-    Connections {
-        target: Board
-
-        onTurnChanged: {
-            if (Board.gameInProgress)
-                aiTimer.restart()
-        }
-
-        onBoardReset: {
-            if (enableAiVsHuman)
-                makeAiMove()
-        }
-    }
-
-    //
-    // Waits a little before the CPU/AI makes a move
-    //
-    Timer {
-        id: aiTimer
-        interval: 320
-        onTriggered: {
-            if (gameBoard.enabled)
-                makeAiMove()
-        }
-    }
+    property bool clickableFields: false
 
     //
     // Calculate tile size on init
@@ -89,8 +44,8 @@ Item {
     //
     function updateSize() {
         var side = Math.min (app.height, app.width) * 0.8
-        gameBoard.width = side
-        gameBoard.height = side
+        board.width = side
+        board.height = side
     }
 
     //
@@ -98,9 +53,9 @@ Item {
     //
     Connections {
         target: app
-        onWidthChanged: gameBoard.updateSize()
-        onHeightChanged: gameBoard.updateSize()
-        onWindowStateChanged: gameBoard.updateSize()
+        onWidthChanged: board.updateSize()
+        onHeightChanged: board.updateSize()
+        onWindowStateChanged: board.updateSize()
     }
 
     //
@@ -126,24 +81,19 @@ Item {
                 fieldNumber: index
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                clickable: board.clickableFields
                 border.width: grid.rowSpacing * -1
 
-                function updateClickable() {
-                    if (enableAiVsHuman) {
-                        if (Board.currentPlayer === AiPlayer.player)
-                            field.clickable = false
-                        else
-                            field.clickable = Board.gameInProgress
-                    }
-
-                    else
-                        field.clickable = Board.gameInProgress
+                Connections {
+                    target: board
+                    onClickableFieldsChanged: field.clickable = board.clickableFields
                 }
 
                 Connections {
                     target: Board
-                    onBoardReset: field.updateClickable()
-                    onTurnChanged: field.updateClickable()
+                    onBoardReset: field.clickable = board.clickableFields
+                    onTurnChanged: field.clickable = board.clickableFields
+                    onGameStateChanged: field.clickable = board.clickableFields
                 }
             }
         }

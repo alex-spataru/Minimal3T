@@ -9,5 +9,9 @@
         <file>share.svg</file>
         <file>store.svg</file>
         <file>play.svg</file>
+        <file>dice.svg</file>
+        <file>draw.svg</file>
+        <file>win.svg</file>
+        <file>loose.svg</file>
     </qresource>
 </RCC>

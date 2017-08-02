@@ -152,7 +152,7 @@ Board::Player Board::fieldOwner (const int fieldNumber) const {
  */
 void Board::resetBoard() {
     setWinner (Undefined);
-    setPlayer (Board::Player1);
+    setCurrentPlayer (Board::Player1);
     changeGameState (GameInProgress);
 
     for (int i = 0; i < numFields(); ++i)
@@ -193,15 +193,6 @@ void Board::updateGameState() {
 }
 
 /**
- * Changes the player that should make a move
- */
-void Board::setPlayer (const Player turn) {
-    m_player = turn;
-    updateGameState();
-    emit turnChanged();
-}
-
-/**
  * Assigns the given \a field as 'property' of the current player in turn
  * \note this function will not change the field state if the given \a
  * field is already used by one of the players
@@ -212,7 +203,7 @@ void Board::selectField (const int field) {
 
     if (fieldOwner (field) == Undefined) {
         changeFieldOwner (field, currentPlayer());
-        setPlayer (Board::OpponentOf (currentPlayer()));
+        setCurrentPlayer (Board::OpponentOf (currentPlayer()));
     }
 }
 
@@ -244,6 +235,15 @@ void Board::setFieldsToAllign (const int fields) {
 
     m_fieldsToAllign = fields;
     emit fieldsToAllignChanged();
+}
+
+/**
+ * Changes the player that should make a move
+ */
+void Board::setCurrentPlayer (const Player turn) {
+    m_player = turn;
+    updateGameState();
+    emit turnChanged();
 }
 
 /**

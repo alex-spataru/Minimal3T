@@ -61,6 +61,7 @@ class Board : public QObject {
                 NOTIFY winnerChanged)
     Q_PROPERTY (Player currentPlayer
                 READ currentPlayer
+                WRITE setCurrentPlayer
                 NOTIFY turnChanged)
 #endif
 
@@ -131,8 +132,8 @@ public slots:
     void updateGameState();
     void selectField (const int);
     void setBoardSize (const int);
-    void setPlayer (const Player);
     void setFieldsToAllign (const int);
+    void setCurrentPlayer (const Player);
     void changeAllFields (const QList<Player>);
     void changeFieldOwner (const int, const Player);
 

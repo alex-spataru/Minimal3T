@@ -33,6 +33,7 @@ Dialog {
     //
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
+
     //
     // Dialog options
     //
@@ -41,6 +42,13 @@ Dialog {
     height: implicitHeight
     width: implicitWidth * 1.2
     parent: ApplicationWindow.overlay
+
+    //
+    // Opens the rate app link in Google Play
+    //
+    function openRate() {
+
+    }
 
     //
     // Main layout
@@ -82,6 +90,7 @@ Dialog {
 
         Button {
             text: qsTr ("Rate")
+            onClicked: openRate()
             Layout.fillWidth: true
             Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter

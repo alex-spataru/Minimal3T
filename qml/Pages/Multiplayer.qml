@@ -46,25 +46,15 @@ Page {
                 delegate: Rectangle {
                     width: 12
                     height: 12
-                    border.width: 1
+                    color: "#fff"
                     radius: width / 2
-                    border.color: "#ffffff"
-                    color: Qt.lighter (app.primaryColor, 1.7)
-
-                    layer.enabled: true
-                    layer.effect: Glow {
-                        radius: 12
-                        samples: 24
-                        smooth: true
-                        color: app.primaryColor
-                    }
                 }
             }
         }
 
         GameBoard {
-            enableAiVsHuman: false
             enabled: parent.visible
+            clickableFields: Board.gameInProgress
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -77,18 +67,8 @@ Page {
                 delegate: Rectangle {
                     width: 12
                     height: 12
-                    border.width: 1
+                    color: "#fff"
                     radius: width / 2
-                    border.color: "#ffffff"
-                    color: Qt.lighter (app.secondaryColor, 1.7)
-
-                    layer.enabled: true
-                    layer.effect: Glow {
-                        radius: 12
-                        samples: 24
-                        smooth: true
-                        color: app.secondaryColor
-                    }
                 }
             }
         }

@@ -9,5 +9,6 @@
         <file>Pages/MainMenu.qml</file>
         <file>Pages/Singleplayer.qml</file>
         <file>Dialogs/About.qml</file>
+        <file>Dialogs/GameOptions.qml</file>
     </qresource>
 </RCC>

@@ -24,9 +24,10 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
+import QtQuick.Controls.Universal 2.0
 
+import Board 1.0
 import QtMultimedia 5.0
-import QtGraphicalEffects 1.0
 
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
@@ -86,6 +87,31 @@ ApplicationWindow {
     }
 
     //
+    // Obtained from: https://stackoverflow.com/a/17373688
+    //
+    function randomColor (brightness){
+        function randomChannel (brightness) {
+            var r = 255 - brightness
+            var n = 0 | ((Math.random() * r) + brightness)
+            var s = n.toString (16)
+            return (s.length == 1) ? '0' + s : s
+        }
+
+        return '#' +
+                randomChannel (brightness) +
+                randomChannel (brightness) +
+                randomChannel (brightness)
+    }
+
+    //
+    // Starts a new game
+    //
+    function startNewGame() {
+        Board.resetBoard()
+        Board.currentPlayer = gameOptionsDlg.p2StartsFirst ? TicTacToe.Player2 : TicTacToe.Player1
+    }
+
+    //
     // Window options
     //
     width: 340
@@ -100,6 +126,13 @@ ApplicationWindow {
     Material.primary: primaryColor
     Material.accent: secondaryColor
     Material.background: backgroundColor
+
+    //
+    // Universal theme options
+    //
+    Universal.theme: Universal.Dark
+    Universal.accent: secondaryColor
+    Universal.background: backgroundColor
 
     //
     // Re-position the banner ad when window size is changed
@@ -161,6 +194,10 @@ ApplicationWindow {
         }
 
         ListElement {
+            source: "PreludeToShona.ogg"
+        }
+
+        ListElement {
             source: "Hanami.ogg"
         }
     }
@@ -199,32 +236,78 @@ ApplicationWindow {
     }
 
     //
-    // Background rectangles
+    // Background rectangle
     //
     background: Rectangle {
+        id: bg
+        Component.onCompleted: updateColors()
+
+        //
+        // Custom properties
+        //
+        property int transitionTime: 5000
+        property color skyColor: randomColor (112)
+        property color horizonColor: randomColor (72)
+
+        //
+        // Fade when changing colors
+        //
+        Behavior on skyColor { ColorAnimation {duration: bg.transitionTime} }
+        Behavior on horizonColor { ColorAnimation {duration: bg.transitionTime} }
+
+        //
+        // Generates a random color and another color that complements the
+        // randomly generated color
+        //
+        function updateColors() {
+            skyColor = horizonColor
+            horizonColor = randomColor (120)
+        }
+
+        //
+        // Change the background colors from time to time
+        //
+        Timer {
+            repeat: true
+            interval: bg.transitionTime
+            onTriggered: bg.updateColors()
+            Component.onCompleted: start()
+        }
+
+        //
+        // Represent the generated colors in a gradient
+        //
         gradient: Gradient {
             GradientStop {
                 position: 0
-                color: app.primaryColor
+                color: bg.skyColor
             }
 
             GradientStop {
                 position: 1
-                color: app.secondaryColor
+                color: bg.horizonColor
             }
         }
 
-        layer.enabled: true
-        layer.effect: GaussianBlur {
-            radius: 18
-            samples: 24
+        Rectangle {
+            opacity: 0.2
+            color: "#000000"
+            anchors.fill: parent
         }
     }
 
     //
     // Toolbar buttons
     //
-    header: RowLayout {
+    RowLayout {
+        id: toolbar
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+
         ToolButton {
             opacity: enabled ? 1 : 0
             enabled: stack.depth > 1
@@ -273,7 +356,7 @@ ApplicationWindow {
                 MenuItem {
                     text: qsTr ("Reset")
                     enabled: stack.depth == 2
-                    onClicked: Board.resetBoard()
+                    onClicked: startNewGame()
                 }
 
                 MenuItem {
@@ -282,8 +365,13 @@ ApplicationWindow {
                 }
 
                 MenuItem {
+                    text: qsTr ("Game Options")
+                    onClicked: gameOptionsDlg.open()
+                }
+
+                MenuItem {
                     text: qsTr ("Rate")
-                    onClicked: Qt.openUrlExternally ("https://google.com")
+                    onClicked: aboutDlg.openRate()
                 }
             }
 
@@ -315,8 +403,8 @@ ApplicationWindow {
             var h = bannerAd.height / DevicePixelRatio
 
             bannerContainer.height = h
-            x = (app.width - w) / 2
-            y = (bannerContainer.y + h + 2 * app.spacing) * 2
+            x = (app.width - w) / DevicePixelRatio
+            y = (bannerContainer.y * DevicePixelRatio) +  (2 * app.spacing)
         }
 
         onLoaded: locateBanner()
@@ -343,6 +431,7 @@ ApplicationWindow {
     //
     Settings {
         id: settingsDlg
+        onGameOptionsClicked: gameOptionsDlg.open()
         onEnableMusicChanged: audioPlayer.playMusic()
     }
 
@@ -354,6 +443,13 @@ ApplicationWindow {
     }
 
     //
+    // Game options dialog
+    //
+    GameOptions {
+        id: gameOptionsDlg
+    }
+
+    //
     // Stack View
     //
     StackView {
@@ -361,6 +457,7 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: mainMenu
         anchors.margins: app.spacing
+        anchors.topMargin: toolbar.height + app.spacing
         anchors.bottomMargin: bannerContainer.height + app.spacing
 
         MainMenu {

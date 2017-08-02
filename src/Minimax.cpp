@@ -73,7 +73,9 @@ void Minimax::makeAiMove() {
         return;
 
     /* Make a random move */
-    if (cpuPlayer()->randomness() > RANDOM (1, 10))
+    int n = 10 - RANDOM (1, 10);
+    int randomness = cpuPlayer()->randomness();
+    if (n < randomness)
         emit decisionTaken (randomMove());
 
     /* Do not block the program if we are dealing with larger boards */
