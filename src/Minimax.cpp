@@ -68,7 +68,11 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  * \note This function shall automatically mark the choosen field in the game
  *       board used by the computer player
  */
+#include <QTime>
 void Minimax::makeAiMove() {
+    QTime time;
+    time.start();
+
     Q_ASSERT (cpuPlayer());
     Q_ASSERT (cpuPlayer()->board());
 
@@ -103,6 +107,8 @@ void Minimax::makeAiMove() {
 
         emit decisionTaken (move);
     }
+
+    qDebug() << "Made AI decision in" << time.elapsed() << "ms";
 
     /* Notify that we have finished thinking */
     emit finished();
