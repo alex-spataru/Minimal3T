@@ -26,6 +26,13 @@
 #include <random>
 
 /**
+ * Returns the base score for the minimax function
+ */
+static int BaseScore (const Board& board) {
+    return board.numFields() + 1;
+}
+
+/**
  * Returns a random number between \a min and \a max
  */
 static int RANDOM (const int min, const int max) {
@@ -78,25 +85,19 @@ void Minimax::makeAiMove() {
     if (n < randomness)
         emit decisionTaken (randomMove());
 
-    /* Do not block the program if we are dealing with larger boards */
-    else if (board->boardSize() > 3 || board->availableFields().count() == board->numFields()) {
-        if (board->availableFields().count() > board->numFields() - board->fieldsToAllign())
-            emit decisionTaken (randomMove());
-    }
-
     /* Make a smart move */
     else {
         int move = 0;
-        int score = INT_MIN;
+        int best = INT_MIN;
 
         foreach (int field, board->availableFields()) {
             Board copy = *board;
             copy.selectField (field);
-            int minimaxScore = minimax (copy, 0);
+            int minimaxScore = minimax (copy, 0, 0, INT_MIN, INT_MAX);
 
-            if (minimaxScore >= score) {
+            if (minimaxScore >= best) {
                 move = field;
-                score = minimaxScore;
+                best = minimaxScore;
             }
         }
 
@@ -128,7 +129,8 @@ int Minimax::randomMove () {
  * Executes the Minimax algorithm in order to find the most optimal move that can be
  * choosen by the AI player
  */
-int Minimax::minimax (Board &board, const int depth) {
+int Minimax::minimax (Board &board, const int depth,
+                      const int node, int alpha, int beta) {
     board.updateGameState();
 
     /* Meh, no one wins */
@@ -137,27 +139,40 @@ int Minimax::minimax (Board &board, const int depth) {
 
     /* Somebody wins, calculate score */
     else if (board.gameWon()) {
-        int baseScore = board.numFields() + 1;
-
         if (board.winner() == cpuPlayer()->player())
-            return baseScore - depth;
+            return BaseScore (board) - depth;
 
-        return -baseScore + depth;
+        return -BaseScore (board) + depth;
     }
 
     /* Iterate over the fields and get the best score */
     else {
         int isMax = board.currentPlayer() == cpuPlayer()->player();
-        int score = isMax ? INT_MIN : INT_MAX;
+        int best = isMax ? INT_MIN : INT_MAX;
 
-        foreach (int field, board.availableFields()) {
+        for (int i = 0; i < board.availableFields().count(); ++i) {
             Board copy = board;
-            copy.selectField (field);
-            int mm = minimax (copy, depth + 1);
-            score = isMax ? qMax (score, mm) : qMin (score, mm);
+            copy.selectField (copy.availableFields().at (i));
+            int mm = minimax (copy, depth + 1, node * 2 + i, alpha, beta);
+
+            if (isMax) {
+                best = qMax (best, mm);
+                alpha = qMax (best, alpha);
+
+                if (beta <= alpha)
+                    return alpha;
+            }
+
+            else {
+                best = qMin (best, mm);
+                beta = qMin (best, beta);
+
+                if (beta <= alpha)
+                    return beta;
+            }
         }
 
-        return score;
+        return best;
     }
 
     /* We should not reach this code */

@@ -43,7 +43,8 @@ public slots:
 
 private:
     int randomMove();
-    int minimax (Board& board, const int depth);
+    int minimax (Board& board, const int depth,
+                 const int node, int alpha, int beta);
 
 private:
     int m_choice;
