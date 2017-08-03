@@ -35,7 +35,9 @@ signals:
 
 public:
     Minimax (QObject* parent = 0);
-    ComputerPlayer* cpuPlayer() const;
+    inline int evaluations() const;
+    inline ComputerPlayer* cpuPlayer() const;
+    inline bool reachedMaxEvals (const Board& board) const;
 
 public slots:
     void makeAiMove();
@@ -43,11 +45,12 @@ public slots:
 
 private:
     int randomMove();
-    int minimax (Board& board, const int depth,
-                 const int node, int alpha, int beta);
+    inline int minimax (Board& board, const int depth,
+                        const int node, int alpha, int beta);
 
 private:
     int m_choice;
+    int m_evaluations;
     ComputerPlayer* m_cpuPlayer;
     QList<Board::Player> m_board;
 };

@@ -46,7 +46,17 @@ static int RANDOM (const int min, const int max) {
  * Initializes the internal variables of the class
  */
 Minimax::Minimax (QObject *parent) : QObject (parent) {
+    m_evaluations = 0;
     m_cpuPlayer = Q_NULLPTR;
+}
+
+/**
+ * Returns the number of times that the AI evaluated the game
+ * This value is used in order to save time and avoid making uneccesary
+ * calculations when there are too many options available.
+ */
+int Minimax::evaluations() const {
+    return m_evaluations;
 }
 
 /**
@@ -59,6 +69,17 @@ ComputerPlayer* Minimax::cpuPlayer() const {
 }
 
 /**
+ * Returns \c true in the case that one of the best moves has probably
+ * been already found by the minimax search algorithm.
+ *
+ * This function is used in order to reduce the time required for the
+ * AI to make a meaningul decision.
+ */
+bool Minimax::reachedMaxEvals (const Board &board) const {
+    return evaluations() > qPow (board.numFields(), 2);
+}
+
+/**
  * This function shall decide whenever the AI player should do a random move
  * or a "smart" move.
  *|
@@ -68,11 +89,7 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  * \note This function shall automatically mark the choosen field in the game
  *       board used by the computer player
  */
-#include <QTime>
 void Minimax::makeAiMove() {
-    QTime time;
-    time.start();
-
     Q_ASSERT (cpuPlayer());
     Q_ASSERT (cpuPlayer()->board());
 
@@ -95,6 +112,7 @@ void Minimax::makeAiMove() {
         int best = INT_MIN;
 
         foreach (int field, board->availableFields()) {
+            m_evaluations = 0;
             Board copy = *board;
             copy.selectField (field);
             int minimaxScore = minimax (copy, 0, 0, INT_MIN, INT_MAX);
@@ -107,8 +125,6 @@ void Minimax::makeAiMove() {
 
         emit decisionTaken (move);
     }
-
-    qDebug() << "Made AI decision in" << time.elapsed() << "ms";
 
     /* Notify that we have finished thinking */
     emit finished();
@@ -137,6 +153,8 @@ int Minimax::randomMove () {
  */
 int Minimax::minimax (Board &board, const int depth,
                       const int node, int alpha, int beta) {
+    /* Increase the minimax execution count and get board state */
+    ++m_evaluations;
     board.updateGameState();
 
     /* Meh, no one wins */
@@ -165,7 +183,7 @@ int Minimax::minimax (Board &board, const int depth,
                 best = qMax (best, mm);
                 alpha = qMax (best, alpha);
 
-                if (beta <= alpha)
+                if (beta <= alpha || reachedMaxEvals (board))
                     return alpha;
             }
 
@@ -173,7 +191,7 @@ int Minimax::minimax (Board &board, const int depth,
                 best = qMin (best, mm);
                 beta = qMin (best, beta);
 
-                if (beta <= alpha)
+                if (beta <= alpha || reachedMaxEvals (board))
                     return beta;
             }
         }
