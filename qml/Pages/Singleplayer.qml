@@ -384,6 +384,5 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
-
     }
 }

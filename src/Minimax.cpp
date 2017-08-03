@@ -76,7 +76,9 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  * AI to make a meaningul decision.
  */
 bool Minimax::reachedMaxEvals (const Board &board) const {
-    return evaluations() > qPow (board.numFields(), 2);
+    int maxPower = qMax (board.fieldsToAllign() - 1, 3);
+    int maxEvals = board.boardSize() * board.fieldsToAllign();
+    return evaluations() > qPow (maxEvals, maxPower);
 }
 
 /**

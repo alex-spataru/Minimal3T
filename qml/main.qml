@@ -552,6 +552,13 @@ ApplicationWindow {
     }
 
     //
+    // Philosophical AI dialog
+    //
+    PhilosophicalAi {
+        id: philosophicalAi
+    }
+
+    //
     // Stack View
     //
     StackView {
@@ -582,6 +589,7 @@ ApplicationWindow {
             id: singlePlayer
 
             onVisibleChanged: {
+                philosophicalAi.enableDialog = visible
                 if (visible)
                     title.text = qsTr ("Match")
             }

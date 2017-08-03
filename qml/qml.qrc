@@ -11,5 +11,6 @@
         <file>Dialogs/GameOptions.qml</file>
         <file>Components/PurchaseItem.qml</file>
         <file>Components/SvgImage.qml</file>
+        <file>Dialogs/PhilosophicalAi.qml</file>
     </qresource>
 </RCC>

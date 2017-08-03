@@ -94,7 +94,7 @@ Dialog {
             opacity: _boardSize.currentIndex > 1 ? 1 : 0
             text: "<strong><font color=\"" + app.secondaryColor + "\">" +
                   qsTr ("Warning:") + "</font></strong> " +
-                  qsTr ("The AI will be slower on larger boards")
+                  qsTr ("The AI will be very slow on larger boards")
         }
 
         //
