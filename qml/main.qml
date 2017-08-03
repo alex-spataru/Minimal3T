@@ -30,6 +30,7 @@ import QtQuick.Controls.Universal 2.0
 import Board 1.0
 import QtMultimedia 5.0
 import QtPurchasing 1.0
+import Qt.labs.settings 1.0 as QtSettings
 
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
@@ -48,7 +49,7 @@ ApplicationWindow {
     readonly property int spacing: 8
     property bool removeAdsBought: false
     readonly property int paneWidth: Math.min (app.width * 0.8, 520)
-    readonly property bool showTabletUi: width > height && stack.height >= 560
+    readonly property bool showTabletUi: width > height && stack.height >= 540
 
     //
     // Theme options
@@ -125,8 +126,8 @@ ApplicationWindow {
     //
     // Window options
     //
-    width: 768
-    height: 590
+    width: 320
+    height: 533
     visible: true
     title: AppName
 
@@ -175,6 +176,27 @@ ApplicationWindow {
             else
                 close.accepted = true
         }
+    }
+
+    //
+    // Show window on launch
+    //
+    Component.onCompleted: {
+        if (Qt.platform === "android")
+            showMaximized()
+        else
+            showNormal()
+    }
+
+    //
+    // Save window geometry
+    //
+    QtSettings.Settings {
+        category: "Window"
+        property alias wX: app.x
+        property alias wY: app.y
+        property alias wWidth: app.width
+        property alias wHeight: app.height
     }
 
     //

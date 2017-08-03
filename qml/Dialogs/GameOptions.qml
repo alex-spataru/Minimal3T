@@ -82,9 +82,7 @@ Dialog {
             Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
             model: ["3x3", "4x4", "5x5", "6x6", "7x7"]
-            onCurrentIndexChanged: {
-                Board.boardSize = currentIndex + 3
-            }
+            onCurrentIndexChanged: Board.boardSize = currentIndex + 3
         }
 
         //
@@ -143,7 +141,7 @@ Dialog {
         }
 
         //
-        // Red player first
+        // Second player first
         //
         Switch {
             id: _p2StartsFirst

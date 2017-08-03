@@ -4,7 +4,6 @@
         <file>no-ads.svg</file>
         <file>share.svg</file>
         <file>smile.svg</file>
-        <file>wrench.svg</file>
         <file>back.svg</file>
         <file>circle.svg</file>
         <file>cross.svg</file>
@@ -12,5 +11,6 @@
         <file>meh.svg</file>
         <file>play.svg</file>
         <file>info.svg</file>
+        <file>settings.svg</file>
     </qresource>
 </RCC>

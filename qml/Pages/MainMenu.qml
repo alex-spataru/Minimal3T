@@ -293,7 +293,7 @@ Page {
 
                     SvgImage {
                         fillMode: Image.Pad
-                        source: "qrc:/images/wrench.svg"
+                        source: "qrc:/images/settings.svg"
                         verticalAlignment: Image.AlignVCenter
                         horizontalAlignment: Image.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
