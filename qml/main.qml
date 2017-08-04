@@ -318,64 +318,9 @@ ApplicationWindow {
     //
     // Background rectangle
     //
-    background: Rectangle {
-        id: bg
-        Component.onCompleted: updateColors()
-
-        //
-        // Custom properties
-        //
-        property int transitionTime: 5000
-        property color horizonColor: randomColor (72)
-        property color skyColor:  Qt.lighter (horizonColor, 1.4)
-
-        //
-        // Fade when changing colors
-        //
-        Behavior on skyColor { ColorAnimation {duration: bg.transitionTime} }
-        Behavior on horizonColor { ColorAnimation {duration: bg.transitionTime} }
-
-        //
-        // Generates a random color and another color that complements the
-        // randomly generated color
-        //
-        function updateColors() {
-            skyColor = Qt.lighter (horizonColor, 1.4)
-            horizonColor = randomColor (120)
-        }
-
-        //
-        // Change the background colors from time to time
-        //
-        Timer {
-            repeat: true
-            interval: bg.transitionTime
-            onTriggered: bg.updateColors()
-            Component.onCompleted: start()
-        }
-
-        //
-        // Represent the generated colors in a gradient
-        //
-        gradient: Gradient {
-            GradientStop {
-                position: 0
-                color: bg.skyColor
-            }
-
-            GradientStop {
-                position: 1
-                color: bg.horizonColor
-            }
-        }
-
-        Rectangle {
-            opacity: 0.2
-            color: "#000000"
-            anchors.fill: parent
-        }
+    background: ColorRectangle {
+        anchors.fill: parent
     }
-
 
     //
     // Toolbar background

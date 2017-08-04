@@ -12,5 +12,6 @@
         <file>Components/PurchaseItem.qml</file>
         <file>Components/SvgImage.qml</file>
         <file>Dialogs/PhilosophicalAi.qml</file>
+        <file>Components/ColorRectangle.qml</file>
     </qresource>
 </RCC>
