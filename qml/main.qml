@@ -25,7 +25,6 @@ import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
-import QtQuick.Controls.Universal 2.0
 
 import Board 1.0
 import QtMultimedia 5.0
@@ -138,13 +137,6 @@ ApplicationWindow {
     Material.primary: primaryColor
     Material.accent: secondaryColor
     Material.background: backgroundColor
-
-    //
-    // Universal theme options
-    //
-    Universal.theme: Universal.Dark
-    Universal.accent: secondaryColor
-    Universal.background: backgroundColor
 
     //
     // Re-position the banner ad when window size is changed
@@ -334,8 +326,8 @@ ApplicationWindow {
         // Custom properties
         //
         property int transitionTime: 5000
-        property color skyColor: randomColor (112)
         property color horizonColor: randomColor (72)
+        property color skyColor:  Qt.lighter (horizonColor, 1.4)
 
         //
         // Fade when changing colors
@@ -348,7 +340,7 @@ ApplicationWindow {
         // randomly generated color
         //
         function updateColors() {
-            skyColor = horizonColor
+            skyColor = Qt.lighter (horizonColor, 1.4)
             horizonColor = randomColor (120)
         }
 

@@ -95,18 +95,20 @@ RESOURCES += \
     $$PWD/images/images.qrc \
     $$PWD/sounds/sounds.qrc
 
-DISTFILES += \
-    deploy/android/AndroidManifest.xml \
-    deploy/android/gradle/wrapper/gradle-wrapper.jar \
-    deploy/android/gradlew \
-    deploy/android/res/values/libs.xml \
-    deploy/android/res/mipmap-hdpi/ic_launcher.png \
-    deploy/android/res/mipmap-mdpi/ic_launcher.png \
-    deploy/android/res/mipmap-xhdpi/ic_launcher.png \
-    deploy/android/res/mipmap-xxhdpi/ic_launcher.png \
-    deploy/android/gradle/wrapper/gradle-wrapper.properties \
-    deploy/android/build.gradle \
-    deploy/android/gradlew.bat \
-    deploy/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java \
-    deploy/android/gradle.properties \
-    deploy/android/local.properties
+android {
+    DISTFILES += \
+        $$PWD/deploy/android/AndroidManifest.xml \
+        $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.jar \
+        $$PWD/deploy/android/gradlew \
+        $$PWD/deploy/android/res/values/libs.xml \
+        $$PWD/deploy/android/res/mipmap-hdpi/ic_launcher.png \
+        $$PWD/deploy/android/res/mipmap-mdpi/ic_launcher.png \
+        $$PWD/deploy/android/res/mipmap-xhdpi/ic_launcher.png \
+        $$PWD/deploy/android/res/mipmap-xxhdpi/ic_launcher.png \
+        $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.properties \
+        $$PWD/deploy/android/build.gradle \
+        $$PWD/deploy/android/gradlew.bat \
+        $$PWD/deploy/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java \
+        $$PWD/deploy/android/gradle.properties \
+        $$PWD/deploy/android/local.properties
+}
