@@ -47,7 +47,8 @@ Dialog {
     // Opens the rate app link in Google Play
     //
     function openRate() {
-
+        if (Qt.platform === "android")
+            Qt.openUrlExternally ("market://details?id=org.alex_spataru.SuperTac")
     }
 
     //

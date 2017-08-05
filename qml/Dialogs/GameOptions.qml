@@ -62,6 +62,31 @@ Dialog {
     width: Math.min (app.width * 0.9, layout.implicitWidth * 1.4)
 
     //
+    // Updates the board and AI config bases on selected UI options
+    //
+    function applySettings() {
+        Board.boardSize = _boardSize.currentIndex + 3
+
+        switch (_aiLevel.currentIndex) {
+        case 0:
+            AiPlayer.randomness = 10
+            break
+        case 1:
+            AiPlayer.randomness = 6
+            break
+        case 2:
+            AiPlayer.randomness = 4
+            break
+        case 4:
+            AiPlayer.randomness = 2
+            break
+        case 5:
+            AiPlayer.randomness = 0
+            break
+        }
+    }
+
+    //
     // Main layout
     //
     ColumnLayout {
@@ -77,12 +102,13 @@ Dialog {
             text: qsTr ("Board size") + ":"
         } ComboBox {
             id: _boardSize
+            currentIndex: -1
             Layout.fillWidth: true
             Material.background: "#dedede"
             Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
+            onCurrentIndexChanged: applySettings()
             model: ["3x3", "4x4", "5x5", "6x6", "7x7"]
-            onCurrentIndexChanged: Board.boardSize = currentIndex + 3
         }
 
         //
@@ -117,6 +143,7 @@ Dialog {
             Material.background: "#dedede"
             Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
+            onCurrentIndexChanged: applySettings()
             model: [
                 qsTr ("Very Easy"),
                 qsTr ("Easy"),
@@ -124,26 +151,6 @@ Dialog {
                 qsTr ("Hard"),
                 qsTr ("Very Hard")
             ]
-
-            onCurrentIndexChanged: {
-                switch (currentIndex) {
-                case 0:
-                    AiPlayer.randomness = 10
-                    break
-                case 1:
-                    AiPlayer.randomness = 6
-                    break
-                case 2:
-                    AiPlayer.randomness = 4
-                    break
-                case 3:
-                    AiPlayer.randomness = 2
-                    break
-                case 4:
-                    AiPlayer.randomness = 0
-                    break
-                }
-            }
         }
 
         //

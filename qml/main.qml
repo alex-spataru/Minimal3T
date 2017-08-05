@@ -98,23 +98,6 @@ ApplicationWindow {
     }
 
     //
-    // Obtained from: https://stackoverflow.com/a/17373688
-    //
-    function randomColor (brightness){
-        function randomChannel (brightness) {
-            var r = 255 - brightness
-            var n = 0 | ((Math.random() * r) + brightness)
-            var s = n.toString (16)
-            return (s.length == 1) ? '0' + s : s
-        }
-
-        return '#' +
-                randomChannel (brightness) +
-                randomChannel (brightness) +
-                randomChannel (brightness)
-    }
-
-    //
     // Starts a new game
     //
     function startNewGame() {
@@ -526,6 +509,7 @@ ApplicationWindow {
             id: singlePlayer
 
             onVisibleChanged: {
+                gameOptionsDlg.applySettings()
                 philosophicalAi.enableDialog = visible
                 if (visible)
                     title.text = qsTr ("Match")

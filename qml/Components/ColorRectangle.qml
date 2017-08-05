@@ -23,44 +23,85 @@
 import QtQuick 2.0
 
 Rectangle {
-       id: bg
-       Component.onCompleted: updateColors()
+    id: bg
+    Component.onCompleted: updateColors()
 
-       property int transitionTime: 5000
-       property color horizonColor: randomColor (96)
-       property color skyColor: Qt.lighter (horizonColor, 1.2)
+    //
+    // Custom properties
+    //
+    property int transitionTime: 5000
+    property color horizonColor: randomColor (96)
+    property color skyColor: Qt.lighter (horizonColor, 1.2)
 
-       Behavior on skyColor { ColorAnimation {duration: bg.transitionTime} }
-       Behavior on horizonColor { ColorAnimation {duration: bg.transitionTime} }
+    //
+    // Fade when changing colors
+    //
+    Behavior on skyColor { ColorAnimation {duration: bg.transitionTime} }
+    Behavior on horizonColor { ColorAnimation {duration: bg.transitionTime} }
 
-       function updateColors() {
-           skyColor = Qt.lighter (horizonColor, 1.2)
-           horizonColor = randomColor (96)
-       }
+    //
+    // Generates a random color and another color that complements the
+    // randomly generated color
+    //
+    function updateColors() {
+        skyColor = Qt.lighter (horizonColor, 1.2)
+        horizonColor = randomColor (96)
+    }
 
-       Timer {
-           id: bgTimer
-           repeat: true
-           interval: bg.transitionTime
-           onTriggered: bg.updateColors()
-           Component.onCompleted: start()
-       }
 
-       gradient: Gradient {
-           GradientStop {
-               position: 0
-               color: bg.skyColor
-           }
+    //
+    // Obtained from: https://stackoverflow.com/a/17373688
+    //
+    function randomColor (brightness){
+        function randomChannel (brightness) {
+            var r = 255 - brightness
+            var n = 0 | ((Math.random() * r) + brightness)
+            var s = n.toString (16)
+            return (s.length == 1) ? '0' + s : s
+        }
 
-           GradientStop {
-               position: 1
-               color: bg.horizonColor
-           }
-       }
+        return '#' +
+                randomChannel (brightness) +
+                randomChannel (brightness) +
+                randomChannel (brightness)
+    }
 
-       Rectangle {
-           opacity: 0.2
-           color: "#000000"
-           anchors.fill: parent
-       }
-   }
+    //
+    // Changes the speed at which the colors change
+    //
+    function setBackgroundSpeed (speed) {
+        bgTimer.interval = bg.transitionTime * (speed / 100)
+    }
+
+    //
+    // Change the background colors from time to time
+    //
+    Timer {
+        id: bgTimer
+        repeat: true
+        interval: bg.transitionTime
+        onTriggered: bg.updateColors()
+        Component.onCompleted: start()
+    }
+
+    //
+    // Represent the generated colors in a gradient
+    //
+    gradient: Gradient {
+        GradientStop {
+            position: 0
+            color: bg.skyColor
+        }
+
+        GradientStop {
+            position: 1
+            color: bg.horizonColor
+        }
+    }
+
+    Rectangle {
+        opacity: 0.2
+        color: "#000000"
+        anchors.fill: parent
+    }
+}

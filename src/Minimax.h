@@ -25,6 +25,8 @@
 
 #include "Board.h"
 
+#define MinimaxCache QList<QPair<int,QList<Board::Player>>>
+
 class ComputerPlayer;
 class Minimax : public QObject {
     Q_OBJECT
@@ -41,6 +43,7 @@ public:
 
 public slots:
     void makeAiMove();
+    void setCache (MinimaxCache* cache);
     void setComputerPlayer (ComputerPlayer* player);
 
 private:
@@ -49,10 +52,9 @@ private:
                         const int node, int alpha, int beta);
 
 private:
-    int m_choice;
     int m_evaluations;
+    MinimaxCache* m_cache;
     ComputerPlayer* m_cpuPlayer;
-    QList<Board::Player> m_board;
 };
 
 #endif

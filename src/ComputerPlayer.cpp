@@ -71,6 +71,7 @@ void ComputerPlayer::makeMove() {
     Minimax* minmax = new Minimax;
 
     /* Configure minimax object and start thread */
+    minmax->setCache (&m_cache);
     minmax->moveToThread (thread);
     minmax->setComputerPlayer (this);
     thread->start (QThread::HighestPriority);
@@ -98,8 +99,11 @@ void ComputerPlayer::setBoard (Board* board) {
  * that the AI player will make a random move instead of a "smart" move
  */
 void ComputerPlayer::setRandomness (const int randomness) {
-    m_randomness = randomness;
-    emit randomnessChanged();
+    if (randomness != m_randomness) {
+        m_cache.clear();
+        m_randomness = randomness;
+        emit randomnessChanged();
+    }
 }
 
 /**

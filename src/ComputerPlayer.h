@@ -77,6 +77,7 @@ public slots:
 private:
     Board* m_board;
     int m_randomness;
+    MinimaxCache m_cache;
     Board::Player m_player;
 };
 

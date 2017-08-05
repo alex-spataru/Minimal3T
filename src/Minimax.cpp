@@ -47,6 +47,7 @@ static int RANDOM (const int min, const int max) {
  */
 Minimax::Minimax (QObject *parent) : QObject (parent) {
     m_evaluations = 0;
+    m_cache = Q_NULLPTR;
     m_cpuPlayer = Q_NULLPTR;
 }
 
@@ -95,41 +96,77 @@ void Minimax::makeAiMove() {
     Q_ASSERT (cpuPlayer());
     Q_ASSERT (cpuPlayer()->board());
 
-    /* Get board object */
+    /* Initialize variables */
+    QList<int> moves;
+    QList<int> scores;
+    QList<int> bestMoves;
+    int maxScore = INT_MIN;
+    int choosenMove = INT_MIN;
     Board* board = cpuPlayer()->board();
 
     /* Its not the AI's turn, abort */
     if (cpuPlayer()->board()->currentPlayer() != cpuPlayer()->player())
         return;
 
-    /* Make a random move */
-    int n = 10 - RANDOM (1, 10);
-    int randomness = cpuPlayer()->randomness();
-    if (n < randomness)
-        emit decisionTaken (randomMove());
+    /* Ensure that cache is set */
+    if (!m_cache) {
+        qWarning() << Q_FUNC_INFO << "Cache is not set, aborting";
+        return;
+    }
 
-    /* Make a smart move */
-    else {
-        int move = 0;
-        int best = INT_MIN;
+    /* Calculate minimax moves */
+    foreach (int field, board->availableFields()) {
+        m_evaluations = 0;
+        int score = INT_MIN;
+        Board copy = *board;
+        copy.selectField (field);
 
-        foreach (int field, board->availableFields()) {
-            m_evaluations = 0;
-            Board copy = *board;
-            copy.selectField (field);
-            int minimaxScore = minimax (copy, 0, 0, INT_MIN, INT_MAX);
-
-            if (minimaxScore >= best) {
-                move = field;
-                best = minimaxScore;
+        /* Check if cache already contains search tree */
+        for (int i = 0; i < m_cache->count(); ++i) {
+            if (m_cache->at (i).second == copy.fields()) {
+                score = m_cache->at (i).first;
+                break;
             }
         }
 
-        emit decisionTaken (move);
+        /* Cache does not contain search field, do it */
+        if (score == INT_MIN) {
+            score = minimax (copy, 0, 0, INT_MIN, INT_MAX);
+            m_cache->append (qMakePair<int, QList<Board::Player>> (score, copy.fields()));
+        }
+
+        moves.append (field);
+        scores.append (score);
     }
 
-    /* Notify that we have finished thinking */
+    /* Get the best moves */
+    for (int i = 0; i < scores.count(); ++i) {
+        if (scores.at (i) >= maxScore) {
+            maxScore = scores.at (i);
+            bestMoves.append (moves.at (i));
+        }
+    }
+
+    /* Select best move */
+    if (RANDOM (1, 10) > cpuPlayer()->randomness())
+        choosenMove = bestMoves.last();
+
+    /* Select random option from best moves */
+    else
+        choosenMove = bestMoves.at (RANDOM (0, bestMoves.count() - 1));
+
+    /* By god's mercy... */
+    emit decisionTaken (choosenMove);
     emit finished();
+}
+
+/**
+ * Registers a pointer in which we shall write all the search trees generated
+ * by the minimax algorythm
+ */
+void Minimax::setCache (MinimaxCache *cache) {
+    if (cache)
+        m_cache = cache;
 }
 
 /**
