@@ -135,19 +135,20 @@ void Minimax::makeAiMove() {
             m_cache->append (qMakePair<int, QList<Board::Player>> (score, copy.fields()));
         }
 
+        /* Append scores */
         moves.append (field);
         scores.append (score);
     }
 
     /* Get the best moves */
     for (int i = 0; i < scores.count(); ++i) {
-        if (scores.at (i) >= maxScore) {
+        if (scores.at (i) > maxScore) {
             maxScore = scores.at (i);
             bestMoves.append (moves.at (i));
         }
     }
 
-    /* Select best move */
+    /* Select best move (best moves are stored at the end of the list) */
     if (RANDOM (1, 10) > cpuPlayer()->randomness())
         choosenMove = bestMoves.last();
 
@@ -155,7 +156,7 @@ void Minimax::makeAiMove() {
     else
         choosenMove = bestMoves.at (RANDOM (0, bestMoves.count() - 1));
 
-    /* By god's mercy... */
+    /* Good riddance */
     emit decisionTaken (choosenMove);
     emit finished();
 }

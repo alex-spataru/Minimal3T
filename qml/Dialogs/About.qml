@@ -44,14 +44,6 @@ Dialog {
     parent: ApplicationWindow.overlay
 
     //
-    // Opens the rate app link in Google Play
-    //
-    function openRate() {
-        if (Qt.platform === "android")
-            Qt.openUrlExternally ("market://details?id=org.alex_spataru.SuperTac")
-    }
-
-    //
     // Main layout
     //
     ColumnLayout {
@@ -91,7 +83,7 @@ Dialog {
 
         Button {
             text: qsTr ("Rate")
-            onClicked: openRate()
+            onClicked: app.openWebsite()
             Layout.fillWidth: true
             Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter

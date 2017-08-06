@@ -69,7 +69,7 @@ Dialog {
 
         switch (_aiLevel.currentIndex) {
         case 0:
-            AiPlayer.randomness = 10
+            AiPlayer.randomness = 8
             break
         case 1:
             AiPlayer.randomness = 6
@@ -78,9 +78,6 @@ Dialog {
             AiPlayer.randomness = 4
             break
         case 4:
-            AiPlayer.randomness = 2
-            break
-        case 5:
             AiPlayer.randomness = 0
             break
         }
@@ -145,11 +142,10 @@ Dialog {
             Layout.preferredWidth: app.paneWidth
             onCurrentIndexChanged: applySettings()
             model: [
-                qsTr ("Very Easy"),
                 qsTr ("Easy"),
                 qsTr ("Normal"),
                 qsTr ("Hard"),
-                qsTr ("Very Hard")
+                qsTr ("Unbeatable")
             ]
         }
 

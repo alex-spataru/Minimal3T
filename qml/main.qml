@@ -31,6 +31,7 @@ import QtMultimedia 5.0
 import QtPurchasing 1.0
 import Qt.labs.settings 1.0 as QtSettings
 
+import com.lasconic 1.0
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
@@ -49,6 +50,16 @@ ApplicationWindow {
     property bool removeAdsBought: false
     readonly property int paneWidth: Math.min (app.width * 0.8, 520)
     readonly property bool showTabletUi: width > height && stack.height >= 540
+
+    //
+    // Website
+    //
+    readonly property string website: {
+        if (Qt.platform.os === "android")
+            return "market://details?id=org.alex_spataru.SuperTac"
+
+        return "https://github.com/alex-spataru/supertac"
+    }
 
     //
     // Theme options
@@ -82,6 +93,13 @@ ApplicationWindow {
     function showInterstitialAd() {
         if (interstitialAd.isLoaded && adsEnabled && !removeAdsBought)
             interstitialAd.visible = true
+    }
+
+    //
+    // Opens the rate app link in Google Play
+    //
+    function openWebsite() {
+        Qt.openUrlExternally (app.website)
     }
 
     //
@@ -130,8 +148,8 @@ ApplicationWindow {
     //
     // Pause audio when window is not visible (very important on Android!)
     //
-    onVisibleChanged: {
-        if (app.active)
+    onActiveChanged: {
+        if (Qt.application.state === Qt.ApplicationActive)
             audioPlayer.playMusic()
         else
             audioPlayer.pause()
@@ -172,6 +190,13 @@ ApplicationWindow {
         property alias wY: app.y
         property alias wWidth: app.width
         property alias wHeight: app.height
+    }
+
+    //
+    // For showing the share menu on Android & iOS
+    //
+    ShareUtils {
+        id: shareUtils
     }
 
     //
@@ -400,7 +425,7 @@ ApplicationWindow {
 
                 MenuItem {
                     text: qsTr ("Rate")
-                    onClicked: aboutDlg.openRate()
+                    onClicked: openWebsite()
                 }
             }
 
@@ -497,6 +522,12 @@ ApplicationWindow {
             onDisableAdsClicked: removeAds.purchase()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
+            onShareClicked: {
+                if (Qt.platform.os === "android" || Qt.platform.os === "ios")
+                    shareUtils.share (AppName, website)
+                else
+                    openWebsite()
+            }
 
             onVisibleChanged: {
                 if (visible)

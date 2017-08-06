@@ -66,6 +66,7 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
 #-------------------------------------------------------------------------------
 
 include ($$PWD/lib/QtAdMob/QtAdMob.pri)
+include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 #-------------------------------------------------------------------------------
 # Import source code, QML and resources
@@ -110,5 +111,7 @@ android {
         $$PWD/deploy/android/gradlew.bat \
         $$PWD/deploy/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java \
         $$PWD/deploy/android/gradle.properties \
-        $$PWD/deploy/android/local.properties
+        $$PWD/deploy/android/local.properties \
+        $$PWD/deploy/android/src/com/lasconic/QShareUtils.java
 }
+

@@ -99,11 +99,8 @@ void ComputerPlayer::setBoard (Board* board) {
  * that the AI player will make a random move instead of a "smart" move
  */
 void ComputerPlayer::setRandomness (const int randomness) {
-    if (randomness != m_randomness) {
-        m_cache.clear();
-        m_randomness = randomness;
-        emit randomnessChanged();
-    }
+    m_randomness = randomness;
+    emit randomnessChanged();
 }
 
 /**

@@ -26,6 +26,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "shareutils.h"
 #include "QtAdMobBanner.h"
 #include "QtAdMobInterstitial.h"
 
@@ -47,6 +48,7 @@ int main (int argc, char **argv) {
     aiPlayer.setPlayer (Board::Player2);
 
     Board::DeclareQML();
+    ShareUtils::DeclareQML();
     ComputerPlayer::DeclareQML();
     QmlAdMobBanner::DeclareQML();
     QmlAdMobInterstitial::DeclareQML();
