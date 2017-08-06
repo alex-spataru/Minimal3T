@@ -52,9 +52,6 @@ QT += quickcontrols2
 
 DEFINES += QTADMOB_QML
 
-# Uncomment ONLY when producing production-ready apps
-# DEFINES += ENABLE_REAL_ADS
-
 #-------------------------------------------------------------------------------
 # Deploy configurations
 #-------------------------------------------------------------------------------
@@ -97,6 +94,12 @@ RESOURCES += \
     $$PWD/sounds/sounds.qrc
 
 android {
+    CONFIG (debug, debug|release) {
+        DEFINES -= ENABLE_REAL_ADS
+    } else {
+        DEFINES += ENABLE_REAL_ADS
+    }
+
     DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.jar \
