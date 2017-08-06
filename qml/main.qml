@@ -148,11 +148,14 @@ ApplicationWindow {
     //
     // Pause audio when window is not visible (very important on Android!)
     //
-    onActiveChanged: {
-        if (Qt.application.state === Qt.ApplicationActive)
-            audioPlayer.playMusic()
-        else
-            audioPlayer.pause()
+    Connections {
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state === Qt.ApplicationActive)
+                audioPlayer.playMusic()
+            else
+                audioPlayer.pause()
+        }
     }
 
     //
