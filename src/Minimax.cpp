@@ -29,7 +29,7 @@
  * Returns the base score for the minimax function
  */
 static int BaseScore (const Board& board) {
-    return board.numFields() + 1;
+    return board.fields.count() + 1;
 }
 
 /**
@@ -52,15 +52,6 @@ Minimax::Minimax (QObject *parent) : QObject (parent) {
 }
 
 /**
- * Returns the number of times that the AI evaluated the game
- * This value is used in order to save time and avoid making uneccesary
- * calculations when there are too many options available.
- */
-int Minimax::evaluations() const {
-    return m_evaluations;
-}
-
-/**
  * Returns a pointer to the computer player assigned to this class.
  * The minimax code needs some information from the computer player,
  * such as its assigned game board, player ID and opponent ID.
@@ -77,10 +68,11 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  * AI to make a meaningul decision.
  */
 bool Minimax::reachedMaxEvals (const Board &board) const {
-    int maxPower = qMax (board.fieldsToAllign() - 1, 3);
-    int maxEvals = board.boardSize() * board.fieldsToAllign();
-    return evaluations() > qPow (maxEvals, maxPower);
+    int maxPower = qMax (board.fieldsToAllign - 1, 3);
+    int maxEvals = BoardSize (board) * board.fieldsToAllign;
+    return m_evaluations > qPow (maxEvals, maxPower);
 }
+
 
 /**
  * This function shall decide whenever the AI player should do a random move
@@ -94,7 +86,6 @@ bool Minimax::reachedMaxEvals (const Board &board) const {
  */
 void Minimax::makeAiMove() {
     Q_ASSERT (cpuPlayer());
-    Q_ASSERT (cpuPlayer()->board());
 
     /* Initialize variables */
     QList<int> moves;
@@ -102,10 +93,10 @@ void Minimax::makeAiMove() {
     QList<int> bestMoves;
     int maxScore = INT_MIN;
     int choosenMove = INT_MIN;
-    Board* board = cpuPlayer()->board();
+    Board board = QmlBoard::getInstance()->board();
 
     /* Its not the AI's turn, abort */
-    if (cpuPlayer()->board()->currentPlayer() != cpuPlayer()->player())
+    if (board.turn != cpuPlayer()->player())
         return;
 
     /* Ensure that cache is set */
@@ -115,15 +106,15 @@ void Minimax::makeAiMove() {
     }
 
     /* Calculate minimax moves */
-    foreach (int field, board->availableFields()) {
+    foreach (int field, AvailableFields (board)) {
         m_evaluations = 0;
+        Board copy = board;
         int score = INT_MIN;
-        Board copy = *board;
-        copy.selectField (field);
+        SelectField (copy, field);
 
         /* Check if cache already contains search tree */
         for (int i = 0; i < m_cache->count(); ++i) {
-            if (m_cache->at (i).second == copy.fields()) {
+            if (m_cache->at (i).second == copy.fields) {
                 score = m_cache->at (i).first;
                 break;
             }
@@ -131,8 +122,8 @@ void Minimax::makeAiMove() {
 
         /* Cache does not contain search field, do it */
         if (score == INT_MIN) {
-            score = minimax (copy, 0, 0, INT_MIN, INT_MAX);
-            m_cache->append (qMakePair<int, QList<Board::Player>> (score, copy.fields()));
+            score = minimax (copy, 0, INT_MIN, INT_MAX);
+            m_cache->append (qMakePair<int, QVector<BoardPlayer>> (score, copy.fields));
         }
 
         /* Append scores */
@@ -182,28 +173,26 @@ void Minimax::setComputerPlayer (ComputerPlayer *player) {
  * Returns a randomly-choosen field from the given \a board
  */
 int Minimax::randomMove () {
-    Board* board = cpuPlayer()->board();
-    int n = RANDOM (1, board->availableFields().count());
-    return board->availableFields().at (n - 1);
+    Board board = QmlBoard::getInstance()->board();
+    int n = RANDOM (1, AvailableFields (board).count());
+    return AvailableFields (board).at (n - 1);
 }
 
 /**
  * Executes the Minimax algorithm in order to find the most optimal move that can be
  * choosen by the AI player
  */
-int Minimax::minimax (Board &board, const int depth,
-                      const int node, int alpha, int beta) {
-    /* Increase the minimax execution count and get board state */
+int Minimax::minimax (Board &board, const int depth, int alpha, int beta) {
+    /* Increase number of evaluations */
     ++m_evaluations;
-    board.updateGameState();
 
     /* Meh, no one wins */
-    if (board.gameDraw())
+    if (board.state == kDraw)
         return 0;
 
     /* Somebody wins, calculate score */
-    else if (board.gameWon()) {
-        if (board.winner() == cpuPlayer()->player())
+    else if (board.state == kGameWon) {
+        if (board.winner == cpuPlayer()->player())
             return BaseScore (board) - depth;
 
         return -BaseScore (board) + depth;
@@ -211,13 +200,15 @@ int Minimax::minimax (Board &board, const int depth,
 
     /* Iterate over the fields and get the best score */
     else {
-        int isMax = board.currentPlayer() == cpuPlayer()->player();
+        int isMax = board.turn == cpuPlayer()->player();
         int best = isMax ? INT_MIN : INT_MAX;
 
-        for (int i = 0; i < board.availableFields().count(); ++i) {
+        QVector<int> availableFields = AvailableFields (board);
+
+        for (int i = 0; i < availableFields.count(); ++i) {
             Board copy = board;
-            copy.selectField (copy.availableFields().at (i));
-            int mm = minimax (copy, depth + 1, node * 2 + i, alpha, beta);
+            SelectField (copy, availableFields.at (i));
+            int mm = minimax (copy, depth + 1, alpha, beta);
 
             if (isMax) {
                 best = qMax (best, mm);

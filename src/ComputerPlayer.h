@@ -25,6 +25,7 @@
 
 #include "Board.h"
 #include "Minimax.h"
+#include "QmlBoard.h"
 
 #ifdef QT_QML_LIB
 #include <QtQml>
@@ -34,12 +35,12 @@ class ComputerPlayer : public QObject {
     Q_OBJECT
 
 #ifdef QT_QML_LIB
-    Q_PROPERTY (Board::Player player
-                READ player
+    Q_PROPERTY (QmlBoard::Player player
+                READ qmlPlayer
                 WRITE setPlayer
                 NOTIFY playerChanged)
-    Q_PROPERTY (Board::Player opponent
-                READ opponent
+    Q_PROPERTY (QmlBoard::Player opponent
+                READ qmlOpponent
                 NOTIFY playerChanged)
     Q_PROPERTY (int randomness
                 READ randomness
@@ -63,22 +64,26 @@ signals:
 public:
     ComputerPlayer();
     int randomness() const;
+    BoardPlayer player() const;
+    BoardPlayer opponent() const;
 
-    Board* board();
-    Board::Player player() const;
-    Board::Player opponent() const;
+    inline QmlBoard::Player qmlPlayer() const {
+        return (QmlBoard::Player) player();
+    }
+
+    inline QmlBoard::Player qmlOpponent() const {
+        return (QmlBoard::Player) opponent();
+    }
 
 public slots:
     void makeMove();
-    void setBoard (Board* board);
     void setRandomness (const int randomness);
-    void setPlayer (const Board::Player player);
+    void setPlayer (const QmlBoard::Player player);
 
 private:
-    Board* m_board;
     int m_randomness;
     MinimaxCache m_cache;
-    Board::Player m_player;
+    BoardPlayer m_player;
 };
 
 #endif

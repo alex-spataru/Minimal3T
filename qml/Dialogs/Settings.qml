@@ -54,11 +54,6 @@ Dialog {
     property alias enableSoundEffects: soundEffects.checked
 
     //
-    // Signals
-    //
-    signal gameOptionsClicked
-
-    //
     // Sound effects
     //
     onAccepted: app.playSoundEffect ("click.wav")
@@ -111,16 +106,6 @@ Dialog {
             checked: false
             id: autoStartGames
             text: qsTr ("Start new games directly")
-        }
-
-        //
-        // Game options
-        //
-        Button {
-            Layout.fillWidth: true
-            text: qsTr ("Game Options")
-            Material.theme: Material.Light
-            onClicked: gameOptionsClicked()
         }
     }
 }

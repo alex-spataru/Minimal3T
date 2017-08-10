@@ -203,6 +203,20 @@ ApplicationWindow {
     }
 
     //
+    // 5-second timer to let the app check if
+    // user has already purchased the remove ads extension
+    // before enabling the ads
+    //
+    Timer {
+        id: loadAdsTimer
+        interval: 5000
+        onTriggered: {
+            if (!removeAdsBought)
+                adsEnabled = true
+        }
+    }
+
+    //
     // Available purchase ittems
     //
     Store {
@@ -245,20 +259,6 @@ ApplicationWindow {
         title: app.title
         icon: StandardIcon.Information
         standardButtons: StandardButton.Close
-    }
-
-    //
-    // 5-second timer to let the app check if
-    // user has already purchased the remove ads extension
-    // before enabling the ads
-    //
-    Timer {
-        id: loadAdsTimer
-        interval: 5000
-        onTriggered: {
-            if (!removeAdsBought)
-                adsEnabled = true
-        }
     }
 
     //
@@ -481,7 +481,6 @@ ApplicationWindow {
     //
     Settings {
         id: settingsDlg
-        onGameOptionsClicked: gameOptionsDlg.open()
         onEnableMusicChanged: audioPlayer.playMusic()
     }
 

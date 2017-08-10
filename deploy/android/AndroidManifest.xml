@@ -40,6 +40,6 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="com.android.vending.BILLING"/>
   <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-  <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>

@@ -72,12 +72,12 @@ Dialog {
             AiPlayer.randomness = 8
             break
         case 1:
-            AiPlayer.randomness = 6
-            break
-        case 2:
             AiPlayer.randomness = 4
             break
-        case 4:
+        case 2:
+            AiPlayer.randomness = 2
+            break
+        case 3:
             AiPlayer.randomness = 0
             break
         }
@@ -99,7 +99,6 @@ Dialog {
             text: qsTr ("Board size") + ":"
         } ComboBox {
             id: _boardSize
-            currentIndex: -1
             Layout.fillWidth: true
             Material.background: "#dedede"
             Material.foreground: "#000000"
@@ -135,7 +134,6 @@ Dialog {
             text: qsTr ("AI Level") + ":"
         } ComboBox {
             id: _aiLevel
-            currentIndex: 2
             Layout.fillWidth: true
             Material.background: "#dedede"
             Material.foreground: "#000000"
@@ -145,7 +143,7 @@ Dialog {
                 qsTr ("Easy"),
                 qsTr ("Normal"),
                 qsTr ("Hard"),
-                qsTr ("Unbeatable")
+                qsTr ("Very Hard")
             ]
         }
 
@@ -160,7 +158,10 @@ Dialog {
             to: Board.boardSize
             Layout.fillWidth: true
             Layout.preferredWidth: app.paneWidth
-            onValueChanged: Board.fieldsToAllign = value
+            onValueChanged: {
+                if (value >= 3)
+                    Board.fieldsToAllign = value
+            }
         }
 
         //

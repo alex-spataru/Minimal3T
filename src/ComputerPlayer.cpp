@@ -27,8 +27,7 @@
  */
 ComputerPlayer::ComputerPlayer() {
     m_randomness = 0;
-    m_board = Q_NULLPTR;
-    m_player = Board::Undefined;
+    m_player = kUndefined;
 }
 
 /**
@@ -39,17 +38,9 @@ int ComputerPlayer::randomness() const {
 }
 
 /**
- * Returns the game board used by the computer player to "play" the Tic Tac Toe
- * game against another opponent
- */
-Board* ComputerPlayer::board() {
-    return m_board;
-}
-
-/**
  * Returns the ID of the computer player
  */
-Board::Player ComputerPlayer::player() const {
+BoardPlayer ComputerPlayer::player() const {
     return m_player;
 }
 
@@ -57,8 +48,8 @@ Board::Player ComputerPlayer::player() const {
  * Returns the ID of the other player in the game (which can be a human or
  * another computer player)
  */
-Board::Player ComputerPlayer::opponent() const {
-    return Board::OpponentOf (player());
+BoardPlayer ComputerPlayer::opponent() const {
+    return OpponentOf (player());
 }
 
 /**
@@ -81,17 +72,8 @@ void ComputerPlayer::makeMove() {
     connect (thread, SIGNAL (started()), minmax,  SLOT (makeAiMove()));
     connect (thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
     connect (minmax, SIGNAL (finished()), minmax, SLOT (deleteLater()));
-    connect (minmax, SIGNAL (decisionTaken (int)), board(), SLOT (selectField (int)));
-}
-
-/**
- * Changes the game \a board used by the computer player to, well, play...
- */
-void ComputerPlayer::setBoard (Board* board) {
-    Q_ASSERT (board);
-
-    m_board = board;
-    emit boardChanged();
+    connect (minmax, SIGNAL (decisionTaken (int)),
+             QmlBoard::getInstance(), SLOT (selectField (int)));
 }
 
 /**
@@ -108,7 +90,8 @@ void ComputerPlayer::setRandomness (const int randomness) {
  * \note The opponent ID will be changed automatically when the player ID is
  *       changed
  */
-void ComputerPlayer::setPlayer (const Board::Player player) {
-    m_player = player;
+void ComputerPlayer::setPlayer (const QmlBoard::Player player) {
+    m_player = (BoardPlayer) player;
     emit playerChanged();
 }
+

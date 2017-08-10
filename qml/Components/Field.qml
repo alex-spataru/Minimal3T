@@ -55,6 +55,7 @@ Item {
     //
     SvgImage {
         id: _symbol
+        source: ""
         anchors.centerIn: parent
         opacity: fieldNumber == -1 ? 1 : 0
         sourceSize: Qt.size (bg.width * 0.8, bg.width * 0.8)
@@ -68,7 +69,7 @@ Item {
         enabled: clickable
         anchors.fill: parent
         onClicked: {
-            if (fieldNumber >= 0)
+            if (fieldNumber >= 0 && symbol == "" && Board.gameInProgress)
                 Board.selectField (fieldNumber)
         }
     }

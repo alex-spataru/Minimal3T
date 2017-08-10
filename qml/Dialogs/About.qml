@@ -83,24 +83,26 @@ Dialog {
 
         Button {
             text: qsTr ("Rate")
+            Layout.fillWidth: true
             onClicked: app.openWebsite()
-            Layout.fillWidth: true
             Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Button {
             Layout.fillWidth: true
-            text: qsTr ("Report Issues")
+            text: qsTr ("GitHub Project")
             Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: Qt.openUrlExternally ("https://github.com/alex-spataru/SuperTac")
         }
 
         Button {
             Layout.fillWidth: true
+            Material.theme: Material.Light
             text: qsTr ("Contact Developer")
-            Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: Qt.openUrlExternally ("mailto:alex_spataru@outlook.com")
         }
 
         Item {

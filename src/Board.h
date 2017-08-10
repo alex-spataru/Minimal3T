@@ -23,139 +23,38 @@
 #ifndef _BOARD_H
 #define _BOARD_H
 
-#ifdef QT_QML_LIB
-#include <QtQml>
-#endif
+#include <QList>
 
-#include <QObject>
-
-class Board : public QObject {
-    Q_OBJECT
-
-#ifdef QT_QML_LIB
-    Q_PROPERTY (bool gameWon
-                READ gameWon
-                NOTIFY gameStateChanged)
-    Q_PROPERTY (bool gameDraw
-                READ gameDraw
-                NOTIFY gameStateChanged)
-    Q_PROPERTY (bool gameInProgress
-                READ gameInProgress
-                NOTIFY gameStateChanged)
-    Q_PROPERTY (int numFields
-                READ numFields
-                NOTIFY boardSizeChanged)
-    Q_PROPERTY (int boardSize
-                READ boardSize
-                WRITE setBoardSize
-                NOTIFY boardSizeChanged)
-    Q_PROPERTY (int fieldsToAllign
-                READ fieldsToAllign
-                WRITE setFieldsToAllign
-                NOTIFY fieldsToAllignChanged)
-    Q_PROPERTY (GameState gameState
-                READ gameState
-                NOTIFY gameStateChanged)
-    Q_PROPERTY (Player winner
-                READ winner
-                NOTIFY winnerChanged)
-    Q_PROPERTY (Player currentPlayer
-                READ currentPlayer
-                WRITE setCurrentPlayer
-                NOTIFY turnChanged)
-#endif
-
-public:
-    enum Player {
-        Undefined      = 0x00,
-        Player1        = 0x01,
-        Player2        = 0x02,
-    };
-    Q_ENUMS (Player)
-
-    enum GameState {
-        Draw           = 0x00,
-        GameEnded      = 0x01,
-        GameInProgress = 0x02,
-    };
-    Q_ENUMS (GameState)
-
-signals:
-    void boardReset();
-    void turnChanged();
-    void winnerChanged();
-    void boardSizeChanged();
-    void gameStateChanged();
-    void fieldsToAllignChanged();
-    void fieldStateChanged (const int fieldId, const Player state);
-
-public:
-    Board (QObject* parent = Q_NULLPTR);
-    Board (Board& other);
-
-    static void DeclareQML()
-    {
-#ifdef QT_QML_LIB
-        qmlRegisterType<Board> ("Board", 1, 0, "TicTacToe");
-#endif
-    }
-
-    static Player OpponentOf (const Player player) {
-        if (player == Player1)
-            return Player2;
-
-        else if (player == Player2)
-            return Player1;
-
-        return Undefined;
-    }
-
-    int numFields() const;
-    int boardSize() const;
-    int fieldsToAllign() const;
-
-    inline bool gameDraw() const { return gameState() == Draw; }
-    inline bool gameWon() const { return gameState() == GameEnded; }
-    inline bool gameInProgress() const { return gameState() == GameInProgress; }
-
-    Player winner() const;
-    Player currentPlayer() const;
-    GameState gameState() const;
-
-    Q_INVOKABLE QList<Player> fields() const;
-    Q_INVOKABLE QList<int> allignedFields() const;
-    Q_INVOKABLE QList<int> availableFields() const;
-    Q_INVOKABLE Player fieldOwner (const int) const;
-
-public slots:
-    void resetBoard();
-    void updateGameState();
-    void selectField (const int);
-    void setBoardSize (const int);
-    void setFieldsToAllign (const int);
-    void setCurrentPlayer (const Player);
-    void changeAllFields (const QList<Player>);
-    void changeFieldOwner (const int, const Player);
-
-private slots:
-    void setWinner (const Player);
-    void changeGameState (const GameState);
-
-private:
-    bool checkRows (Player**);
-    bool checkColumns (Player**);
-    bool checkLtrDiagonals (Player**);
-    bool checkRtlDiagonals (Player**);
-    bool checkWinners (const QList<int>, const QList<int>);
-    void checkAllignedFields (QList<int>&, QList<int>&, const int, const int);
-
-private:
-    Player m_player;
-    Player m_winner;
-    int m_fieldsToAllign;
-    GameState m_gameState;
-    QList<Player> m_fields;
-    QList<int> m_allignedFields;
+enum BoardPlayer {
+    kUndefined      = 0x00,
+    kPlayer1        = 0x01,
+    kPlayer2        = 0x02,
 };
+
+enum BoardState {
+    kDraw           = 0x00,
+    kGameWon        = 0x01,
+    kGameInProgress = 0x02,
+};
+
+typedef struct {
+    BoardState state;
+    BoardPlayer turn;
+    BoardPlayer winner;
+    int fieldsToAllign;
+    QVector<int> allignedFields;
+    QVector<BoardPlayer> fields;
+} Board;
+
+extern void InitBoard (Board& board);
+extern void ResetBoard (Board& board);
+extern void UpdateGameState (Board& board);
+extern void ResizeBoard (Board& board, const int size);
+extern void SelectField (Board& board, const int field);
+extern void ChangeOwner (Board& board, const int field, const BoardPlayer player);
+
+extern int BoardSize (const Board& board);
+extern QVector<int> AvailableFields (const Board& board);
+extern BoardPlayer OpponentOf (const BoardPlayer player);
 
 #endif

@@ -30,7 +30,7 @@
 #include "QtAdMobBanner.h"
 #include "QtAdMobInterstitial.h"
 
-#include "Board.h"
+#include "QmlBoard.h"
 #include "AdInfo.h"
 #include "ComputerPlayer.h"
 
@@ -42,26 +42,24 @@ int main (int argc, char **argv) {
 
     QGuiApplication app (argc, argv);
 
-    Board board;
     ComputerPlayer aiPlayer;
-    aiPlayer.setBoard (&board);
-    aiPlayer.setPlayer (Board::Player2);
+    aiPlayer.setPlayer (QmlBoard::Player2);
 
-    Board::DeclareQML();
     ShareUtils::DeclareQML();
+    QmlBoard::DeclareQML();
     ComputerPlayer::DeclareQML();
     QmlAdMobBanner::DeclareQML();
     QmlAdMobInterstitial::DeclareQML();
 
     QQmlApplicationEngine engine;
     QQuickStyle::setStyle ("Material");
-    engine.rootContext()->setContextProperty ("Board", &board);
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
     engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());
     engine.rootContext()->setContextProperty ("Company", app.organizationName());
     engine.rootContext()->setContextProperty ("Version", app.applicationVersion());
+    engine.rootContext()->setContextProperty ("Board", QmlBoard::getInstance());
     engine.rootContext()->setContextProperty ("DevicePixelRatio", app.primaryScreen()->devicePixelRatio());
     engine.load (QUrl (QStringLiteral ("qrc:/qml/main.qml")));
 

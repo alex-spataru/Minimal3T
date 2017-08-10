@@ -73,13 +73,15 @@ HEADERS += \
     $$PWD/src/Board.h \
     $$PWD/src/AdInfo.h \
     $$PWD/src/Minimax.h \
-    $$PWD/src/ComputerPlayer.h \ 
+    $$PWD/src/ComputerPlayer.h \
+    $$PWD/src/QmlBoard.h
 
 SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/Board.cpp \
     $$PWD/src/Minimax.cpp \
     $$PWD/src/ComputerPlayer.cpp \
+    $$PWD/src/QmlBoard.cpp
 
 OTHER_FILES += \
     $$PWD/qml/*.qml \
@@ -94,11 +96,8 @@ RESOURCES += \
     $$PWD/sounds/sounds.qrc
 
 android {
-    CONFIG (debug, debug|release) {
-        DEFINES -= ENABLE_REAL_ADS
-    } else {
-        DEFINES += ENABLE_REAL_ADS
-    }
+    # Uncomment this line if releasing to AppStore
+    #DEFINES += ENABLE_REAL_ADS
 
     DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
