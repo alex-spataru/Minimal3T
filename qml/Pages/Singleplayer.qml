@@ -73,6 +73,8 @@ Page {
             p2Wins = 0
             numberOfGames = 3
         }
+
+        prompt.opacity = 0
     }
 
     //
@@ -127,7 +129,7 @@ Page {
     //
     Timer {
         id: aiTimer
-        interval: 320
+        interval: 520
         onTriggered: makeAiMove()
     }
 

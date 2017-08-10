@@ -134,6 +134,7 @@ Dialog {
             text: qsTr ("AI Level") + ":"
         } ComboBox {
             id: _aiLevel
+            currentIndex: 1
             Layout.fillWidth: true
             Material.background: "#dedede"
             Material.foreground: "#000000"

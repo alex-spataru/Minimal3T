@@ -211,7 +211,7 @@ ApplicationWindow {
         id: loadAdsTimer
         interval: 5000
         onTriggered: {
-            if (!removeAdsBought)
+            if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
                 adsEnabled = true
         }
     }
@@ -269,31 +269,11 @@ ApplicationWindow {
         property int track: -1
 
         ListElement {
-            source: "Flan.ogg"
+            source: "Scifi.ogg"
         }
 
         ListElement {
-            source: "LionsTigersAndApes.ogg"
-        }
-
-        ListElement {
-            source: "Shona.ogg"
-        }
-
-        ListElement {
-            source: "PreludeToShona.ogg"
-        }
-
-        ListElement {
-            source: "Hanami.ogg"
-        }
-
-        ListElement {
-            source: "DreamSequence.ogg"
-        }
-
-        ListElement {
-            source: "CarlinDream.ogg"
+            source: "Relaxing.ogg"
         }
     }
 
@@ -325,7 +305,7 @@ ApplicationWindow {
                 play()
         }
 
-        volume: 0.8
+        volume: 0.7
         onStopped: updateTrack()
         Component.onCompleted: updateTrack()
     }

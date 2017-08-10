@@ -68,8 +68,9 @@ Dialog {
             font.pixelSize: 14
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr ("Developed by %1").arg (Company)
+            onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("Developed by %1").arg ("<a href='https://github.com/alex-spataru/'>Alex Spataru</a>")
         }
 
         Label {
@@ -77,8 +78,9 @@ Dialog {
             font.pixelSize: 14
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr ("Music by %1").arg ("Jake Chudnow")
+            onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("Music by %1").arg ("<a href='http://www.bensound.com/'>Bensound</a>")
         }
 
         Button {

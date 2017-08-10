@@ -56,10 +56,10 @@ Item {
     SvgImage {
         id: _symbol
         source: ""
+        opacity: 0
         anchors.centerIn: parent
-        opacity: fieldNumber == -1 ? 1 : 0
         sourceSize: Qt.size (bg.width * 0.8, bg.width * 0.8)
-        Behavior on opacity { NumberAnimation{} }
+        Behavior on opacity { NumberAnimation {} }
     }
 
     //
@@ -86,9 +86,6 @@ Item {
 
                 if (Board.gameDraw)
                     _symbol.opacity = 0.2
-
-                else if (Board.gameInProgress)
-                    _symbol.opacity = 1
 
                 else if (Board.gameWon) {
                     _symbol.opacity = 0.2

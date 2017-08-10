@@ -1,11 +1,6 @@
 <RCC>
     <qresource prefix="/music">
-        <file>LionsTigersAndApes.ogg</file>
-        <file>Flan.ogg</file>
-        <file>Shona.ogg</file>
-        <file>Hanami.ogg</file>
-        <file>PreludeToShona.ogg</file>
-        <file>DreamSequence.ogg</file>
-        <file>CarlinDream.ogg</file>
+        <file>Relaxing.ogg</file>
+        <file>Scifi.ogg</file>
     </qresource>
 </RCC>
