@@ -291,6 +291,10 @@ ApplicationWindow {
         ListElement {
             source: "DreamSequence.ogg"
         }
+
+        ListElement {
+            source: "CarlinDream.ogg"
+        }
     }
 
     //

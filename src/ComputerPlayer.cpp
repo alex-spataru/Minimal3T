@@ -28,6 +28,7 @@
 ComputerPlayer::ComputerPlayer() {
     m_randomness = 0;
     m_player = kUndefined;
+    m_cache.reserve (MAX_CACHE_LEN);
 }
 
 /**
@@ -66,6 +67,12 @@ void ComputerPlayer::makeMove() {
     minmax->moveToThread (thread);
     minmax->setComputerPlayer (this);
     thread->start (QThread::HighestPriority);
+
+    /* Clear cache if required */
+    if (m_cache.count() > MAX_CACHE_LEN) {
+        m_cache.clear();
+        m_cache.reserve (MAX_CACHE_LEN);
+    }
 
     /* Configure signals/slots */
     connect (minmax, SIGNAL (finished()), thread, SLOT (quit()));
