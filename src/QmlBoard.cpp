@@ -23,6 +23,7 @@
 #include "QmlBoard.h"
 
 QmlBoard::QmlBoard() {
+    InitBoard (m_board);
     setBoardSize (3);
     setFieldsToAllign (3);
     setCurrentPlayer (Player1);
