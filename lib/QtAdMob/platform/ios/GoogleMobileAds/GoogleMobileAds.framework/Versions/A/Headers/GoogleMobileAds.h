@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-#error The Google Mobile Ads SDK requires a deployment target of iOS 6.0 or later.
+    #error The Google Mobile Ads SDK requires a deployment target of iOS 6.0 or later.
 #endif
 
 /// Project version string for GoogleMobileAds.

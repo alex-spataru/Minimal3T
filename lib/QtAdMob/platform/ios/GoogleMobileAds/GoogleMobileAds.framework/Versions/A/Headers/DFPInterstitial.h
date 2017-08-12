@@ -17,22 +17,22 @@ GAD_ASSUME_NONNULL_BEGIN
 /// transition points in your application such as between game levels or news stories.
 @interface DFPInterstitial : GADInterstitial
 
-/// Required value created on the DFP website. Create a new ad unit for every unique placement of an
-/// ad in your application. Set this to the ID assigned for this placement. Ad units are important
-/// for targeting and stats.
-///
-/// Example DFP ad unit ID: @"/6499/example/interstitial"
-@property(nonatomic, readonly, copy) NSString *adUnitID;
+    /// Required value created on the DFP website. Create a new ad unit for every unique placement of an
+    /// ad in your application. Set this to the ID assigned for this placement. Ad units are important
+    /// for targeting and stats.
+    ///
+    /// Example DFP ad unit ID: @"/6499/example/interstitial"
+    @property (nonatomic, readonly, copy) NSString* adUnitID;
 
 /// Correlator object for correlating this object to other ad objects.
-@property(nonatomic, strong, GAD_NULLABLE) GADCorrelator *correlator;
+@property (nonatomic, strong, GAD_NULLABLE) GADCorrelator* correlator;
 
 /// Optional delegate that is notified when creatives send app events.
-@property(nonatomic, weak, GAD_NULLABLE) id<GADAppEventDelegate> appEventDelegate;
+@property (nonatomic, weak, GAD_NULLABLE) id<GADAppEventDelegate> appEventDelegate;
 
 /// Optional delegate object for custom rendered ads.
-@property(nonatomic, weak, GAD_NULLABLE)
-    id<DFPCustomRenderedInterstitialDelegate> customRenderedInterstitialDelegate;
+@property (nonatomic, weak, GAD_NULLABLE)
+id<DFPCustomRenderedInterstitialDelegate> customRenderedInterstitialDelegate;
 
 @end
 

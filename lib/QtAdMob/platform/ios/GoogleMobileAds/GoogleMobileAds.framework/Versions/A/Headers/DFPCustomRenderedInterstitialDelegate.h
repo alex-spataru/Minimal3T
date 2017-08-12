@@ -21,8 +21,8 @@ GAD_ASSUME_NONNULL_BEGIN
 /// Called after ad data has been received. You must construct an interstitial from
 /// |customRenderedAd| and call the |customRenderedAd| object's finishedRenderingAdView: method when
 /// the ad has been rendered.
-- (void)interstitial:(DFPInterstitial *)interstitial
-    didReceiveCustomRenderedAd:(DFPCustomRenderedAd *)customRenderedAd;
+- (void)interstitial: (DFPInterstitial*)interstitial
+    didReceiveCustomRenderedAd: (DFPCustomRenderedAd*)customRenderedAd;
 
 @end
 

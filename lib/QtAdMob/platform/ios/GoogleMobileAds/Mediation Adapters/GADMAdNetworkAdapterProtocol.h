@@ -19,7 +19,7 @@
 
 /// Returns a version string for the adapter. It can be any string that uniquely identifies the
 /// version of your adapter. For example, "1.0", or simply a date such as "20110915".
-+ (NSString *)adapterVersion;
++ (NSString*)adapterVersion;
 
 /// The extras class that is used to specify additional parameters for a request to this ad network.
 /// Returns Nil if the network does not have extra settings for publishers to send.
@@ -28,14 +28,14 @@
 /// Designated initializer. Implementing classes can and should keep the connector in an instance
 /// variable. However you must never retain the connector, as doing so will create a circular
 /// reference and cause memory leaks.
-- (instancetype)initWithGADMAdNetworkConnector:(id<GADMAdNetworkConnector>)connector;
+- (instancetype)initWithGADMAdNetworkConnector: (id<GADMAdNetworkConnector>)connector;
 
 /// Asks the adapter to initiate a banner ad request. The adapter does not need to return anything.
 /// The assumption is that the adapter will start an asynchronous ad fetch over the network. Your
 /// adapter may act as a delegate to your SDK to listen to callbacks. If your SDK does not support
 /// the given ad size, or does not support banner ads, call back to the adapter:didFailAd: method of
 /// the connector.
-- (void)getBannerWithSize:(GADAdSize)adSize;
+- (void)getBannerWithSize: (GADAdSize)adSize;
 
 /// Asks the adapter to initiate an interstitial ad request. The adapter does not need to return
 /// anything. The assumption is that the adapter will start an asynchronous ad fetch over the
@@ -52,7 +52,7 @@
 
 /// Some ad transition types may cause issues with particular Ad SDKs. The adapter may decide
 /// whether the given animation type is OK. Defaults to YES.
-- (BOOL)isBannerAnimationOK:(GADMBannerAnimationType)animType;
+- (BOOL)isBannerAnimationOK: (GADMBannerAnimationType)animType;
 
 /// Present an interstitial using the supplied UIViewController, by calling
 /// presentViewController:animated:completion:.
@@ -63,7 +63,7 @@
 /// Make sure to call adapterWillPresentInterstitial: on the connector when the interstitial is
 /// about to be presented, and adapterWillDismissInterstitial: and adapterDidDismissInterstitial:
 /// when the interstitial is being dismissed.
-- (void)presentInterstitialFromRootViewController:(UIViewController *)rootViewController;
+- (void)presentInterstitialFromRootViewController: (UIViewController*)rootViewController;
 
 @optional
 
@@ -75,7 +75,7 @@
 /// ad object using the receiver's connector method
 /// adapter:didReceiveNativeAdDataSource:mediationDelegate or adapter:didFailAd: if the ad request
 /// encountered an error.
-- (void)getNativeAdWithAdTypes:(NSArray *)adTypes options:(NSArray *)options;
+- (void)getNativeAdWithAdTypes: (NSArray*)adTypes options: (NSArray*)options;
 
 /// Indicates if the adapter handles user clicks. If this method returns YES, the adapter must
 /// handle user clicks and notify the Google Mobile Ads SDK of clicks using
@@ -98,6 +98,6 @@
 /// kGADAdSizeSmartBannerPortrait to kGADAdSizeSmartBannerLandscape, or vice versa. If this method
 /// is not implemented, every time the user changes the ad size, a new ad will be requested with the
 /// new size by calling your getBannerWithSize: method.
-- (void)changeAdSizeTo:(GADAdSize)adSize;
+- (void)changeAdSizeTo: (GADAdSize)adSize;
 
 @end

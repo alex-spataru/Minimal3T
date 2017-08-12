@@ -20,29 +20,29 @@ GAD_ASSUME_NONNULL_BEGIN
 @required
 
 /// Tells the delegate that the reward based video ad has rewarded the user.
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-    didRewardUserWithReward:(GADAdReward *)reward;
+- (void)rewardBasedVideoAd: (GADRewardBasedVideoAd*)rewardBasedVideoAd
+    didRewardUserWithReward: (GADAdReward*)reward;
 
 @optional
 
 /// Tells the delegate that the reward based video ad failed to load.
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-    didFailToLoadWithError:(GAD_NULLABLE NSError *)error;
+- (void)rewardBasedVideoAd: (GADRewardBasedVideoAd*)rewardBasedVideoAd
+    didFailToLoadWithError: (GAD_NULLABLE NSError*)error;
 
 /// Tells the delegate that a reward based video ad was received.
-- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd;
+- (void)rewardBasedVideoAdDidReceiveAd: (GADRewardBasedVideoAd*)rewardBasedVideoAd;
 
 /// Tells the delegate that the reward based video ad opened.
-- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd;
+- (void)rewardBasedVideoAdDidOpen: (GADRewardBasedVideoAd*)rewardBasedVideoAd;
 
 /// Tells the delegate that the reward based video ad started playing.
-- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd;
+- (void)rewardBasedVideoAdDidStartPlaying: (GADRewardBasedVideoAd*)rewardBasedVideoAd;
 
 /// Tells the delegate that the reward based video ad closed.
-- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd;
+- (void)rewardBasedVideoAdDidClose: (GADRewardBasedVideoAd*)rewardBasedVideoAd;
 
 /// Tells the delegate that the reward based video ad will leave the application.
-- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd;
+- (void)rewardBasedVideoAdWillLeaveApplication: (GADRewardBasedVideoAd*)rewardBasedVideoAd;
 
 @end
 

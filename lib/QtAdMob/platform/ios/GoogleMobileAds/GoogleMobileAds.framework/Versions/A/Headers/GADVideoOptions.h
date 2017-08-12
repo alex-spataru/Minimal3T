@@ -13,8 +13,8 @@ GAD_ASSUME_NONNULL_BEGIN
 /// Video ad options.
 @interface GADVideoOptions : GADAdLoaderOptions
 
-/// Indicates if videos should start muted.
-@property(nonatomic, assign) BOOL startMuted;
+    /// Indicates if videos should start muted.
+    @property (nonatomic, assign) BOOL startMuted;
 
 @end
 

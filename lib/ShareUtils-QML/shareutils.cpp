@@ -23,26 +23,26 @@
 #include "shareutils.h"
 
 #ifdef Q_OS_IOS
-#include "ios/iosshareutils.h"
+    #include "ios/iosshareutils.h"
 #endif
 
 #ifdef Q_OS_ANDROID
-#include "android/androidshareutils.h"
+    #include "android/androidshareutils.h"
 #endif
 
-ShareUtils::ShareUtils(QQuickItem *parent)
-    : QQuickItem(parent)
+ShareUtils::ShareUtils (QQuickItem* parent)
+    : QQuickItem (parent)
 {
 #if defined(Q_OS_IOS)
-    _pShareUtils = new IosShareUtils(this);
+    _pShareUtils = new IosShareUtils (this);
 #elif defined(Q_OS_ANDROID)
-    _pShareUtils = new AndroidShareUtils(this);
+    _pShareUtils = new AndroidShareUtils (this);
 #else
-    _pShareUtils = new PlatformShareUtils(this);
+    _pShareUtils = new PlatformShareUtils (this);
 #endif
 }
 
-void ShareUtils::share(const QString &text, const QUrl &url)
+void ShareUtils::share (const QString& text, const QUrl& url)
 {
-    _pShareUtils->share(text, url);
+    _pShareUtils->share (text, url);
 }

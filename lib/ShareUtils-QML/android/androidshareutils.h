@@ -28,8 +28,8 @@
 class AndroidShareUtils : public PlatformShareUtils
 {
 public:
-    AndroidShareUtils(QQuickItem* parent = 0);
-    void share(const QString &text, const QUrl &url) override;
+    AndroidShareUtils (QQuickItem* parent = 0);
+    void share (const QString& text, const QUrl& url) override;
 };
 
 #endif // ANDROIDSHAREUTILS_H

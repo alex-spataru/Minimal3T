@@ -20,8 +20,8 @@ GAD_ASSUME_NONNULL_BEGIN
 
 /// Called after ad data has been received. You must construct a banner from |customRenderedAd| and
 /// call the |customRenderedAd| object's finishedRenderingAdView: when the ad has been rendered.
-- (void)bannerView:(DFPBannerView *)bannerView
-    didReceiveCustomRenderedAd:(DFPCustomRenderedAd *)customRenderedAd;
+- (void)bannerView: (DFPBannerView*)bannerView
+    didReceiveCustomRenderedAd: (DFPCustomRenderedAd*)customRenderedAd;
 
 @end
 

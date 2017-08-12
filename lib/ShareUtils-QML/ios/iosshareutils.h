@@ -30,8 +30,8 @@ class IosShareUtils : public PlatformShareUtils
     Q_OBJECT
 
 public:
-    explicit IosShareUtils(QQuickItem *parent = 0);
-    Q_INVOKABLE void share(const QString &text, const QUrl &url);
+    explicit IosShareUtils (QQuickItem* parent = 0);
+    Q_INVOKABLE void share (const QString& text, const QUrl& url);
 };
 
 #endif

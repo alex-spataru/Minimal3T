@@ -16,7 +16,7 @@ public:
     /*
      * Setup unit id and start caching interstitial for that id
      */
-    virtual void setUnitId(const QString& unitId) = 0;
+    virtual void setUnitId (const QString& unitId) = 0;
 
     /*
      * Retrive interstitial id
@@ -27,7 +27,7 @@ public:
      * If interstitial has already loaded it will be presented, another
      * case it will be showed after loading finished
      */
-    virtual void setVisible(bool isVisible) = 0;
+    virtual void setVisible (bool isVisible) = 0;
 
     /*
      * Is interstitial visible
@@ -44,7 +44,7 @@ public:
      * it will looks like 'Ads : Use AdRequest.Builder.addTestDevice("device id") to get test ads on this device.'
      * iOS: // TODO:
      */
-    virtual void addTestDevice(const QString& hashedDeviceId) = 0;
+    virtual void addTestDevice (const QString& hashedDeviceId) = 0;
 
 signals:
     void loaded();

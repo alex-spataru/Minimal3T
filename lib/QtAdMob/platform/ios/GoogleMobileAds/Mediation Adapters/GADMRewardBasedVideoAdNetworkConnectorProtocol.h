@@ -18,41 +18,41 @@
 
 /// Tells the delegate that the adapter successfully set up a reward based video ad.
 - (void)adapterDidSetUpRewardBasedVideoAd:
-        (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
+    (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
 
 /// Tells the delegate that the adapter failed to set up a reward based video ad.
-- (void)adapter:(id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter
-    didFailToSetUpRewardBasedVideoAdWithError:(NSError *)error;
+- (void)adapter: (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter
+    didFailToSetUpRewardBasedVideoAdWithError: (NSError*)error;
 
 /// Tells the delegate that a reward based video ad was clicked.
-- (void)adapterDidGetAdClick:(id<GADMRewardBasedVideoAdNetworkAdapter>)adapter;
+- (void)adapterDidGetAdClick: (id<GADMRewardBasedVideoAdNetworkAdapter>)adapter;
 
 /// Tells the delegate that a reward based video ad has loaded.
 - (void)adapterDidReceiveRewardBasedVideoAd:
-        (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
+    (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
 
 /// Tells the delegate that a reward based video ad has opened.
 - (void)adapterDidOpenRewardBasedVideoAd:
-        (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
+    (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
 
 /// Tells the delegate that a reward based video ad has started playing.
 - (void)adapterDidStartPlayingRewardBasedVideoAd:
-        (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
+    (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
 
 /// Tells the delegate that a reward based video ad has closed.
 - (void)adapterDidCloseRewardBasedVideoAd:
-        (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
+    (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
 
 /// Tells the delegate that the adapter has rewarded the user.
-- (void)adapter:(id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAd
-    didRewardUserWithReward:(GADAdReward *)reward;
+- (void)adapter: (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAd
+    didRewardUserWithReward: (GADAdReward*)reward;
 
 /// Tells the delegate that a reward based video ad's action will leave the application.
 - (void)adapterWillLeaveApplication:
-        (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
+    (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter;
 
 /// Tells the delegate that a reward based video ad failed to load.
-- (void)adapter:(id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter
-    didFailToLoadRewardBasedVideoAdwithError:(NSError *)error;
+- (void)adapter: (id<GADMRewardBasedVideoAdNetworkAdapter>)rewardBasedVideoAdAdapter
+    didFailToLoadRewardBasedVideoAdwithError: (NSError*)error;
 
 @end

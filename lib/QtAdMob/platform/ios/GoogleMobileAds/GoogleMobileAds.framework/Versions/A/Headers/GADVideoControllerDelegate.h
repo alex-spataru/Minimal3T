@@ -18,7 +18,7 @@ GAD_ASSUME_NONNULL_BEGIN
 @optional
 
 /// Tells the delegate that the video controller's video playback has ended.
-- (void)videoControllerDidEndVideoPlayback:(GADVideoController *)videoController;
+- (void)videoControllerDidEndVideoPlayback: (GADVideoController*)videoController;
 
 @end
 

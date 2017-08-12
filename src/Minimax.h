@@ -28,7 +28,8 @@
 #define MinimaxCache QVector<QPair<int,QVector<BoardPlayer>>>
 
 class ComputerPlayer;
-class Minimax : public QObject {
+class Minimax : public QObject
+{
     Q_OBJECT
 
 signals:
@@ -38,7 +39,7 @@ signals:
 public:
     Minimax (QObject* parent = 0);
     inline ComputerPlayer* cpuPlayer() const;
-    inline bool reachedMaxEvals (const Board &board) const;
+    inline bool reachedMaxEvals (const Board& board) const;
 
 public slots:
     void makeAiMove();

@@ -28,9 +28,12 @@
 class PlatformShareUtils : public QQuickItem
 {
 public:
-    PlatformShareUtils(QQuickItem *parent = 0) : QQuickItem(parent){}
+    PlatformShareUtils (QQuickItem* parent = 0) : QQuickItem (parent) {}
     virtual ~PlatformShareUtils() {}
-    virtual void share(const QString &text, const QUrl &url){ qDebug() << text << url; }
+    virtual void share (const QString& text, const QUrl& url)
+    {
+        qDebug() << text << url;
+    }
 };
 
 class ShareUtils : public QQuickItem
@@ -38,10 +41,11 @@ class ShareUtils : public QQuickItem
     Q_OBJECT
     PlatformShareUtils* _pShareUtils;
 public:
-    explicit ShareUtils(QQuickItem *parent = 0);
-    Q_INVOKABLE void share(const QString &text, const QUrl &url);
+    explicit ShareUtils (QQuickItem* parent = 0);
+    Q_INVOKABLE void share (const QString& text, const QUrl& url);
 
-    static void DeclareQML() {
+    static void DeclareQML()
+    {
         qmlRegisterType<ShareUtils> ("com.lasconic", 1, 0, "ShareUtils");
     }
 };

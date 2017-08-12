@@ -12,7 +12,7 @@
 /// Ad network extras sent to Google networks.
 @interface GADExtras : NSObject<GADAdNetworkExtras>
 
-/// Additional parameters to be sent to Google networks.
-@property(nonatomic, copy) NSDictionary *additionalParameters;
+    /// Additional parameters to be sent to Google networks.
+    @property (nonatomic, copy) NSDictionary* additionalParameters;
 
 @end

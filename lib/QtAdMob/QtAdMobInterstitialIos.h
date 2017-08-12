@@ -7,7 +7,7 @@
 
 class QAndroidJniObject;
 #if defined(__OBJC__)
-@class QtAdMobInterstitialDelegate;
+    @class QtAdMobInterstitialDelegate;
 #endif
 
 class QtAdMobInterstitialIos : public IQtAdMobInterstitial
@@ -20,7 +20,7 @@ public:
     /*
      * Setup unit id and start caching interstitial for that id
      */
-    virtual void setUnitId(const QString& unitId);
+    virtual void setUnitId (const QString& unitId);
 
     /*
      * Retrive interstitial id
@@ -31,7 +31,7 @@ public:
      * If interstitial has already loaded it will be presented, another
      * case it will be showed after loading finished
      */
-    virtual void setVisible(bool isVisible);
+    virtual void setVisible (bool isVisible);
 
     /*
      * Is interstitial visible
@@ -48,10 +48,10 @@ public:
      * it will looks like 'Ads : Use AdRequest.Builder.addTestDevice("device id") to get test ads on this device.'
      * iOS: // TODO:
      */
-    virtual void addTestDevice(const QString& hashedDeviceId);
+    virtual void addTestDevice (const QString& hashedDeviceId);
 
 private:
-    void onStatusChanged(bool status);
+    void onStatusChanged (bool status);
     bool isValid() const;
 
 private:

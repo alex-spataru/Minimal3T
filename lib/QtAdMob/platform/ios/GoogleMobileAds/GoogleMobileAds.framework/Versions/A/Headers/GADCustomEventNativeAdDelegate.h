@@ -16,11 +16,11 @@
 @protocol GADCustomEventNativeAdDelegate<NSObject>
 
 /// Tells the delegate that the custom event ad request succeeded and loaded a native ad.
-- (void)customEventNativeAd:(id<GADCustomEventNativeAd>)customEventNativeAd
-    didReceiveMediatedNativeAd:(id<GADMediatedNativeAd>)mediatedNativeAd;
+- (void)customEventNativeAd: (id<GADCustomEventNativeAd>)customEventNativeAd
+    didReceiveMediatedNativeAd: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 /// Tells the delegate that the custom event ad request failed.
-- (void)customEventNativeAd:(id<GADCustomEventNativeAd>)customEventNativeAd
-     didFailToLoadWithError:(NSError *)error;
+- (void)customEventNativeAd: (id<GADCustomEventNativeAd>)customEventNativeAd
+    didFailToLoadWithError: (NSError*)error;
 
 @end

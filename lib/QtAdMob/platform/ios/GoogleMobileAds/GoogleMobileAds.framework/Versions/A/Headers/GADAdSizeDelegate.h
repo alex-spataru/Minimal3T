@@ -19,7 +19,7 @@ GAD_ASSUME_NONNULL_BEGIN
 @protocol GADAdSizeDelegate<NSObject>
 
 /// Called before the ad view changes to the new size.
-- (void)adView:(GADBannerView *)bannerView willChangeAdSizeTo:(GADAdSize)size;
+- (void)adView: (GADBannerView*)bannerView willChangeAdSizeTo: (GADAdSize)size;
 
 @end
 

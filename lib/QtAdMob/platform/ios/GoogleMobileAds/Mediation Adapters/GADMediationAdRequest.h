@@ -12,10 +12,10 @@
 @protocol GADMediationAdRequest<NSObject>
 
 /// Publisher ID set by the publisher on the AdMob frontend.
-- (NSString *)publisherId;
+- (NSString*)publisherId;
 
 /// Mediation configurations set by the publisher on the AdMob frontend.
-- (NSDictionary *)credentials;
+- (NSDictionary*)credentials;
 
 /// Returns YES if the publisher is requesting test ads.
 - (BOOL)testMode;
@@ -26,14 +26,14 @@
 /// Returns the value of childDirectedTreatment supplied by the publisher. Returns nil if the
 /// publisher hasn't specified child directed treatment. Returns @YES if child directed treatment is
 /// enabled.
-- (NSNumber *)childDirectedTreatment;
+- (NSNumber*)childDirectedTreatment;
 
 /// The end user's gender set by the publisher in GADRequest. Returns kGADGenderUnknown if it has
 /// not been specified.
 - (GADGender)userGender;
 
 /// The end user's birthday set by the publisher. Returns nil if it has not been specified.
-- (NSDate *)userBirthday;
+- (NSDate*)userBirthday;
 
 /// Returns YES if the publisher has specified latitude and longitude location.
 - (BOOL)userHasLocation;
@@ -48,9 +48,9 @@
 - (CGFloat)userLocationAccuracyInMeters;
 
 /// Returns user's location description. May return a value even if userHasLocation is NO.
-- (NSString *)userLocationDescription;
+- (NSString*)userLocationDescription;
 
 /// Keywords describing the user's current activity. Example: @"Sport Scores".
-- (NSArray *)userKeywords;
+- (NSArray*)userKeywords;
 
 @end

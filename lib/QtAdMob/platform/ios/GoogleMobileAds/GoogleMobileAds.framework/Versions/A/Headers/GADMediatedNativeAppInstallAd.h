@@ -14,27 +14,27 @@
 @protocol GADMediatedNativeAppInstallAd<GADMediatedNativeAd>
 
 /// App title.
-- (NSString *)headline;
+- (NSString*)headline;
 
 /// Array of GADNativeAdImage objects related to the advertised application.
-- (NSArray *)images;
+- (NSArray*)images;
 
 /// App description.
-- (NSString *)body;
+- (NSString*)body;
 
 /// Application icon.
-- (GADNativeAdImage *)icon;
+- (GADNativeAdImage*)icon;
 
 /// Text that encourages user to take some action with the ad. For example "Install".
-- (NSString *)callToAction;
+- (NSString*)callToAction;
 
 /// App store rating (0 to 5).
-- (NSDecimalNumber *)starRating;
+- (NSDecimalNumber*)starRating;
 
 /// The app store name. For example, "App Store".
-- (NSString *)store;
+- (NSString*)store;
 
 /// String representation of the app's price.
-- (NSString *)price;
+- (NSString*)price;
 
 @end

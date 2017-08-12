@@ -17,13 +17,13 @@
 @optional
 
 /// Called when the banner receives an app event.
-- (void)adView:(GADBannerView *)banner
-    didReceiveAppEvent:(NSString *)name
-              withInfo:(NSString *)info;
+- (void)adView: (GADBannerView*)banner
+    didReceiveAppEvent: (NSString*)name
+    withInfo: (NSString*)info;
 
 /// Called when the interstitial receives an app event.
-- (void)interstitial:(GADInterstitial *)interstitial
-    didReceiveAppEvent:(NSString *)name
-              withInfo:(NSString *)info;
+- (void)interstitial: (GADInterstitial*)interstitial
+    didReceiveAppEvent: (NSString*)name
+    withInfo: (NSString*)info;
 
 @end

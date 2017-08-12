@@ -23,7 +23,7 @@
 #ifndef _BOARD_H
 #define _BOARD_H
 
-#include <QList>
+#include <QVector>
 
 enum BoardPlayer {
     kUndefined      = 0x00,

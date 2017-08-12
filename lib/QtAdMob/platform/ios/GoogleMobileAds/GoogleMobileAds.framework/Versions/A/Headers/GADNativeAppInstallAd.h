@@ -25,28 +25,28 @@ GAD_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Must be displayed
 
-/// App title.
-@property(nonatomic, readonly, copy) NSString *headline;
+    /// App title.
+    @property (nonatomic, readonly, copy) NSString* headline;
 /// Text that encourages user to take some action with the ad. For example "Install".
-@property(nonatomic, readonly, copy) NSString *callToAction;
+@property (nonatomic, readonly, copy) NSString* callToAction;
 /// Application icon.
-@property(nonatomic, readonly, strong) GADNativeAdImage *icon;
+@property (nonatomic, readonly, strong) GADNativeAdImage* icon;
 
 #pragma mark - Recommended to display
 
 /// App description.
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *body;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSString* body;
 /// The app store name. For example, "App Store".
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *store;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSString* store;
 /// String representation of the app's price.
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *price;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSString* price;
 /// Array of GADNativeAdImage objects related to the advertised application.
-@property(nonatomic, readonly, strong, GAD_NULLABLE) NSArray *images;
+@property (nonatomic, readonly, strong, GAD_NULLABLE) NSArray* images;
 /// App store rating (0 to 5).
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSDecimalNumber *starRating;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSDecimalNumber* starRating;
 /// Video controller for controlling video playback in GADNativeAppInstallAdView's mediaView.
 /// Returns nil if the ad doesn't contain a video asset.
-@property(nonatomic, strong, readonly, GAD_NULLABLE) GADVideoController *videoController;
+@property (nonatomic, strong, readonly, GAD_NULLABLE) GADVideoController* videoController;
 
 @end
 
@@ -56,8 +56,8 @@ GAD_ASSUME_NONNULL_BEGIN
 /// ads.
 @protocol GADNativeAppInstallAdLoaderDelegate<GADAdLoaderDelegate>
 /// Called when a native app install ad is received.
-- (void)adLoader:(GADAdLoader *)adLoader
-    didReceiveNativeAppInstallAd:(GADNativeAppInstallAd *)nativeAppInstallAd;
+- (void)adLoader: (GADAdLoader*)adLoader
+    didReceiveNativeAppInstallAd: (GADNativeAppInstallAd*)nativeAppInstallAd;
 @end
 
 #pragma mark - Native App Install Ad View
@@ -66,27 +66,27 @@ GAD_ASSUME_NONNULL_BEGIN
 /// and must call superclass methods for all overriden methods.
 @interface GADNativeAppInstallAdView : UIView
 
-/// This property must point to the native app install ad object rendered by this ad view.
-@property(nonatomic, strong) GADNativeAppInstallAd *nativeAppInstallAd;
+    /// This property must point to the native app install ad object rendered by this ad view.
+    @property (nonatomic, strong) GADNativeAppInstallAd* nativeAppInstallAd;
 
 /// Weak reference to your ad view's headline asset view.
-@property(nonatomic, weak) IBOutlet UIView *headlineView;
+@property (nonatomic, weak) IBOutlet UIView* headlineView;
 /// Weak reference to your ad view's call to action asset view.
-@property(nonatomic, weak) IBOutlet UIView *callToActionView;
+@property (nonatomic, weak) IBOutlet UIView* callToActionView;
 /// Weak reference to your ad view's icon asset view.
-@property(nonatomic, weak) IBOutlet UIView *iconView;
+@property (nonatomic, weak) IBOutlet UIView* iconView;
 /// Weak reference to your ad view's body asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *bodyView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* bodyView;
 /// Weak reference to your ad view's store asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *storeView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* storeView;
 /// Weak reference to your ad view's price asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *priceView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* priceView;
 /// Weak reference to your ad view's image asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *imageView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* imageView;
 /// Weak reference to your ad view's star rating asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *starRatingView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* starRatingView;
 /// Weak reference to your ad view's media asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet GADMediaView *mediaView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet GADMediaView* mediaView;
 
 @end
 

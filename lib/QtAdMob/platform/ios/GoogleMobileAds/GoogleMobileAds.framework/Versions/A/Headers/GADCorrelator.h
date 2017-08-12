@@ -11,7 +11,7 @@
 /// indicate they are being used in a common context.
 @interface GADCorrelator : NSObject
 
-/// Resets the correlator to force a new set of correlated ads.
+    /// Resets the correlator to force a new set of correlated ads.
 - (void)reset;
 
 @end

@@ -28,24 +28,27 @@
 /**
  * Returns the base score for the minimax function
  */
-static int BaseScore (const Board& board) {
+static int BaseScore (const Board& board)
+{
     return board.fields.count() + 1;
 }
 
 /**
  * Returns a random number between \a min and \a max
  */
-static int RANDOM (const int min, const int max) {
+static int RANDOM (const int min, const int max)
+{
     std::random_device device;
     std::mt19937 engine (device());
-    std::uniform_int_distribution<int> distribution (min ,max);
+    std::uniform_int_distribution<int> distribution (min , max);
     return distribution (engine);
 }
 
 /**
  * Initializes the internal variables of the class
  */
-Minimax::Minimax (QObject *parent) : QObject (parent) {
+Minimax::Minimax (QObject* parent) : QObject (parent)
+{
     m_evaluations = 0;
     m_cache = Q_NULLPTR;
     m_cpuPlayer = Q_NULLPTR;
@@ -56,7 +59,8 @@ Minimax::Minimax (QObject *parent) : QObject (parent) {
  * The minimax code needs some information from the computer player,
  * such as its assigned game board, player ID and opponent ID.
  */
-ComputerPlayer* Minimax::cpuPlayer() const {
+ComputerPlayer* Minimax::cpuPlayer() const
+{
     return m_cpuPlayer;
 }
 
@@ -67,7 +71,8 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  * This function is used in order to reduce the time required for the
  * AI to make a meaningul decision.
  */
-bool Minimax::reachedMaxEvals (const Board &board) const {
+bool Minimax::reachedMaxEvals (const Board& board) const
+{
     if (board.fields.count() > 9) {
         int maxPower = qMin (board.fieldsToAllign - 1, 4);
         int maxEvals = BoardSize (board) * board.fieldsToAllign;
@@ -88,7 +93,8 @@ bool Minimax::reachedMaxEvals (const Board &board) const {
  * \note This function shall automatically mark the choosen field in the game
  *       board used by the computer player
  */
-void Minimax::makeAiMove() {
+void Minimax::makeAiMove()
+{
     Q_ASSERT (cpuPlayer());
 
     /* Initialize variables */
@@ -160,7 +166,8 @@ void Minimax::makeAiMove() {
  * Registers a pointer in which we shall write all the search trees generated
  * by the minimax algorythm
  */
-void Minimax::setCache (MinimaxCache *cache) {
+void Minimax::setCache (MinimaxCache* cache)
+{
     if (cache)
         m_cache = cache;
 }
@@ -168,7 +175,8 @@ void Minimax::setCache (MinimaxCache *cache) {
 /**
  * Changes the computer player assigned to this class
  */
-void Minimax::setComputerPlayer (ComputerPlayer *player) {
+void Minimax::setComputerPlayer (ComputerPlayer* player)
+{
     Q_ASSERT (player);
     m_cpuPlayer = player;
 }
@@ -176,7 +184,8 @@ void Minimax::setComputerPlayer (ComputerPlayer *player) {
 /**
  * Returns a randomly-choosen field from the given \a board
  */
-int Minimax::randomMove () {
+int Minimax::randomMove ()
+{
     Board board = QmlBoard::getInstance()->board();
     int n = RANDOM (1, AvailableFields (board).count());
     return AvailableFields (board).at (n - 1);
@@ -186,7 +195,8 @@ int Minimax::randomMove () {
  * Executes the Minimax algorithm in order to find the most optimal move that can be
  * choosen by the AI player
  */
-int Minimax::minimax (Board &board, const int depth, int alpha, int beta) {
+int Minimax::minimax (Board& board, const int depth, int alpha, int beta)
+{
     /* Increase number of evaluations */
     ++m_evaluations;
 

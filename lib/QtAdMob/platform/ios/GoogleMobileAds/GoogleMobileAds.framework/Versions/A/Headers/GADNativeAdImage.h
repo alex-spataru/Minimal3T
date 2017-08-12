@@ -11,13 +11,13 @@
 /// Native ad image.
 @interface GADNativeAdImage : NSObject
 
-/// The image. If image autoloading is disabled, this property will be nil.
-@property(nonatomic, readonly, strong) UIImage *image;
+    /// The image. If image autoloading is disabled, this property will be nil.
+    @property (nonatomic, readonly, strong) UIImage* image;
 
 /// The image's URL.
-@property(nonatomic, readonly, strong) NSURL *imageURL;
+@property (nonatomic, readonly, strong) NSURL* imageURL;
 
 /// The image's scale.
-@property(nonatomic, readonly, assign) CGFloat scale;
+@property (nonatomic, readonly, assign) CGFloat scale;
 
 @end

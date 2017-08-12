@@ -18,7 +18,7 @@
 ///
 /// In your class, define the -delegate and -setDelegate: methods or use "@synthesize delegate". The
 /// Google Mobile Ads SDK sets this property on instances of your class.
-@property(nonatomic, weak) id<GADCustomEventInterstitialDelegate> delegate;
+@property (nonatomic, weak) id<GADCustomEventInterstitialDelegate> delegate;
 
 /// Called by mediation when your custom event is scheduled to be executed. Your implementation
 /// should start retrieving the interstitial ad. Report execution results to the delegate. You must
@@ -27,12 +27,12 @@
 /// @param serverParameter Parameter configured in the mediation UI.
 /// @param serverLabel Label configured in the mediation UI.
 /// @param request Contains ad request information.
-- (void)requestInterstitialAdWithParameter:(NSString *)serverParameter
-                                     label:(NSString *)serverLabel
-                                   request:(GADCustomEventRequest *)request;
+- (void)requestInterstitialAdWithParameter: (NSString*)serverParameter
+    label: (NSString*)serverLabel
+    request: (GADCustomEventRequest*)request;
 
 /// Present the interstitial ad as a modal view using the provided view controller. Called only
 /// after your class calls -customEventInterstitialDidReceiveAd: on its custom event delegate.
-- (void)presentFromRootViewController:(UIViewController *)rootViewController;
+- (void)presentFromRootViewController: (UIViewController*)rootViewController;
 
 @end

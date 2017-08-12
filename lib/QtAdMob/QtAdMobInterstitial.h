@@ -18,9 +18,9 @@ inline IQtAdMobInterstitial* CreateQtAdMobInterstitial()
 
 class QmlAdMobInterstitial : public QObject
 {
-    Q_PROPERTY(QString unitId READ unitId WRITE setUnitId NOTIFY unitIdChanged)
-    Q_PROPERTY(bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
-    Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY loaded)
+    Q_PROPERTY (QString unitId READ unitId WRITE setUnitId NOTIFY unitIdChanged)
+    Q_PROPERTY (bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
+    Q_PROPERTY (bool isLoaded READ isLoaded NOTIFY loaded)
 
     Q_OBJECT
 public:
@@ -35,7 +35,7 @@ public:
     /*
      * Setup unit id and start caching interstitial for that id
      */
-    void setUnitId(const QString& unitId);
+    void setUnitId (const QString& unitId);
 
     /*
      * Retrive interstitial id
@@ -46,7 +46,7 @@ public:
      * If interstitial has already loaded it will be presented, another
      * case it will be showed after loading finished
      */
-    void setVisible(bool isVisible);
+    void setVisible (bool isVisible);
 
     /*
      * Is interstitial visible
@@ -63,7 +63,7 @@ public:
      * it will looks like 'Ads : Use AdRequest.Builder.addTestDevice("device id") to get test ads on this device.'
      * iOS: // TODO:
      */
-    Q_INVOKABLE void addTestDevice(const QString& hashedDeviceId);
+    Q_INVOKABLE void addTestDevice (const QString& hashedDeviceId);
 
 signals:
     void unitIdChanged();

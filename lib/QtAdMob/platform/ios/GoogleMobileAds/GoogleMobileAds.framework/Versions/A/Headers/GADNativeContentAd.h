@@ -25,21 +25,21 @@ GAD_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Must be displayed
 
-/// Primary text headline.
-@property(nonatomic, readonly, copy) NSString *headline;
+    /// Primary text headline.
+    @property (nonatomic, readonly, copy) NSString* headline;
 /// Secondary text.
-@property(nonatomic, readonly, copy) NSString *body;
+@property (nonatomic, readonly, copy) NSString* body;
 
 #pragma mark - Recommended to display
 
 /// Large images.
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSArray *images;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSArray* images;
 /// Small logo image.
-@property(nonatomic, readonly, strong, GAD_NULLABLE) GADNativeAdImage *logo;
+@property (nonatomic, readonly, strong, GAD_NULLABLE) GADNativeAdImage* logo;
 /// Text that encourages user to take some action with the ad.
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *callToAction;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSString* callToAction;
 /// Identifies the advertiser. For example, the advertiser’s name or visible URL.
-@property(nonatomic, readonly, copy, GAD_NULLABLE) NSString *advertiser;
+@property (nonatomic, readonly, copy, GAD_NULLABLE) NSString* advertiser;
 @end
 
 #pragma mark - Protocol and constants
@@ -47,8 +47,8 @@ GAD_ASSUME_NONNULL_BEGIN
 /// The delegate of a GADAdLoader object implements this protocol to receive GADNativeContentAd ads.
 @protocol GADNativeContentAdLoaderDelegate<GADAdLoaderDelegate>
 /// Called when native content is received.
-- (void)adLoader:(GADAdLoader *)adLoader
-    didReceiveNativeContentAd:(GADNativeContentAd *)nativeContentAd;
+- (void)adLoader: (GADAdLoader*)adLoader
+    didReceiveNativeContentAd: (GADNativeContentAd*)nativeContentAd;
 @end
 
 #pragma mark - Native Content Ad View
@@ -57,21 +57,21 @@ GAD_ASSUME_NONNULL_BEGIN
 /// call superclass methods for all overriden methods.
 @interface GADNativeContentAdView : UIView
 
-/// This property must point to the native content ad object rendered by this ad view.
-@property(nonatomic, strong) GADNativeContentAd *nativeContentAd;
+    /// This property must point to the native content ad object rendered by this ad view.
+    @property (nonatomic, strong) GADNativeContentAd* nativeContentAd;
 
 /// Weak reference to your ad view's headline asset view.
-@property(nonatomic, weak) IBOutlet UIView *headlineView;
+@property (nonatomic, weak) IBOutlet UIView* headlineView;
 /// Weak reference to your ad view's body asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *bodyView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* bodyView;
 /// Weak reference to your ad view's image asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *imageView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* imageView;
 /// Weak reference to your ad view's logo asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *logoView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* logoView;
 /// Weak reference to your ad view's call to action asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *callToActionView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* callToActionView;
 /// Weak reference to your ad view's advertiser asset view.
-@property(nonatomic, weak, GAD_NULLABLE) IBOutlet UIView *advertiserView;
+@property (nonatomic, weak, GAD_NULLABLE) IBOutlet UIView* advertiserView;
 
 @end
 

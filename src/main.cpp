@@ -34,7 +34,8 @@
 #include "AdInfo.h"
 #include "ComputerPlayer.h"
 
-int main (int argc, char **argv) {
+int main (int argc, char** argv)
+{
     QGuiApplication::setApplicationVersion ("1.0");
     QGuiApplication::setApplicationName ("SuperTac");
     QGuiApplication::setOrganizationName ("Alex Spataru");
@@ -60,7 +61,8 @@ int main (int argc, char **argv) {
     engine.rootContext()->setContextProperty ("Company", app.organizationName());
     engine.rootContext()->setContextProperty ("Version", app.applicationVersion());
     engine.rootContext()->setContextProperty ("Board", QmlBoard::getInstance());
-    engine.rootContext()->setContextProperty ("DevicePixelRatio", app.primaryScreen()->devicePixelRatio());
+    engine.rootContext()->setContextProperty ("DevicePixelRatio",
+                                              app.primaryScreen()->devicePixelRatio());
     engine.load (QUrl (QStringLiteral ("qrc:/qml/main.qml")));
 
     if (engine.rootObjects().isEmpty())

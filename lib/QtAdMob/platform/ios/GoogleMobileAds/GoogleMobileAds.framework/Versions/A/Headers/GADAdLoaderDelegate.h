@@ -19,7 +19,7 @@ GAD_ASSUME_NONNULL_BEGIN
 @protocol GADAdLoaderDelegate<NSObject>
 
 /// Called when adLoader fails to load an ad.
-- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(GADRequestError *)error;
+- (void)adLoader: (GADAdLoader*)adLoader didFailToReceiveAdWithError: (GADRequestError*)error;
 
 @end
 

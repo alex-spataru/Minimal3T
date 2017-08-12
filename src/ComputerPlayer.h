@@ -28,12 +28,13 @@
 #include "QmlBoard.h"
 
 #ifdef QT_QML_LIB
-#include <QtQml>
+    #include <QtQml>
 #endif
 
 #define MAX_CACHE_LEN 65535
 
-class ComputerPlayer : public QObject {
+class ComputerPlayer : public QObject
+{
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -69,15 +70,18 @@ public:
     BoardPlayer player() const;
     BoardPlayer opponent() const;
 
-    inline MinimaxCache cache() const {
+    inline MinimaxCache cache() const
+    {
         return m_cache;
     }
 
-    inline QmlBoard::Player qmlPlayer() const {
+    inline QmlBoard::Player qmlPlayer() const
+    {
         return (QmlBoard::Player) player();
     }
 
-    inline QmlBoard::Player qmlOpponent() const {
+    inline QmlBoard::Player qmlOpponent() const
+    {
         return (QmlBoard::Player) opponent();
     }
 

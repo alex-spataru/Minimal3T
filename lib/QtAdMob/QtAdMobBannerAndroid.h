@@ -16,7 +16,7 @@ public:
     /*
      * Configure banner id
      */
-    virtual void setUnitId(const QString& unitId);
+    virtual void setUnitId (const QString& unitId);
 
     /*
      * Retrive banner id
@@ -26,7 +26,7 @@ public:
     /*
      * Setup preconfigured banner size
      */
-    virtual void setSize(Sizes size);
+    virtual void setSize (Sizes size);
 
     /*
      * Retrieve banner size
@@ -41,7 +41,7 @@ public:
     /*
      * Setup banner position
      */
-    virtual void setPosition(const QPoint& position);
+    virtual void setPosition (const QPoint& position);
 
     /*
      * Retrieve banner position
@@ -51,7 +51,7 @@ public:
     /*
      * Show banner
      */
-    virtual void setVisible(bool isVisible);
+    virtual void setVisible (bool isVisible);
 
     /*
      * Is banner showed
@@ -66,7 +66,7 @@ public:
     /*
      * Add test device identifier
      */
-    void addTestDevice(const QString& hashedDeviceId);
+    void addTestDevice (const QString& hashedDeviceId);
 
     /*
      * For internal purpose only

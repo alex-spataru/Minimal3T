@@ -14,26 +14,26 @@
 /// by calling the relevant methods from this class.
 @interface GADMediatedNativeAdNotificationSource : NSObject
 
-/// Called by the adapter when it has registered an impression on the tracked view. Adapter should
-/// only call this method if -[GADMAdNetworkAdapter handlesUserImpressions] returns YES.
-+ (void)mediatedNativeAdDidRecordImpression:(id<GADMediatedNativeAd>)mediatedNativeAd;
+    /// Called by the adapter when it has registered an impression on the tracked view. Adapter should
+    /// only call this method if -[GADMAdNetworkAdapter handlesUserImpressions] returns YES.
++ (void)mediatedNativeAdDidRecordImpression: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 /// Called by the adapter when it has registered a user click on the tracked view. Adapter should
 /// only call this method if -[GADMAdNetworkAdapter handlesUserClicks] returns YES.
-+ (void)mediatedNativeAdDidRecordClick:(id<GADMediatedNativeAd>)mediatedNativeAd;
++ (void)mediatedNativeAdDidRecordClick: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 /// Must be called by the adapter just before mediatedNativeAd has opened an in app modal screen.
-+ (void)mediatedNativeAdWillPresentScreen:(id<GADMediatedNativeAd>)mediatedNativeAd;
++ (void)mediatedNativeAdWillPresentScreen: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 /// Must be called by the adapter just before the in app modal screen opened by mediatedNativeAd is
 /// dismissed.
-+ (void)mediatedNativeAdWillDismissScreen:(id<GADMediatedNativeAd>)mediatedNativeAd;
++ (void)mediatedNativeAdWillDismissScreen: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 /// Must be called by the adapter after the in app modal screen opened by mediatedNativeAd is
 /// dismissed.
-+ (void)mediatedNativeAdDidDismissScreen:(id<GADMediatedNativeAd>)mediatedNativeAd;
++ (void)mediatedNativeAdDidDismissScreen: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 /// Must be called by the adapter just before mediatedNativeAd has left the application.
-+ (void)mediatedNativeAdWillLeaveApplication:(id<GADMediatedNativeAd>)mediatedNativeAd;
++ (void)mediatedNativeAdWillLeaveApplication: (id<GADMediatedNativeAd>)mediatedNativeAd;
 
 @end

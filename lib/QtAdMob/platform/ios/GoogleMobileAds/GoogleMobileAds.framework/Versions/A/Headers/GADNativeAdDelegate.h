@@ -24,18 +24,18 @@
 /// App Store link, your application will end. The next method called will be the
 /// applicationWillResignActive: of your UIApplicationDelegate object.Immediately after that,
 /// nativeAdWillLeaveApplication: is called.
-- (void)nativeAdWillPresentScreen:(GADNativeAd *)nativeAd;
+- (void)nativeAdWillPresentScreen: (GADNativeAd*)nativeAd;
 
 /// Called just before dismissing a full screen view.
-- (void)nativeAdWillDismissScreen:(GADNativeAd *)nativeAd;
+- (void)nativeAdWillDismissScreen: (GADNativeAd*)nativeAd;
 
 /// Called just after dismissing a full screen view. Use this opportunity to restart anything you
 /// may have stopped as part of nativeAdWillPresentScreen:.
-- (void)nativeAdDidDismissScreen:(GADNativeAd *)nativeAd;
+- (void)nativeAdDidDismissScreen: (GADNativeAd*)nativeAd;
 
 /// Called just before the application will go to the background or terminate due to an ad action
 /// that will launch another application (such as the App Store). The normal UIApplicationDelegate
 /// methods, like applicationDidEnterBackground:, will be called immediately before this.
-- (void)nativeAdWillLeaveApplication:(GADNativeAd *)nativeAd;
+- (void)nativeAdWillLeaveApplication: (GADNativeAd*)nativeAd;
 
 @end

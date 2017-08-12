@@ -24,11 +24,11 @@
 /// @param options Additional options configured by the publisher for requesting a native ad. See
 /// GADNativeAdImageAdLoaderOptions.h for available image options.
 /// @param rootViewController Publisher-provided view controller.
-- (void)requestNativeAdWithParameter:(NSString *)serverParameter
-                             request:(GADCustomEventRequest *)request
-                             adTypes:(NSArray *)adTypes
-                             options:(NSArray *)options
-                  rootViewController:(UIViewController *)rootViewController;
+- (void)requestNativeAdWithParameter: (NSString*)serverParameter
+    request: (GADCustomEventRequest*)request
+    adTypes: (NSArray*)adTypes
+    options: (NSArray*)options
+    rootViewController: (UIViewController*)rootViewController;
 
 /// Indicates if the custom event handles user clicks. Return YES if the custom event should handle
 /// user clicks. In this case, the Google Mobile Ads SDK doesn't track user clicks and the custom
@@ -48,6 +48,6 @@
 - (BOOL)handlesUserImpressions;
 
 /// Delegate object used for receiving custom native ad load request progress.
-@property(nonatomic, weak) id<GADCustomEventNativeAdDelegate> delegate;
+@property (nonatomic, weak) id<GADCustomEventNativeAdDelegate> delegate;
 
 @end

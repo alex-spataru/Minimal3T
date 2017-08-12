@@ -21,8 +21,8 @@ GAD_ASSUME_NONNULL_BEGIN
 /// ad view class exposes video controller.
 @interface GADVideoController : NSObject
 
-/// Delegate for receiving video notifications.
-@property(nonatomic, weak, GAD_NULLABLE) id<GADVideoControllerDelegate> delegate;
+    /// Delegate for receiving video notifications.
+    @property (nonatomic, weak, GAD_NULLABLE) id<GADVideoControllerDelegate> delegate;
 
 /// Returns a Boolean indicating if the receiver has video content.
 - (BOOL)hasVideoContent;

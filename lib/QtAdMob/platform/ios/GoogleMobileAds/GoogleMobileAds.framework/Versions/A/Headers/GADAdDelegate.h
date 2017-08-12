@@ -21,7 +21,7 @@ GAD_ASSUME_NONNULL_BEGIN
 /// Asks the delegate if the audio session category can be changed while displaying an ad. Return NO
 /// to prevent the Google Mobile Ads SDK from changing the audio session category. The default
 /// behavior if unimplemented is to return YES.
-- (BOOL)ad:(id)ad shouldChangeAudioSessionToCategory:(NSString *)audioSessionCategory;
+- (BOOL)ad: (id)ad shouldChangeAudioSessionToCategory: (NSString*)audioSessionCategory;
 
 @end
 

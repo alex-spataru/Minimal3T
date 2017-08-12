@@ -28,7 +28,8 @@
 
 #include "Board.h"
 
-class QmlBoard : public QObject {
+class QmlBoard : public QObject
+{
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -103,9 +104,20 @@ public:
     int boardSize() const;
     int fieldsToAllign() const;
 
-    inline bool gameDraw() const { return gameState() == Draw; }
-    inline bool gameWon() const { return gameState() == GameEnded; }
-    inline bool gameInProgress() const { return gameState() == GameInProgress; }
+    inline bool gameDraw() const
+    {
+        return gameState() == Draw;
+    }
+    
+    inline bool gameWon() const
+    {
+        return gameState() == GameEnded;
+    }
+    
+    inline bool gameInProgress() const
+    {
+        return gameState() == GameInProgress;
+    }
 
     Board board() const;
     Player winner() const;

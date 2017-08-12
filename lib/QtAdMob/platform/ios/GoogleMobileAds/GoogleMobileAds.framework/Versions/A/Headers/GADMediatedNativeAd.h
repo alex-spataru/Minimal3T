@@ -16,6 +16,6 @@
 
 /// Returns a dictionary of asset names and object pairs for assets that are not handled by
 /// properties of the GADMediatedNativeAd subclass.
-- (NSDictionary *)extraAssets;
+- (NSDictionary*)extraAssets;
 
 @end

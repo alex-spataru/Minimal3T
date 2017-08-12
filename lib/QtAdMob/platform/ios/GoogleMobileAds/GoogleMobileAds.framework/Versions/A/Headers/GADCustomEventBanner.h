@@ -18,7 +18,7 @@
 ///
 /// In your class, define the -delegate and -setDelegate: methods or use "@synthesize delegate". The
 /// Google Mobile Ads SDK sets this property on instances of your class.
-@property(nonatomic, weak) id<GADCustomEventBannerDelegate> delegate;
+@property (nonatomic, weak) id<GADCustomEventBannerDelegate> delegate;
 
 /// Called by mediation when your custom event is scheduled to be executed. Report execution results
 /// to the delegate.
@@ -27,9 +27,9 @@
 /// @param serverParameter Parameter configured in the mediation UI.
 /// @param serverLabel Label configured in the mediation UI.
 /// @param request Contains ad request information.
-- (void)requestBannerAd:(GADAdSize)adSize
-              parameter:(NSString *)serverParameter
-                  label:(NSString *)serverLabel
-                request:(GADCustomEventRequest *)request;
+- (void)requestBannerAd: (GADAdSize)adSize
+    parameter: (NSString*)serverParameter
+    label: (NSString*)serverLabel
+    request: (GADCustomEventRequest*)request;
 
 @end

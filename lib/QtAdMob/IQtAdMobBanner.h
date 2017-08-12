@@ -10,8 +10,7 @@ class IQtAdMobBanner : public QObject
 {
     Q_OBJECT
 public:
-    enum Sizes
-    {
+    enum Sizes {
         Banner = 0,
         FullBanner,
         LargeBanner,
@@ -19,15 +18,15 @@ public:
         SmartBanner,
         WideSkyscraper
     };
-    Q_ENUMS(Sizes)
+    Q_ENUMS (Sizes)
 
-    IQtAdMobBanner(QObject* parent = 0) : QObject(parent) {}
+    IQtAdMobBanner (QObject* parent = 0) : QObject (parent) {}
     virtual ~IQtAdMobBanner() {}
 
     /*
      * Configure banner id
      */
-    virtual void setUnitId(const QString& unitId) = 0;
+    virtual void setUnitId (const QString& unitId) = 0;
 
     /*
      * Retrive banner id
@@ -37,7 +36,7 @@ public:
     /*
      * Setup preconfigured banner size
      */
-    virtual void setSize(Sizes size) = 0;
+    virtual void setSize (Sizes size) = 0;
 
     /*
      * Retrieve banner size
@@ -52,7 +51,7 @@ public:
     /*
      * Setup banner position
      */
-    virtual void setPosition(const QPoint& position) = 0;
+    virtual void setPosition (const QPoint& position) = 0;
 
     /*
      * Retrieve banner position
@@ -62,7 +61,7 @@ public:
     /*
      * Show banner
      */
-    virtual void setVisible(bool isVisible) = 0;
+    virtual void setVisible (bool isVisible) = 0;
 
     /*
      * Is banner showed
@@ -77,7 +76,7 @@ public:
     /*
      * Add test device identifier
      */
-    virtual void addTestDevice(const QString& hashedDeviceId) = 0;
+    virtual void addTestDevice (const QString& hashedDeviceId) = 0;
 
 signals:
     void loaded();

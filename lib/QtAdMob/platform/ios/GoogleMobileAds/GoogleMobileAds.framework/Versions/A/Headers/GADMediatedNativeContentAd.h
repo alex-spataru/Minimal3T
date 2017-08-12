@@ -13,21 +13,21 @@
 @protocol GADMediatedNativeContentAd<GADMediatedNativeAd>
 
 /// Primary text headline.
-- (NSString *)headline;
+- (NSString*)headline;
 
 /// Secondary text.
-- (NSString *)body;
+- (NSString*)body;
 
 /// List of large images. Each object is an instance of GADNativeAdImage.
-- (NSArray *)images;
+- (NSArray*)images;
 
 /// Small logo image.
-- (GADNativeAdImage *)logo;
+- (GADNativeAdImage*)logo;
 
 /// Text that encourages user to take some action with the ad.
-- (NSString *)callToAction;
+- (NSString*)callToAction;
 
 /// Identifies the advertiser. For example, the advertiser’s name or visible URL.
-- (NSString *)advertiser;
+- (NSString*)advertiser;
 
 @end
