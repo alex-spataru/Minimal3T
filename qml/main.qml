@@ -140,6 +140,13 @@ ApplicationWindow {
     Material.background: backgroundColor
 
     //
+    // Background rectangle
+    //
+    background: ColorRectangle {
+        anchors.fill: parent
+    }
+
+    //
     // Re-position the banner ad when window size is changed
     //
     onWidthChanged: bannerAd.locateBanner()
@@ -308,13 +315,6 @@ ApplicationWindow {
         volume: 0.7
         onStopped: updateTrack()
         Component.onCompleted: updateTrack()
-    }
-
-    //
-    // Background rectangle
-    //
-    background: ColorRectangle {
-        anchors.fill: parent
     }
 
     //

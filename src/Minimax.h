@@ -24,6 +24,7 @@
 #define _MINIMAX_H
 
 #include "Board.h"
+#include <QObject>
 
 #define MinimaxCache QVector<QPair<int,QVector<BoardPlayer>>>
 
@@ -38,8 +39,8 @@ signals:
 
 public:
     Minimax (QObject* parent = 0);
+    inline bool reachedMaxEvals () const;
     inline ComputerPlayer* cpuPlayer() const;
-    inline bool reachedMaxEvals (const Board& board) const;
 
 public slots:
     void makeAiMove();
@@ -51,8 +52,9 @@ private:
     inline int minimax (Board& board, const int depth, int alpha, int beta);
 
 private:
-    int m_evaluations;
     MinimaxCache* m_cache;
+    long long m_evaluations;
+    long long m_maxEvaluations;
     ComputerPlayer* m_cpuPlayer;
 };
 
