@@ -14,8 +14,7 @@ extern "C" {
 #endif
 
 JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialLoaded (JNIEnv* env,
-        jobject thiz)
-{
+        jobject thiz) {
     Q_UNUSED (env)
     Q_UNUSED (thiz)
 
@@ -30,8 +29,7 @@ JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialL
 }
 
 JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialLoading (JNIEnv* env,
-        jobject thiz)
-{
+        jobject thiz) {
     Q_UNUSED (env)
     Q_UNUSED (thiz)
 
@@ -46,8 +44,7 @@ JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialL
 }
 
 JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialWillPresent (
-    JNIEnv* env, jobject thiz)
-{
+    JNIEnv* env, jobject thiz) {
     Q_UNUSED (env)
     Q_UNUSED (thiz)
 
@@ -62,8 +59,7 @@ JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialW
 }
 
 JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialClicked (JNIEnv* env,
-        jobject thiz)
-{
+        jobject thiz) {
     Q_UNUSED (env)
     Q_UNUSED (thiz)
 
@@ -78,8 +74,7 @@ JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialC
 }
 
 JNIEXPORT void JNICALL Java_org_dreamdev_QtAdMob_QtAdMobActivity_onInterstitialClosed (JNIEnv* env,
-        jobject thiz)
-{
+        jobject thiz) {
     Q_UNUSED (env)
     Q_UNUSED (thiz)
 
@@ -102,8 +97,7 @@ QtAdMobInterstitialAndroid::TInstances QtAdMobInterstitialAndroid::s_Instances;
 
 QtAdMobInterstitialAndroid::QtAdMobInterstitialAndroid()
     : m_Activity (0)
-    , m_Index (s_Index++)
-{
+    , m_Index (s_Index++) {
     s_Instances[m_Index] = this;
 
     QPlatformNativeInterface* interface = QGuiApplication::platformNativeInterface();
@@ -112,16 +106,14 @@ QtAdMobInterstitialAndroid::QtAdMobInterstitialAndroid()
         m_Activity = new QAndroidJniObject (activity);
 }
 
-QtAdMobInterstitialAndroid::~QtAdMobInterstitialAndroid()
-{
+QtAdMobInterstitialAndroid::~QtAdMobInterstitialAndroid() {
     s_Instances.remove (m_Index);
 
     if (m_Activity)
         delete m_Activity;
 }
 
-void QtAdMobInterstitialAndroid::setUnitId (const QString& unitId)
-{
+void QtAdMobInterstitialAndroid::setUnitId (const QString& unitId) {
     if (!isValid())
         return;
 
@@ -132,26 +124,22 @@ void QtAdMobInterstitialAndroid::setUnitId (const QString& unitId)
     m_UnitId = unitId;
 }
 
-const QString& QtAdMobInterstitialAndroid::unitId() const
-{
+const QString& QtAdMobInterstitialAndroid::unitId() const {
     return m_UnitId;
 }
 
-void QtAdMobInterstitialAndroid::setVisible (bool isVisible)
-{
+void QtAdMobInterstitialAndroid::setVisible (bool isVisible) {
     if (!isValid())
         return;
     // TODO: implement hide
     m_Activity->callMethod<void> ("ShowAdInterstitial");
 }
 
-bool QtAdMobInterstitialAndroid::visible()
-{
+bool QtAdMobInterstitialAndroid::visible() {
     return false; // TODO: implement retrieve visibility
 }
 
-bool QtAdMobInterstitialAndroid::isLoaded()
-{
+bool QtAdMobInterstitialAndroid::isLoaded() {
     if (!isValid())
         return false;
 
@@ -159,8 +147,7 @@ bool QtAdMobInterstitialAndroid::isLoaded()
     return isLoaded;
 }
 
-void QtAdMobInterstitialAndroid::addTestDevice (const QString& hashedDeviceId)
-{
+void QtAdMobInterstitialAndroid::addTestDevice (const QString& hashedDeviceId) {
     if (!isValid())
         return;
 
@@ -168,13 +155,11 @@ void QtAdMobInterstitialAndroid::addTestDevice (const QString& hashedDeviceId)
     m_Activity->callMethod<void> ("AddAdTestDevice", "(Ljava/lang/String;)V", param1.object<jstring>());
 }
 
-const QtAdMobInterstitialAndroid::TInstances& QtAdMobInterstitialAndroid::Instances()
-{
+const QtAdMobInterstitialAndroid::TInstances& QtAdMobInterstitialAndroid::Instances() {
     return s_Instances;
 }
 
-bool QtAdMobInterstitialAndroid::isValid() const
-{
+bool QtAdMobInterstitialAndroid::isValid() const {
     return (m_Activity != 0 && m_Activity->isValid());
 }
 

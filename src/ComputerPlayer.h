@@ -33,8 +33,7 @@
 
 #define MAX_CACHE_LEN 65535
 
-class ComputerPlayer : public QObject
-{
+class ComputerPlayer : public QObject {
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -51,46 +50,42 @@ class ComputerPlayer : public QObject
                 NOTIFY randomnessChanged)
 #endif
 
-public:
-    static void DeclareQML()
-    {
+  public:
+    static void DeclareQML() {
 #ifdef QT_QML_LIB
         qmlRegisterType<ComputerPlayer> ("ComputerPlayer", 1, 0, "AI");
 #endif
     }
 
-signals:
+  signals:
     void boardChanged();
     void playerChanged();
     void randomnessChanged();
 
-public:
+  public:
     ComputerPlayer();
     int randomness() const;
     BoardPlayer player() const;
     BoardPlayer opponent() const;
 
-    inline MinimaxCache cache() const
-    {
+    inline MinimaxCache cache() const {
         return m_cache;
     }
 
-    inline QmlBoard::Player qmlPlayer() const
-    {
+    inline QmlBoard::Player qmlPlayer() const {
         return (QmlBoard::Player) player();
     }
 
-    inline QmlBoard::Player qmlOpponent() const
-    {
+    inline QmlBoard::Player qmlOpponent() const {
         return (QmlBoard::Player) opponent();
     }
 
-public slots:
+  public slots:
     void makeMove();
     void setRandomness (const int randomness);
     void setPlayer (const QmlBoard::Player player);
 
-private:
+  private:
     int m_randomness;
     MinimaxCache m_cache;
     BoardPlayer m_player;

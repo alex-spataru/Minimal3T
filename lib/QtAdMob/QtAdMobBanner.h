@@ -5,8 +5,7 @@
 #include "QtAdMobBannerIos.h"
 #include "QtAdMobBannerDummy.h"
 
-inline IQtAdMobBanner* CreateQtAdMobBanner()
-{
+inline IQtAdMobBanner* CreateQtAdMobBanner() {
 #if (__ANDROID_API__ >= 9)
     return new QtAdMobBannerAndroid();
 #elif (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
@@ -16,8 +15,7 @@ inline IQtAdMobBanner* CreateQtAdMobBanner()
 #endif
 }
 
-class QmlAdMobBanner : public QObject
-{
+class QmlAdMobBanner : public QObject {
     Q_PROPERTY (QString unitId READ unitId WRITE setUnitId NOTIFY unitIdChanged)
     Q_PROPERTY (Sizes size READ size WRITE setSize NOTIFY sizeChanged)
     Q_PROPERTY (QSize sizeInPixels READ sizeInPixels NOTIFY sizeChanged)
@@ -30,7 +28,7 @@ class QmlAdMobBanner : public QObject
     Q_PROPERTY (bool isLoaded READ isLoaded NOTIFY loaded)
 
     Q_OBJECT
-public:
+  public:
     enum Sizes {
         Banner = 0,
         FullBanner,
@@ -134,7 +132,7 @@ public:
      */
     Q_INVOKABLE void addTestDevice (const QString& hashedDeviceId);
 
-signals:
+  signals:
     void unitIdChanged();
     void sizeChanged();
     void positionChanged();
@@ -144,10 +142,10 @@ signals:
     void closed();
     void clicked();
 
-private:
+  private:
     IQtAdMobBanner* QML() const;
 
-private:
+  private:
     IQtAdMobBanner* m_Instance;
 };
 

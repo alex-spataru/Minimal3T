@@ -28,8 +28,7 @@
 
 #include "Board.h"
 
-class QmlBoard : public QObject
-{
+class QmlBoard : public QObject {
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -65,7 +64,7 @@ class QmlBoard : public QObject
                 NOTIFY turnChanged)
 #endif
 
-public:
+  public:
     enum Player {
         Undefined      = kUndefined,
         Player1        = kPlayer1,
@@ -80,7 +79,7 @@ public:
     };
     Q_ENUMS (GameState)
 
-signals:
+  signals:
     void boardReset();
     void turnChanged();
     void winnerChanged();
@@ -89,12 +88,11 @@ signals:
     void fieldsToAllignChanged();
     void fieldStateChanged (const int fieldId, const Player state);
 
-public:
+  public:
     QmlBoard();
     static QmlBoard* getInstance();
 
-    static void DeclareQML()
-    {
+    static void DeclareQML() {
 #ifdef QT_QML_LIB
         qmlRegisterType<QmlBoard> ("Board", 1, 0, "TicTacToe");
 #endif
@@ -118,7 +116,7 @@ public:
     Q_INVOKABLE QList<int> availableFields() const;
     Q_INVOKABLE Player fieldOwner (const int field) const;
 
-public slots:
+  public slots:
     void resetBoard();
     void updateGameState();
     void selectField (const int field);
@@ -127,7 +125,7 @@ public slots:
     void setCurrentPlayer (const Player player);
     void changeOwner (const int field, const Player owner);
 
-private:
+  private:
     Board m_board;
 };
 

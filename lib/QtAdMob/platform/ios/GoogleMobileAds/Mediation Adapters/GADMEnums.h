@@ -8,8 +8,7 @@
 #import <Foundation/Foundation.h>
 
 /// These are the types of animation we employ for transitions between two mediated ads.
-typedef NS_ENUM (NSInteger, GADMBannerAnimationType)
-{
+typedef NS_ENUM (NSInteger, GADMBannerAnimationType) {
     kGADMBannerAnimationTypeNone = 0,            ///< No animation.
     kGADMBannerAnimationTypeFlipFromLeft = 1,    ///< Flip from left.
     kGADMBannerAnimationTypeFlipFromRight = 2,   ///< Flip from right.

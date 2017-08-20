@@ -5,8 +5,7 @@
 #include "QtAdMobInterstitialDummy.h"
 #include "QtAdMobInterstitialIos.h"
 
-inline IQtAdMobInterstitial* CreateQtAdMobInterstitial()
-{
+inline IQtAdMobInterstitial* CreateQtAdMobInterstitial() {
 #if (__ANDROID_API__ >= 9)
     return new QtAdMobInterstitialAndroid();
 #elif (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
@@ -16,14 +15,13 @@ inline IQtAdMobInterstitial* CreateQtAdMobInterstitial()
 #endif
 }
 
-class QmlAdMobInterstitial : public QObject
-{
+class QmlAdMobInterstitial : public QObject {
     Q_PROPERTY (QString unitId READ unitId WRITE setUnitId NOTIFY unitIdChanged)
     Q_PROPERTY (bool visible READ visible WRITE setVisible NOTIFY visibleChanged)
     Q_PROPERTY (bool isLoaded READ isLoaded NOTIFY loaded)
 
     Q_OBJECT
-public:
+  public:
     QmlAdMobInterstitial();
     ~QmlAdMobInterstitial();
 
@@ -65,7 +63,7 @@ public:
      */
     Q_INVOKABLE void addTestDevice (const QString& hashedDeviceId);
 
-signals:
+  signals:
     void unitIdChanged();
     void visibleChanged();
     void loaded();
@@ -74,10 +72,10 @@ signals:
     void closed();
     void clicked();
 
-private:
+  private:
     IQtAdMobInterstitial* QML() const;
 
-private:
+  private:
     IQtAdMobInterstitial* m_Instance;
 };
 

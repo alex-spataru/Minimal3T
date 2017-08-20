@@ -52,8 +52,7 @@
 #pragma mark - Custom Purchase Flow
 
 /// Enum of the different statuses resulting from processing a purchase.
-typedef NS_ENUM (NSInteger, GADInAppPurchaseStatus)
-{
+typedef NS_ENUM (NSInteger, GADInAppPurchaseStatus) {
     kGADInAppPurchaseStatusError = 0,          ///< Error occured while processing the purchase.
     kGADInAppPurchaseStatusSuccessful = 1,     ///< Purchase was completed successfully.
     kGADInAppPurchaseStatusCancel = 2,         ///< Purchase was cancelled by the user.

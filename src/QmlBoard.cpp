@@ -22,71 +22,58 @@
 
 #include "QmlBoard.h"
 
-QmlBoard::QmlBoard()
-{
+QmlBoard::QmlBoard() {
     setBoardSize (3);
     setFieldsToAllign (3);
     setCurrentPlayer (Player1);
 }
 
-QmlBoard* QmlBoard::getInstance()
-{
+QmlBoard* QmlBoard::getInstance() {
     static QmlBoard instance;
     return &instance;
 }
 
-int QmlBoard::numFields() const
-{
+int QmlBoard::numFields() const {
     return board().fields.count();
 }
 
-int QmlBoard::boardSize() const
-{
+int QmlBoard::boardSize() const {
     return sqrt (numFields());
 }
 
-int QmlBoard::fieldsToAllign() const
-{
+int QmlBoard::fieldsToAllign() const {
     return board().fieldsToAllign;
 }
 
-bool QmlBoard::gameWon() const
-{
+bool QmlBoard::gameWon() const {
     return gameState() == GameEnded;
 }
 
-bool QmlBoard::gameDraw() const
-{
+bool QmlBoard::gameDraw() const {
     return gameState() == Draw;
 }
 
-bool QmlBoard::gameInProgress() const
-{
+bool QmlBoard::gameInProgress() const {
     return gameState() == GameInProgress;
 }
 
-Board QmlBoard::board() const
-{
+Board QmlBoard::board() const {
     return m_board;
 }
 
-QmlBoard::Player QmlBoard::winner() const
-{
+QmlBoard::Player QmlBoard::winner() const {
     return (Player) board().winner;
 }
 
-QmlBoard::GameState QmlBoard::gameState() const
-{
+QmlBoard::GameState QmlBoard::gameState() const {
     return (GameState) board().state;
 }
 
-QmlBoard::Player QmlBoard::currentPlayer() const
-{
+QmlBoard::Player QmlBoard::currentPlayer() const {
     return (Player) board().turn;
 }
 
-QList<QmlBoard::Player> QmlBoard::fields() const
-{
+QList<QmlBoard::Player> QmlBoard::fields() const {
     QList<QmlBoard::Player> list;
 
     foreach (BoardPlayer element, board().fields)
@@ -95,8 +82,7 @@ QList<QmlBoard::Player> QmlBoard::fields() const
     return list;
 }
 
-QList<int> QmlBoard::allignedFields() const
-{
+QList<int> QmlBoard::allignedFields() const {
     QList<int> list;
     QVector<int> vector = board().allignedFields;
 
@@ -106,8 +92,7 @@ QList<int> QmlBoard::allignedFields() const
     return list;
 }
 
-QList<int> QmlBoard::availableFields() const
-{
+QList<int> QmlBoard::availableFields() const {
     QList<int> list;
     QVector<int> vector = AvailableFields (board());
 
@@ -117,14 +102,12 @@ QList<int> QmlBoard::availableFields() const
     return list;
 }
 
-QmlBoard::Player QmlBoard::fieldOwner (const int field) const
-{
+QmlBoard::Player QmlBoard::fieldOwner (const int field) const {
     Q_ASSERT (field < numFields());
     return (Player) board().fields.at (field);
 }
 
-void QmlBoard::resetBoard()
-{
+void QmlBoard::resetBoard() {
     ResetBoard (m_board);
 
     for (int i = 0; i < numFields(); ++i)
@@ -135,16 +118,14 @@ void QmlBoard::resetBoard()
     emit gameStateChanged();
 }
 
-void QmlBoard::updateGameState()
-{
+void QmlBoard::updateGameState() {
     UpdateGameState (m_board);
 
     emit winnerChanged();
     emit gameStateChanged();
 }
 
-void QmlBoard::selectField (const int field)
-{
+void QmlBoard::selectField (const int field) {
     Q_ASSERT (field < numFields());
 
     if (m_board.fields.at (field) == kUndefined) {
@@ -155,8 +136,7 @@ void QmlBoard::selectField (const int field)
     }
 }
 
-void QmlBoard::setBoardSize (const int size)
-{
+void QmlBoard::setBoardSize (const int size) {
     ResizeBoard (m_board, size);
 
     emit boardReset();
@@ -165,8 +145,7 @@ void QmlBoard::setBoardSize (const int size)
     emit gameStateChanged();
 }
 
-void QmlBoard::setFieldsToAllign (const int fields)
-{
+void QmlBoard::setFieldsToAllign (const int fields) {
     Q_ASSERT (fields <= boardSize());
     Q_ASSERT (fields >= 3);
 
@@ -174,14 +153,12 @@ void QmlBoard::setFieldsToAllign (const int fields)
     emit fieldsToAllignChanged();
 }
 
-void QmlBoard::setCurrentPlayer (const Player player)
-{
+void QmlBoard::setCurrentPlayer (const Player player) {
     m_board.turn = (BoardPlayer) player;
     emit turnChanged();
 }
 
-void QmlBoard::changeOwner (const int field, const Player owner)
-{
+void QmlBoard::changeOwner (const int field, const Player owner) {
     Q_ASSERT (field < numFields());
     ChangeOwner (m_board, field, (BoardPlayer) owner);
     emit fieldStateChanged (field, owner);

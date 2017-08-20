@@ -29,28 +29,31 @@
 #define MinimaxCache QVector<QPair<int,QVector<BoardPlayer>>>
 
 class ComputerPlayer;
-class Minimax : public QObject
-{
+class Minimax : public QObject {
     Q_OBJECT
 
-signals:
+  signals:
     void finished();
     void decisionTaken (const int);
 
-public:
+  public:
     Minimax (QObject* parent = 0);
     inline ComputerPlayer* cpuPlayer() const;
 
-public slots:
+  public slots:
     void makeAiMove();
     void setCache (MinimaxCache* cache);
     void setComputerPlayer (ComputerPlayer* player);
 
-private:
+  private:
+    QVector<int> getSmartMoves (const Board& board);
+    QVector<int> availableCorners (const Board& board);
+    QVector<int> availableCentralFields (const Board& board);
+    QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
     inline int minimax (Board& board, const int depth, int alpha, int beta);
     inline QVector<int> considerableFields (const Board& board, const int depth);
 
-private:
+  private:
     MinimaxCache* m_cache;
     ComputerPlayer* m_cpuPlayer;
 };

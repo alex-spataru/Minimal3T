@@ -3,9 +3,8 @@
 
 #include "IQtAdMobInterstitial.h"
 
-class QtAdMobInterstitialDummy : public IQtAdMobInterstitial
-{
-public:
+class QtAdMobInterstitialDummy : public IQtAdMobInterstitial {
+  public:
     QtAdMobInterstitialDummy();
     virtual ~QtAdMobInterstitialDummy();
 
@@ -42,7 +41,7 @@ public:
      */
     virtual void addTestDevice (const QString& hashedDeviceId);
 
-private:
+  private:
     QString m_UnitId;
 };
 

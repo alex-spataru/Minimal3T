@@ -10,10 +10,9 @@ class QAndroidJniObject;
     @class QtAdMobInterstitialDelegate;
 #endif
 
-class QtAdMobInterstitialIos : public IQtAdMobInterstitial
-{
+class QtAdMobInterstitialIos : public IQtAdMobInterstitial {
     friend class QtAdMobInterstitialIosProtected;
-public:
+  public:
     QtAdMobInterstitialIos();
     virtual ~QtAdMobInterstitialIos();
 
@@ -50,11 +49,11 @@ public:
      */
     virtual void addTestDevice (const QString& hashedDeviceId);
 
-private:
+  private:
     void onStatusChanged (bool status);
     bool isValid() const;
 
-private:
+  private:
     QString m_UnitId;
 #if defined(__OBJC__)
     __unsafe_unretained QtAdMobInterstitialDelegate* m_AdMob;

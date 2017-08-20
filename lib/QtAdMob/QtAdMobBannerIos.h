@@ -12,10 +12,9 @@ class QAndroidJniObject;
     @class QtAdMobBannerDelegate;
 #endif
 
-class QtAdMobBannerIos : public IQtAdMobBanner
-{
+class QtAdMobBannerIos : public IQtAdMobBanner {
     friend class QtAdMobBannerIosProtected;
-public:
+  public:
     QtAdMobBannerIos (QObject* parent = 0);
     virtual ~QtAdMobBannerIos();
 
@@ -74,11 +73,11 @@ public:
      */
     void addTestDevice (const QString& hashedDeviceId);
 
-private:
+  private:
     void onStatusChanged (bool status);
     bool isValid() const;
 
-private:
+  private:
     QString m_UnitId;
     IQtAdMobBanner::Sizes m_BannerSize;
     QPoint m_Position;

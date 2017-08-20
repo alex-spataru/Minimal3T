@@ -6,10 +6,9 @@
 #include <QSize>
 #include <QPoint>
 
-class IQtAdMobBanner : public QObject
-{
+class IQtAdMobBanner : public QObject {
     Q_OBJECT
-public:
+  public:
     enum Sizes {
         Banner = 0,
         FullBanner,
@@ -78,7 +77,7 @@ public:
      */
     virtual void addTestDevice (const QString& hashedDeviceId) = 0;
 
-signals:
+  signals:
     void loaded();
     void loading();
     void closed();

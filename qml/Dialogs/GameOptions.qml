@@ -108,26 +108,6 @@ Dialog {
         }
 
         //
-        // Warning label
-        //
-        Label {
-            visible: opacity > 0
-            Behavior on opacity { NumberAnimation{} }
-            opacity: _boardSize.currentIndex > 0 ? 1 : 0
-            text: "<strong><font color=\"" + app.secondaryColor + "\">" +
-                  qsTr ("Warning:") + "</font></strong> " +
-                  qsTr ("The AI will be slow on larger boards")
-        }
-
-        //
-        // Warning spacer
-        //
-        Item {
-            Behavior on Layout.preferredHeight { NumberAnimation {} }
-            Layout.preferredHeight: _boardSize.currentIndex > 1 ? app.spacing * 2 : 0
-        }
-
-        //
         // AI difficulty
         //
         Label {

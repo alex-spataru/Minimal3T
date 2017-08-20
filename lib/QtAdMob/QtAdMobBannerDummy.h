@@ -3,9 +3,8 @@
 
 #include "IQtAdMobBanner.h"
 
-class QtAdMobBannerDummy : public IQtAdMobBanner
-{
-public:
+class QtAdMobBannerDummy : public IQtAdMobBanner {
+  public:
     QtAdMobBannerDummy();
     virtual ~QtAdMobBannerDummy();
 
@@ -64,7 +63,7 @@ public:
      */
     void addTestDevice (const QString& hashedDeviceId);
 
-private:
+  private:
     QString m_UnitId;
     IQtAdMobBanner::Sizes m_BannerSize;
     QPoint m_Position;

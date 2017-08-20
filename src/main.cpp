@@ -34,8 +34,7 @@
 #include "AdInfo.h"
 #include "ComputerPlayer.h"
 
-int main (int argc, char** argv)
-{
+int main (int argc, char** argv) {
     QGuiApplication::setApplicationVersion ("1.0");
     QGuiApplication::setApplicationName ("SuperTac");
     QGuiApplication::setOrganizationName ("Alex Spataru");

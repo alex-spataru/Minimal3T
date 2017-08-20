@@ -11,8 +11,7 @@
 #import <GoogleMobileAds/GADRequest.h>
 
 /// Search ad border types.
-typedef NS_ENUM (NSUInteger, GADSearchBorderType)
-{
+typedef NS_ENUM (NSUInteger, GADSearchBorderType) {
     kGADSearchBorderTypeNone,    ///< No border.
     kGADSearchBorderTypeDashed,  ///< Dashed line border.
     kGADSearchBorderTypeDotted,  ///< Dotted line border.
@@ -20,8 +19,7 @@ typedef NS_ENUM (NSUInteger, GADSearchBorderType)
 };
 
 /// Search ad call button color types.
-typedef NS_ENUM (NSUInteger, GADSearchCallButtonColor)
-{
+typedef NS_ENUM (NSUInteger, GADSearchCallButtonColor) {
     kGADSearchCallButtonLight,   ///< Light button color.
     kGADSearchCallButtonMedium,  ///< Medium button color.
     kGADSearchCallButtonDark     ///< Dark button color.

@@ -31,8 +31,7 @@
 #endif
 
 ShareUtils::ShareUtils (QQuickItem* parent)
-    : QQuickItem (parent)
-{
+    : QQuickItem (parent) {
 #if defined(Q_OS_IOS)
     _pShareUtils = new IosShareUtils (this);
 #elif defined(Q_OS_ANDROID)
@@ -42,7 +41,6 @@ ShareUtils::ShareUtils (QQuickItem* parent)
 #endif
 }
 
-void ShareUtils::share (const QString& text, const QUrl& url)
-{
+void ShareUtils::share (const QString& text, const QUrl& url) {
     _pShareUtils->share (text, url);
 }

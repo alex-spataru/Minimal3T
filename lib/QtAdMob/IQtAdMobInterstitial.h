@@ -6,10 +6,9 @@
 #include <QSize>
 #include <QPoint>
 
-class IQtAdMobInterstitial : public QObject
-{
+class IQtAdMobInterstitial : public QObject {
     Q_OBJECT
-public:
+  public:
     IQtAdMobInterstitial() {}
     virtual ~IQtAdMobInterstitial() {}
 
@@ -46,7 +45,7 @@ public:
      */
     virtual void addTestDevice (const QString& hashedDeviceId) = 0;
 
-signals:
+  signals:
     void loaded();
     void loading();
     void willPresent();

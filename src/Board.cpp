@@ -48,8 +48,7 @@ static inline void checkAllignedFields (Board&, QVector<int>&, QVector<int>&, in
 /**
  * Resets the winner, game state, turn and field owners from the given \a board
  */
-void ResetBoard (Board& board)
-{
+void ResetBoard (Board& board) {
     board.turn = kPlayer1;
     board.winner = kUndefined;
     board.state = kGameInProgress;
@@ -67,8 +66,7 @@ void ResetBoard (Board& board)
  *     the game shall reach the \c kDraw state
  *   - If there is a winner, then the game state shall be set to \c kGameWon
  */
-void UpdateGameState (Board& board)
-{
+void UpdateGameState (Board& board) {
     int size = BoardSize (board);
     BoardPlayer** matrix = (BoardPlayer**) calloc (size, sizeof (BoardPlayer*));
 
@@ -99,8 +97,7 @@ void UpdateGameState (Board& board)
 /**
  * Resizes the given \a board to a \a size x \a size game and resets the game
  */
-void ResizeBoard (Board& board, const int size)
-{
+void ResizeBoard (Board& board, const int size) {
     Q_ASSERT (size > 0);
 
     board.fields.clear();
@@ -114,8 +111,7 @@ void ResizeBoard (Board& board, const int size)
  * Changes the owner of the given \a field of the \a board to the current
  * player in turn, updates the turn and updates the game state
  */
-void SelectField (Board& board, const int field)
-{
+void SelectField (Board& board, const int field) {
     ChangeOwner (board, field, board.turn);
     board.turn = OpponentOf (board.turn);
     UpdateGameState (board);
@@ -124,8 +120,7 @@ void SelectField (Board& board, const int field)
 /**
  * Changes the \a owner of the given \a field of the \a board
  */
-void ChangeOwner (Board& board, const int field, const BoardPlayer owner)
-{
+void ChangeOwner (Board& board, const int field, const BoardPlayer owner) {
     Q_ASSERT (board.fields.count() > field);
     board.fields.replace (field, owner);
 }
@@ -135,16 +130,14 @@ void ChangeOwner (Board& board, const int field, const BoardPlayer owner)
  * of the number of fields. For example, a 3x3 board shall contain 9 fields,
  * so the board size of a 3x3 board is 3
  */
-int BoardSize (const Board& board)
-{
+int BoardSize (const Board& board) {
     return sqrt (board.fields.count());
 }
 
 /**
  * Returns a vector with the IDs of all the unused fields in the given \a board
  */
-QVector<int> AvailableFields (const Board& board)
-{
+QVector<int> AvailableFields (const Board& board) {
     QVector<int> list;
 
     for (int i = 0; i < board.fields.count(); ++i)
@@ -157,8 +150,7 @@ QVector<int> AvailableFields (const Board& board)
 /**
  * Returns the enemy of the given \a player
  */
-BoardPlayer OpponentOf (const BoardPlayer player)
-{
+BoardPlayer OpponentOf (const BoardPlayer player) {
     if (player == kPlayer1)
         return kPlayer2;
 
@@ -173,8 +165,7 @@ BoardPlayer OpponentOf (const BoardPlayer player)
 // Implementation of utility functions
 //------------------------------------------------------------------------------
 
-static bool checkRows (Board& board, BoardPlayer** matrix)
-{
+static bool checkRows (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
@@ -193,8 +184,7 @@ static bool checkRows (Board& board, BoardPlayer** matrix)
     return false;
 }
 
-static bool checkColumns (Board& board, BoardPlayer** matrix)
-{
+static bool checkColumns (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
@@ -213,8 +203,7 @@ static bool checkColumns (Board& board, BoardPlayer** matrix)
     return false;
 }
 
-static bool checkLtrDiagonals (Board& board, BoardPlayer** matrix)
-{
+static bool checkLtrDiagonals (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
@@ -225,8 +214,7 @@ static bool checkLtrDiagonals (Board& board, BoardPlayer** matrix)
     return checkWinners (board, p1, p2);
 }
 
-static bool checkRtlDiagonals (Board& board, BoardPlayer** matrix)
-{
+static bool checkRtlDiagonals (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
@@ -239,13 +227,12 @@ static bool checkRtlDiagonals (Board& board, BoardPlayer** matrix)
     return checkWinners (board, p1, p2);
 }
 
-static bool checkWinners (Board& board, QVector<int> p1, QVector<int> p2)
-{
+static bool checkWinners (Board& board, QVector<int> p1, QVector<int> p2) {
     int p1_allignedFields = p1.count();
     int p2_allignedFields = p2.count();
 
     if (p1_allignedFields >= board.fieldsToAllign ||
-        p2_allignedFields >= board.fieldsToAllign) {
+            p2_allignedFields >= board.fieldsToAllign) {
 
         if (p1_allignedFields > p2_allignedFields) {
             board.winner = kPlayer1;
@@ -272,8 +259,7 @@ static bool checkWinners (Board& board, QVector<int> p1, QVector<int> p2)
 
 static void checkAllignedFields (Board& board,
                                  QVector<int>& p1, QVector<int>& p2,
-                                 int i, int j)
-{
+                                 int i, int j) {
     int field = i * BoardSize (board) + j;
 
     if (board.fields.at (field) == kPlayer1) {

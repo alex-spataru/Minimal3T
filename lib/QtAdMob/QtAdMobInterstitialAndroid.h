@@ -7,9 +7,8 @@
 
 class QAndroidJniObject;
 
-class QtAdMobInterstitialAndroid : public IQtAdMobInterstitial
-{
-public:
+class QtAdMobInterstitialAndroid : public IQtAdMobInterstitial {
+  public:
     QtAdMobInterstitialAndroid();
     virtual ~QtAdMobInterstitialAndroid();
 
@@ -52,10 +51,10 @@ public:
     typedef QMap<uint32_t, QtAdMobInterstitialAndroid*> TInstances;
     static const TInstances& Instances();
 
-private:
+  private:
     bool isValid() const;
 
-private:
+  private:
     QString m_UnitId;
     QAndroidJniObject* m_Activity;
     int m_Index;

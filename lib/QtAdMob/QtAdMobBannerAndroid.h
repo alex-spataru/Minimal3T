@@ -7,9 +7,8 @@
 
 class QAndroidJniObject;
 
-class QtAdMobBannerAndroid : public IQtAdMobBanner
-{
-public:
+class QtAdMobBannerAndroid : public IQtAdMobBanner {
+  public:
     QtAdMobBannerAndroid();
     virtual ~QtAdMobBannerAndroid();
 
@@ -74,10 +73,10 @@ public:
     typedef QMap<uint32_t, QtAdMobBannerAndroid*> TInstances;
     static const TInstances& Instances();
 
-private:
+  private:
     bool isValid() const;
 
-private:
+  private:
     QString m_UnitId;
     IQtAdMobBanner::Sizes m_BannerSize;
     QPoint m_Position;

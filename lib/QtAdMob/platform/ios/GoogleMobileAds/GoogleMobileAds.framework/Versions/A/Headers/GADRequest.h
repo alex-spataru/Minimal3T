@@ -17,8 +17,7 @@ GAD_ASSUME_NONNULL_BEGIN
 GAD_EXTERN const id kGADSimulatorID;
 
 /// Genders to help deliver more relevant ads.
-typedef NS_ENUM (NSInteger, GADGender)
-{
+typedef NS_ENUM (NSInteger, GADGender) {
     kGADGenderUnknown,  ///< Unknown gender.
     kGADGenderMale,     ///< Male gender.
     kGADGenderFemale    ///< Female gender.
