@@ -40,7 +40,6 @@ Page {
     signal shareClicked
     signal audioClicked
     signal settingsClicked
-    signal disableAdsClicked
     signal multiplayerClicked
     signal singleplayerClicked
 
@@ -51,7 +50,6 @@ Page {
     onAboutClicked: app.playSoundEffect ("click.wav")
     onShareClicked: app.playSoundEffect ("click.wav")
     onSettingsClicked: app.playSoundEffect ("click.wav")
-    onDisableAdsClicked: app.playSoundEffect ("click.wav")
     onMultiplayerClicked: app.playSoundEffect ("click.wav")
     onSingleplayerClicked: app.playSoundEffect ("click.wav")
 
@@ -198,45 +196,6 @@ Page {
 
                     Label {
                         text: qsTr ("About")
-                        Layout.preferredWidth: utilityBtSize
-                        horizontalAlignment: Label.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
-            }
-
-            //
-            // No Ads button
-            //
-            Item {
-                visible: opacity > 0
-                opacity: app.adsEnabled ? 1 : 0
-                Layout.preferredWidth: utilityBtSize
-                Layout.preferredHeight: utilityBtSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    enabled: parent.visible
-                    onClicked: disableAdsClicked()
-                }
-
-                Behavior on width { NumberAnimation{} }
-                Behavior on opacity { NumberAnimation{} }
-
-                ColumnLayout {
-                    spacing: app.spacing
-                    anchors.centerIn: parent
-
-                    SvgImage {
-                        fillMode: Image.Pad
-                        source: "qrc:/images/no-ads.svg"
-                        verticalAlignment: Image.AlignVCenter
-                        horizontalAlignment: Image.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
-                    Label {
-                        text: qsTr ("Remove Ads")
                         Layout.preferredWidth: utilityBtSize
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter

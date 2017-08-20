@@ -410,6 +410,12 @@ ApplicationWindow {
                 }
 
                 MenuItem {
+                    text: qsTr ("Remove Ads")
+                    enabled: app.adsEnabled
+                    onClicked: removeAds.purchase()
+                }
+
+                MenuItem {
                     text: qsTr ("Settings")
                     onClicked: settingsDlg.open()
                 }
@@ -501,7 +507,6 @@ ApplicationWindow {
             visible: false
             onAboutClicked: aboutDlg.open()
             onSettingsClicked: settingsDlg.open()
-            onDisableAdsClicked: removeAds.purchase()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
             onAudioClicked: enableSoundAndMusic = !enableSoundAndMusic
