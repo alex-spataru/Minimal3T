@@ -104,25 +104,14 @@ public:
     int boardSize() const;
     int fieldsToAllign() const;
 
-    inline bool gameDraw() const
-    {
-        return gameState() == Draw;
-    }
-    
-    inline bool gameWon() const
-    {
-        return gameState() == GameEnded;
-    }
-    
-    inline bool gameInProgress() const
-    {
-        return gameState() == GameInProgress;
-    }
+    bool gameWon() const;
+    bool gameDraw() const;
+    bool gameInProgress() const;
 
     Board board() const;
     Player winner() const;
-    Player currentPlayer() const;
     GameState gameState() const;
+    Player currentPlayer() const;
 
     Q_INVOKABLE QList<Player> fields() const;
     Q_INVOKABLE QList<int> allignedFields() const;

@@ -39,7 +39,6 @@ signals:
 
 public:
     Minimax (QObject* parent = 0);
-    inline bool reachedMaxEvals () const;
     inline ComputerPlayer* cpuPlayer() const;
 
 public slots:
@@ -48,13 +47,11 @@ public slots:
     void setComputerPlayer (ComputerPlayer* player);
 
 private:
-    int randomMove();
     inline int minimax (Board& board, const int depth, int alpha, int beta);
+    inline QVector<int> considerableFields (const Board& board, const int depth);
 
 private:
     MinimaxCache* m_cache;
-    long long m_evaluations;
-    long long m_maxEvaluations;
     ComputerPlayer* m_cpuPlayer;
 };
 

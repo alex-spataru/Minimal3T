@@ -24,7 +24,6 @@
 
 QmlBoard::QmlBoard()
 {
-    InitBoard (m_board);
     setBoardSize (3);
     setFieldsToAllign (3);
     setCurrentPlayer (Player1);
@@ -51,6 +50,21 @@ int QmlBoard::fieldsToAllign() const
     return board().fieldsToAllign;
 }
 
+bool QmlBoard::gameWon() const
+{
+    return gameState() == GameEnded;
+}
+
+bool QmlBoard::gameDraw() const
+{
+    return gameState() == Draw;
+}
+
+bool QmlBoard::gameInProgress() const
+{
+    return gameState() == GameInProgress;
+}
+
 Board QmlBoard::board() const
 {
     return m_board;
@@ -61,14 +75,14 @@ QmlBoard::Player QmlBoard::winner() const
     return (Player) board().winner;
 }
 
-QmlBoard::Player QmlBoard::currentPlayer() const
-{
-    return (Player) board().turn;
-}
-
 QmlBoard::GameState QmlBoard::gameState() const
 {
     return (GameState) board().state;
+}
+
+QmlBoard::Player QmlBoard::currentPlayer() const
+{
+    return (Player) board().turn;
 }
 
 QList<QmlBoard::Player> QmlBoard::fields() const
@@ -133,12 +147,12 @@ void QmlBoard::selectField (const int field)
 {
     Q_ASSERT (field < numFields());
 
-    SelectField (m_board, field);
-
-    emit turnChanged();
-    emit fieldStateChanged (field, fieldOwner (field));
-
-    updateGameState();
+    if (m_board.fields.at (field) == kUndefined) {
+        SelectField (m_board, field);
+        emit turnChanged();
+        emit fieldStateChanged (field, fieldOwner (field));
+        updateGameState();
+    }
 }
 
 void QmlBoard::setBoardSize (const int size)

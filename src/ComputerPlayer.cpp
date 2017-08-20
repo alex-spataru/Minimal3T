@@ -71,7 +71,7 @@ void ComputerPlayer::makeMove()
     minmax->setCache (&m_cache);
     minmax->moveToThread (thread);
     minmax->setComputerPlayer (this);
-    thread->start (QThread::HighestPriority);
+    thread->start (QThread::TimeCriticalPriority);
 
     /* Clear cache if required */
     if (m_cache.count() > MAX_CACHE_LEN) {

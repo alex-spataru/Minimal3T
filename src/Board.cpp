@@ -23,6 +23,7 @@
 #include "Board.h"
 
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 //------------------------------------------------------------------------------
@@ -33,23 +34,20 @@
 // Define utility functions
 //------------------------------------------------------------------------------
 
-static bool checkRows (Board&, BoardPlayer**);
-static bool checkColumns (Board&, BoardPlayer**);
-static bool checkLtrDiagonals (Board&, BoardPlayer**);
-static bool checkRtlDiagonals (Board&, BoardPlayer**);
-static bool checkWinners (Board&, QVector<int>, QVector<int>);
-static void checkAllignedFields (Board&, QVector<int>&, QVector<int>&, int, int);
+static inline bool checkRows (Board&, BoardPlayer**);
+static inline bool checkColumns (Board&, BoardPlayer**);
+static inline bool checkLtrDiagonals (Board&, BoardPlayer**);
+static inline bool checkRtlDiagonals (Board&, BoardPlayer**);
+static inline bool checkWinners (Board&, QVector<int>, QVector<int>);
+static inline void checkAllignedFields (Board&, QVector<int>&, QVector<int>&, int, int);
 
 //------------------------------------------------------------------------------
 // Implementation of public functions
 //------------------------------------------------------------------------------
 
-void InitBoard (Board& board)
-{
-    ResizeBoard (board, 3);
-    board.fieldsToAllign = 3;
-}
-
+/**
+ * Resets the winner, game state, turn and field owners from the given \a board
+ */
 void ResetBoard (Board& board)
 {
     board.turn = kPlayer1;
@@ -60,6 +58,15 @@ void ResetBoard (Board& board)
         ChangeOwner (board, i, kUndefined);
 }
 
+/**
+ * Checks the board for winning patterns from any player, then the function
+ * shall update the game state according to the following rules:
+ *   - If there is no winner and there are still some unused fields, then
+ *     the game shall contine
+ *   - If there is no winner and there are no unused fields available, then
+ *     the game shall reach the \c kDraw state
+ *   - If there is a winner, then the game state shall be set to \c kGameWon
+ */
 void UpdateGameState (Board& board)
 {
     int size = BoardSize (board);
@@ -89,6 +96,9 @@ void UpdateGameState (Board& board)
     free (matrix);
 }
 
+/**
+ * Resizes the given \a board to a \a size x \a size game and resets the game
+ */
 void ResizeBoard (Board& board, const int size)
 {
     Q_ASSERT (size > 0);
@@ -100,6 +110,10 @@ void ResizeBoard (Board& board, const int size)
     ResetBoard (board);
 }
 
+/**
+ * Changes the owner of the given \a field of the \a board to the current
+ * player in turn, updates the turn and updates the game state
+ */
 void SelectField (Board& board, const int field)
 {
     ChangeOwner (board, field, board.turn);
@@ -107,17 +121,28 @@ void SelectField (Board& board, const int field)
     UpdateGameState (board);
 }
 
-void ChangeOwner (Board& board, const int field, const BoardPlayer player)
+/**
+ * Changes the \a owner of the given \a field of the \a board
+ */
+void ChangeOwner (Board& board, const int field, const BoardPlayer owner)
 {
     Q_ASSERT (board.fields.count() > field);
-    board.fields.replace (field, player);
+    board.fields.replace (field, owner);
 }
 
+/**
+ * Returns the size of the given \a board by calculating the square root
+ * of the number of fields. For example, a 3x3 board shall contain 9 fields,
+ * so the board size of a 3x3 board is 3
+ */
 int BoardSize (const Board& board)
 {
     return sqrt (board.fields.count());
 }
 
+/**
+ * Returns a vector with the IDs of all the unused fields in the given \a board
+ */
 QVector<int> AvailableFields (const Board& board)
 {
     QVector<int> list;
@@ -129,6 +154,9 @@ QVector<int> AvailableFields (const Board& board)
     return list;
 }
 
+/**
+ * Returns the enemy of the given \a player
+ */
 BoardPlayer OpponentOf (const BoardPlayer player)
 {
     if (player == kPlayer1)

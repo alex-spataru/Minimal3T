@@ -46,12 +46,11 @@ typedef struct {
     QVector<BoardPlayer> fields;
 } Board;
 
-extern void InitBoard (Board& board);
 extern void ResetBoard (Board& board);
 extern void UpdateGameState (Board& board);
 extern void ResizeBoard (Board& board, const int size);
 extern void SelectField (Board& board, const int field);
-extern void ChangeOwner (Board& board, const int field, const BoardPlayer player);
+extern void ChangeOwner (Board& board, const int field, const BoardPlayer owner);
 
 extern int BoardSize (const Board& board);
 extern QVector<int> AvailableFields (const Board& board);

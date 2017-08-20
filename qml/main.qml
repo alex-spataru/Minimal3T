@@ -80,7 +80,6 @@ ApplicationWindow {
                     "import QtMultimedia 5.0;" +
                     "SoundEffect {" +
                     "   source: \"" + source + "\";" +
-                    "   volume: 0.40; " +
                     "   Component.onCompleted: play(); " +
                     "   onPlayingChanged: if (!playing) destroy (100); }"
             Qt.createQmlObject (qmlSourceCode, app, "SoundEffects")
