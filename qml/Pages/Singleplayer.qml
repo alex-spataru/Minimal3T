@@ -45,6 +45,18 @@ Page {
     property int numberOfGames: 3
 
     //
+    // Updates number of dots shown above and below the game board
+    //
+    function updateNumberOfGames() {
+        while (p1Wins > 0 && p2Wins > 0) {
+            --p1Wins
+            --p2Wins
+        }
+
+        numberOfGames = Math.max (Math.max (p1Wins, p2Wins) + 1, 3)
+    }
+
+    //
     // Holds the number of games played, used to show
     // the interstital ad every three games
     //
@@ -110,8 +122,7 @@ Page {
             }
         }
 
-        if (p1Wins > numberOfGames || p2Wins >= numberOfGames)
-            ++numberOfGames
+        updateNumberOfGames()
     }
 
 
@@ -154,7 +165,7 @@ Page {
         onBoardReset: updateClickableFields()
         onTurnChanged: updateClickableFields()
         onGameStateChanged: {
-            if (!parent.enabled)
+            if (!page.enabled)
                 return
 
             if (Board.gameWon) {
@@ -307,7 +318,7 @@ Page {
                 logo.source = "qrc:/images/meh.svg"
             }
 
-            if (!settingsDlg.autoStartGames && page.enabled)
+            if (page.enabled)
                 opacity = Board.gameInProgress ? 0 : 1
 
             else {
@@ -379,9 +390,9 @@ Page {
 
             Button {
                 font.pixelSize: 16
-                text: qsTr ("Game Options")
+                text: qsTr ("Settings")
+                onClicked: settingsDlg.open()
                 Material.theme: Material.Light
-                onClicked: gameOptionsDlg.open()
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
             }

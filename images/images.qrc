@@ -12,5 +12,7 @@
         <file>play.svg</file>
         <file>info.svg</file>
         <file>settings.svg</file>
+        <file>volume-off.svg</file>
+        <file>volume-on.svg</file>
     </qresource>
 </RCC>

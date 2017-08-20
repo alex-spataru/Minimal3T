@@ -170,7 +170,7 @@ QVector<int> Minimax::getSmartMoves (const Board& board) {
         if (score == INT_MIN) {
             score = minimax (copy, 0, INT_MIN, INT_MAX);
             m_cache->append (qMakePair<int, QVector<BoardPlayer>> (score,
-                             copy.fields));
+                                                                   copy.fields));
         }
 
         /* Append scores */
@@ -359,8 +359,10 @@ QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player
                 else if (board.fields.at (field) == OpponentOf (player))
                     ++blockingFields;
 
-                if (blockingFields >= surroundingFields.count() * 0.6)
-                    break;
+                if (board.fieldsToAllign > 9) {
+                    if (blockingFields >= surroundingFields.count() / 2)
+                        break;
+                }
             }
         }
     }

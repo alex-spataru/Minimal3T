@@ -38,14 +38,16 @@ Page {
     //
     signal aboutClicked
     signal shareClicked
-    signal disableAdsClicked
+    signal audioClicked
     signal settingsClicked
+    signal disableAdsClicked
     signal multiplayerClicked
     signal singleplayerClicked
 
     //
     // Sound effects
     //
+    onAudioClicked: app.playSoundEffect ("audio.wav")
     onAboutClicked: app.playSoundEffect ("click.wav")
     onShareClicked: app.playSoundEffect ("click.wav")
     onSettingsClicked: app.playSoundEffect ("click.wav")
@@ -301,6 +303,41 @@ Page {
 
                     Label {
                         text: qsTr ("Settings")
+                        Layout.preferredWidth: utilityBtSize
+                        horizontalAlignment: Label.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+            }
+
+            //
+            // Music button
+            //
+            Item {
+                Layout.preferredWidth: utilityBtSize
+                Layout.preferredHeight: utilityBtSize
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: audioClicked()
+                }
+
+                ColumnLayout {
+                    spacing: app.spacing
+                    anchors.centerIn: parent
+
+                    SvgImage {
+                        fillMode: Image.Pad
+                        verticalAlignment: Image.AlignVCenter
+                        horizontalAlignment: Image.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        source: app.enableSoundAndMusic ?
+                                    "qrc:/images/volume-on.svg" :
+                                    "qrc:/images/volume-off.svg"
+                    }
+
+                    Label {
+                        text: qsTr ("Audio")
                         Layout.preferredWidth: utilityBtSize
                         horizontalAlignment: Label.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter

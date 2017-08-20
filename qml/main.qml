@@ -48,6 +48,7 @@ ApplicationWindow {
     property bool adsEnabled: false
     readonly property int spacing: 8
     property bool removeAdsBought: false
+    property bool enableSoundAndMusic: true
     readonly property int paneWidth: Math.min (app.width * 0.8, 520)
     readonly property bool showTabletUi: width > height && stack.height >= 540
 
@@ -74,7 +75,7 @@ ApplicationWindow {
     // Generates a dynamic SoundEffect item to play the given audio file
     //
     function playSoundEffect (effect) {
-        if (settingsDlg.enableSoundEffects && app.visible) {
+        if (app.enableSoundAndMusic && app.visible) {
             var source = "qrc:/sounds/" + effect
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
@@ -115,11 +116,16 @@ ApplicationWindow {
     }
 
     //
+    // Play or stop music when needed
+    //
+    onEnableSoundAndMusicChanged: audioPlayer.playMusic()
+
+    //
     // Starts a new game
     //
     function startNewGame() {
         Board.resetBoard()
-        Board.currentPlayer = gameOptionsDlg.p2StartsFirst ? TicTacToe.Player2 : TicTacToe.Player1
+        Board.currentPlayer = settingsDlg.p2StartsFirst ? TicTacToe.Player2 : TicTacToe.Player1
     }
 
     //
@@ -279,6 +285,10 @@ ApplicationWindow {
         }
 
         ListElement {
+            source: "GoingHigher.ogg"
+        }
+
+        ListElement {
             source: "Relaxing.ogg"
         }
     }
@@ -290,7 +300,7 @@ ApplicationWindow {
         id: audioPlayer
 
         function playMusic() {
-            if (settingsDlg.enableMusic && app.active)
+            if (app.enableSoundAndMusic && app.active)
                 play()
             else
                 stop()
@@ -307,7 +317,7 @@ ApplicationWindow {
 
             source = "qrc:/music/" + soundtracks.get (soundtracks.track).source
 
-            if (settingsDlg.enableMusic)
+            if (app.enableSoundAndMusic)
                 play()
         }
 
@@ -394,7 +404,7 @@ ApplicationWindow {
                 transformOrigin: Menu.TopRight
 
                 MenuItem {
-                    text: qsTr ("Reset")
+                    text: qsTr ("New Game")
                     enabled: stack.depth == 2
                     onClicked: startNewGame()
                 }
@@ -402,11 +412,6 @@ ApplicationWindow {
                 MenuItem {
                     text: qsTr ("Settings")
                     onClicked: settingsDlg.open()
-                }
-
-                MenuItem {
-                    text: qsTr ("Game Options")
-                    onClicked: gameOptionsDlg.open()
                 }
 
                 MenuItem {
@@ -460,14 +465,6 @@ ApplicationWindow {
     }
 
     //
-    // Settings dialog
-    //
-    Settings {
-        id: settingsDlg
-        onEnableMusicChanged: audioPlayer.playMusic()
-    }
-
-    //
     // About dialog
     //
     About {
@@ -475,10 +472,10 @@ ApplicationWindow {
     }
 
     //
-    // Game options dialog
+    // Settings dialog
     //
-    GameOptions {
-        id: gameOptionsDlg
+    Settings {
+        id: settingsDlg
     }
 
     //
@@ -507,6 +504,7 @@ ApplicationWindow {
             onDisableAdsClicked: removeAds.purchase()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
+            onAudioClicked: enableSoundAndMusic = !enableSoundAndMusic
             onShareClicked: {
                 if (Qt.platform.os === "android" || Qt.platform.os === "ios")
                     shareUtils.share (AppName, website)
@@ -525,7 +523,7 @@ ApplicationWindow {
             id: singlePlayer
 
             onVisibleChanged: {
-                gameOptionsDlg.applySettings()
+                settingsDlg.applySettings()
                 philosophicalAi.enableDialog = visible
                 if (visible)
                     title.text = qsTr ("Match")

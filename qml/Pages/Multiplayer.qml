@@ -73,6 +73,18 @@ Page {
     property int numberOfGames: 3
 
     //
+    // Updates number of dots shown above and below the game board
+    //
+    function updateNumberOfGames() {
+        while (p1Wins > 0 && p2Wins > 0) {
+            --p1Wins
+            --p2Wins
+        }
+
+        numberOfGames = Math.max (Math.max (p1Wins, p2Wins) + 1, 3)
+    }
+
+    //
     // Updates the win indicators
     //
     function updateScores() {
@@ -99,8 +111,7 @@ Page {
             Board.resetBoard()
         }
 
-        if (p1Wins > numberOfGames || p2Wins >= numberOfGames)
-            ++numberOfGames
+        updateNumberOfGames()
     }
 
     //
@@ -110,13 +121,16 @@ Page {
         target: Board
         onBoardReset: board.clickableFields = Board.gameInProgress
         onGameStateChanged: {
-            if (!Board.gameInProgress && page.enabled)
+            if (!page.enabled)
+                return
+
+            if (!Board.gameInProgress)
                 timer.start()
 
-            if (Board.gameWon && page.enabled)
+            if (Board.gameWon)
                 app.playSoundEffect ("win.wav")
 
-            else if (Board.gameDraw && page.enabled)
+            else if (Board.gameDraw)
                 app.playSoundEffect ("loose.wav")
         }
     }

@@ -28,13 +28,29 @@ import QtQuick.Controls.Material 2.0
 import Qt.labs.settings 1.0
 
 Dialog {
-    id: preferences
+    id: gameOptions
 
     //
     // Center window on application
     //
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
+
+    //
+    // Custom properties
+    //
+    property alias p2StartsFirst: _p2StartsFirst.checked
+
+    //
+    // Save settings between runs
+    //
+    Settings {
+        category: "Settings"
+        property alias p2Begins: _p2StartsFirst.checked
+        property alias boardSize: _boardSize.currentIndex
+        property alias aiDifficulty: _aiLevel.currentIndex
+        property alias fieldsToAllign: _fieldsToAllign.value
+    }
 
     //
     // Window settings
@@ -46,30 +62,25 @@ Dialog {
     width: Math.min (app.width * 0.9, layout.implicitWidth * 1.4)
 
     //
-    // Options (which are read by main.qml to configure app behavior)
+    // Updates the board and AI config bases on selected UI options
     //
-    property var appColor: Material.LightBlue
-    property alias enableMusic: music.checked
-    property alias autoStartGames: autoStartGames.checked
-    property alias enableSoundEffects: soundEffects.checked
+    function applySettings() {
+        Board.boardSize = _boardSize.currentIndex + 3
 
-    //
-    // Sound effects
-    //
-    onAccepted: app.playSoundEffect ("click.wav")
-    onAppColorChanged: app.playSoundEffect ("click.wav")
-    onEnableMusicChanged: app.playSoundEffect ("click.wav")
-    onEnableSoundEffectsChanged: app.playSoundEffect ("click.wav")
-
-    //
-    // Save settings between app runs
-    //
-    Settings {
-        category: "Preferences"
-        property alias color: preferences.appColor
-        property alias musicEnabled: preferences.enableMusic
-        property alias autoStartNewGames: preferences.autoStartGames
-        property alias effectsEnabled: preferences.enableSoundEffects
+        switch (_aiLevel.currentIndex) {
+        case 0:
+            AiPlayer.randomness = 8
+            break
+        case 1:
+            AiPlayer.randomness = 4
+            break
+        case 2:
+            AiPlayer.randomness = 2
+            break
+        case 3:
+            AiPlayer.randomness = 0
+            break
+        }
     }
 
     //
@@ -82,30 +93,64 @@ Dialog {
         anchors.centerIn: parent
 
         //
-        // Music checkbox
+        // Board size
         //
-        Switch {
-            id: music
-            checked: true
-            text: qsTr ("Music")
+        Label {
+            text: qsTr ("Board size") + ":"
+        } ComboBox {
+            id: _boardSize
+            Layout.fillWidth: true
+            Material.background: "#dedede"
+            Material.foreground: "#000000"
+            Layout.preferredWidth: app.paneWidth
+            onCurrentIndexChanged: applySettings()
+            model: ["3x3", "4x4", "5x5", "6x6", "7x7"]
         }
 
         //
-        // Sound effects checkBox
+        // AI difficulty
         //
-        Switch {
-            checked: true
-            id: soundEffects
-            text: qsTr ("Sound effects")
+        Label {
+            text: qsTr ("AI Level") + ":"
+        } ComboBox {
+            id: _aiLevel
+            currentIndex: 1
+            Layout.fillWidth: true
+            Material.background: "#dedede"
+            Material.foreground: "#000000"
+            Layout.preferredWidth: app.paneWidth
+            onCurrentIndexChanged: applySettings()
+            model: [
+                qsTr ("Easy"),
+                qsTr ("Normal"),
+                qsTr ("Hard"),
+                qsTr ("Very Hard")
+            ]
         }
 
         //
-        // Auto start new games
+        // Fields to Allign
+        //
+        Label {
+            text: qsTr ("Fields to Allign")
+        } SpinBox {
+            from: 3
+            id: _fieldsToAllign
+            to: Board.boardSize
+            Layout.fillWidth: true
+            Layout.preferredWidth: app.paneWidth
+            onValueChanged: {
+                if (value >= 3)
+                    Board.fieldsToAllign = value
+            }
+        }
+
+        //
+        // Second player first
         //
         Switch {
-            checked: false
-            id: autoStartGames
-            text: qsTr ("Start new games directly")
+            id: _p2StartsFirst
+            text: qsTr ("Player 2 starts first")
         }
     }
 }

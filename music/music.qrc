@@ -2,5 +2,6 @@
     <qresource prefix="/music">
         <file>Relaxing.ogg</file>
         <file>Scifi.ogg</file>
+        <file>GoingHigher.ogg</file>
     </qresource>
 </RCC>
