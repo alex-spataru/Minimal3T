@@ -34,10 +34,12 @@ class Minimax : public QObject {
 
   signals:
     void finished();
-    void decisionTaken (const int);
+    void aiFinished (const int);
 
   public:
     Minimax (QObject* parent = 0);
+    int decision() const;
+    bool decisionTaken() const;
     inline ComputerPlayer* cpuPlayer() const;
 
   public slots:
@@ -46,14 +48,16 @@ class Minimax : public QObject {
     void setComputerPlayer (ComputerPlayer* player);
 
   private:
+    void setDecision (const int decision);
     QVector<int> getSmartMoves (const Board& board);
     QVector<int> availableCorners (const Board& board);
     QVector<int> availableCentralFields (const Board& board);
-    QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
     inline int minimax (Board& board, const int depth, int alpha, int beta);
     inline QVector<int> considerableFields (const Board& board, const int depth);
+    QVector<int> nearbyFields (const Board& board, const BoardPlayer player, const int depth);
 
   private:
+    int m_decision;
     MinimaxCache* m_cache;
     ComputerPlayer* m_cpuPlayer;
 };

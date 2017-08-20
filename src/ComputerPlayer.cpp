@@ -79,7 +79,7 @@ void ComputerPlayer::makeMove() {
     connect (thread, SIGNAL (started()), minmax,  SLOT (makeAiMove()));
     connect (thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
     connect (minmax, SIGNAL (finished()), minmax, SLOT (deleteLater()));
-    connect (minmax, SIGNAL (decisionTaken (int)), QmlBoard::getInstance(), SLOT (selectField (int)));
+    connect (minmax, SIGNAL (aiFinished (int)), QmlBoard::getInstance(), SLOT (selectField (int)));
 }
 
 /**

@@ -20,6 +20,10 @@
  * THE SOFTWARE.
  */
 
+//------------------------------------------------------------------------------
+// WARNING: Ugly code ahead, feel free to improve it
+//------------------------------------------------------------------------------
+
 #include "Minimax.h"
 #include "ComputerPlayer.h"
 
@@ -46,8 +50,24 @@ static inline int RANDOM (const int min, const int max) {
  * Initializes the internal variables of the class
  */
 Minimax::Minimax (QObject* parent) : QObject (parent) {
+    m_decision = -1;
     m_cache = Q_NULLPTR;
     m_cpuPlayer = Q_NULLPTR;
+}
+
+/**
+ * Returns the field selected by the AI. If the AI has not made a decision yet,
+ * then the decision shall be set to -1
+ */
+int Minimax::decision() const {
+    return m_decision;
+}
+
+/**
+ * Returns \c true if the AI has already made a decision
+ */
+bool Minimax::decisionTaken() const {
+    return decision() != -1;
 }
 
 /**
@@ -76,19 +96,16 @@ void Minimax::makeAiMove() {
     /* For some reason, the AI could not figure out at least one smart move */
     if (moves.isEmpty()) {
         QList<int> available = QmlBoard::getInstance()->availableFields();
-        emit decisionTaken (available.at (RANDOM (0, available.count() - 1)));
+        setDecision (available.at (RANDOM (0, available.count() - 1)));
     }
 
     /* Select the best move from the list */
     else if (RANDOM (1, 10) > cpuPlayer()->randomness())
-        emit decisionTaken (moves.last());
+        setDecision (moves.last());
 
     /* Randomly select one of the available moves */
     else
-        emit decisionTaken (moves.at (RANDOM (0, moves.count() - 1)));
-
-    /* Terminate the thread */
-    emit finished();
+        setDecision (moves.at (RANDOM (0, moves.count() - 1)));
 }
 
 /**
@@ -109,6 +126,17 @@ void Minimax::setComputerPlayer (ComputerPlayer* player) {
 }
 
 /**
+ * Notifies the rest of the program that the AI has selected a field
+ */
+void Minimax::setDecision (const int decision) {
+    if (!decisionTaken()) {
+        m_decision = decision;
+        emit aiFinished (decision);
+        emit finished();
+    }
+}
+
+/**
  * Uses the minimax algorithm to obtain a list with the best moves that the
  * AI can make. The moves are ordered from the worst move to best move.
  */
@@ -124,7 +152,8 @@ QVector<int> Minimax::getSmartMoves (const Board& board) {
     int maxScore = INT_MIN;
 
     /* Calculate minimax moves */
-    foreach (int field, considerableFields (board, 0)) {
+    QVector<int> fields = considerableFields (board, 0);
+    foreach (int field, fields) {
         Board copy = board;
         int score = INT_MIN;
         SelectField (copy, field);
@@ -203,59 +232,14 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
 }
 
 /**
- * Returns a vector with all the fields that are near the fields marked by
- * the given \a player
- *
- * This can be used to block opponent moves, or increase the chances of
- * the AI player to win
- */
-QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player) {
-    QVector<int> fields;
-
-    /* Scan for fields owned by the given player */
-    for (int i = 0; i < board.fields.count(); ++i) {
-        if (board.fields.at (i) == player) {
-            /* Get a list of fields surrounding the player field */
-            QVector<int> possibleSurroundingFields = {
-                i - 1,
-                i + 1,
-                i - BoardSize (board),
-                i + BoardSize (board),
-                i + BoardSize (board) + 1,
-                i - BoardSize (board) - 1,
-            };
-
-            /* Eliminate the fields that are outside the board */
-            QVector<int> surroundingFields;
-            foreach (int field, possibleSurroundingFields)
-                if (field < board.fields.count() && field >= 0)
-                    surroundingFields.append (field);
-
-            /* Get the nearby fields that are available */
-            int blockingFields = 0;
-            for (int i = 0; i < surroundingFields.count(); ++i) {
-                int field = surroundingFields.at (i);
-                if (board.fields.at (field) == kUndefined)
-                    fields.append (field);
-
-                else if (board.fields.at (field) == OpponentOf (player))
-                    ++blockingFields;
-
-                if (blockingFields >= surroundingFields.count() / 2)
-                    break;
-            }
-        }
-    }
-
-    /* Return the fields that are near the fields marked by the given player */
-    return fields;
-}
-
-/**
  * Executes the Minimax algorithm in order to find the most optimal move that
  * can be choosen by the AI player
  */
 int Minimax::minimax (Board& board, const int depth, int alpha, int beta) {
+    /* AI already made a decision, break recursive loop */
+    if (decisionTaken())
+        return 0;
+
     /* Get available fields */
     QVector<int> fields = considerableFields (board, depth);
 
@@ -268,7 +252,7 @@ int Minimax::minimax (Board& board, const int depth, int alpha, int beta) {
     }
 
     /* Meh, no one wins */
-    else if (board.state == kDraw || fields.count() == 0)
+    else if (board.state == kDraw || fields.isEmpty())
         return 0;
 
     /* Initialize variables depending on current player */
@@ -319,8 +303,8 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     QVector<int> fields;
 
     if (depth <= board.fieldsToAllign) {
-        fields.append (nearbyFields (board, cpuPlayer()->player()));
-        fields.append (nearbyFields (board, cpuPlayer()->opponent()));
+        fields.append (nearbyFields (board, cpuPlayer()->player(), depth));
+        fields.append (nearbyFields (board, cpuPlayer()->opponent(), depth));
     }
 
     if (fields.count() == 0)
@@ -329,5 +313,68 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     if (fields.count() == 0)
         fields.append (availableCentralFields (board));
 
+    return fields;
+}
+
+/**
+ * Returns a vector with all the fields that are near the fields marked by
+ * the given \a player
+ *
+ * This can be used to block opponent moves, or increase the chances of
+ * the AI player to win.
+ *
+ * \note If this function detects a win-or-loose sitation, then it will
+ *       automatically select the field in question and stop the MM process
+ */
+QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player,
+                                    const int depth) {
+    QVector<int> fields;
+
+    /* Scan for fields owned by the given player */
+    for (int i = 0; i < board.fields.count(); ++i) {
+        if (board.fields.at (i) == player) {
+            /* Get a list of fields surrounding the player field */
+            QVector<int> possibleSurroundingFields = {
+                i - 1,
+                i + 1,
+                i - BoardSize (board),
+                i + BoardSize (board),
+                i + BoardSize (board) + 1,
+                i - BoardSize (board) - 1,
+            };
+
+            /* Eliminate the fields that are outside the board */
+            QVector<int> surroundingFields;
+            foreach (int field, possibleSurroundingFields)
+                if (field < board.fields.count() && field >= 0)
+                    surroundingFields.append (field);
+
+            /* Get the nearby fields that are available */
+            int blockingFields = 0;
+            for (int i = 0; i < surroundingFields.count(); ++i) {
+                int field = surroundingFields.at (i);
+                if (board.fields.at (field) == kUndefined)
+                    fields.append (field);
+
+                else if (board.fields.at (field) == OpponentOf (player))
+                    ++blockingFields;
+
+                if (blockingFields >= surroundingFields.count() * 0.6)
+                    break;
+            }
+        }
+    }
+
+    /* Probe each each field to see if we can win (or loose) the game */
+    if (depth == 0) {
+        foreach (int field, fields) {
+            Board copy = board;
+            SelectField (copy, field);
+            if (copy.winner == player)
+                setDecision (field);
+        }
+    }
+
+    /* Return the fields that are near the fields marked by the given player */
     return fields;
 }
