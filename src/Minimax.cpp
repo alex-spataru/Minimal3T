@@ -170,7 +170,7 @@ QVector<int> Minimax::getSmartMoves (const Board& board) {
         if (score == INT_MIN) {
             score = minimax (copy, 0, INT_MIN, INT_MAX);
             m_cache->append (qMakePair<int, QVector<BoardPlayer>> (score,
-                                                                   copy.fields));
+                             copy.fields));
         }
 
         /* Append scores */
@@ -302,16 +302,21 @@ int Minimax::minimax (Board& board, const int depth, int alpha, int beta) {
 QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     QVector<int> fields;
 
-    if (depth <= board.fieldsToAllign) {
-        fields.append (nearbyFields (board, cpuPlayer()->player(), depth));
-        fields.append (nearbyFields (board, cpuPlayer()->opponent(), depth));
+    if (BoardSize (board) <= 3)
+        fields = AvailableFields (board);
+
+    else {
+        if (depth <= board.fieldsToAllign) {
+            fields.append (nearbyFields (board, cpuPlayer()->player(), depth));
+            fields.append (nearbyFields (board, cpuPlayer()->opponent(), depth));
+        }
+
+        if (fields.count() == 0)
+            fields.append (availableCorners (board));
+
+        if (fields.count() == 0)
+            fields.append (availableCentralFields (board));
     }
-
-    if (fields.count() == 0)
-        fields.append (availableCorners (board));
-
-    if (fields.count() == 0)
-        fields.append (availableCentralFields (board));
 
     return fields;
 }
@@ -350,19 +355,10 @@ QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player
                     surroundingFields.append (field);
 
             /* Get the nearby fields that are available */
-            int blockingFields = 0;
             for (int i = 0; i < surroundingFields.count(); ++i) {
                 int field = surroundingFields.at (i);
                 if (board.fields.at (field) == kUndefined)
                     fields.append (field);
-
-                else if (board.fields.at (field) == OpponentOf (player))
-                    ++blockingFields;
-
-                if (board.fieldsToAllign > 9) {
-                    if (blockingFields >= surroundingFields.count() / 2)
-                        break;
-                }
             }
         }
     }
