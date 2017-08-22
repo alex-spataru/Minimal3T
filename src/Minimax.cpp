@@ -136,6 +136,10 @@ void Minimax::makeAiMove() {
         }
     }
 
+    /* Check if, for some reason, the AI could not come up with a decision */
+    if (move == -1)
+        selectRandomField();
+
     /* Select the choosen field on the 'real' board */
     setDecision (move);
 }
@@ -216,7 +220,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
         fields.append (availableCentralFields (board));
 
     /* Check all fields if board is small or there are no strategic moves */
-    if (fields.isEmpty() || BoardSize (board) > 3)
+    if (fields.isEmpty() || BoardSize (board) <= 3)
         fields = AvailableFields (board);
 
     /* Remove duplicated fields and return result */
