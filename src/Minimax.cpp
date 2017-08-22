@@ -66,8 +66,11 @@ int Minimax::decision() const {
  * Used to stop the minimax search in larger boards in order to avoid loosing
  * too much time simulating inprobable sitations
  */
-int Minimax::maximumDepth (const Board& board) const {
-    return board.size + board.fieldsToAllign;
+int Minimax::maximumDepth (const Board& board) {
+    if (board.size > 3)
+        return qMin (24, board.fields.count());
+
+    return INT_MAX;
 }
 
 /**
@@ -191,7 +194,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     QVector<int> fields;
 
     if (BoardSize (board) > 3) {
-        if (depth < 2) {
+        if (depth < board.fieldsToAllign) {
             fields.append (nearbyFields (board, cpuPlayer()->player()));
             fields.append (nearbyFields (board, cpuPlayer()->opponent()));
         }
@@ -203,6 +206,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
             fields.append (availableCentralFields (board));
     }
 
+    fields = QList<int>::fromSet (fields.toList().toSet()).toVector();
     return fields.count() > 0 ? fields : AvailableFields (board);
 }
 
@@ -248,23 +252,20 @@ QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player
             QVector<int> possibleSurroundingFields = {
                 i - 1,
                 i + 1,
-                i - BoardSize (board),
-                i + BoardSize (board),
-                i + BoardSize (board) + 1,
-                i - BoardSize (board) - 1,
+                i - board.size,
+                i + board.size,
+                i - board.size + 1,
+                i - board.size - 1,
+                i + board.size + 1,
+                i + board.size - 1,
             };
 
             /* Eliminate the fields that are outside the board */
-            QVector<int> surroundingFields;
-            foreach (int field, possibleSurroundingFields)
-                if (field < board.fields.count() && field >= 0)
-                    surroundingFields.append (field);
-
-            /* Get the nearby fields that are available */
-            for (int i = 0; i < surroundingFields.count(); ++i) {
-                int field = surroundingFields.at (i);
-                if (board.fields.at (field) == kUndefined)
-                    fields.append (field);
+            foreach (int field, possibleSurroundingFields) {
+                if (field < board.fields.count() && field >= 0) {
+                    if (board.fields.at (field) == kUndefined)
+                        fields.append (field);
+                }
             }
         }
     }
@@ -279,7 +280,7 @@ QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player
  */
 int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
     /* AI already made a decision, break recursive loop */
-    if (decisionTaken() || depth >= maximumDepth (board))
+    if (decisionTaken() || depth > maximumDepth (board))
         return 0;
 
     /* Get strategic fields */
@@ -304,9 +305,9 @@ int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
 
     /* Do a deep-search in order to find the best move */
     Board copy;
-    for (int i = 0; i < fields.count(); ++i) {
+    foreach (int field, fields) {
         copy = board;
-        SelectField (copy, fields.at (i));
+        SelectField (copy, field);
         score = minimax (copy, depth + 1, alpha, beta);
 
         /* Get score for maximizing player */

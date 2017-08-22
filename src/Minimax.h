@@ -38,8 +38,8 @@ class Minimax : public QObject {
     Minimax (QObject* parent = 0);
     int decision() const;
     bool decisionTaken() const;
-    inline ComputerPlayer* cpuPlayer() const;
-    int maximumDepth (const Board& board) const;
+    ComputerPlayer* cpuPlayer() const;
+    int maximumDepth (const Board& board);
 
   public slots:
     void makeAiMove();
