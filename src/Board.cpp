@@ -100,6 +100,7 @@ void UpdateGameState (Board& board) {
 void ResizeBoard (Board& board, const int size) {
     Q_ASSERT (size > 0);
 
+    board.size = size;
     board.fields.clear();
     for (int i = 0; i < size * size; ++i)
         board.fields.append (kUndefined);
@@ -131,7 +132,7 @@ void ChangeOwner (Board& board, const int field, const BoardPlayer owner) {
  * so the board size of a 3x3 board is 3
  */
 int BoardSize (const Board& board) {
-    return sqrt (board.fields.count());
+    return board.size;
 }
 
 /**
@@ -169,12 +170,11 @@ static bool checkRows (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
-    int size = BoardSize (board);
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < board.size; ++i) {
         p1.clear();
         p2.clear();
 
-        for (int j = 0; j < size; ++j)
+        for (int j = 0; j < board.size; ++j)
             checkAllignedFields (board, p1, p2, i, j);
 
         if (checkWinners (board, p1, p2))
@@ -188,12 +188,11 @@ static bool checkColumns (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
-    int size = BoardSize (board);
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < board.size; ++i) {
         p1.clear();
         p2.clear();
 
-        for (int j = 0; j < size; ++j)
+        for (int j = 0; j < board.size; ++j)
             checkAllignedFields (board, p1, p2, j, i);
 
         if (checkWinners (board, p1, p2))
@@ -207,8 +206,7 @@ static bool checkLtrDiagonals (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
-    int size = BoardSize (board);
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < board.size; ++i)
         checkAllignedFields (board, p1, p2, i, i);
 
     return checkWinners (board, p1, p2);
@@ -218,11 +216,8 @@ static bool checkRtlDiagonals (Board& board, BoardPlayer** matrix) {
     Q_ASSERT (matrix);
 
     QVector<int> p1, p2;
-    int size = BoardSize (board);
-    for (int i = 0; i < size; ++i) {
-        int k = size - i - 1;
-        checkAllignedFields (board, p1, p2, i, k);
-    }
+    for (int i = 0; i < board.size; ++i)
+        checkAllignedFields (board, p1, p2, i, board.size - i - 1);
 
     return checkWinners (board, p1, p2);
 }
@@ -261,24 +256,27 @@ static void checkAllignedFields (Board& board,
                                  QVector<int>& p1, QVector<int>& p2,
                                  int i, int j) {
     int field = i * BoardSize (board) + j;
+    if (field < board.fields.count()) {
+        if (board.fields.at (field) == kPlayer1) {
+            if (p1.count() < board.fieldsToAllign)
+                p1.append (field);
+            if (p2.count() < board.fieldsToAllign)
+                p2.clear();
+        }
 
-    if (board.fields.at (field) == kPlayer1) {
-        p1.append (field);
-        if (p2.count() < board.fieldsToAllign)
-            p2.clear();
-    }
+        else if (board.fields.at (field) == kPlayer2) {
+            if (p2.count() < board.fieldsToAllign)
+                p2.append (field);
+            if (p1.count() < board.fieldsToAllign)
+                p1.clear();
+        }
 
-    else if (board.fields.at (field) == kPlayer2) {
-        p2.append (field);
-        if (p1.count() < board.fieldsToAllign)
-            p1.clear();
-    }
-
-    else {
-        if (p1.count() < board.fieldsToAllign)
-            p1.clear();
-        if (p2.count() < board.fieldsToAllign)
-            p2.clear();
+        else {
+            if (p1.count() < board.fieldsToAllign)
+                p1.clear();
+            if (p2.count() < board.fieldsToAllign)
+                p2.clear();
+        }
     }
 }
 

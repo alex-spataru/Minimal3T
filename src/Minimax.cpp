@@ -51,7 +51,6 @@ static inline int RANDOM (const int min, const int max) {
  */
 Minimax::Minimax (QObject* parent) : QObject (parent) {
     m_decision = -1;
-    m_cache = Q_NULLPTR;
     m_cpuPlayer = Q_NULLPTR;
 }
 
@@ -61,6 +60,14 @@ Minimax::Minimax (QObject* parent) : QObject (parent) {
  */
 int Minimax::decision() const {
     return m_decision;
+}
+
+/**
+ * Used to stop the minimax search in larger boards in order to avoid loosing
+ * too much time simulating inprobable sitations
+ */
+int Minimax::maximumDepth (const Board& board) const {
+    return board.size + board.fieldsToAllign;
 }
 
 /**
@@ -90,31 +97,45 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  *       board used by the computer player
  */
 void Minimax::makeAiMove() {
-    /* Get a list of available moves */
-    QVector<int> moves = getSmartMoves (QmlBoard::getInstance()->board());
+    /* Init. variables */
+    int move = INT_MIN;
+    int score = INT_MIN;
+    int maxScore = INT_MIN;
 
-    /* For some reason, the AI could not figure out at least one smart move */
-    if (moves.isEmpty()) {
-        QList<int> available = QmlBoard::getInstance()->availableFields();
-        setDecision (available.at (RANDOM (0, available.count() - 1)));
+    /* Initialize board objects */
+    Board copy;
+    Board board = QmlBoard::getInstance()->board();
+
+    /* Get a list of strategic fields */
+    QVector<int> desirableFields = considerableFields (board, 0);
+
+    /* Selecet each field on a secondary board and see what happens */
+    foreach (int field, desirableFields) {
+        copy = board;
+        SelectField (copy, field);
+
+        /* By selecting the field, we win or we loose, break the loop */
+        if (copy.state == kGameWon) {
+            move = field;
+            break;
+        }
+
+        /* We cannot predict what happens, so we simulate a game */
+        else {
+            score = minimax (copy, 0, INT_MIN, INT_MAX);
+            if (maxScore < score && RANDOM (0, 10) > cpuPlayer()->randomness()) {
+                move = field;
+                maxScore = score;
+            }
+        }
     }
 
-    /* Select the best move from the list */
-    else if (RANDOM (1, 10) > cpuPlayer()->randomness())
-        setDecision (moves.last());
+    /* For some reason, the AI could not come up with a decision */
+    if (move == -1)
+        move = desirableFields.at (RANDOM (0, desirableFields.count() - 1));
 
-    /* Randomly select one of the available moves */
-    else
-        setDecision (moves.at (RANDOM (0, moves.count() - 1)));
-}
-
-/**
- * Registers a pointer in which we shall write all the search trees generated
- * by the minimax algorythm
- */
-void Minimax::setCache (MinimaxCache* cache) {
-    Q_ASSERT (cache);
-    m_cache = cache;
+    /* Select the choosen field on the 'real' board */
+    setDecision (move);
 }
 
 /**
@@ -137,60 +158,6 @@ void Minimax::setDecision (const int decision) {
 }
 
 /**
- * Uses the minimax algorithm to obtain a list with the best moves that the
- * AI can make. The moves are ordered from the worst move to best move.
- */
-QVector<int> Minimax::getSmartMoves (const Board& board) {
-    /* Check conditions */
-    Q_ASSERT (cpuPlayer());
-    Q_ASSERT (m_cache != Q_NULLPTR);
-
-    /* Initialize variables */
-    QVector<int> moves;
-    QVector<int> scores;
-    QVector<int> bestMoves;
-    int maxScore = INT_MIN;
-
-    /* Calculate minimax moves */
-    QVector<int> fields = considerableFields (board, 0);
-    foreach (int field, fields) {
-        Board copy = board;
-        int score = INT_MIN;
-        SelectField (copy, field);
-
-        /* Check if cache already contains search tree */
-        for (int i = 0; i < m_cache->count(); ++i) {
-            if (m_cache->at (i).second == copy.fields) {
-                score = m_cache->at (i).first;
-                break;
-            }
-        }
-
-        /* Cache does not contain search field, do it */
-        if (score == INT_MIN) {
-            score = minimax (copy, 0, INT_MIN, INT_MAX);
-            m_cache->append (qMakePair<int, QVector<BoardPlayer>> (score,
-                             copy.fields));
-        }
-
-        /* Append scores */
-        moves.append (field);
-        scores.append (score);
-    }
-
-    /* Get the best moves */
-    for (int i = 0; i < scores.count(); ++i) {
-        if (scores.at (i) >= maxScore) {
-            maxScore = scores.at (i);
-            bestMoves.append (moves.at (i));
-        }
-    }
-
-    /* Return the best moves available */
-    return bestMoves;
-}
-
-/**
  * Returns a vector with all the unused corners in the given \a board
  */
 QVector<int> Minimax::availableCorners (const Board& board) {
@@ -207,6 +174,36 @@ QVector<int> Minimax::availableCorners (const Board& board) {
             fields.append (corner);
 
     return fields;
+}
+
+/**
+ * Creates a vector with the fields that are worth for the AI to consider when
+ * making a decision.
+ *
+ * The list is generated according to the following rules:
+ *   - Consider all fields that surround a field marked by the enemy
+ *   - Consider all fields that surround already-owned fields
+ *   - If there are no available fields near enemy marks, consider corners
+ *   - If there are no available fields near enemy marks, and no corners,
+ *     consider the central field and its surrounding fields
+ */
+QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
+    QVector<int> fields;
+
+    if (BoardSize (board) > 3) {
+        if (depth < 2) {
+            fields.append (nearbyFields (board, cpuPlayer()->player()));
+            fields.append (nearbyFields (board, cpuPlayer()->opponent()));
+        }
+
+        if (fields.count() == 0)
+            fields.append (availableCorners (board));
+
+        if (fields.count() == 0)
+            fields.append (availableCentralFields (board));
+    }
+
+    return fields.count() > 0 ? fields : AvailableFields (board);
 }
 
 /**
@@ -232,96 +229,6 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
 }
 
 /**
- * Executes the Minimax algorithm in order to find the most optimal move that
- * can be choosen by the AI player
- */
-int Minimax::minimax (Board& board, const int depth, int alpha, int beta) {
-    /* AI already made a decision, break recursive loop */
-    if (decisionTaken())
-        return 0;
-
-    /* Get available fields */
-    QVector<int> fields = considerableFields (board, depth);
-
-    /* Somebody wins, calculate score */
-    if (board.state == kGameWon) {
-        if (board.winner == cpuPlayer()->player())
-            return BaseScore (board) - depth;
-
-        return -BaseScore (board) + depth;
-    }
-
-    /* Meh, no one wins */
-    else if (board.state == kDraw || fields.isEmpty())
-        return 0;
-
-    /* Initialize variables depending on current player */
-    int isMax = board.turn == cpuPlayer()->player();
-    int best = isMax ? INT_MIN : INT_MAX;
-
-    /* Do a deep-search in order to find the best move */
-    for (int i = 0; i < fields.count(); ++i) {
-        Board copy = board;
-        SelectField (copy, fields.at (i));
-        int mm = minimax (copy, depth + 1, alpha, beta);
-
-        /* Get score for maximizing player */
-        if (isMax) {
-            best = qMax (best, mm);
-            alpha = qMax (best, alpha);
-
-            if (beta <= alpha)
-                return alpha;
-        }
-
-        /* Get score for minimizing player */
-        else {
-            best = qMin (best, mm);
-            beta = qMin (best, beta);
-
-            if (beta <= alpha)
-                return beta;
-        }
-    }
-
-    /* Return the best score for the current player */
-    return best;
-}
-
-/**
- * Creates a vector with the fields that are worth for the AI to consider when
- * making a decision.
- *
- * The list is generated according to the following rules:
- *   - Consider all fields that surround a field marked by the enemy
- *   - Consider all fields that surround already-owned fields
- *   - If there are no available fields near enemy marks, consider corners
- *   - If there are no available fields near enemy marks, and no corners,
- *     consider the central field and its surrounding fields
- */
-QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
-    QVector<int> fields;
-
-    if (BoardSize (board) <= 3)
-        fields = AvailableFields (board);
-
-    else {
-        if (depth <= board.fieldsToAllign) {
-            fields.append (nearbyFields (board, cpuPlayer()->player(), depth));
-            fields.append (nearbyFields (board, cpuPlayer()->opponent(), depth));
-        }
-
-        if (fields.count() == 0)
-            fields.append (availableCorners (board));
-
-        if (fields.count() == 0)
-            fields.append (availableCentralFields (board));
-    }
-
-    return fields;
-}
-
-/**
  * Returns a vector with all the fields that are near the fields marked by
  * the given \a player
  *
@@ -331,8 +238,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
  * \note If this function detects a win-or-loose sitation, then it will
  *       automatically select the field in question and stop the MM process
  */
-QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player,
-                                    const int depth) {
+QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player) {
     QVector<int> fields;
 
     /* Scan for fields owned by the given player */
@@ -363,16 +269,65 @@ QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player
         }
     }
 
-    /* Probe each each field to see if we can win (or loose) the game */
-    if (depth == 0) {
-        foreach (int field, fields) {
-            Board copy = board;
-            SelectField (copy, field);
-            if (copy.winner == player)
-                setDecision (field);
+    /* Return the fields that are near the fields marked by the given player */
+    return fields;
+}
+
+/**
+ * Executes the Minimax algorithm in order to find the most optimal move that
+ * can be choosen by the AI player
+ */
+int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
+    /* AI already made a decision, break recursive loop */
+    if (decisionTaken() || depth >= maximumDepth (board))
+        return 0;
+
+    /* Get strategic fields */
+    QVector<int> fields = considerableFields (board, depth);
+
+    /* Somebody wins, calculate score */
+    if (board.state == kGameWon) {
+        if (board.winner == cpuPlayer()->player())
+            return BaseScore (board) - depth;
+
+        return -BaseScore (board) + depth;
+    }
+
+    /* Meh, no one wins */
+    else if (board.state == kDraw || fields.isEmpty())
+        return 0;
+
+    /* Initialize variables depending on current player */
+    int score = 0;
+    int isMax = board.turn == cpuPlayer()->player();
+    int best = isMax ? INT_MIN : INT_MAX;
+
+    /* Do a deep-search in order to find the best move */
+    Board copy;
+    for (int i = 0; i < fields.count(); ++i) {
+        copy = board;
+        SelectField (copy, fields.at (i));
+        score = minimax (copy, depth + 1, alpha, beta);
+
+        /* Get score for maximizing player */
+        if (isMax) {
+            best = qMax (best, score);
+            alpha = qMax (best, alpha);
+
+            if (beta <= alpha)
+                return alpha;
+        }
+
+        /* Get score for minimizing player */
+        else {
+            best = qMin (best, score);
+            beta = qMin (best, beta);
+
+            if (beta <= alpha)
+                return beta;
         }
     }
 
-    /* Return the fields that are near the fields marked by the given player */
-    return fields;
+    /* Return the best score for the current player */
+    return best;
 }

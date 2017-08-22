@@ -41,9 +41,11 @@ typedef struct {
     BoardState state;
     BoardPlayer turn;
     BoardPlayer winner;
-    int fieldsToAllign;
     QVector<int> allignedFields;
     QVector<BoardPlayer> fields;
+
+    short size;
+    short fieldsToAllign;
 } Board;
 
 extern void ResetBoard (Board& board);

@@ -31,8 +31,6 @@
     #include <QtQml>
 #endif
 
-#define MAX_CACHE_LEN 65535
-
 class ComputerPlayer : public QObject {
     Q_OBJECT
 
@@ -68,9 +66,6 @@ class ComputerPlayer : public QObject {
     BoardPlayer player() const;
     BoardPlayer opponent() const;
 
-    inline MinimaxCache cache() const {
-        return m_cache;
-    }
 
     inline QmlBoard::Player qmlPlayer() const {
         return (QmlBoard::Player) player();
@@ -87,7 +82,6 @@ class ComputerPlayer : public QObject {
 
   private:
     int m_randomness;
-    MinimaxCache m_cache;
     BoardPlayer m_player;
 };
 

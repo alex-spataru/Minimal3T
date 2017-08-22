@@ -26,8 +26,6 @@
 #include "Board.h"
 #include <QObject>
 
-#define MinimaxCache QVector<QPair<int,QVector<BoardPlayer>>>
-
 class ComputerPlayer;
 class Minimax : public QObject {
     Q_OBJECT
@@ -41,10 +39,10 @@ class Minimax : public QObject {
     int decision() const;
     bool decisionTaken() const;
     inline ComputerPlayer* cpuPlayer() const;
+    int maximumDepth (const Board& board) const;
 
   public slots:
     void makeAiMove();
-    void setCache (MinimaxCache* cache);
     void setComputerPlayer (ComputerPlayer* player);
 
   private:
@@ -52,13 +50,14 @@ class Minimax : public QObject {
     QVector<int> getSmartMoves (const Board& board);
     QVector<int> availableCorners (const Board& board);
     QVector<int> availableCentralFields (const Board& board);
-    inline int minimax (Board& board, const int depth, int alpha, int beta);
-    inline QVector<int> considerableFields (const Board& board, const int depth);
-    QVector<int> nearbyFields (const Board& board, const BoardPlayer player, const int depth);
+    QVector<int> considerableFields (const Board& board, const int depth);
+    QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
+
+    int minimax (Board& board, int depth, int alpha, int beta);
 
   private:
     int m_decision;
-    MinimaxCache* m_cache;
+    Board m_tempBoard;
     ComputerPlayer* m_cpuPlayer;
 };
 

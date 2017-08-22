@@ -205,6 +205,7 @@ ApplicationWindow {
         property alias wY: app.y
         property alias wWidth: app.width
         property alias wHeight: app.height
+        property alias wSounds: app.enableSoundAndMusic
     }
 
     //

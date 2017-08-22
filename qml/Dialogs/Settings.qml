@@ -75,9 +75,6 @@ Dialog {
             AiPlayer.randomness = 4
             break
         case 2:
-            AiPlayer.randomness = 2
-            break
-        case 3:
             AiPlayer.randomness = 0
             break
         }
@@ -124,7 +121,6 @@ Dialog {
                 qsTr ("Easy"),
                 qsTr ("Normal"),
                 qsTr ("Hard"),
-                qsTr ("Very Hard")
             ]
         }
 
