@@ -96,6 +96,21 @@ ApplicationWindow {
     }
 
     //
+    // Returns the symbol for the given player
+    //
+    function getSymbol (player) {
+        function symbol (cross) {
+            return cross ? "qrc:/images/cross.svg" :
+                           "qrc:/images/circle.svg"
+        }
+
+        if (player === 0)
+            return symbol (settingsDlg.useCrosses)
+
+        return symbol (!settingsDlg.useCrosses)
+    }
+
+    //
     // Opens the rate app link in Google Play
     //
     function openWebsite() {

@@ -40,12 +40,14 @@ Dialog {
     // Custom properties
     //
     property alias p2StartsFirst: _p2StartsFirst.checked
+    property bool useCrosses: _playerSymbol.currentIndex == 1
 
     //
     // Save settings between runs
     //
     Settings {
         category: "Settings"
+        property alias symbol: _playerSymbol.currentIndex
         property alias p2Begins: _p2StartsFirst.checked
         property alias boardSize: _boardSize.currentIndex
         property alias aiDifficulty: _aiLevel.currentIndex
@@ -56,7 +58,6 @@ Dialog {
     // Window settings
     //
     modal: true
-    title: qsTr ("Settings")
     standardButtons: Dialog.Ok
     parent: ApplicationWindow.overlay
     width: Math.min (app.width * 0.9, layout.implicitWidth * 1.4)
@@ -108,7 +109,7 @@ Dialog {
         // AI difficulty
         //
         Label {
-            text: qsTr ("AI Level") + ":"
+            text: qsTr ("AI level") + ":"
         } ComboBox {
             id: _aiLevel
             currentIndex: 1
@@ -121,6 +122,23 @@ Dialog {
                 qsTr ("Easy"),
                 qsTr ("Normal"),
                 qsTr ("Hard"),
+            ]
+        }
+
+        //
+        // Player symbol
+        //
+        Label {
+            text: qsTr ("Player symbol") + ":"
+        } ComboBox {
+            id: _playerSymbol
+            Layout.fillWidth: true
+            Material.background: "#dedede"
+            Material.foreground: "#000000"
+            Layout.preferredWidth: app.paneWidth
+            model: [
+                qsTr ("Circle"),
+                qsTr ("Cross")
             ]
         }
 
