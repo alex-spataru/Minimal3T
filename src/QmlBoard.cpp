@@ -38,7 +38,7 @@ int QmlBoard::numFields() const {
 }
 
 int QmlBoard::boardSize() const {
-    return sqrt (numFields());
+    return board().size;
 }
 
 int QmlBoard::fieldsToAllign() const {

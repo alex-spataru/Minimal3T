@@ -27,6 +27,7 @@
 #include <QObject>
 
 class ComputerPlayer;
+
 class Minimax : public QObject {
     Q_OBJECT
 
@@ -35,7 +36,8 @@ class Minimax : public QObject {
     void aiFinished (const int);
 
   public:
-    Minimax (QObject* parent = 0);
+    explicit Minimax();
+
     int decision() const;
     bool decisionTaken() const;
     ComputerPlayer* cpuPlayer() const;
@@ -50,17 +52,15 @@ class Minimax : public QObject {
     void setDecision (const int decision);
 
   private:
-    QVector<int> getSmartMoves (const Board& board);
+    int minimax (Board& board, int depth, int alpha, int beta);
+
     QVector<int> availableCorners (const Board& board);
     QVector<int> availableCentralFields (const Board& board);
     QVector<int> considerableFields (const Board& board, const int depth);
     QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
 
-    int minimax (Board& board, int depth, int alpha, int beta);
-
   private:
     int m_decision;
-    Board m_tempBoard;
     ComputerPlayer* m_cpuPlayer;
 };
 

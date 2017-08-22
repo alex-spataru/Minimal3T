@@ -20,10 +20,6 @@
  * THE SOFTWARE.
  */
 
-//------------------------------------------------------------------------------
-// WARNING: Ugly code ahead, feel free to improve it
-//------------------------------------------------------------------------------
-
 #include "Minimax.h"
 #include "ComputerPlayer.h"
 
@@ -49,7 +45,7 @@ static inline int RANDOM (const int min, const int max) {
 /**
  * Initializes the internal variables of the class
  */
-Minimax::Minimax (QObject* parent) : QObject (parent) {
+Minimax::Minimax() {
     m_decision = -1;
     m_cpuPlayer = Q_NULLPTR;
 }
@@ -173,6 +169,64 @@ void Minimax::setDecision (const int decision) {
 }
 
 /**
+ * Executes the Minimax algorithm in order to find the most optimal move that
+ * can be choosen by the AI player
+ */
+int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
+    /* AI already made a decision, break recursive loop */
+    if (decisionTaken() || depth > maximumDepth (board))
+        return 0;
+
+    /* Get strategic fields */
+    QVector<int> fields = considerableFields (board, depth);
+
+    /* Somebody wins, calculate score */
+    if (board.state == kGameWon) {
+        if (board.winner == cpuPlayer()->player())
+            return BaseScore (board) - depth;
+
+        return -BaseScore (board) + depth;
+    }
+
+    /* Meh, no one wins */
+    else if (board.state == kDraw || fields.isEmpty())
+        return 0;
+
+    /* Initialize variables depending on current player */
+    int isMax = board.turn == cpuPlayer()->player();
+    int best = isMax ? INT_MIN : INT_MAX;
+
+    /* Do a deep-search in order to find the best move */
+    Board copy;
+    foreach (int field, fields) {
+        copy = board;
+        SelectField (copy, field);
+        int score = minimax (copy, depth + 1, alpha, beta);
+
+        /* Get score for maximizing player */
+        if (isMax) {
+            best = qMax (best, score);
+            alpha = qMax (best, alpha);
+
+            if (beta <= alpha)
+                return alpha;
+        }
+
+        /* Get score for minimizing player */
+        else {
+            best = qMin (best, score);
+            beta = qMin (best, beta);
+
+            if (beta <= alpha)
+                return beta;
+        }
+    }
+
+    /* Return the best score for the current player */
+    return best;
+}
+
+/**
  * Returns a vector with all the unused corners in the given \a board
  */
 QVector<int> Minimax::availableCorners (const Board& board) {
@@ -292,63 +346,4 @@ QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player
 
     DeleteMatrix (board, matrix);
     return fields;
-}
-
-/**
- * Executes the Minimax algorithm in order to find the most optimal move that
- * can be choosen by the AI player
- */
-int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
-    /* AI already made a decision, break recursive loop */
-    if (decisionTaken() || depth > maximumDepth (board))
-        return 0;
-
-    /* Get strategic fields */
-    QVector<int> fields = considerableFields (board, depth);
-
-    /* Somebody wins, calculate score */
-    if (board.state == kGameWon) {
-        if (board.winner == cpuPlayer()->player())
-            return BaseScore (board) - depth;
-
-        return -BaseScore (board) + depth;
-    }
-
-    /* Meh, no one wins */
-    else if (board.state == kDraw || fields.isEmpty())
-        return 0;
-
-    /* Initialize variables depending on current player */
-    int isMax = board.turn == cpuPlayer()->player();
-    int best = isMax ? INT_MIN : INT_MAX;
-    int score = 0;
-
-    /* Do a deep-search in order to find the best move */
-    Board copy;
-    foreach (int field, fields) {
-        copy = board;
-        SelectField (copy, field);
-        score = minimax (copy, depth + 1, alpha, beta);
-
-        /* Get score for maximizing player */
-        if (isMax) {
-            best = qMax (best, score);
-            alpha = qMax (best, alpha);
-
-            if (beta <= alpha)
-                return alpha;
-        }
-
-        /* Get score for minimizing player */
-        else {
-            best = qMin (best, score);
-            beta = qMin (best, beta);
-
-            if (beta <= alpha)
-                return beta;
-        }
-    }
-
-    /* Return the best score for the current player */
-    return best;
 }
