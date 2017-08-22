@@ -212,7 +212,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     }
 
     /* No fields to block or complete, try the corners */
-    if (fields.count() == 0)
+    if (fields.count() == 0 && board.size < 6)
         fields.append (availableCorners (board));
 
     /* No corners, try the central fields */
@@ -233,13 +233,16 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
 QVector<int> Minimax::availableCentralFields (const Board& board) {
     QVector<int> fields;
 
-    int center = board.fields.count() / 2;
+    int center = board.size / 2;
     QVector<int> centralFields = {
-        center,
-        center - 1,
-        center + 1,
-        center - BoardSize (board),
-        center + BoardSize (board)
+        FieldAt (board, center, center - 1),
+        FieldAt (board, center, center + 1),
+        FieldAt (board, center - 1, center),
+        FieldAt (board, center - 1, center - 1),
+        FieldAt (board, center - 1, center + 1),
+        FieldAt (board, center + 1, center),
+        FieldAt (board, center + 1, center - 1),
+        FieldAt (board, center + 1, center + 1),
     };
 
     foreach (int centralField, centralFields)
@@ -261,29 +264,33 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
  */
 QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player) {
     QVector<int> fields;
+    BoardPlayer** matrix = BoardMatrix (board);
 
-    foreach (int field, board.fields) {
-        if (board.fields.at (field) == player) {
-            QVector<int> possibleSurroundingFields = {
-                field - 1,
-                field + 1,
-                field - board.size,
-                field + board.size,
-                field - board.size + 1,
-                field - board.size - 1,
-                field + board.size + 1,
-                field + board.size - 1,
-            };
+    for (int i = 0; i < BoardSize (board); ++i) {
+        for (int j = 0; j < BoardSize (board); ++j) {
+            if (matrix [i][j] == player) {
+                QVector<int> possibleSurroundingFields = {
+                    FieldAt (board, i, j - 1),
+                    FieldAt (board, i, j + 1),
+                    FieldAt (board, i - 1, j),
+                    FieldAt (board, i + 1, j),
+                    FieldAt (board, i - 1, j - 1),
+                    FieldAt (board, i - 1, j + 1),
+                    FieldAt (board, i + 1, j - 1),
+                    FieldAt (board, i + 1, j + 1),
+                };
 
-            foreach (int possibleField, possibleSurroundingFields) {
-                if (possibleField < board.fields.count() && possibleField >= 0) {
-                    if (board.fields.at (possibleField) == kUndefined)
-                        fields.append (possibleField);
+                foreach (int field, possibleSurroundingFields) {
+                    if (field < board.fields.count() && field >= 0) {
+                        if (board.fields.at (field) == kUndefined)
+                            fields.append (field);
+                    }
                 }
             }
         }
     }
 
+    DeleteMatrix (board, matrix);
     return fields;
 }
 

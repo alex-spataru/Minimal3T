@@ -52,9 +52,13 @@ extern void ResetBoard (Board& board);
 extern void UpdateGameState (Board& board);
 extern void ResizeBoard (Board& board, const int size);
 extern void SelectField (Board& board, const int field);
+extern void DeleteMatrix (const Board& board, BoardPlayer** matrix);
 extern void ChangeOwner (Board& board, const int field, const BoardPlayer owner);
 
 extern int BoardSize (const Board& board);
+extern int FieldAt (const Board& board, const int i, const int j);
+
+extern BoardPlayer** BoardMatrix (const Board& board);
 extern QVector<int> AvailableFields (const Board& board);
 extern BoardPlayer OpponentOf (const BoardPlayer player);
 

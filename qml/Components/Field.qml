@@ -103,13 +103,13 @@ Item {
             var owner = Board.fieldOwner (fieldNumber)
 
             if (owner === TicTacToe.Player1 && field.enabled) {
-                field.symbol = "qrc:/images/cross.svg"
+                field.symbol = "qrc:/images/circle.svg"
                 app.playSoundEffect ("p1_field.wav")
                 _symbol.opacity = 1
             }
 
             else if (owner === TicTacToe.Player2 && field.enabled) {
-                field.symbol = "qrc:/images/circle.svg"
+                field.symbol = "qrc:/images/cross.svg"
                 app.playSoundEffect ("p2_field.wav")
                 _symbol.opacity = 1
             }

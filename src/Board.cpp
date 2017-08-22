@@ -67,14 +67,7 @@ void ResetBoard (Board& board) {
  *   - If there is a winner, then the game state shall be set to \c kGameWon
  */
 void UpdateGameState (Board& board) {
-    int size = BoardSize (board);
-    BoardPlayer** matrix = (BoardPlayer**) calloc (size, sizeof (BoardPlayer*));
-
-    for (int i = 0; i < size; ++i) {
-        matrix [i] = (BoardPlayer*) calloc (size, sizeof (BoardPlayer));
-        for (int j = 0; j < size; ++j)
-            matrix [i][j] = board.fields.at (i * size + j);
-    }
+    BoardPlayer** matrix = BoardMatrix (board);
 
     bool won = false;
     won |= checkRows (board, matrix);
@@ -91,7 +84,7 @@ void UpdateGameState (Board& board) {
     else
         board.state = kGameInProgress;
 
-    free (matrix);
+    DeleteMatrix (board, matrix);
 }
 
 /**
@@ -119,6 +112,20 @@ void SelectField (Board& board, const int field) {
 }
 
 /**
+ * De-allocates each row of the given \a matrix
+ */
+void DeleteMatrix (const Board& board, BoardPlayer** matrix) {
+    if (matrix) {
+        for (int i = 0; i < board.size; ++i) {
+            free (matrix [i]);
+            matrix [i] = Q_NULLPTR;
+        }
+
+        free (matrix);
+    }
+}
+
+/**
  * Changes the \a owner of the given \a field of the \a board
  */
 void ChangeOwner (Board& board, const int field, const BoardPlayer owner) {
@@ -133,6 +140,29 @@ void ChangeOwner (Board& board, const int field, const BoardPlayer owner) {
  */
 int BoardSize (const Board& board) {
     return board.size;
+}
+
+/**
+ * Returns the field ID of the given (i,j) matrix coordinate
+ */
+int FieldAt (const Board& board, const int i, const int j) {
+    return i * board.size + j;
+}
+
+/**
+ * Generates a square matrix containing the field owners of the given board
+ */
+BoardPlayer** BoardMatrix (const Board& board) {
+    int size = BoardSize (board);
+    BoardPlayer** matrix = (BoardPlayer**) calloc (size, sizeof (BoardPlayer*));
+
+    for (int i = 0; i < size; ++i) {
+        matrix [i] = (BoardPlayer*) calloc (size, sizeof (BoardPlayer));
+        for (int j = 0; j < size; ++j)
+            matrix [i][j] = board.fields.at (FieldAt (board, i, j));
+    }
+
+    return matrix;
 }
 
 /**
@@ -255,7 +285,7 @@ static bool checkWinners (Board& board, QVector<int> p1, QVector<int> p2) {
 static void checkAllignedFields (Board& board,
                                  QVector<int>& p1, QVector<int>& p2,
                                  int i, int j) {
-    int field = i * BoardSize (board) + j;
+    int field = FieldAt (board, i, j);
     if (field < board.fields.count()) {
         if (board.fields.at (field) == kPlayer1) {
             if (p1.count() < board.fieldsToAllign)
