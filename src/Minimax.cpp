@@ -109,7 +109,7 @@ void Minimax::makeAiMove() {
     Board copy;
     Board board = QmlBoard::getInstance()->board();
 
-    /* Set a kill timer, so that the AI shall philosophate into enternity */
+    /* Select a random field in the case that the AI is too slow */
     QTimer::singleShot (5 * 1000, this, SLOT (selectRandomField()));
 
     /* Get a list of strategic fields */
@@ -135,10 +135,6 @@ void Minimax::makeAiMove() {
             }
         }
     }
-
-    /* For some reason, the AI could not come up with a decision */
-    if (move == -1)
-        selectRandomField();
 
     /* Select the choosen field on the 'real' board */
     setDecision (move);
@@ -205,21 +201,26 @@ QVector<int> Minimax::availableCorners (const Board& board) {
 QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     QVector<int> fields;
 
-    if (BoardSize (board) > 3) {
-        if (depth < 2) {
-            fields.append (nearbyFields (board, cpuPlayer()->player()));
-            fields.append (nearbyFields (board, cpuPlayer()->opponent()));
-        }
-
-        if (fields.count() == 0)
-            fields.append (availableCorners (board));
-
-        if (fields.count() == 0)
-            fields.append (availableCentralFields (board));
+    /* Scan for fields to block or complete only on very possible sitations */
+    if (depth < 2) {
+        fields.append (nearbyFields (board, cpuPlayer()->player()));
+        fields.append (nearbyFields (board, cpuPlayer()->opponent()));
     }
 
-    fields = QList<int>::fromSet (fields.toList().toSet()).toVector();
-    return fields.count() > 0 ? fields : AvailableFields (board);
+    /* No fields to block or complete, try the corners */
+    if (fields.count() == 0)
+        fields.append (availableCorners (board));
+
+    /* No corners, try the central fields */
+    if (fields.count() == 0)
+        fields.append (availableCentralFields (board));
+
+    /* Check all fields if board is small or there are no strategic moves */
+    if (fields.isEmpty() || BoardSize (board) > 3)
+        fields = AvailableFields (board);
+
+    /* Remove duplicated fields and return result */
+    return QList<int>::fromSet (fields.toList().toSet()).toVector();
 }
 
 /**
@@ -257,32 +258,28 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
 QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player) {
     QVector<int> fields;
 
-    /* Scan for fields owned by the given player */
-    for (int i = 0; i < board.fields.count(); ++i) {
-        if (board.fields.at (i) == player) {
-            /* Get a list of fields surrounding the player field */
+    foreach (int field, board.fields) {
+        if (board.fields.at (field) == player) {
             QVector<int> possibleSurroundingFields = {
-                i - 1,
-                i + 1,
-                i - board.size,
-                i + board.size,
-                i - board.size + 1,
-                i - board.size - 1,
-                i + board.size + 1,
-                i + board.size - 1,
+                field - 1,
+                field + 1,
+                field - board.size,
+                field + board.size,
+                field - board.size + 1,
+                field - board.size - 1,
+                field + board.size + 1,
+                field + board.size - 1,
             };
 
-            /* Eliminate the fields that are outside the board */
-            foreach (int field, possibleSurroundingFields) {
-                if (field < board.fields.count() && field >= 0) {
-                    if (board.fields.at (field) == kUndefined)
-                        fields.append (field);
+            foreach (int possibleField, possibleSurroundingFields) {
+                if (possibleField < board.fields.count() && possibleField >= 0) {
+                    if (board.fields.at (possibleField) == kUndefined)
+                        fields.append (possibleField);
                 }
             }
         }
     }
 
-    /* Return the fields that are near the fields marked by the given player */
     return fields;
 }
 
@@ -311,9 +308,9 @@ int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
         return 0;
 
     /* Initialize variables depending on current player */
-    int score = 0;
     int isMax = board.turn == cpuPlayer()->player();
     int best = isMax ? INT_MIN : INT_MAX;
+    int score = 0;
 
     /* Do a deep-search in order to find the best move */
     Board copy;

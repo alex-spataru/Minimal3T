@@ -45,11 +45,11 @@ class Minimax : public QObject {
     void makeAiMove();
     void setComputerPlayer (ComputerPlayer* player);
 
-private slots:
+  private slots:
     void selectRandomField();
     void setDecision (const int decision);
 
-private:
+  private:
     QVector<int> getSmartMoves (const Board& board);
     QVector<int> availableCorners (const Board& board);
     QVector<int> availableCentralFields (const Board& board);
