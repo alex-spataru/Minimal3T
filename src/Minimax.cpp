@@ -68,7 +68,7 @@ int Minimax::decision() const {
  */
 int Minimax::maximumDepth (const Board& board) {
     if (board.size > 3)
-        return qMin (24, board.fields.count());
+        return pow (board.fieldsToAllign, 2) / board.size;
 
     return INT_MAX;
 }
@@ -109,6 +109,9 @@ void Minimax::makeAiMove() {
     Board copy;
     Board board = QmlBoard::getInstance()->board();
 
+    /* Set a kill timer, so that the AI shall philosophate into enternity */
+    QTimer::singleShot (5 * 1000, this, SLOT (selectRandomField()));
+
     /* Get a list of strategic fields */
     QVector<int> desirableFields = considerableFields (board, 0);
 
@@ -135,7 +138,7 @@ void Minimax::makeAiMove() {
 
     /* For some reason, the AI could not come up with a decision */
     if (move == -1)
-        move = desirableFields.at (RANDOM (0, desirableFields.count() - 1));
+        selectRandomField();
 
     /* Select the choosen field on the 'real' board */
     setDecision (move);
@@ -147,6 +150,15 @@ void Minimax::makeAiMove() {
 void Minimax::setComputerPlayer (ComputerPlayer* player) {
     Q_ASSERT (player);
     m_cpuPlayer = player;
+}
+
+/**
+ * Selects a random field from the 'strategic' field set
+ */
+void Minimax::selectRandomField() {
+    Board board = QmlBoard::getInstance()->board();
+    QVector<int> desirableFields = considerableFields (board, 0);
+    setDecision (desirableFields.at (RANDOM (0, desirableFields.count() - 1)));
 }
 
 /**
@@ -194,7 +206,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     QVector<int> fields;
 
     if (BoardSize (board) > 3) {
-        if (depth < board.fieldsToAllign) {
+        if (depth < 2) {
             fields.append (nearbyFields (board, cpuPlayer()->player()));
             fields.append (nearbyFields (board, cpuPlayer()->opponent()));
         }

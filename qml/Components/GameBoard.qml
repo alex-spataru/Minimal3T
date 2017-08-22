@@ -43,7 +43,7 @@ Item {
     // Calculates the appropiate size of the game fields/tiles
     //
     function updateSize() {
-        var side = Math.min (app.height, app.width) * (app.height > app.width ? 0.8 : 0.65)
+        var side = Math.min (app.height, app.width) * (app.height > app.width ? 0.85 : 0.65)
         board.width = side
         board.height = side
     }

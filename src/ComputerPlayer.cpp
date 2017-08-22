@@ -64,7 +64,7 @@ void ComputerPlayer::makeMove() {
     /* Configure minimax object and start thread */
     minmax->moveToThread (thread);
     minmax->setComputerPlayer (this);
-    thread->start (QThread::TimeCriticalPriority);
+    thread->start (QThread::HighPriority);
 
     /* Configure signals/slots */
     connect (minmax, SIGNAL (finished()), thread, SLOT (quit()));

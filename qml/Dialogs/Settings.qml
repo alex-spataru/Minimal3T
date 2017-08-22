@@ -69,10 +69,10 @@ Dialog {
 
         switch (_aiLevel.currentIndex) {
         case 0:
-            AiPlayer.randomness = 8
+            AiPlayer.randomness = 7
             break
         case 1:
-            AiPlayer.randomness = 4
+            AiPlayer.randomness = 3
             break
         case 2:
             AiPlayer.randomness = 0
@@ -101,7 +101,7 @@ Dialog {
             Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
             onCurrentIndexChanged: applySettings()
-            model: ["3x3", "4x4", "5x5", "6x6", "7x7"]
+            model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9"]
         }
 
         //
