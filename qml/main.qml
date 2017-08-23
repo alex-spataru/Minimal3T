@@ -198,7 +198,7 @@ ApplicationWindow {
 
             else if (stack.depth > 1) {
                 stack.pop()
-                playSoundEffect ("click.wav")
+                 playSoundEffect ("click.wav")
                 close.accepted = false
             }
 
@@ -470,7 +470,7 @@ ApplicationWindow {
 
             bannerContainer.height = h
             x = (app.width - w) / DevicePixelRatio
-            y = (bannerContainer.y * DevicePixelRatio) +  (3 * app.spacing)
+            y = (bannerContainer.y * DevicePixelRatio) +  (4 * app.spacing)
         }
 
         onLoaded: locateBanner()
