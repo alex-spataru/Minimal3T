@@ -333,7 +333,7 @@ ApplicationWindow {
 
             source = "qrc:/music/" + soundtracks.get (soundtracks.track).source
 
-            if (app.enableSoundAndMusic)
+            if (settingsDlg.enableMusic)
                 play()
         }
 

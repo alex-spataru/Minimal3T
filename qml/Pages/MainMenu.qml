@@ -172,16 +172,16 @@ Page {
             }
 
             ImageButton {
-                text: qsTr ("Share")
-                onClicked: shareClicked()
-                source: "qrc:/images/share.svg"
-            }
-
-            ImageButton {
                 visible: app.adsEnabled
                 text: qsTr ("Remove Ads")
                 onClicked: removeAdsClicked()
                 source: "qrc:/images/no-ads.svg"
+            }
+
+            ImageButton {
+                text: qsTr ("Share")
+                onClicked: shareClicked()
+                source: "qrc:/images/share.svg"
             }
 
             ImageButton {

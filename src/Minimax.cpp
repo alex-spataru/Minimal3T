@@ -252,7 +252,7 @@ QVector<int> Minimax::availableCorners (const Board& board) {
  * The list is generated according to the following rules:
  *   - Consider all fields that surround a field marked by the enemy
  *   - Consider all fields that surround already-owned fields
- *   - If there are no available fields near enemy marks, consider corners
+ *   - If there are no acvailable fields near enemy marks, consider corners
  *   - If there are no available fields near enemy marks, and no corners,
  *     consider the central field and its surrounding fields
  */
