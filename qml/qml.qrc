@@ -13,5 +13,6 @@
         <file>Components/ColorRectangle.qml</file>
         <file>Components/ImageButton.qml</file>
         <file>Pages/Settings.qml</file>
+        <file>Components/TextSpinBox.qml</file>
     </qresource>
 </RCC>

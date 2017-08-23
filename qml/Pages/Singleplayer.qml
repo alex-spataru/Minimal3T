@@ -328,15 +328,15 @@ Page {
         width: 2 * app.width
         height: 2 * app.height
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -1/2 * toolbar.height
+        anchors.verticalCenterOffset: app.height
 
         //
         // Background rectangle
         //
         Rectangle {
             color: "#000"
-            opacity: 0.85
             anchors.fill: parent
+            opacity: app.overlayOpacity
         }
 
         //
@@ -372,6 +372,14 @@ Page {
         }
 
         //
+        // Hides the prompt
+        //
+        function hide() {
+            opacity = 0
+            anchors.verticalCenterOffset = app.height
+        }
+
+        //
         // Updates the title label and displays/hides
         // the overlay
         //
@@ -394,11 +402,13 @@ Page {
                 logo.source = "qrc:/images/meh.svg"
             }
 
-            if (page.enabled)
+            if (page.enabled) {
+                anchors.verticalCenterOffset = 0
                 opacity = Board.gameInProgress ? 0 : 1
+            }
 
             else {
-                opacity = 0
+                hide()
                 app.startNewGame()
             }
         }
@@ -407,6 +417,7 @@ Page {
         // Enable the nice fading effect
         //
         Behavior on opacity { NumberAnimation{} }
+        Behavior on anchors.verticalCenterOffset  { NumberAnimation{} }
 
         //
         // Main layout
@@ -414,6 +425,7 @@ Page {
         ColumnLayout {
             spacing: app.spacing
             anchors.centerIn: parent
+            anchors.verticalCenterOffset: -1/2 * toolbar.height
 
             SvgImage {
                 id: logo
@@ -442,8 +454,8 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
+                    prompt.hide()
                     app.startNewGame()
-                    prompt.opacity = 0
                 }
             }
 
@@ -456,7 +468,7 @@ Page {
 
                 onClicked: {
                     stack.pop()
-                    prompt.opacity = 0
+                    prompt.hide()
                 }
             }
 

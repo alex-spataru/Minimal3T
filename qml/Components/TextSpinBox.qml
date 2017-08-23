@@ -24,43 +24,39 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-Item {
-    id: button
+SpinBox {
+    id: sb
+    from: 0
+    to: model.length - 1
 
-    signal clicked
-    property var btSize: 81
-    property alias text: label.text
-    property alias source: image.source
+    property var model: []
 
-    Layout.fillWidth: btSize === 0
-    Layout.preferredWidth: btSize > 0 ? btSize : 81
-    Layout.preferredHeight: btSize > 0 ? btSize : 81
+    function getRegExp (items) {
+        var str = "("
+        for (var i = 0; i < items.length; ++i) {
+            str +=  items [i]
+            if (i + 1 <  items.length)
+                str += "|"
+        }
 
-    onClicked: app.playSoundEffect ("click.wav")
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: button.clicked()
+        str += ")"
+        return new RegExp (str, "i")
     }
 
-    ColumnLayout {
-        spacing: app.spacing
-        anchors.centerIn: parent
+    validator: RegExpValidator {
+        regExp: getRegExp (model)
+    }
 
-        SvgImage {
-            id: image
-            fillMode: Image.Pad
-            verticalAlignment: Image.AlignVCenter
-            horizontalAlignment: Image.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+    textFromValue: function (value) {
+        return model [value]
+    }
+
+    valueFromText: function (text) {
+        for (var i = 0; i < model.length; ++i) {
+            if (model [i].toLowerCase().indexOf (text.toLowerCase()) === 0)
+                return i
         }
 
-        Label {
-            id: label
-            Layout.preferredWidth: btSize
-            font.pixelSize: btSize === 0 ? 12 : 14
-            horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
+        return sb.value
     }
 }

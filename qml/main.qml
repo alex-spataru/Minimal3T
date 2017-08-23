@@ -66,6 +66,7 @@ ApplicationWindow {
     //
     // Theme options
     //
+    readonly property double overlayOpacity: 0.90
     readonly property string fieldColor: "#ffffff"
     readonly property string primaryColor: "#5486d1"
     readonly property string accentColor: "#d93344"
