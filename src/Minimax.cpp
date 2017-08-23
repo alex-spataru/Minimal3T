@@ -98,10 +98,12 @@ ComputerPlayer* Minimax::cpuPlayer() const {
 void Minimax::makeAiMove() {
     /* Init. variables */
     int move = INT_MIN;
+    int winMove = INT_MIN;
+    int saveMove = INT_MIN;
     int maxScore = INT_MIN;
 
     /* Initialize board objects */
-    Board copy;
+    Board copy, aiMove, enemyMove;
     Board board = QmlBoard::getInstance()->board();
 
     /* Select a random field in the case that the AI is too slow */
@@ -110,26 +112,34 @@ void Minimax::makeAiMove() {
     /* Get a list of strategic fields */
     QVector<int> desirableFields = considerableFields (board, 0);
 
-    /* Probe each field and see if we find win-or-loose sitations */
+    /* Probe each field and see if we find win-or-loose situations */
     foreach (int field, desirableFields) {
-        Board aiMove = board;
-        Board enemyMove = board;
+        aiMove = board;
+        enemyMove = board;
         enemyMove.turn = cpuPlayer()->opponent();
 
         SelectField (aiMove, field);
         SelectField (enemyMove, field);
 
-        if (aiMove.state == kGameWon || enemyMove.state == kGameWon) {
-            move = field;
-            break;
-        }
+        if (aiMove.state == kGameWon)
+            winMove = field;
+        else if (enemyMove.state == kGameWon)
+            saveMove = field;
     }
+
+    /* Prefer winning moves rather than ass-saving moves */
+    if (winMove != INT_MIN)
+        move = winMove;
+    else if (saveMove != INT_MIN)
+        move = saveMove;
 
     /* Run the minimax algorithm if no win-or-loose sitations where found */
     if (move == INT_MIN) {
         foreach (int field, desirableFields) {
+            copy = board;
+            SelectField (copy, field);
             int score = minimax (copy, 0, INT_MIN, INT_MAX);
-            if (maxScore < score && RANDOM (0, 10) > cpuPlayer()->randomness()) {
+            if (maxScore < score) {
                 move = field;
                 maxScore = score;
             }
@@ -141,7 +151,8 @@ void Minimax::makeAiMove() {
         selectRandomField();
 
     /* Select the choosen field on the 'real' board */
-    setDecision (move);
+    else
+        setDecision (move);
 }
 
 /**
