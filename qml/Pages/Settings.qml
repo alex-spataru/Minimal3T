@@ -157,7 +157,7 @@ Page {
         //
         RowLayout {
             spacing: app.spacing
-            Layout.preferredWidth: app.paneWidth * 0.9
+            Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
 
             ImageButton {
@@ -212,10 +212,15 @@ Page {
             id: _boardSize
             Material.background: "#dedede"
             Material.foreground: "#000000"
-            onCurrentIndexChanged: applySettings()
-            Layout.preferredWidth: app.paneWidth * 0.9
+            Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
             model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10"]
+
+            onCurrentIndexChanged: {
+                applySettings()
+                if (page.visible)
+                    app.playSoundEffect ("click.wav")
+            }
         }
 
         //
@@ -228,14 +233,19 @@ Page {
             currentIndex: 1
             Material.background: "#dedede"
             Material.foreground: "#000000"
-            onCurrentIndexChanged: applySettings()
-            Layout.preferredWidth: app.paneWidth * 0.9
+            Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
             model: [
                 qsTr ("Easy"),
                 qsTr ("Normal"),
                 qsTr ("Hard"),
             ]
+
+            onCurrentIndexChanged: {
+                applySettings()
+                if (page.visible)
+                    app.playSoundEffect ("click.wav")
+            }
         }
 
         //
@@ -247,11 +257,14 @@ Page {
             from: 3
             id: _fieldsToAllign
             to: Board.boardSize
-            Layout.preferredWidth: app.paneWidth * 0.9
+            Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
             onValueChanged: {
                 if (value >= 3)
                     Board.fieldsToAllign = value
+
+                if (page.visible)
+                    app.playSoundEffect ("click.wav")
             }
         }
 
@@ -267,6 +280,8 @@ Page {
         //
         Button {
             flat: true
+            Layout.preferredWidth: app.paneWidth
+            anchors.horizontalCenter: parent.horizontalCenter
 
             RowLayout {
                 spacing: app.spacing
@@ -287,9 +302,10 @@ Page {
                 }
             }
 
-            onClicked: page.hide()
-            Layout.preferredWidth: app.paneWidth * 0.9
-            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                page.hide()
+                app.playSoundEffect ("click.wav")
+            }
         }
     }
 }

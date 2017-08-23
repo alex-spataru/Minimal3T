@@ -41,10 +41,6 @@ Page {
     //
     // Sound effects
     //
-    onAboutClicked: app.playSoundEffect ("click.wav")
-    onShareClicked: app.playSoundEffect ("click.wav")
-    onSettingsClicked: app.playSoundEffect ("click.wav")
-    onRemoveAdsClicked: app.playSoundEffect ("click.wav")
     onMultiplayerClicked: app.playSoundEffect ("click.wav")
     onSingleplayerClicked: app.playSoundEffect ("click.wav")
 
@@ -163,6 +159,7 @@ Page {
         RowLayout {
             spacing: 0
             Layout.fillWidth: true
+            opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
             ImageButton {

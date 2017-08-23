@@ -470,7 +470,7 @@ ApplicationWindow {
 
             bannerContainer.height = h
             x = (app.width - w) / DevicePixelRatio
-            y = (bannerContainer.y * DevicePixelRatio) +  (2 * app.spacing)
+            y = (bannerContainer.y * DevicePixelRatio) +  (3 * app.spacing)
         }
 
         onLoaded: locateBanner()
