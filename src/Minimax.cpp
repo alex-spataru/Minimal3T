@@ -139,7 +139,7 @@ void Minimax::makeAiMove() {
             copy = board;
             SelectField (copy, field);
             int score = minimax (copy, 0, INT_MIN, INT_MAX);
-            if (maxScore < score) {
+            if (maxScore < score && RANDOM (0, 10) >= cpuPlayer()->randomness()) {
                 move = field;
                 maxScore = score;
             }
