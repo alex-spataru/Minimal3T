@@ -75,7 +75,7 @@ ApplicationWindow {
     // Generates a dynamic SoundEffect item to play the given audio file
     //
     function playSoundEffect (effect) {
-        if (app.enableSoundAndMusic && app.visible) {
+        if (settingsDlg.enableSoundEffects && app.visible) {
             var source = "qrc:/sounds/" + effect
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
@@ -105,9 +105,9 @@ ApplicationWindow {
         }
 
         if (player === 0)
-            return symbol (settingsDlg.useCrosses)
+            return symbol (settingsDlg.useCross)
 
-        return symbol (!settingsDlg.useCrosses)
+        return symbol (!settingsDlg.useCross)
     }
 
     //
@@ -316,7 +316,7 @@ ApplicationWindow {
         id: audioPlayer
 
         function playMusic() {
-            if (app.enableSoundAndMusic && app.active)
+            if (settingsDlg.enableMusic && app.active)
                 play()
             else
                 stop()
@@ -337,7 +337,6 @@ ApplicationWindow {
                 play()
         }
 
-        volume: 0.7
         onStopped: updateTrack()
         Component.onCompleted: updateTrack()
     }
@@ -426,12 +425,6 @@ ApplicationWindow {
                 }
 
                 MenuItem {
-                    text: qsTr ("Remove Ads")
-                    enabled: app.adsEnabled
-                    onClicked: removeAds.purchase()
-                }
-
-                MenuItem {
                     text: qsTr ("Settings")
                     onClicked: settingsDlg.open()
                 }
@@ -498,6 +491,7 @@ ApplicationWindow {
     //
     Settings {
         id: settingsDlg
+        onEnableMusicChanged: audioPlayer.playMusic()
     }
 
     //
@@ -523,9 +517,9 @@ ApplicationWindow {
             visible: false
             onAboutClicked: aboutDlg.open()
             onSettingsClicked: settingsDlg.open()
+            onRemoveAdsClicked: removeAds.purchase()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
-            onAudioClicked: enableSoundAndMusic = !enableSoundAndMusic
             onShareClicked: {
                 if (Qt.platform.os === "android" || Qt.platform.os === "ios")
                     shareUtils.share (AppName, website)

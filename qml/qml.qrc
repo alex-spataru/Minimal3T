@@ -12,5 +12,6 @@
         <file>Dialogs/PhilosophicalAi.qml</file>
         <file>Components/ColorRectangle.qml</file>
         <file>Dialogs/Settings.qml</file>
+        <file>Components/ImageButton.qml</file>
     </qresource>
 </RCC>

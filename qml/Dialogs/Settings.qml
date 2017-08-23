@@ -27,8 +27,18 @@ import QtQuick.Controls.Material 2.0
 
 import Qt.labs.settings 1.0
 
+import "../Components"
+
 Dialog {
-    id: gameOptions
+    id: dlg
+
+    //
+    // Properties
+    //
+    property bool useCross: false
+    property bool humanFirst: true
+    property bool enableMusic: true
+    property bool enableSoundEffects: true
 
     //
     // Center window on application
@@ -37,30 +47,14 @@ Dialog {
     y: (parent.height - height) / 2
 
     //
-    // Custom properties
-    //
-    property alias p2StartsFirst: _p2StartsFirst.checked
-    property bool useCrosses: _playerSymbol.currentIndex == 1
-
-    //
-    // Save settings between runs
-    //
-    Settings {
-        category: "Settings"
-        property alias symbol: _playerSymbol.currentIndex
-        property alias p2Begins: _p2StartsFirst.checked
-        property alias boardSize: _boardSize.currentIndex
-        property alias aiDifficulty: _aiLevel.currentIndex
-        property alias fieldsToAllign: _fieldsToAllign.value
-    }
-
-    //
     // Window settings
     //
     modal: true
+    title: qsTr ("Settings")
     standardButtons: Dialog.Ok
     parent: ApplicationWindow.overlay
-    width: Math.min (app.width * 0.9, layout.implicitWidth * 1.4)
+    Component.onCompleted: applySettings()
+    width: (app.paneWidth < 512 ? app.width : app.paneWidth) * 0.9
 
     //
     // Updates the board and AI config bases on selected UI options
@@ -82,6 +76,20 @@ Dialog {
     }
 
     //
+    // Save settings between app runs
+    //
+    Settings {
+        category: "Settings"
+        property alias cross: dlg.useCross
+        property alias music: dlg.enableMusic
+        property alias humanFirst: dlg.humanFirst
+        property alias effects: dlg.enableSoundEffects
+        property alias boardSize: _boardSize.currentIndex
+        property alias aiDifficulty: _aiLevel.currentIndex
+        property alias fieldsToAllign: _fieldsToAllign.value
+    }
+
+    //
     // Main layout
     //
     ColumnLayout {
@@ -91,10 +99,64 @@ Dialog {
         anchors.centerIn: parent
 
         //
-        // Board size
+        // Sound and music
+        //
+        RowLayout {
+            spacing: app.spacing
+            Layout.fillWidth: true
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            ImageButton {
+                btSize: 0
+                text: qsTr ("Symbol")
+                onClicked: useCross = !useCross
+                source: useCross ? "qrc:/images/cross.svg" :
+                                   "qrc:/images/circle.svg"
+            }
+
+            ImageButton {
+                btSize: 0
+                text: qsTr ("Starting turn")
+                onClicked: humanFirst = !humanFirst
+                source: humanFirst ? "qrc:/images/human.svg" :
+                                     "qrc:/images/ai.svg"
+            }
+
+            ImageButton {
+                btSize: 0
+                text: qsTr ("Music")
+                onClicked: enableMusic = !enableMusic
+                source: enableMusic ? "qrc:/images/music-on.svg" :
+                                      "qrc:/images/music-off.svg"
+
+                opacity: enableMusic ? 1 : 0.6
+                Behavior on opacity { NumberAnimation{} }
+            }
+
+            ImageButton {
+                btSize: 0
+                text: qsTr ("Effects")
+                onClicked: enableSoundEffects = !enableSoundEffects
+                source: enableSoundEffects ? "qrc:/images/volume-on.svg" :
+                                             "qrc:/images/volume-off.svg"
+
+                opacity: enableSoundEffects ? 1 : 0.6
+                Behavior on opacity { NumberAnimation{} }
+            }
+        }
+
+        //
+        // Spacer
+        //
+        Item {
+            Layout.preferredHeight: app.spacing
+        }
+
+        //
+        // Map size
         //
         Label {
-            text: qsTr ("Board size") + ":"
+            text: qsTr ("Map Dimension") + ":"
         } ComboBox {
             id: _boardSize
             Layout.fillWidth: true
@@ -102,14 +164,14 @@ Dialog {
             Material.foreground: "#000000"
             Layout.preferredWidth: app.paneWidth
             onCurrentIndexChanged: applySettings()
-            model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9"]
+            model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10"]
         }
 
         //
         // AI difficulty
         //
         Label {
-            text: qsTr ("AI level") + ":"
+            text: qsTr ("AI Level") + ":"
         } ComboBox {
             id: _aiLevel
             currentIndex: 1
@@ -126,27 +188,10 @@ Dialog {
         }
 
         //
-        // Player symbol
-        //
-        Label {
-            text: qsTr ("Player symbol") + ":"
-        } ComboBox {
-            id: _playerSymbol
-            Layout.fillWidth: true
-            Material.background: "#dedede"
-            Material.foreground: "#000000"
-            Layout.preferredWidth: app.paneWidth
-            model: [
-                qsTr ("Circle"),
-                qsTr ("Cross")
-            ]
-        }
-
-        //
         // Fields to Allign
         //
         Label {
-            text: qsTr ("Fields to Allign")
+            text: qsTr ("Fields to Allign") + ":"
         } SpinBox {
             from: 3
             id: _fieldsToAllign
@@ -157,14 +202,6 @@ Dialog {
                 if (value >= 3)
                     Board.fieldsToAllign = value
             }
-        }
-
-        //
-        // Second player first
-        //
-        Switch {
-            id: _p2StartsFirst
-            text: qsTr ("Player 2 starts first")
         }
     }
 }

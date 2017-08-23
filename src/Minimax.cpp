@@ -64,7 +64,7 @@ int Minimax::decision() const {
  */
 int Minimax::maximumDepth (const Board& board) {
     if (board.size > 3)
-        return pow (board.fieldsToAllign, 2) / board.size;
+        return ceil ((pow (board.fieldsToAllign, 2) / board.size) * 2);
 
     return INT_MAX;
 }
@@ -111,7 +111,7 @@ void Minimax::makeAiMove() {
     /* Get a list of strategic fields */
     QVector<int> desirableFields = considerableFields (board, 0);
 
-    /* Selecet each field on a secondary board and see what happens */
+    /* Select each field on a secondary board and see what happens */
     foreach (int field, desirableFields) {
         copy = board;
         SelectField (copy, field);
@@ -266,7 +266,7 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
     }
 
     /* No fields to block or complete, try the corners */
-    if (fields.count() == 0 && board.size < 6)
+    if (fields.count() == 0 && board.size > 4)
         fields.append (availableCorners (board));
 
     /* No corners, try the central fields */

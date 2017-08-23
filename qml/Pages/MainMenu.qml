@@ -29,16 +29,11 @@ import "../Components"
 
 Page {
     //
-    // Constant for setting tool buttons width
-    //
-    property var utilityBtSize: 82
-
-    //
     // Signals
     //
     signal aboutClicked
     signal shareClicked
-    signal audioClicked
+    signal removeAdsClicked
     signal settingsClicked
     signal multiplayerClicked
     signal singleplayerClicked
@@ -46,10 +41,10 @@ Page {
     //
     // Sound effects
     //
-    onAudioClicked: app.playSoundEffect ("audio.wav")
     onAboutClicked: app.playSoundEffect ("click.wav")
     onShareClicked: app.playSoundEffect ("click.wav")
     onSettingsClicked: app.playSoundEffect ("click.wav")
+    onRemoveAdsClicked: app.playSoundEffect ("click.wav")
     onMultiplayerClicked: app.playSoundEffect ("click.wav")
     onSingleplayerClicked: app.playSoundEffect ("click.wav")
 
@@ -170,138 +165,29 @@ Page {
             Layout.fillWidth: true
             anchors.horizontalCenter: parent.horizontalCenter
 
-            //
-            // About button
-            //
-            Item {
-                Layout.preferredWidth: utilityBtSize
-                Layout.preferredHeight: utilityBtSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: aboutClicked()
-                }
-
-                ColumnLayout {
-                    spacing: app.spacing
-                    anchors.centerIn: parent
-
-                    SvgImage {
-                        fillMode: Image.Pad
-                        source: "qrc:/images/info.svg"
-                        verticalAlignment: Image.AlignVCenter
-                        horizontalAlignment: Image.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
-                    Label {
-                        text: qsTr ("About")
-                        Layout.preferredWidth: utilityBtSize
-                        horizontalAlignment: Label.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
+            ImageButton {
+                text: qsTr ("About")
+                onClicked: aboutClicked()
+                source: "qrc:/images/info.svg"
             }
 
-            //
-            // Share button
-            //
-            Item {
-                Layout.preferredWidth: utilityBtSize
-                Layout.preferredHeight: utilityBtSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: shareClicked()
-                }
-
-                ColumnLayout {
-                    spacing: app.spacing
-                    anchors.centerIn: parent
-
-                    SvgImage {
-                        fillMode: Image.Pad
-                        source: "qrc:/images/share.svg"
-                        verticalAlignment: Image.AlignVCenter
-                        horizontalAlignment: Image.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
-                    Label {
-                        text: qsTr ("Share")
-                        Layout.preferredWidth: utilityBtSize
-                        horizontalAlignment: Label.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
+            ImageButton {
+                text: qsTr ("Share")
+                onClicked: shareClicked()
+                source: "qrc:/images/share.svg"
             }
 
-            //
-            // Preferences button
-            //
-            Item {
-                Layout.preferredWidth: utilityBtSize
-                Layout.preferredHeight: utilityBtSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: settingsClicked()
-                }
-
-                ColumnLayout {
-                    spacing: app.spacing
-                    anchors.centerIn: parent
-
-                    SvgImage {
-                        fillMode: Image.Pad
-                        source: "qrc:/images/settings.svg"
-                        verticalAlignment: Image.AlignVCenter
-                        horizontalAlignment: Image.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
-                    Label {
-                        text: qsTr ("Settings")
-                        Layout.preferredWidth: utilityBtSize
-                        horizontalAlignment: Label.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
+            ImageButton {
+                visible: app.adsEnabled
+                text: qsTr ("Remove Ads")
+                onClicked: removeAdsClicked()
+                source: "qrc:/images/no-ads.svg"
             }
 
-            //
-            // Music button
-            //
-            Item {
-                Layout.preferredWidth: utilityBtSize
-                Layout.preferredHeight: utilityBtSize
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: audioClicked()
-                }
-
-                ColumnLayout {
-                    spacing: app.spacing
-                    anchors.centerIn: parent
-
-                    SvgImage {
-                        fillMode: Image.Pad
-                        verticalAlignment: Image.AlignVCenter
-                        horizontalAlignment: Image.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        source: app.enableSoundAndMusic ?
-                                    "qrc:/images/volume-on.svg" :
-                                    "qrc:/images/volume-off.svg"
-                    }
-
-                    Label {
-                        text: qsTr ("Audio")
-                        Layout.preferredWidth: utilityBtSize
-                        horizontalAlignment: Label.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
+            ImageButton {
+                text: qsTr ("Settings")
+                onClicked: settingsClicked()
+                source: "qrc:/images/settings.svg"
             }
         }
     }
