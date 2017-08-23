@@ -12,11 +12,9 @@
         <file>play.svg</file>
         <file>info.svg</file>
         <file>settings.svg</file>
-        <file>volume-off.svg</file>
-        <file>volume-on.svg</file>
         <file>ai.svg</file>
         <file>human.svg</file>
-        <file>music-off.svg</file>
-        <file>music-on.svg</file>
+        <file>music.svg</file>
+        <file>volume.svg</file>
     </qresource>
 </RCC>

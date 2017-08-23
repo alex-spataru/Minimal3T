@@ -125,22 +125,19 @@ Dialog {
             ImageButton {
                 btSize: 0
                 text: qsTr ("Music")
+                opacity: enableMusic ? 1 : 0.4
+                source: "qrc:/images/music.svg"
                 onClicked: enableMusic = !enableMusic
-                source: enableMusic ? "qrc:/images/music-on.svg" :
-                                      "qrc:/images/music-off.svg"
-
-                opacity: enableMusic ? 1 : 0.6
                 Behavior on opacity { NumberAnimation{} }
             }
 
             ImageButton {
                 btSize: 0
                 text: qsTr ("Effects")
+                source: "qrc:/images/volume.svg"
+                opacity: enableSoundEffects ? 1 : 0.4
                 onClicked: enableSoundEffects = !enableSoundEffects
-                source: enableSoundEffects ? "qrc:/images/volume-on.svg" :
-                                             "qrc:/images/volume-off.svg"
 
-                opacity: enableSoundEffects ? 1 : 0.6
                 Behavior on opacity { NumberAnimation{} }
             }
         }
