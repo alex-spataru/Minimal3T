@@ -140,7 +140,8 @@ ApplicationWindow {
     //
     function startNewGame() {
         Board.resetBoard()
-        Board.currentPlayer = settingsDlg.p2StartsFirst ? TicTacToe.Player2 : TicTacToe.Player1
+        Board.currentPlayer = settingsDlg.humanFirst ? TicTacToe.Player1 :
+                                                       TicTacToe.Player2
     }
 
     //
