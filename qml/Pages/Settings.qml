@@ -97,7 +97,7 @@ Page {
 
         Rectangle {
             color: "#000"
-            opacity: 0.90
+            opacity: 0.85
             anchors.fill: parent
         }
 

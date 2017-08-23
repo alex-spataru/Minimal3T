@@ -52,7 +52,7 @@ int main (int argc, char** argv) {
     QmlAdMobInterstitial::DeclareQML();
 
     QQmlApplicationEngine engine;
-    QQuickStyle::setStyle ("Material");
+    QQuickStyle::setStyle ("Universal");
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
     engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);

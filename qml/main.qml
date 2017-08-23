@@ -25,12 +25,13 @@ import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
+import QtQuick.Controls.Universal 2.0
 
-import Board 1.0
-import QtMultimedia 5.0
 import QtPurchasing 1.0
+import QtMultimedia 5.0
 import Qt.labs.settings 1.0 as QtSettings
 
+import Board 1.0
 import com.lasconic 1.0
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
@@ -67,7 +68,7 @@ ApplicationWindow {
     //
     readonly property string fieldColor: "#ffffff"
     readonly property string primaryColor: "#5486d1"
-    readonly property string secondaryColor: "#d93344"
+    readonly property string accentColor: "#d93344"
     readonly property string paneBackground: "#25232e"
     readonly property string backgroundColor: "#1f1c23"
 
@@ -156,9 +157,15 @@ ApplicationWindow {
     // Material theme options
     //
     Material.theme: Material.Dark
+    Material.accent: accentColor
     Material.primary: primaryColor
-    Material.accent: secondaryColor
     Material.background: backgroundColor
+
+    //
+    // Universal theme options
+    //
+    Universal.theme: Universal.Dark
+    Universal.accent: accentColor
 
     //
     // Background rectangle
@@ -198,7 +205,7 @@ ApplicationWindow {
 
             else if (stack.depth > 1) {
                 stack.pop()
-                 playSoundEffect ("click.wav")
+                playSoundEffect ("click.wav")
                 close.accepted = false
             }
 
@@ -348,112 +355,174 @@ ApplicationWindow {
     }
 
     //
-    // Toolbar background
+    // Contains the stack view and toolbar
     //
-    Pane {
-        opacity: 0.41
-        visible: app.showTabletUi
-        height: toolbar.implicitHeight
+    contentData: Item {
+        anchors.fill: parent
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
+        //
+        // Toolbar background
+        //
+        Pane {
+            opacity: 0.41
+            visible: app.showTabletUi
+            height: toolbar.implicitHeight
 
-        Material.elevation: 6
-        Material.background: "#bebebe"
-    }
-
-    //
-    // Toolbar buttons
-    //
-    RowLayout {
-        id: toolbar
-
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-
-        ToolButton {
-            opacity: enabled ? 1 : 0
-            enabled: stack.depth > 1
-
-            onClicked: {
-                stack.pop()
-                playSoundEffect ("click.wav")
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
             }
 
-            contentItem: SvgImage {
-                fillMode: Image.Pad
-                anchors.centerIn: parent
-                source: "qrc:/images/back.svg"
-                anchors.horizontalCenterOffset: -2
-                verticalAlignment: Image.AlignVCenter
-                horizontalAlignment: Image.AlignHCenter
+            Material.elevation: 6
+            Material.background: "#bebebe"
+        }
+
+        //
+        // Toolbar buttons
+        //
+        RowLayout {
+            id: toolbar
+
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
             }
 
-            Behavior on opacity { NumberAnimation{} }
+            ToolButton {
+                opacity: enabled ? 1 : 0
+                enabled: stack.depth > 1
+
+                onClicked: {
+                    stack.pop()
+                    playSoundEffect ("click.wav")
+                }
+
+                contentItem: SvgImage {
+                    fillMode: Image.Pad
+                    anchors.centerIn: parent
+                    source: "qrc:/images/back.svg"
+                    anchors.horizontalCenterOffset: -2
+                    verticalAlignment: Image.AlignVCenter
+                    horizontalAlignment: Image.AlignHCenter
+                }
+
+                Behavior on opacity { NumberAnimation{} }
+            }
+
+            Label {
+                id: title
+                font.bold: true
+                font.pixelSize: 18
+                opacity: text.length > 0
+                Behavior on opacity { NumberAnimation{} }
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            ToolButton {
+                onClicked: menu.open()
+                contentItem: SvgImage {
+                    fillMode: Image.Pad
+                    source: "qrc:/images/more.svg"
+                    verticalAlignment: Image.AlignVCenter
+                    horizontalAlignment: Image.AlignHCenter
+                }
+
+                Menu {
+                    id: menu
+                    x: app.width - width
+                    transformOrigin: Menu.TopRight
+
+                    MenuItem {
+                        text: qsTr ("New Game")
+                        enabled: stack.depth == 2
+                        onClicked: startNewGame()
+                    }
+
+                    MenuItem {
+                        text: qsTr ("Settings")
+                        onClicked: settings.open()
+                    }
+
+                    MenuItem {
+                        text: qsTr ("Rate")
+                        onClicked: openWebsite()
+                    }
+                }
+
+            }
         }
 
-        Label {
-            id: title
-            font.bold: true
-            font.pixelSize: 18
-            opacity: text.length > 0
-            Behavior on opacity { NumberAnimation{} }
+        //
+        // Stack View
+        //
+        StackView {
+            id: stack
+            anchors.fill: parent
+            initialItem: mainMenu
+            anchors.margins: app.spacing
+            anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
+            anchors.bottomMargin: bannerContainer.height + 2 * app.spacing
+
+            MainMenu {
+                id: mainMenu
+                visible: false
+                onAboutClicked: aboutDlg.open()
+                onSettingsClicked: settings.open()
+                onRemoveAdsClicked: removeAds.purchase()
+                onMultiplayerClicked: stack.push (multiPlayer)
+                onSingleplayerClicked: stack.push (singlePlayer)
+                onShareClicked: {
+                    if (Qt.platform.os === "android" || Qt.platform.os === "ios")
+                        shareUtils.share (AppName, website)
+                    else
+                        openWebsite()
+                }
+
+                onVisibleChanged: {
+                    if (visible)
+                        title.text = ""
+                }
+            }
+
+            Singleplayer {
+                visible: false
+                id: singlePlayer
+
+                onVisibleChanged: {
+                    settings.applySettings()
+                    philosophicalAi.enableDialog = visible
+                    if (visible)
+                        title.text = qsTr ("Match")
+                }
+            }
+
+            Multiplayer {
+                visible: false
+                id: multiPlayer
+
+                onVisibleChanged: {
+                    if (visible)
+                        title.text = qsTr ("Match")
+                }
+            }
         }
 
+        //
+        // Banner container
+        //
         Item {
-            Layout.fillWidth: true
-        }
+            id: bannerContainer
 
-        ToolButton {
-            onClicked: menu.open()
-            contentItem: SvgImage {
-                fillMode: Image.Pad
-                source: "qrc:/images/more.svg"
-                verticalAlignment: Image.AlignVCenter
-                horizontalAlignment: Image.AlignHCenter
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
             }
-
-            Menu {
-                id: menu
-                x: app.width - width
-                transformOrigin: Menu.TopRight
-
-                MenuItem {
-                    text: qsTr ("New Game")
-                    enabled: stack.depth == 2
-                    onClicked: startNewGame()
-                }
-
-                MenuItem {
-                    text: qsTr ("Settings")
-                    onClicked: settings.open()
-                }
-
-                MenuItem {
-                    text: qsTr ("Rate")
-                    onClicked: openWebsite()
-                }
-            }
-
-        }
-    }
-
-    //
-    // Banner container
-    //
-    Item {
-        id: bannerContainer
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
         }
     }
 
@@ -496,61 +565,6 @@ ApplicationWindow {
     //
     PhilosophicalAi {
         id: philosophicalAi
-    }
-
-    //
-    // Stack View
-    //
-    StackView {
-        id: stack
-        anchors.fill: parent
-        initialItem: mainMenu
-        anchors.margins: app.spacing
-        anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
-        anchors.bottomMargin: bannerContainer.height + 2 * app.spacing
-
-        MainMenu {
-            id: mainMenu
-            visible: false
-            onAboutClicked: aboutDlg.open()
-            onSettingsClicked: settings.open()
-            onRemoveAdsClicked: removeAds.purchase()
-            onMultiplayerClicked: stack.push (multiPlayer)
-            onSingleplayerClicked: stack.push (singlePlayer)
-            onShareClicked: {
-                if (Qt.platform.os === "android" || Qt.platform.os === "ios")
-                    shareUtils.share (AppName, website)
-                else
-                    openWebsite()
-            }
-
-            onVisibleChanged: {
-                if (visible)
-                    title.text = ""
-            }
-        }
-
-        Singleplayer {
-            visible: false
-            id: singlePlayer
-
-            onVisibleChanged: {
-                settings.applySettings()
-                philosophicalAi.enableDialog = visible
-                if (visible)
-                    title.text = qsTr ("Match")
-            }
-        }
-
-        Multiplayer {
-            visible: false
-            id: multiPlayer
-
-            onVisibleChanged: {
-                if (visible)
-                    title.text = qsTr ("Match")
-            }
-        }
     }
 
     //

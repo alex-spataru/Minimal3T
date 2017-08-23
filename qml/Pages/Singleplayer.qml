@@ -199,6 +199,13 @@ Page {
         anchors.centerIn: parent
 
         //
+        // Spacer
+        //
+        Item {
+            Layout.preferredHeight: 0
+        }
+
+        //
         // Score indicator
         //
         RowLayout {
@@ -221,7 +228,7 @@ Page {
             }
 
             Label {
-                text: " : "
+                text: " - "
                 font.bold: true
                 font.pixelSize: 24
                 verticalAlignment: Label.AlignVCenter
@@ -300,6 +307,13 @@ Page {
                     Behavior on opacity { NumberAnimation{} }
                 }
             }
+        }
+
+        //
+        // Banner spacer
+        //
+        Item {
+            height: bannerContainer.height - parent.spacing
         }
     }
 
@@ -410,7 +424,7 @@ Page {
             Label {
                 id: title
                 font.bold: true
-                font.pixelSize: 36
+                font.pixelSize: 28
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
