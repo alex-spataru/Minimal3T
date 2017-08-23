@@ -124,7 +124,7 @@ ApplicationWindow {
     function configureAds() {
         if (adsEnabled) {
             bannerAd.unitId = BannerId
-            bannerAd.size = AdMobBanner.SmartBanner
+            bannerAd.size = AdMobBanner.Banner
             bannerAd.visible = true
             bannerAd.locateBanner()
         }
@@ -454,7 +454,6 @@ ApplicationWindow {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-            margins: app.spacing
         }
     }
 
@@ -469,8 +468,8 @@ ApplicationWindow {
             var h = bannerAd.height / DevicePixelRatio
 
             bannerContainer.height = h
-            x = (app.width - w) / DevicePixelRatio
-            y = (bannerContainer.y * DevicePixelRatio) +  (4 * app.spacing)
+            x = ((app.width - w) / 2) * DevicePixelRatio
+            y = (app.height - h + (x / DevicePixelRatio) / 2) * DevicePixelRatio
         }
 
         onLoaded: locateBanner()
