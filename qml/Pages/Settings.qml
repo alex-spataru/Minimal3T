@@ -22,15 +22,21 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 
 import Qt.labs.settings 1.0
 
 import "../Components"
 
-Dialog {
-    id: dlg
+Page {
+    id: page
+    opacity: 0
+    visible: opacity > 0
+    enabled: opacity > 0
+    anchors.topMargin: app.height
+    Behavior on opacity { NumberAnimation{} }
+    Behavior on anchors.topMargin { NumberAnimation{} }
 
     //
     // Properties
@@ -41,20 +47,20 @@ Dialog {
     property bool enableSoundEffects: true
 
     //
-    // Center window on application
+    // Shows the page
     //
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+    function open() {
+        opacity = 1
+        anchors.topMargin = 0
+    }
 
     //
-    // Window settings
+    // Hides the page
     //
-    modal: true
-    title: qsTr ("Settings")
-    standardButtons: Dialog.Ok
-    parent: ApplicationWindow.overlay
-    Component.onCompleted: applySettings()
-    width: (app.paneWidth < 512 ? app.width : app.paneWidth) * 0.9
+    function hide() {
+        opacity = 0
+        anchors.topMargin = app.height
+    }
 
     //
     // Updates the board and AI config bases on selected UI options
@@ -76,14 +82,44 @@ Dialog {
     }
 
     //
+    // Transparent bacground
+    //
+    background: Item {}
+
+    //
+    // Fade background
+    //
+    Item {
+        width: 2 * app.width
+        height: 2 * app.height
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -1/2 * toolbar.height
+
+        Rectangle {
+            color: "#000"
+            opacity: 0.90
+            anchors.fill: parent
+        }
+
+        MouseArea {
+            anchors.fill: parent
+        }
+    }
+
+    //
+    // Load settings on generation
+    //
+    Component.onCompleted: applySettings()
+
+    //
     // Save settings between app runs
     //
     Settings {
         category: "Settings"
-        property alias cross: dlg.useCross
-        property alias music: dlg.enableMusic
-        property alias humanFirst: dlg.humanFirst
-        property alias effects: dlg.enableSoundEffects
+        property alias cross: page.useCross
+        property alias music: page.enableMusic
+        property alias humanFirst: page.humanFirst
+        property alias effects: page.enableSoundEffects
         property alias boardSize: _boardSize.currentIndex
         property alias aiDifficulty: _aiLevel.currentIndex
         property alias fieldsToAllign: _fieldsToAllign.value
@@ -95,15 +131,33 @@ Dialog {
     ColumnLayout {
         id: layout
         spacing: app.spacing
-        anchors.fill: parent
         anchors.centerIn: parent
+
+        //
+        // Title
+        //
+        Label {
+            font.bold: true
+            font.pixelSize: 32
+            text: qsTr ("Settings")
+            font.capitalization: Font.AllUppercase
+            horizontalAlignment: Label.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        //
+        // Spacer
+        //
+        Item {
+            Layout.preferredHeight: app.spacing
+        }
 
         //
         // Sound and music
         //
         RowLayout {
             spacing: app.spacing
-            Layout.fillWidth: true
+            Layout.preferredWidth: app.paneWidth * 0.9
             anchors.horizontalCenter: parent.horizontalCenter
 
             ImageButton {
@@ -156,11 +210,11 @@ Dialog {
             text: qsTr ("Map Dimension") + ":"
         } ComboBox {
             id: _boardSize
-            Layout.fillWidth: true
             Material.background: "#dedede"
             Material.foreground: "#000000"
-            Layout.preferredWidth: app.paneWidth
             onCurrentIndexChanged: applySettings()
+            Layout.preferredWidth: app.paneWidth * 0.9
+            anchors.horizontalCenter: parent.horizontalCenter
             model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10"]
         }
 
@@ -172,11 +226,11 @@ Dialog {
         } ComboBox {
             id: _aiLevel
             currentIndex: 1
-            Layout.fillWidth: true
             Material.background: "#dedede"
             Material.foreground: "#000000"
-            Layout.preferredWidth: app.paneWidth
             onCurrentIndexChanged: applySettings()
+            Layout.preferredWidth: app.paneWidth * 0.9
+            anchors.horizontalCenter: parent.horizontalCenter
             model: [
                 qsTr ("Easy"),
                 qsTr ("Normal"),
@@ -193,12 +247,49 @@ Dialog {
             from: 3
             id: _fieldsToAllign
             to: Board.boardSize
-            Layout.fillWidth: true
-            Layout.preferredWidth: app.paneWidth
+            Layout.preferredWidth: app.paneWidth * 0.9
+            anchors.horizontalCenter: parent.horizontalCenter
             onValueChanged: {
                 if (value >= 3)
                     Board.fieldsToAllign = value
             }
+        }
+
+        //
+        // Spacer
+        //
+        Item {
+            Layout.preferredHeight: app.spacing
+        }
+
+        //
+        // Button
+        //
+        Button {
+            flat: true
+
+            RowLayout {
+                spacing: app.spacing
+                anchors.centerIn: parent
+
+                SvgImage {
+                    fillMode: Image.Pad
+                    source: "qrc:/images/back.svg"
+                    verticalAlignment: Image.AlignVCenter
+                    horizontalAlignment: Image.AlignHCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Label {
+                    text: qsTr ("Back")
+                    font.capitalization: Font.AllUppercase
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
+            onClicked: page.hide()
+            Layout.preferredWidth: app.paneWidth * 0.9
+            anchors.horizontalCenter: parent.horizontalCenter
         }
     }
 }

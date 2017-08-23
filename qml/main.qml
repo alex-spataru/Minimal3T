@@ -75,7 +75,7 @@ ApplicationWindow {
     // Generates a dynamic SoundEffect item to play the given audio file
     //
     function playSoundEffect (effect) {
-        if (settingsDlg.enableSoundEffects && app.visible) {
+        if (settings.enableSoundEffects && app.visible) {
             var source = "qrc:/sounds/" + effect
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
@@ -105,9 +105,9 @@ ApplicationWindow {
         }
 
         if (player === TicTacToe.Player1)
-            return symbol (settingsDlg.useCross)
+            return symbol (settings.useCross)
 
-        return symbol (!settingsDlg.useCross)
+        return symbol (!settings.useCross)
     }
 
     //
@@ -140,7 +140,7 @@ ApplicationWindow {
     //
     function startNewGame() {
         Board.resetBoard()
-        Board.currentPlayer = settingsDlg.humanFirst ? TicTacToe.Player1 :
+        Board.currentPlayer = settings.humanFirst ? TicTacToe.Player1 :
                                                        TicTacToe.Player2
     }
 
@@ -194,6 +194,11 @@ ApplicationWindow {
             if (stack.depth > 1) {
                 stack.pop()
                 playSoundEffect ("click.wav")
+                close.accepted = false
+            }
+
+            else if (settings.opacity > 0) {
+                settings.hide()
                 close.accepted = false
             }
 
@@ -317,7 +322,7 @@ ApplicationWindow {
         id: audioPlayer
 
         function playMusic() {
-            if (settingsDlg.enableMusic && app.active)
+            if (settings.enableMusic && app.active)
                 play()
             else
                 stop()
@@ -334,7 +339,7 @@ ApplicationWindow {
 
             source = "qrc:/music/" + soundtracks.get (soundtracks.track).source
 
-            if (settingsDlg.enableMusic)
+            if (settings.enableMusic)
                 play()
         }
 
@@ -427,7 +432,7 @@ ApplicationWindow {
 
                 MenuItem {
                     text: qsTr ("Settings")
-                    onClicked: settingsDlg.open()
+                    onClicked: settings.open()
                 }
 
                 MenuItem {
@@ -488,14 +493,6 @@ ApplicationWindow {
     }
 
     //
-    // Settings dialog
-    //
-    Settings {
-        id: settingsDlg
-        onEnableMusicChanged: audioPlayer.playMusic()
-    }
-
-    //
     // Philosophical AI dialog
     //
     PhilosophicalAi {
@@ -517,7 +514,7 @@ ApplicationWindow {
             id: mainMenu
             visible: false
             onAboutClicked: aboutDlg.open()
-            onSettingsClicked: settingsDlg.open()
+            onSettingsClicked: settings.open()
             onRemoveAdsClicked: removeAds.purchase()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
@@ -539,7 +536,7 @@ ApplicationWindow {
             id: singlePlayer
 
             onVisibleChanged: {
-                settingsDlg.applySettings()
+                settings.applySettings()
                 philosophicalAi.enableDialog = visible
                 if (visible)
                     title.text = qsTr ("Match")
@@ -555,6 +552,15 @@ ApplicationWindow {
                     title.text = qsTr ("Match")
             }
         }
+    }
+
+    //
+    // Settings page
+    //
+    Settings {
+        id: settings
+        anchors.fill: parent
+        onEnableMusicChanged: audioPlayer.playMusic()
     }
 
     //

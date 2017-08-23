@@ -391,7 +391,7 @@ Page {
             Button {
                 font.pixelSize: 16
                 text: qsTr ("Settings")
-                onClicked: settingsDlg.open()
+                onClicked: settings.open()
                 Material.theme: Material.Light
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
