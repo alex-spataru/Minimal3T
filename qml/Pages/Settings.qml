@@ -281,7 +281,7 @@ Page {
         Button {
             flat: true
             Layout.preferredWidth: app.paneWidth
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.horizontalCenter: parent.horizontalCentercd
 
             RowLayout {
                 spacing: app.spacing

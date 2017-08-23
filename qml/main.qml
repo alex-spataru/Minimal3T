@@ -141,7 +141,7 @@ ApplicationWindow {
     function startNewGame() {
         Board.resetBoard()
         Board.currentPlayer = settings.humanFirst ? TicTacToe.Player1 :
-                                                       TicTacToe.Player2
+                                                    TicTacToe.Player2
     }
 
     //
@@ -191,14 +191,14 @@ ApplicationWindow {
     //
     onClosing: {
         if (Qt.platform.os == "android") {
-            if (stack.depth > 1) {
-                stack.pop()
-                playSoundEffect ("click.wav")
+            if (settings.opacity > 0) {
+                settings.hide()
                 close.accepted = false
             }
 
-            else if (settings.opacity > 0) {
-                settings.hide()
+            else if (stack.depth > 1) {
+                stack.pop()
+                playSoundEffect ("click.wav")
                 close.accepted = false
             }
 
