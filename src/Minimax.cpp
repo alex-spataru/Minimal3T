@@ -98,7 +98,6 @@ ComputerPlayer* Minimax::cpuPlayer() const {
 void Minimax::makeAiMove() {
     /* Init. variables */
     int move = INT_MIN;
-    int score = INT_MIN;
     int maxScore = INT_MIN;
 
     /* Initialize board objects */
@@ -111,20 +110,25 @@ void Minimax::makeAiMove() {
     /* Get a list of strategic fields */
     QVector<int> desirableFields = considerableFields (board, 0);
 
-    /* Select each field on a secondary board and see what happens */
+    /* Probe each field and see if we find win-or-loose sitations */
     foreach (int field, desirableFields) {
-        copy = board;
-        SelectField (copy, field);
+        Board aiMove = board;
+        Board enemyMove = board;
+        enemyMove.turn = cpuPlayer()->opponent();
 
-        /* By selecting the field, we win or we loose, break the loop */
-        if (copy.state == kGameWon) {
+        SelectField (aiMove, field);
+        SelectField (enemyMove, field);
+
+        if (aiMove.state == kGameWon || enemyMove.state == kGameWon) {
             move = field;
             break;
         }
+    }
 
-        /* We cannot predict what happens, so we simulate a game */
-        else {
-            score = minimax (copy, 0, INT_MIN, INT_MAX);
+    /* Run the minimax algorithm if no win-or-loose sitations where found */
+    if (move == INT_MIN) {
+        foreach (int field, desirableFields) {
+            int score = minimax (copy, 0, INT_MIN, INT_MAX);
             if (maxScore < score && RANDOM (0, 10) > cpuPlayer()->randomness()) {
                 move = field;
                 maxScore = score;
@@ -132,8 +136,8 @@ void Minimax::makeAiMove() {
         }
     }
 
-    /* Check if, for some reason, the AI could not come up with a decision */
-    if (move == -1)
+    /* Check if, for some reason, MM could not come up with a decision */
+    if (move == INT_MIN)
         selectRandomField();
 
     /* Select the choosen field on the 'real' board */
