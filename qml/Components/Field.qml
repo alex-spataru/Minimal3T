@@ -103,13 +103,13 @@ Item {
             var owner = Board.fieldOwner (fieldNumber)
 
             if (owner === TicTacToe.Player1 && field.enabled) {
-                field.symbol = app.getSymbol (0)
+                field.symbol = app.getSymbol (TicTacToe.Player1)
                 app.playSoundEffect ("p1_field.wav")
                 _symbol.opacity = 1
             }
 
             else if (owner === TicTacToe.Player2 && field.enabled) {
-                field.symbol = app.getSymbol (1)
+                field.symbol = app.getSymbol (TicTacToe.Player2)
                 app.playSoundEffect ("p2_field.wav")
                 _symbol.opacity = 1
             }

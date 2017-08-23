@@ -303,11 +303,14 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
         FieldAt (board, center + 1, center + 1),
     };
 
-    foreach (int centralField, centralFields)
-        if (board.fields.at (centralField) == kUndefined)
-            fields.append (centralField);
+    foreach (int field, centralFields) {
+        if (field < board.fields.count() && field >= 0) {
+            if (board.fields.at (field) == kUndefined)
+                fields.append (field);
 
-    return fields;
+            return fields;
+        }
+    }
 }
 
 /**

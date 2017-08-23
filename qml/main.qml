@@ -104,7 +104,7 @@ ApplicationWindow {
                            "qrc:/images/circle.svg"
         }
 
-        if (player === 0)
+        if (player === TicTacToe.Player1)
             return symbol (settingsDlg.useCross)
 
         return symbol (!settingsDlg.useCross)
