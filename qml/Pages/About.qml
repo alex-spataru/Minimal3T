@@ -22,26 +22,59 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 
 import "../Components"
 
-Dialog {
-    //
-    // Center dialog on application window
-    //
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+Page {
+    id: page
+    opacity: 0
+    visible: opacity > 0
+    enabled: opacity > 0
+    anchors.verticalCenterOffset: app.height
+    Behavior on opacity { NumberAnimation{} }
+    Behavior on anchors.verticalCenterOffset { NumberAnimation{} }
 
     //
-    // Dialog options
+    // Shows the page
     //
-    title: ""
-    modal: true
-    height: implicitHeight
-    width: implicitWidth * 1.2
-    parent: ApplicationWindow.overlay
+    function open() {
+        opacity = app.overlayOpacity
+        anchors.verticalCenterOffset = 0
+    }
+
+    //
+    // Hides the page
+    //
+    function hide() {
+        opacity = 0
+        anchors.verticalCenterOffset = app.height
+    }
+
+    //
+    // Transparent bacground
+    //
+    background: Item {}
+
+    //
+    // Background overlay
+    //
+    Item {
+        width: 2 * app.width
+        height: 2 * app.height
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -1/2 * toolbar.height
+
+        Rectangle {
+            color: "#000"
+            anchors.fill: parent
+        }
+
+        MouseArea {
+            anchors.fill: parent
+        }
+    }
 
     //
     // Main layout
@@ -49,9 +82,18 @@ Dialog {
     ColumnLayout {
         id: layout
         spacing: app.spacing
-        Layout.fillWidth: true
-        Layout.fillHeight: true
         anchors.centerIn: parent
+
+        Image {
+            id: img
+            source: "qrc:/images/logo.png"
+            sourceSize: Qt.size (128, 128)
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Item {
+            Layout.preferredHeight: app.spacing
+        }
 
         Label {
             font.bold: true
@@ -83,6 +125,11 @@ Dialog {
             text: qsTr ("Music by %1").arg ("<a href='http://www.bensound.com/'>Bensound</a>")
         }
 
+        Item {
+            Layout.fillHeight: true
+            Layout.minimumHeight: 2 * app.spacing
+        }
+
         Button {
             text: qsTr ("Rate")
             Layout.fillWidth: true
@@ -109,6 +156,37 @@ Dialog {
 
         Item {
             Layout.fillHeight: true
+            Layout.minimumHeight: 2 * app.spacing
+        }
+
+        Button {
+            flat: true
+            Layout.preferredWidth: app.paneWidth
+            anchors.horizontalCenter: parent.horizontalCentercd
+
+            RowLayout {
+                spacing: app.spacing
+                anchors.centerIn: parent
+
+                SvgImage {
+                    fillMode: Image.Pad
+                    source: "qrc:/images/settings/back.svg"
+                    verticalAlignment: Image.AlignVCenter
+                    horizontalAlignment: Image.AlignHCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Label {
+                    text: qsTr ("Back")
+                    font.capitalization: Font.AllUppercase
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
+            onClicked: {
+                page.hide()
+                app.playSoundEffect ("click.wav")
+            }
         }
     }
 }

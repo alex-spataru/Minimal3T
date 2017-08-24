@@ -23,8 +23,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
-import QtQuick.Controls.Universal 2.0
 
 import Qt.labs.settings 1.0
 
@@ -35,9 +33,9 @@ Page {
     opacity: 0
     visible: opacity > 0
     enabled: opacity > 0
-    anchors.topMargin: app.height
+    anchors.verticalCenterOffset: app.height
     Behavior on opacity { NumberAnimation{} }
-    Behavior on anchors.topMargin { NumberAnimation{} }
+    Behavior on anchors.verticalCenterOffset { NumberAnimation{} }
 
     //
     // Properties
@@ -48,17 +46,11 @@ Page {
     property bool enableSoundEffects: true
 
     //
-    // Theme options
-    //
-    Material.theme: Material.Light
-    Universal.theme: Universal.Light
-
-    //
     // Shows the page
     //
     function open() {
-        anchors.topMargin = 0
-        opacity = app.overlayOpacity + (app.overlayOpacity * 0.05)
+        opacity = app.overlayOpacity
+        anchors.verticalCenterOffset = 0
     }
 
     //
@@ -66,7 +58,7 @@ Page {
     //
     function hide() {
         opacity = 0
-        anchors.topMargin = app.height
+        anchors.verticalCenterOffset = app.height
     }
 
     //
@@ -103,7 +95,7 @@ Page {
         anchors.verticalCenterOffset: -1/2 * toolbar.height
 
         Rectangle {
-            color: "#fff"
+            color: "#000"
             anchors.fill: parent
         }
 
@@ -170,16 +162,16 @@ Page {
                 btSize: 0
                 text: qsTr ("Piece")
                 onClicked: useCross = !useCross
-                source: useCross ? "qrc:/images/dark/cross.svg" :
-                                   "qrc:/images/dark/circle.svg"
+                source: useCross ? "qrc:/images/settings/cross.svg" :
+                                   "qrc:/images/settings/circle.svg"
             }
 
             ImageButton {
                 btSize: 0
                 text: qsTr ("First Turn")
                 onClicked: humanFirst = !humanFirst
-                source: humanFirst ? "qrc:/images/dark/human.svg" :
-                                     "qrc:/images/dark/ai.svg"
+                source: humanFirst ? "qrc:/images/settings/human.svg" :
+                                     "qrc:/images/settings/ai.svg"
             }
 
             ImageButton {
@@ -187,8 +179,8 @@ Page {
                 text: qsTr ("Music")
                 onClicked: enableMusic = !enableMusic
                 Behavior on opacity { NumberAnimation {duration: 150} }
-                source: enableMusic ? "qrc:/images/dark/music-on.svg" :
-                                      "qrc:/images/dark/music-off.svg"
+                source: enableMusic ? "qrc:/images/settings/music-on.svg" :
+                                      "qrc:/images/settings/music-off.svg"
             }
 
             ImageButton {
@@ -196,8 +188,8 @@ Page {
                 text: qsTr ("Effects")
                 onClicked: enableSoundEffects = !enableSoundEffects
                 Behavior on opacity { NumberAnimation {duration: 150} }
-                source: enableSoundEffects ? "qrc:/images/dark/volume-on.svg" :
-                                             "qrc:/images/dark/volume-off.svg"
+                source: enableSoundEffects ? "qrc:/images/settings/volume-on.svg" :
+                                             "qrc:/images/settings/volume-off.svg"
             }
         }
 
@@ -290,7 +282,7 @@ Page {
 
                 SvgImage {
                     fillMode: Image.Pad
-                    source: "qrc:/images/dark/back.svg"
+                    source: "qrc:/images/settings/back.svg"
                     verticalAlignment: Image.AlignVCenter
                     horizontalAlignment: Image.AlignHCenter
                     anchors.verticalCenter: parent.verticalCenter

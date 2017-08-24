@@ -204,6 +204,11 @@ ApplicationWindow {
                 close.accepted = false
             }
 
+            else if (about.opacity > 0) {
+                about.hide()
+                close.accepted = false
+            }
+
             else if (stack.depth > 1) {
                 stack.pop()
                 playSoundEffect ("click.wav")
@@ -472,7 +477,7 @@ ApplicationWindow {
             MainMenu {
                 id: mainMenu
                 visible: false
-                onAboutClicked: aboutDlg.open()
+                onAboutClicked: about.open()
                 onSettingsClicked: settings.open()
                 onRemoveAdsClicked: removeAds.purchase()
                 onMultiplayerClicked: stack.push (multiPlayer)
@@ -555,13 +560,6 @@ ApplicationWindow {
     }
 
     //
-    // About dialog
-    //
-    About {
-        id: aboutDlg
-    }
-
-    //
     // Philosophical AI dialog
     //
     PhilosophicalAi {
@@ -569,11 +567,19 @@ ApplicationWindow {
     }
 
     //
+    // About page
+    //
+    About {
+        id: about
+        anchors.centerIn: parent
+    }
+
+    //
     // Settings page
     //
     Settings {
         id: settings
-        anchors.fill: parent
+        anchors.centerIn: parent
         onEnableMusicChanged: audioPlayer.playMusic()
     }
 

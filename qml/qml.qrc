@@ -6,7 +6,6 @@
         <file>Pages/Multiplayer.qml</file>
         <file>Pages/MainMenu.qml</file>
         <file>Pages/Singleplayer.qml</file>
-        <file>Dialogs/About.qml</file>
         <file>Components/PurchaseItem.qml</file>
         <file>Components/SvgImage.qml</file>
         <file>Dialogs/PhilosophicalAi.qml</file>
@@ -14,5 +13,6 @@
         <file>Components/ImageButton.qml</file>
         <file>Pages/Settings.qml</file>
         <file>Components/TextSpinBox.qml</file>
+        <file>Pages/About.qml</file>
     </qresource>
 </RCC>

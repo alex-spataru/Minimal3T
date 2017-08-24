@@ -72,8 +72,6 @@ Page {
     //
     property int p1Wins: 0
     property int p2Wins: 0
-    property int p1TotalWins: 0
-    property int p2TotalWins: 0
     property int numberOfGames: 3
 
     //
@@ -96,8 +94,6 @@ Page {
 
         if (Board.gameWon) {
             if (Board.winner === TicTacToe.Player1) {
-                ++p1TotalWins
-
                 if (p2Wins > 0)
                     --p2Wins
                 else
@@ -105,8 +101,6 @@ Page {
             }
 
             else if (Board.winner === TicTacToe.Player2) {
-                ++p2TotalWins
-
                 if (p1Wins > 0)
                     --p1Wins
                 else
@@ -158,67 +152,6 @@ Page {
     ColumnLayout {        
         spacing: 3 * app.spacing
         anchors.centerIn: parent
-
-        //
-        // Spacer
-        //
-        Item {
-            Layout.preferredHeight: 0
-        }
-
-        //
-        // Score indicator
-        //
-        RowLayout {
-            spacing: app.spacing
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            SvgImage {
-                sourceSize: Qt.size (36, 36)
-                source: app.getSymbol (TicTacToe.Player1)
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Label {
-                font.bold: true
-                text: p1TotalWins
-                font.pixelSize: 24
-                verticalAlignment: Label.AlignVCenter
-                horizontalAlignment: Label.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Label {
-                text: " - "
-                font.bold: true
-                font.pixelSize: 24
-                verticalAlignment: Label.AlignVCenter
-                horizontalAlignment: Label.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Label {
-                font.bold: true
-                text: p2TotalWins
-                font.pixelSize: 24
-                verticalAlignment: Label.AlignVCenter
-                horizontalAlignment: Label.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            SvgImage {
-                sourceSize: Qt.size (36, 36)
-                source: app.getSymbol (TicTacToe.Player2)
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
-
-        //
-        // Spacer
-        //
-        Item {
-            Layout.preferredHeight: 0
-        }
 
         //
         // P1 points
