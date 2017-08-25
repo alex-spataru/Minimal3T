@@ -202,7 +202,7 @@ Page {
         // Spacer
         //
         Item {
-            Layout.preferredHeight: 0
+            Layout.preferredHeight: app.spacing
         }
 
         //
@@ -313,7 +313,7 @@ Page {
         // Banner spacer
         //
         Item {
-            height: bannerContainer.height - parent.spacing
+            height: Math.max (bannerContainer.height, 50) - parent.spacing
         }
     }
 

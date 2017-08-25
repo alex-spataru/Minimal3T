@@ -61,8 +61,6 @@ Page {
         else {
             p1Wins = 0
             p2Wins = 0
-            p1TotalWins = 0
-            p2TotalWins = 0
             numberOfGames = 3
         }
     }
@@ -207,7 +205,7 @@ Page {
         // Banner spacer
         //
         Item {
-            height: bannerContainer.height - parent.spacing
+            height: bannerContainer.height - 2 * parent.spacing
         }
     }
 }

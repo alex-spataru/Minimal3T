@@ -267,7 +267,7 @@ ApplicationWindow {
     // Available purchase ittems
     //
     Store {
-        Component.onCompleted: restorePurchases()
+        id: store
 
         Product {
             id: removeAds
@@ -292,6 +292,8 @@ ApplicationWindow {
             onPurchaseRestored: {
                 adsEnabled = false
                 removeAdsBought = true
+                messageBox.text = qsTr ("Purchases restored!")
+                messageBox.open()
             }
 
             onStatusChanged: loadAdsTimer.start()
@@ -452,6 +454,11 @@ ApplicationWindow {
                     MenuItem {
                         text: qsTr ("Settings")
                         onClicked: settings.open()
+                    }
+
+                    MenuItem {
+                        text: qsTr ("Restore Purchases")
+                        onClicked: store.restorePurchases()
                     }
 
                     MenuItem {
