@@ -49,6 +49,7 @@ Page {
     // Shows the page
     //
     function open() {
+        app.bannerAdEnabled = false
         opacity = app.overlayOpacity
         anchors.verticalCenterOffset = 0
     }
@@ -58,6 +59,7 @@ Page {
     //
     function hide() {
         opacity = 0
+        app.bannerAdEnabled = true
         anchors.verticalCenterOffset = app.height
     }
 

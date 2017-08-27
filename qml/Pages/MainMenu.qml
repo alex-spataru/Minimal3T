@@ -47,16 +47,7 @@ Page {
     //
     // Transparent bacground
     //
-    background: Pane {
-        opacity: 0.41
-        width: app.paneWidth
-        height: app.paneWidth
-        anchors.centerIn: parent
-        visible: app.showTabletUi
-
-        Material.elevation: 6
-        Material.background: "#bebebe"
-    }
+    background: Item {}
 
     //
     // Main layout
@@ -186,6 +177,16 @@ Page {
                 onClicked: settingsClicked()
                 source: "qrc:/images/settings.svg"
             }
+        }
+
+        //
+        // Banner spacer
+        //
+        Rectangle {
+            color: "#000"
+            id: spacer
+            height: 50
+            visible: app.adsEnabled
         }
     }
 }

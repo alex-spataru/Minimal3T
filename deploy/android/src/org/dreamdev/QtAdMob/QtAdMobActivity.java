@@ -5,14 +5,17 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.InterstitialAd;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup;
 import android.util.Log;
 import android.graphics.Rect;
+
 import org.qtproject.qt5.android.bindings.QtActivity;
 import org.qtproject.qt5.android.bindings.QtApplication;
+
 import java.util.ArrayList;
 import android.widget.FrameLayout;
 

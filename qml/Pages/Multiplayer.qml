@@ -148,8 +148,8 @@ Page {
     // Main layout
     //
     ColumnLayout {        
-        spacing: 3 * app.spacing
         anchors.centerIn: parent
+        spacing: 3 * app.spacing
 
         //
         // P1 points
@@ -199,13 +199,6 @@ Page {
                     Behavior on opacity { NumberAnimation{} }
                 }
             }
-        }
-
-        //
-        // Banner spacer
-        //
-        Item {
-            height: bannerContainer.height - 2 * parent.spacing
         }
     }
 }

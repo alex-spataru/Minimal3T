@@ -195,15 +195,8 @@ Page {
     // Main layout
     //
     ColumnLayout {
-        spacing: 3 * app.spacing
         anchors.centerIn: parent
-
-        //
-        // Spacer
-        //
-        Item {
-            Layout.preferredHeight: app.spacing
-        }
+        spacing: 3 * app.spacing
 
         //
         // Score indicator
@@ -307,13 +300,6 @@ Page {
                     Behavior on opacity { NumberAnimation{} }
                 }
             }
-        }
-
-        //
-        // Banner spacer
-        //
-        Item {
-            height: Math.max (bannerContainer.height, 50) - parent.spacing
         }
     }
 

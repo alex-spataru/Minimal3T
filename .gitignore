@@ -33,4 +33,7 @@
 
 # Android deployment shit
 deploy/android/*.properties
-deploy/android/*.~
+deploy/android/*.properties~
+
+# Qt Creator junk
+*.pro.user

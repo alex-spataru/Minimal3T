@@ -49,6 +49,7 @@ ApplicationWindow {
     property bool adsEnabled: false
     readonly property int spacing: 8
     property bool removeAdsBought: false
+    property bool bannerAdEnabled: false
     property bool enableSoundAndMusic: true
     readonly property int paneWidth: Math.min (app.width * 0.8, 520)
     readonly property bool showTabletUi: width > height && stack.height >= 540
@@ -120,17 +121,27 @@ ApplicationWindow {
     }
 
     //
-    // Configures the banner ad
+    // Locates the banner on the screen
     //
-    onAdsEnabledChanged: configureAds()
-    function configureAds() {
-        if (adsEnabled) {
-            bannerAd.unitId = BannerId
-            bannerAd.size = AdMobBanner.Banner
+    function locateBanner() {
+        var w = bannerAd.width / DevicePixelRatio
+        var h = bannerAd.height / DevicePixelRatio
+
+        if (bannerAdEnabled && adsEnabled && !removeAdsBought) {
+            bannerAd.x = ((app.width - w) / 2) * DevicePixelRatio
+            bannerAd.y = (app.height - h + (x / DevicePixelRatio) / 2) * DevicePixelRatio
             bannerAd.visible = true
-            bannerAd.locateBanner()
         }
+
+        else
+            bannerAd.visible = false
     }
+
+    //
+    // Displays or hides the banner ad
+    //
+    onAdsEnabledChanged: locateBanner()
+    onBannerAdEnabledChanged: locateBanner()
 
     //
     // Play or stop music when needed
@@ -178,8 +189,8 @@ ApplicationWindow {
     //
     // Re-position the banner ad when window size is changed
     //
-    onWidthChanged: bannerAd.locateBanner()
-    onHeightChanged: bannerAd.locateBanner()
+    onWidthChanged: locateBanner()
+    onHeightChanged: locateBanner()
 
     //
     // Pause audio when window is not visible (very important on Android!)
@@ -258,8 +269,10 @@ ApplicationWindow {
         id: loadAdsTimer
         interval: 5000
         onTriggered: {
-            if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
+            if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios") {
                 adsEnabled = true
+                bannerAdEnabled = true
+            }
         }
     }
 
@@ -281,6 +294,7 @@ ApplicationWindow {
 
                 adsEnabled = false
                 removeAdsBought = true
+                bannerAdEnabled = false
             }
 
             onPurchaseFailed: {
@@ -292,6 +306,8 @@ ApplicationWindow {
             onPurchaseRestored: {
                 adsEnabled = false
                 removeAdsBought = true
+                bannerAdEnabled = false
+
                 messageBox.text = qsTr ("Purchases restored!")
                 messageBox.open()
             }
@@ -367,24 +383,6 @@ ApplicationWindow {
     //
     contentData: Item {
         anchors.fill: parent
-
-        //
-        // Toolbar background
-        //
-        Pane {
-            opacity: 0.41
-            visible: app.showTabletUi
-            height: toolbar.implicitHeight
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-
-            Material.elevation: 6
-            Material.background: "#bebebe"
-        }
 
         //
         // Toolbar buttons
@@ -479,7 +477,6 @@ ApplicationWindow {
             initialItem: mainMenu
             anchors.margins: app.spacing
             anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
-            anchors.bottomMargin: bannerContainer.height + 2 * app.spacing
 
             MainMenu {
                 id: mainMenu
@@ -499,6 +496,8 @@ ApplicationWindow {
                 onVisibleChanged: {
                     if (visible)
                         title.text = ""
+
+                    bannerAdEnabled = visible
                 }
             }
 
@@ -524,19 +523,6 @@ ApplicationWindow {
                 }
             }
         }
-
-        //
-        // Banner container
-        //
-        Item {
-            id: bannerContainer
-
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-        }
     }
 
     //
@@ -544,17 +530,13 @@ ApplicationWindow {
     //
     AdMobBanner {
         id: bannerAd
-
-        function locateBanner() {
-            var w = bannerAd.width / DevicePixelRatio
-            var h = bannerAd.height / DevicePixelRatio
-
-            bannerContainer.height = h
-            x = ((app.width - w) / 2) * DevicePixelRatio
-            y = (app.height - h + (x / DevicePixelRatio) / 2) * DevicePixelRatio
-        }
-
         onLoaded: locateBanner()
+        Component.onCompleted: {
+            visible = false
+            unitId = BannerId
+            size = AdMobBanner.SmartBanner
+            locateBanner()
+        }
     }
 
     //

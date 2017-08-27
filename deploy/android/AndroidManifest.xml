@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.alex_spataru.SuperTac" android:versionName="1.0" android:versionCode="10" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.alexspataru.supertac" android:versionName="1.0" android:versionCode="10" android:installLocation="auto">
   <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="SuperTac" android:icon="@drawable/ic_launcher">
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
     <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.dreamdev.QtAdMob.QtAdMobActivity" android:label="SuperTac" android:screenOrientation="portrait" android:launchMode="singleTop">
@@ -41,5 +41,5 @@
   <uses-permission android:name="com.android.vending.BILLING"/>
   <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
   <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 </manifest>

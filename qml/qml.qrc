@@ -14,5 +14,6 @@
         <file>Pages/Settings.qml</file>
         <file>Components/TextSpinBox.qml</file>
         <file>Pages/About.qml</file>
+        <file>Components/BannerAd.qml</file>
     </qresource>
 </RCC>
