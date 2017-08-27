@@ -22,45 +22,83 @@
 
 #include "QmlBoard.h"
 
+/**
+ * Inititalizes the board to a 3x3 game with 3 fields to allign
+ */
 QmlBoard::QmlBoard() {
     setBoardSize (3);
     setFieldsToAllign (3);
     setCurrentPlayer (Player1);
 }
 
+/**
+ * Returns the only instance of the class.
+ */
 QmlBoard* QmlBoard::getInstance() {
     static QmlBoard instance;
     return &instance;
 }
 
+/**
+ * Returns the number of fields of the board.
+ * \note The number of fields is not the same as the board size. The board
+ *       size should always be the square root of the number of fields
+ */
 int QmlBoard::numFields() const {
     return board().fields.count();
 }
 
+/**
+ * Returns the number of fields that the board has on every side. In other
+ * words, the board size is the square root of the total number of fields of
+ * the board.
+ */
 int QmlBoard::boardSize() const {
     return board().size;
 }
 
+/**
+ * Returns the number of fields/pieces that each player must allign in a line
+ * in order to win the game
+ */
 int QmlBoard::fieldsToAllign() const {
     return board().fieldsToAllign;
 }
 
+/**
+ * Returns \c true if any of the players have won the game
+ */
 bool QmlBoard::gameWon() const {
     return gameState() == GameEnded;
 }
 
+/**
+ * Returns \c true if the game has reached a state in which none of the players
+ * have won, but there are no more possible moves available
+ */
 bool QmlBoard::gameDraw() const {
     return gameState() == Draw;
 }
 
+/**
+ * Returns \c true if none of the players have won, but the game can still be
+ * played (there are empty/unused fields)
+ */
 bool QmlBoard::gameInProgress() const {
     return gameState() == GameInProgress;
 }
 
+/**
+ * Returns the board structure used by this class
+ */
 Board QmlBoard::board() const {
     return m_board;
 }
 
+/**
+ * Returns the winner of the game, if the game is still in progress, this
+ * function shall return \c Undefined
+ */
 QmlBoard::Player QmlBoard::winner() const {
     return (Player) board().winner;
 }

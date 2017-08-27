@@ -25,18 +25,32 @@
 
 #include <QVector>
 
+/**
+ * Represents the possible state of:
+ *   - Any field on the board
+ *   - The current turn of the game
+ */
 enum BoardPlayer {
     kUndefined      = 0x00,
     kPlayer1        = 0x01,
     kPlayer2        = 0x02,
 };
 
+/**
+ * Represents the possible states of the game
+ */
 enum BoardState {
     kDraw           = 0x00,
     kGameWon        = 0x01,
     kGameInProgress = 0x02,
 };
 
+/**
+ * Represents a tic-tac-toe/gomoku board and all its properties, it is more
+ * efficient to have all this information on a structure than on a class,
+ * because it is faster to copy and manipulate a small structure rather than
+ * a full-fledged QObject-based class
+ */
 typedef struct {
     BoardState state;
     BoardPlayer turn;

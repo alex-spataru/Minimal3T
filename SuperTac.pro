@@ -53,12 +53,6 @@ QT += quickcontrols2
 DEFINES += QTADMOB_QML
 
 #-------------------------------------------------------------------------------
-# Deploy configurations
-#-------------------------------------------------------------------------------
-
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
-
-#-------------------------------------------------------------------------------
 # Include libraries
 #-------------------------------------------------------------------------------
 
@@ -95,25 +89,24 @@ RESOURCES += \
     $$PWD/images/images.qrc \
     $$PWD/sounds/sounds.qrc
 
-android {
-    # Uncomment this line if releasing to AppStore
-    #DEFINES += ENABLE_REAL_ADS
+#-------------------------------------------------------------------------------
+# Deploy configurations
+#-------------------------------------------------------------------------------
 
-    DISTFILES += \
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
+
+android {
+    # Uncomment this line if releasing to the Play Store
+    #android:DEFINES += ENABLE_REAL_ADS
+    android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
-        $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.jar \
-        $$PWD/deploy/android/gradlew \
         $$PWD/deploy/android/res/values/libs.xml \
         $$PWD/deploy/android/res/mipmap-hdpi/ic_launcher.png \
         $$PWD/deploy/android/res/mipmap-mdpi/ic_launcher.png \
         $$PWD/deploy/android/res/mipmap-xhdpi/ic_launcher.png \
         $$PWD/deploy/android/res/mipmap-xxhdpi/ic_launcher.png \
-        $$PWD/deploy/android/gradle/wrapper/gradle-wrapper.properties \
+        $$PWD/deploy/android/res/mipmap-xxxhdpi/ic_launcher.png \
         $$PWD/deploy/android/build.gradle \
-        $$PWD/deploy/android/gradlew.bat \
-        $$PWD/deploy/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java \
-        $$PWD/deploy/android/gradle.properties \
-        $$PWD/deploy/android/local.properties \
-        $$PWD/deploy/android/src/com/lasconic/QShareUtils.java
+        $$PWD/deploy/android/src/com/lasconic/QShareUtils.java \
+        $$PWD/deploy/android/src/org/dreamdev/QtAdMob/QtAdMobActivity.java
 }
-

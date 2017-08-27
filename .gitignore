@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Android deployment shit
+deploy/android/*.properties
+deploy/android/*.~

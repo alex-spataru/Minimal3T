@@ -211,7 +211,7 @@ int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
     int isMax = board.turn == cpuPlayer()->player();
     int best = isMax ? INT_MIN : INT_MAX;
 
-    /* Do a deep-search in order to find the best move */
+    /* Do a tree search in order to find the best move */
     Board copy;
     foreach (int field, fields) {
         copy = board;
@@ -318,10 +318,10 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
         if (field < board.fields.count() && field >= 0) {
             if (board.fields.at (field) == kUndefined)
                 fields.append (field);
-
-            return fields;
         }
     }
+
+    return fields;
 }
 
 /**
