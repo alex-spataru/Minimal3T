@@ -24,39 +24,103 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-SpinBox {
-    id: sb
-    from: 0
-    to: model.length - 1
+Item {
+    property int to: 0
+    property int from: 0
+    property int value: 0
+    property var model: [""]
+    property alias title:  title.text
+    readonly property alias text: currentText.text
+    property size iconSize: Qt.size (app.font.pixelSize * 2,
+                                     app.font.pixelSize * 2)
 
-    property var model: []
+    function updateModel() {
+        if (to > 0 && from > 0) {
+            model = []
+            for (var i = from; i <= to; ++i)
+                model.push (i.toString())
 
-    function getRegExp (items) {
-        var str = "("
-        for (var i = 0; i < items.length; ++i) {
-            str +=  items [i]
-            if (i + 1 <  items.length)
-                str += "|"
+            if (value > to)
+                value = to
+            if (value < from)
+                value = from
         }
 
-        str += ")"
-        return new RegExp (str, "i")
-    }
-
-    validator: RegExpValidator {
-        regExp: getRegExp (model)
-    }
-
-    textFromValue: function (value) {
-        return model [value]
-    }
-
-    valueFromText: function (text) {
-        for (var i = 0; i < model.length; ++i) {
-            if (model [i].toLowerCase().indexOf (text.toLowerCase()) === 0)
-                return i
+        else {
+            from = 0
+            to = model.length
         }
 
-        return sb.value
+        currentText.text = model [value - from]
+    }
+
+    onToChanged: updateModel()
+    onFromChanged: updateModel()
+    Component.onCompleted: updateModel()
+    Layout.preferredHeight: layout.implicitHeight * 1.2
+
+    onValueChanged: {
+        if (value > to)
+            value = to
+        if (value < from)
+            value = from
+
+        currentText.text = model [value - from]
+    }
+
+    ColumnLayout {
+        id: layout
+        anchors.centerIn: parent
+
+        Label {
+            id: title
+            visible: text.length > 0
+            font.pixelSize: app.largeLabel * 2/3
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        RowLayout {
+            spacing: app.spacing
+            Layout.fillWidth: true
+            Layout.minimumWidth: 160
+
+            SvgImage {
+                sourceSize: iconSize
+                opacity: value > from ? 1 : 0.4
+                source: "qrc:/images/chevron-left.svg"
+                anchors.verticalCenter: parent.verticalCenter
+
+                Behavior on opacity { NumberAnimation{} }
+
+                MouseArea {
+                    onClicked: --value
+                    anchors.fill: parent
+                    enabled: parent.opacity == 1
+                }
+            }
+
+            Label {
+                id: currentText
+                Layout.fillWidth: true
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            SvgImage {
+                sourceSize: iconSize
+                opacity: value < to ? 1 : 0.4
+                source: "qrc:/images/chevron-right.svg"
+                anchors.verticalCenter: parent.verticalCenter
+
+                Behavior on opacity { NumberAnimation{} }
+
+                MouseArea {
+                    onClicked: ++value
+                    anchors.fill: parent
+                    enabled: parent.opacity == 1
+                }
+            }
+        }
     }
 }

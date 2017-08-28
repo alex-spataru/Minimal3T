@@ -23,5 +23,7 @@
         <file>settings/volume-on.svg</file>
         <file>logo@2x.png</file>
         <file>logo.png</file>
+        <file>chevron-right.svg</file>
+        <file>chevron-left.svg</file>
     </qresource>
 </RCC>

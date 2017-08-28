@@ -86,6 +86,14 @@ Overlay {
         anchors.centerIn: parent
 
         //
+        // Spacer
+        //
+        Item {
+            Layout.fillHeight: true
+            Layout.preferredHeight: app.spacing
+        }
+
+        //
         // Title
         //
         Label {
@@ -101,6 +109,7 @@ Overlay {
         // Spacer
         //
         Item {
+            Layout.fillHeight: true
             Layout.preferredHeight: app.spacing
         }
 
@@ -151,16 +160,16 @@ Overlay {
         // Spacer
         //
         Item {
+            Layout.fillHeight: true
             Layout.preferredHeight: app.spacing
         }
 
         //
         // Map size
         //
-        Label {
-            text: qsTr ("Map Dimension") + ":"
-        } TextSpinBox {
+        TextSpinBox {
             id: _boardSize
+            title: qsTr ("Map Dimension")
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
             model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10"]
@@ -175,10 +184,9 @@ Overlay {
         //
         // AI difficulty
         //
-        Label {
-            text: qsTr ("AI Level") + ":"
-        } TextSpinBox {
+        TextSpinBox {
             id: _aiLevel
+            title: qsTr ("AI Level")
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -198,12 +206,11 @@ Overlay {
         //
         // Fields to Allign
         //
-        Label {
-            text: qsTr ("Pieces to Allign") + ":"
-        } SpinBox {
+        TextSpinBox {
             from: 3
             id: _fieldsToAllign
             to: Board.boardSize
+            title: qsTr ("Pieces to Allign")
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
             onValueChanged: {
@@ -219,6 +226,7 @@ Overlay {
         // Spacer
         //
         Item {
+            Layout.fillHeight: true
             Layout.preferredHeight: app.spacing
         }
 
@@ -253,6 +261,14 @@ Overlay {
                 page.hide()
                 app.playSoundEffect ("click.wav")
             }
+        }
+
+        //
+        // Spacer
+        //
+        Item {
+            Layout.fillHeight: true
+            Layout.preferredHeight: app.spacing
         }
     }
 }

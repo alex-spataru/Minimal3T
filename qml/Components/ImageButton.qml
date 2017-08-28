@@ -57,10 +57,11 @@ Item {
 
         Label {
             id: label
+            visible: text.length > 0
             Layout.preferredWidth: btSize
+            font.pixelSize: app.font.pixelSize - 2
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: btSize === 0 ? app.font.pixelSize - 2 : app.font.pixelSize
         }
     }
 }

@@ -203,15 +203,14 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
 
             SvgImage {
-                sourceSize: Qt.size (36, 36)
                 source: app.getSymbol (TicTacToe.Player1)
                 anchors.verticalCenter: parent.verticalCenter
+                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
 
             Label {
-                font.bold: true
                 text: p1TotalWins
-                font.pixelSize: 24
+                font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -219,26 +218,24 @@ Page {
 
             Label {
                 text: " - "
-                font.bold: true
-                font.pixelSize: 24
+                font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             Label {
-                font.bold: true
                 text: p2TotalWins
-                font.pixelSize: 24
+                font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             SvgImage {
-                sourceSize: Qt.size (36, 36)
                 source: app.getSymbol (TicTacToe.Player2)
                 anchors.verticalCenter: parent.verticalCenter
+                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
         }
 
@@ -372,7 +369,7 @@ Page {
 
             Button {
                 font.pixelSize: 16
-                text: qsTr ("Main menu")
+                text: qsTr ("Main Menu")
                 Material.theme: Material.Light
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
