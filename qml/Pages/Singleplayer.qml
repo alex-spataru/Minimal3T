@@ -355,9 +355,9 @@ Page {
 
             Button {
                 font.bold: true
-                font.pixelSize: 18
                 text: qsTr ("New Game")
                 Material.theme: Material.Light
+                font.pixelSize: app.mediumLabel
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -368,9 +368,9 @@ Page {
             }
 
             Button {
-                font.pixelSize: 16
                 text: qsTr ("Main Menu")
                 Material.theme: Material.Light
+                font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -385,10 +385,10 @@ Page {
             }
 
             Button {
-                font.pixelSize: 16
                 text: qsTr ("Settings")
                 onClicked: settings.open()
                 Material.theme: Material.Light
+                font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
             }

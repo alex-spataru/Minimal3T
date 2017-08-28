@@ -33,20 +33,6 @@ Item {
     property bool removeAdsBought: false
 
     //
-    // Locate the banner when the custom properties are changed
-    //
-    onAdsEnabledChanged: displayBanner()
-
-    //
-    // Locate the banner when window size is changed
-    //
-    Connections {
-        target: app
-        onWidthChanged: displayBanner()
-        onHeightChanged: displayBanner()
-    }
-
-    //
     // Locates the banner on the bottom of the screen
     //
     function displayBanner() {
@@ -88,6 +74,28 @@ Item {
     }
 
     //
+    // Registers the test devices
+    //
+    Component.onCompleted: {
+        bannerAd.addTestDevice ("4F039A153EF594B22BF1F3B75D362C1C")
+    }
+
+
+    //
+    // Locate the banner when the custom properties are changed
+    //
+    onAdsEnabledChanged: displayBanner()
+
+    //
+    // Locate the banner when window size is changed
+    //
+    Connections {
+        target: app
+        onWidthChanged: displayBanner()
+        onHeightChanged: displayBanner()
+    }
+
+    //
     // Waits five seconds to check if the user has purchased the 'remove ads'
     // extension
     //
@@ -109,7 +117,7 @@ Item {
         Product {
             id: productRemoveAds
             type: Product.Unlockable
-            identifier: "com.alex_spataru.supertac_remove_ads"
+            identifier: "com.alexspataru.supertac.remove_ads"
 
             onPurchaseSucceeded: {
                 transaction.finalize()

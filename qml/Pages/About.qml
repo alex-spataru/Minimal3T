@@ -71,7 +71,7 @@ Overlay {
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr ("Music by %1").arg ("<a href='http://www.bensound.com/'>Bensound</a>")
+            text: qsTr ("Music by %1").arg ("<a href='https://www.s-cheremisinov.com/'>Sergey Cheremisinov</a>")
         }
 
         Item {

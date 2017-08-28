@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/music">
-        <file>Relaxing.ogg</file>
-        <file>Scifi.ogg</file>
-        <file>GoingHigher.ogg</file>
+        <file>Clouds.ogg</file>
+        <file>GlowInSpace.ogg</file>
+        <file>WhiteAtlantis.ogg</file>
     </qresource>
 </RCC>

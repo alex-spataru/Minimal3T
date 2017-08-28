@@ -28,6 +28,9 @@ Item {
     property bool enableMusic: true
     property bool enableSoundEffects: true
 
+    onEnableMusicChanged: playMusic()
+    Component.onCompleted: playMusic()
+
     function playSoundEffect (effect) {
         if (enableSoundEffects && app.visible) {
             var source = "qrc:/sounds/" + effect
@@ -79,12 +82,14 @@ Item {
 
     ListModel {
         id: soundtracks
-        ListElement { source: "Scifi.ogg" }
-        ListElement { source: "Relaxing.ogg" }
+        ListElement { source: "Clouds.ogg" }
+        ListElement { source: "GlowInSpace.ogg" }
+        ListElement { source: "WhiteAtlantis.ogg" }
     }
 
     Audio {
         id: player
+        volume: 0.80
         onStopped: updateTrack()
         Component.onCompleted: updateTrack()
     }

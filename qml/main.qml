@@ -66,7 +66,7 @@ ApplicationWindow {
     //
     readonly property string website: {
         if (Qt.platform.os === "android")
-            return "market://details?id=org.alex_spataru.SuperTac"
+            return "market://details?id=org.alexspataru.supertac"
 
         return "https://github.com/alex-spataru/supertac"
     }
