@@ -51,6 +51,8 @@ int main (int argc, char** argv) {
     QmlAdMobBanner::DeclareQML();
     QmlAdMobInterstitial::DeclareQML();
 
+    qreal dpr = app.primaryScreen()->devicePixelRatio();
+
     QQmlApplicationEngine engine;
     QQuickStyle::setStyle ("Universal");
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
@@ -60,8 +62,7 @@ int main (int argc, char** argv) {
     engine.rootContext()->setContextProperty ("Company", app.organizationName());
     engine.rootContext()->setContextProperty ("Version", app.applicationVersion());
     engine.rootContext()->setContextProperty ("Board", QmlBoard::getInstance());
-    engine.rootContext()->setContextProperty ("DevicePixelRatio",
-                                              app.primaryScreen()->devicePixelRatio());
+    engine.rootContext()->setContextProperty ("DevicePixelRatio", dpr);
     engine.load (QUrl (QStringLiteral ("qrc:/qml/main.qml")));
 
     if (engine.rootObjects().isEmpty())

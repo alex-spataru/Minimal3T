@@ -30,20 +30,24 @@ Item {
     id: board
 
     //
-    // Allows or disallows the human player to change field states
+    // Custom properties
     //
+    property var gridWidth: app.width
+    property var gridHeight: app.height
     property bool clickableFields: false
 
     //
     // Calculate tile size on init
     //
+    onGridWidthChanged: updateSize()
+    onGridHeightChanged: updateSize()
     Component.onCompleted: updateSize()
 
     //
     // Calculates the appropiate size of the game fields/tiles
     //
     function updateSize() {
-        var side = Math.min (app.height, app.width) * (app.height > app.width ? 0.85 : 0.65)
+        var side = Math.min (gridHeight, gridWidth) * (gridHeight > gridWidth ? 0.85 : 0.65)
         board.width = side
         board.height = side
     }

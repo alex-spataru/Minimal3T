@@ -198,9 +198,6 @@ Page {
         anchors.centerIn: parent
         spacing: 3 * app.spacing
 
-        //
-        // Score indicator
-        //
         RowLayout {
             spacing: app.spacing
             anchors.horizontalCenter: parent.horizontalCenter
@@ -245,85 +242,36 @@ Page {
             }
         }
 
-        //
-        // Spacer
-        //
         Item {
             Layout.preferredHeight: 0
         }
 
-        //
-        // P1 points
-        //
-        Row {
-            spacing: app.spacing * 2
-            LayoutMirroring.enabled: true
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            Repeater {
-                model: numberOfGames
-                delegate: Rectangle {
-                    width: 12
-                    height: 12
-                    color: "#fff"
-                    radius: width / 2
-                    opacity: p1Wins > index ? 1 : 0.4
-                    Behavior on opacity { NumberAnimation{} }
-                }
-            }
+        Dots {
+            mirror: true
+            dots: numberOfGames
+            highlightedDots: p1Wins
         }
 
-        //
-        // Game board
-        //
         GameBoard {
             id: board
+            gridWidth: page.width
+            gridHeight: page.height
             enabled: parent.visible
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        //
-        // P2 points
-        //
-        Row {
-            spacing: app.spacing * 2
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            Repeater {
-                model: numberOfGames
-                delegate: Rectangle {
-                    width: 12
-                    height: 12
-                    color: "#fff"
-                    radius: width / 2
-                    opacity: p2Wins > index ? 1 : 0.4
-                    Behavior on opacity { NumberAnimation{} }
-                }
-            }
+        Dots {
+            dots: numberOfGames
+            highlightedDots: p2Wins
         }
     }
 
     //
     // Game ended magic
     //
-    Item {
+    Overlay {
         id: prompt
-        opacity: 0
-        visible: opacity > 0
-        enabled: opacity > 0
-        width: 2 * app.width
-        height: 2 * app.height
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: app.height
-
-        //
-        // Background rectangle
-        //
-        Rectangle {
-            color: "#000"
-            anchors.fill: parent
-            opacity: app.overlayOpacity
-        }
 
         //
         // Waits for the user to process the game events
@@ -338,15 +286,6 @@ Page {
         }
 
         //
-        // Quick and dirty hack to display all other clickable
-        // controls
-        //
-        MouseArea {
-            anchors.fill: parent
-            enabled: parent.opacity > 0
-        }
-
-        //
         // React on game events
         //
         Connections {
@@ -355,14 +294,6 @@ Page {
                 if (!Board.gameInProgress && page.enabled)
                     timer.start()
             }
-        }
-
-        //
-        // Hides the prompt
-        //
-        function hide() {
-            opacity = 0
-            anchors.verticalCenterOffset = app.height
         }
 
         //
@@ -400,15 +331,9 @@ Page {
         }
 
         //
-        // Enable the nice fading effect
-        //
-        Behavior on opacity { NumberAnimation{} }
-        Behavior on anchors.verticalCenterOffset  { NumberAnimation{} }
-
-        //
         // Main layout
         //
-        ColumnLayout {
+        contentData: ColumnLayout {
             spacing: app.spacing
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -1/2 * toolbar.height

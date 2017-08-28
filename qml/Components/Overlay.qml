@@ -24,43 +24,58 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
+import "../Components"
+
 Item {
-    id: button
+    opacity: 0
+    visible: opacity > 0
+    enabled: opacity > 0
+    anchors.verticalCenterOffset: app.height
 
-    signal clicked
-    property var btSize: 81
-    property alias text: label.text
-    property alias source: image.source
+    property alias contentData: _data.data
+    Behavior on opacity { NumberAnimation{} }
+    Behavior on anchors.verticalCenterOffset { NumberAnimation{} }
 
-    Layout.fillWidth: btSize === 0
-    Layout.preferredWidth: btSize > 0 ? btSize : 81
-    Layout.preferredHeight: btSize > 0 ? btSize : 81
+    function open() {
+        opacity = 1
+        anchors.verticalCenterOffset = 0
+    }
 
-    onClicked: app.playSoundEffect ("click.wav")
+    function hide() {
+        opacity = 0
+        anchors.verticalCenterOffset = app.height
+    }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: button.clicked()
+    Item {
+        opacity: 0.90
+        width: 2 * app.width
+        height: 2 * app.height
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -1/2 * toolbar.height
+
+        Rectangle {
+            color: "#000"
+            anchors.fill: parent
+        }
+
+        MouseArea {
+            anchors.fill: parent
+        }
     }
 
     ColumnLayout {
-        spacing: app.spacing
         anchors.centerIn: parent
 
-        SvgImage {
-            id: image
-            fillMode: Image.Pad
-            verticalAlignment: Image.AlignVCenter
-            horizontalAlignment: Image.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+        Item {
+            id: _data
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
-        Label {
-            id: label
-            Layout.preferredWidth: btSize
-            horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: btSize === 0 ? app.font.pixelSize - 2 : app.font.pixelSize
+        Item {
+            Layout.fillWidth: true
+            visible: app.adsEnabled
+            height: app.bannerHeight
         }
     }
 }

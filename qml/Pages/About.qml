@@ -27,61 +27,10 @@ import QtQuick.Controls.Material 2.0
 
 import "../Components"
 
-Page {
-    id: page
-    opacity: 0
-    visible: opacity > 0
-    enabled: opacity > 0
-    anchors.verticalCenterOffset: app.height
-    Behavior on opacity { NumberAnimation{} }
-    Behavior on anchors.verticalCenterOffset { NumberAnimation{} }
+Overlay {
+    id: overlay
 
-    //
-    // Shows the page
-    //
-    function open() {
-        app.bannerAdEnabled = false
-        opacity = app.overlayOpacity
-        anchors.verticalCenterOffset = 0
-    }
-
-    //
-    // Hides the page
-    //
-    function hide() {
-        opacity = 0
-        app.bannerAdEnabled = true
-        anchors.verticalCenterOffset = app.height
-    }
-
-    //
-    // Transparent bacground
-    //
-    background: Item {}
-
-    //
-    // Background overlay
-    //
-    Item {
-        width: 2 * app.width
-        height: 2 * app.height
-        anchors.centerIn: parent
-        anchors.verticalCenterOffset: -1/2 * toolbar.height
-
-        Rectangle {
-            color: "#000"
-            anchors.fill: parent
-        }
-
-        MouseArea {
-            anchors.fill: parent
-        }
-    }
-
-    //
-    // Main layout
-    //
-    ColumnLayout {
+    contentData: ColumnLayout {
         id: layout
         spacing: app.spacing
         anchors.centerIn: parent
@@ -89,7 +38,7 @@ Page {
         Image {
             id: img
             source: "qrc:/images/logo.png"
-            sourceSize: Qt.size (128, 128)
+            sourceSize: Qt.size (app.iconSize, app.iconSize)
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -99,8 +48,8 @@ Page {
 
         Label {
             font.bold: true
-            font.pixelSize: 24
             Layout.fillWidth: true
+            font.pixelSize: app.largeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             text: qsTr ("%1 %2").arg (AppName).arg (Version)
@@ -109,7 +58,6 @@ Page {
 
         Label {
             opacity: 0.75
-            font.pixelSize: 14
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
@@ -119,7 +67,6 @@ Page {
 
         Label {
             opacity: 0.75
-            font.pixelSize: 14
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
@@ -186,7 +133,7 @@ Page {
             }
 
             onClicked: {
-                page.hide()
+                overlay.hide()
                 app.playSoundEffect ("click.wav")
             }
         }

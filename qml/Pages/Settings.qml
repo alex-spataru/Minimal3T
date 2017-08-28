@@ -28,14 +28,8 @@ import Qt.labs.settings 1.0
 
 import "../Components"
 
-Page {
+Overlay {
     id: page
-    opacity: 0
-    visible: opacity > 0
-    enabled: opacity > 0
-    anchors.verticalCenterOffset: app.height
-    Behavior on opacity { NumberAnimation{} }
-    Behavior on anchors.verticalCenterOffset { NumberAnimation{} }
 
     //
     // Properties
@@ -44,24 +38,6 @@ Page {
     property bool humanFirst: true
     property bool enableMusic: true
     property bool enableSoundEffects: true
-
-    //
-    // Shows the page
-    //
-    function open() {
-        app.bannerAdEnabled = false
-        opacity = app.overlayOpacity
-        anchors.verticalCenterOffset = 0
-    }
-
-    //
-    // Hides the page
-    //
-    function hide() {
-        opacity = 0
-        app.bannerAdEnabled = true
-        anchors.verticalCenterOffset = app.height
-    }
 
     //
     // Updates the board and AI config bases on selected UI options
@@ -79,30 +55,6 @@ Page {
         case 2:
             AiPlayer.randomness = 0
             break
-        }
-    }
-
-    //
-    // Transparent bacground
-    //
-    background: Item {}
-
-    //
-    // Background overlay
-    //
-    Item {
-        width: 2 * app.width
-        height: 2 * app.height
-        anchors.centerIn: parent
-        anchors.verticalCenterOffset: -1/2 * toolbar.height
-
-        Rectangle {
-            color: "#000"
-            anchors.fill: parent
-        }
-
-        MouseArea {
-            anchors.fill: parent
         }
     }
 
@@ -128,7 +80,7 @@ Page {
     //
     // Main layout
     //
-    ColumnLayout {
+    contentData: ColumnLayout {
         id: layout
         spacing: app.spacing
         anchors.centerIn: parent
@@ -138,8 +90,8 @@ Page {
         //
         Label {
             font.bold: true
-            font.pixelSize: 32
             text: qsTr ("Settings")
+            font.pixelSize: app.largeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter

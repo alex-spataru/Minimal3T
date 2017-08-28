@@ -54,7 +54,16 @@ Page {
     //
     ColumnLayout {
         spacing: 0
+        anchors.fill: parent
         anchors.centerIn: parent
+        anchors.margins: 2 * app.spacing
+
+        //
+        // Spacer
+        //
+        Item {
+            Layout.fillHeight: true
+        }
 
         //
         // App name label
@@ -62,7 +71,7 @@ Page {
         Label {
             text: AppName
             font.bold: true
-            font.pixelSize: 36
+            font.pixelSize: app.xLargeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -72,19 +81,18 @@ Page {
         // Subtitle
         //
         Label {
-            font.pixelSize: 18
             text: qsTr ("Tic-Tac-Toe Game")
+            font.pixelSize: app.mediumLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         //
-        // Spacer
+        // Mini-spacer
         //
         Item {
-            Layout.fillHeight: true
-            Layout.minimumHeight: 3 * app.spacing
+            height: 3 * app.spacing
         }
 
         //
@@ -92,7 +100,6 @@ Page {
         //
         Button {
             flat: true
-            Layout.fillHeight: true
             onClicked: singleplayerClicked()
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
@@ -103,16 +110,16 @@ Page {
                 SvgImage {
                     fillMode: Image.Pad
                     source: "qrc:/images/play.svg"
-                    sourceSize: Qt.size (128, 128)
                     verticalAlignment: Image.AlignVCenter
                     horizontalAlignment: Image.AlignHCenter
+                    sourceSize: Qt.size (app.iconSize, app.iconSize)
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
                 Label {
                     font.bold: true
-                    font.pixelSize: 24
                     text: qsTr ("Play")
+                    font.pixelSize: app.largeLabel
                     Layout.preferredWidth: app.paneWidth
                     horizontalAlignment: Label.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -129,9 +136,9 @@ Page {
         //
         Button {
             flat: true
-            font.pixelSize: 24
             text: qsTr ("Multiplayer")
             onClicked: multiplayerClicked()
+            font.pixelSize: app.largeLabel
             font.capitalization: Font.MixedCase
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
@@ -180,13 +187,10 @@ Page {
         }
 
         //
-        // Banner spacer
+        // Spacer
         //
-        Rectangle {
-            color: "#000"
-            id: spacer
-            height: 50
-            visible: app.adsEnabled
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

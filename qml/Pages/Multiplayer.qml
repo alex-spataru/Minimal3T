@@ -151,54 +151,23 @@ Page {
         anchors.centerIn: parent
         spacing: 3 * app.spacing
 
-        //
-        // P1 points
-        //
-        Row {
-            spacing: app.spacing * 2
-            LayoutMirroring.enabled: true
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            Repeater {
-                model: numberOfGames
-                delegate: Rectangle {
-                    width: 12
-                    height: 12
-                    color: "#fff"
-                    radius: width / 2
-                    opacity: p1Wins > index ? 1 : 0.4
-                    Behavior on opacity { NumberAnimation{} }
-                }
-            }
+        Dots {
+            mirror: true
+            dots: numberOfGames
+            highlightedDots: p1Wins
         }
 
-        //
-        // Game board
-        //
         GameBoard {
             id: board
+            gridWidth: page.width
+            gridHeight: page.height
             enabled: parent.visible
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        //
-        // P2 points
-        //
-        Row {
-            spacing: app.spacing * 2
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            Repeater {
-                model: numberOfGames
-                delegate: Rectangle {
-                    width: 12
-                    height: 12
-                    color: "#fff"
-                    radius: width / 2
-                    opacity: p2Wins > index ? 1 : 0.4
-                    Behavior on opacity { NumberAnimation{} }
-                }
-            }
+        Dots {
+            dots: numberOfGames
+            highlightedDots: p2Wins
         }
     }
 }

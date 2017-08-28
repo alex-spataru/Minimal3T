@@ -21,46 +21,25 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.0
 
-Item {
-    id: button
+Row {
+    property int dots: 0
+    property bool mirror: false
+    property int highlightedDots: 0
 
-    signal clicked
-    property var btSize: 81
-    property alias text: label.text
-    property alias source: image.source
+    spacing: app.spacing * 2
+    LayoutMirroring.enabled: mirror
+    anchors.horizontalCenter: parent.horizontalCenter
 
-    Layout.fillWidth: btSize === 0
-    Layout.preferredWidth: btSize > 0 ? btSize : 81
-    Layout.preferredHeight: btSize > 0 ? btSize : 81
-
-    onClicked: app.playSoundEffect ("click.wav")
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: button.clicked()
-    }
-
-    ColumnLayout {
-        spacing: app.spacing
-        anchors.centerIn: parent
-
-        SvgImage {
-            id: image
-            fillMode: Image.Pad
-            verticalAlignment: Image.AlignVCenter
-            horizontalAlignment: Image.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Label {
-            id: label
-            Layout.preferredWidth: btSize
-            horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: btSize === 0 ? app.font.pixelSize - 2 : app.font.pixelSize
+    Repeater {
+        model: dots
+        delegate: Rectangle {
+            width: 12
+            height: 12
+            color: "#fff"
+            radius: width / 2
+            opacity: highlightedDots > index ? 1 : 0.4
+            Behavior on opacity { NumberAnimation{} }
         }
     }
 }
