@@ -39,11 +39,28 @@ Item {
     property alias symbol: _symbol.source
 
     //
+    // Randomize array element order in-place.
+    // Using Durstenfeld shuffle algorithm.
+    //
+    // Source:
+    //   https://stackoverflow.com/a/12646864
+    //
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor (Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+
+    //
     // Plays a random note when the field is selected
     //
     function playRandomNote() {
         var note = fieldNumber
-        var notes = ["a", "b", "c", "d", "e", "f", "g"]
+        var notes = shuffleArray (["a", "b", "c", "d", "e", "f", "g"])
 
         while (note >= notes.length)
             note -= notes.length
