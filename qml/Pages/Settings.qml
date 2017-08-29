@@ -104,6 +104,7 @@ Overlay {
             ImageButton {
                 btSize: 0
                 onClicked: useCross = !useCross
+                font.pixelSize: app.font.pixelSize - 4
                 text: qsTr ("Piece") + Translator.dummy
                 source: useCross ? "qrc:/images/settings/cross.svg" :
                                    "qrc:/images/settings/circle.svg"
@@ -112,6 +113,7 @@ Overlay {
             ImageButton {
                 btSize: 0
                 onClicked: humanFirst = !humanFirst
+                font.pixelSize: app.font.pixelSize - 4
                 text: qsTr ("First Turn") + Translator.dummy
                 source: humanFirst ? "qrc:/images/settings/human.svg" :
                                      "qrc:/images/settings/ai.svg"
@@ -120,6 +122,7 @@ Overlay {
             ImageButton {
                 btSize: 0
                 onClicked: enableMusic = !enableMusic
+                font.pixelSize: app.font.pixelSize - 4
                 text: qsTr ("Music") + Translator.dummy
                 Behavior on opacity { NumberAnimation {duration: 150} }
                 source: enableMusic ? "qrc:/images/settings/music-on.svg" :
@@ -128,6 +131,7 @@ Overlay {
 
             ImageButton {
                 btSize: 0
+                font.pixelSize: app.font.pixelSize - 4
                 text: qsTr ("Effects") + Translator.dummy
                 onClicked: enableSoundEffects = !enableSoundEffects
                 Behavior on opacity { NumberAnimation {duration: 150} }
@@ -192,7 +196,7 @@ Overlay {
             to: Board.boardSize
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
-            title: qsTr ("Pieces to Allign") + Translator.dummy
+            title: qsTr ("Pieces to Align") + Translator.dummy
             onValueChanged: {
                 if (value >= 3)
                     Board.fieldsToAllign = value

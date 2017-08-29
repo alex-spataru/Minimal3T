@@ -29,6 +29,7 @@ Item {
 
     signal clicked
     property var btSize: 81
+    property alias font: label.font
     property alias text: label.text
     property alias source: image.source
 

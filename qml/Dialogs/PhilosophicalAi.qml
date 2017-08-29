@@ -50,6 +50,14 @@ Popup {
                 philosophicalTimer.stop()
             }
         }
+        onGameStateChanged: {
+            if (popup.aiThinking())
+                philosophicalTimer.start()
+            else {
+                popup.close()
+                philosophicalTimer.stop()
+            }
+        }
     }
 
     Timer {

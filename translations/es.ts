@@ -14,27 +14,27 @@
         <translation>Desarrollado por %1</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/About.qml" line="73"/>
+        <location filename="../qml/Pages/About.qml" line="75"/>
         <source>Music by %1</source>
         <translation>Música por %1</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/About.qml" line="82"/>
+        <location filename="../qml/Pages/About.qml" line="87"/>
         <source>Rate</source>
         <translation>Calificar</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/About.qml" line="90"/>
+        <location filename="../qml/Pages/About.qml" line="93"/>
         <source>GitHub Project</source>
         <translation>Proyecto en GitHub</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/About.qml" line="97"/>
+        <location filename="../qml/Pages/About.qml" line="101"/>
         <source>Contact Developer</source>
         <translation>Contacto</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/About.qml" line="125"/>
+        <location filename="../qml/Pages/About.qml" line="128"/>
         <source>Back</source>
         <translation>Atras</translation>
     </message>
@@ -60,37 +60,37 @@
 <context>
     <name>MainMenu</name>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="84"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="88"/>
         <source>Tic-Tac-Toe Game</source>
         <translation>Juego de Tres en Línea</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="121"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="123"/>
         <source>Play</source>
         <translation>Jugar</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="139"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="143"/>
         <source>Multiplayer</source>
         <translation>Multijugador</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="164"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="166"/>
         <source>About</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="171"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="173"/>
         <source>Remove Ads</source>
         <translation>Quitar Anuncios</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="177"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="179"/>
         <source>Share</source>
         <translation>Compartir</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="183"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="185"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
@@ -98,7 +98,7 @@
 <context>
     <name>PhilosophicalAi</name>
     <message>
-        <location filename="../qml/Dialogs/PhilosophicalAi.qml" line="75"/>
+        <location filename="../qml/Dialogs/PhilosophicalAi.qml" line="84"/>
         <source>AI is thinking</source>
         <translation>La IA esta pensando</translation>
     </message>
@@ -114,17 +114,17 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="106"/>
+        <location filename="../qml/Pages/Settings.qml" line="107"/>
         <source>Piece</source>
         <translation>Pieza</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="114"/>
+        <location filename="../qml/Pages/Settings.qml" line="115"/>
         <source>First Turn</source>
         <translation>Primer Turno</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="122"/>
+        <location filename="../qml/Pages/Settings.qml" line="123"/>
         <source>Music</source>
         <translation>Música</translation>
     </message>
@@ -134,12 +134,12 @@
         <translation>Efectos</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="152"/>
+        <location filename="../qml/Pages/Settings.qml" line="153"/>
         <source>Map Dimension</source>
         <translation>Dimensión del Mapa</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="169"/>
+        <location filename="../qml/Pages/Settings.qml" line="170"/>
         <source>AI Level</source>
         <translation>Nivel de la IA</translation>
     </message>
@@ -159,12 +159,16 @@
         <translation>Difícil</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="193"/>
-        <source>Pieces to Allign</source>
+        <location filename="../qml/Pages/Settings.qml" line="195"/>
+        <source>Pieces to Align</source>
         <translation>Piezas para alinear</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="209"/>
+        <source>Pieces to Allign</source>
+        <translation type="vanished">Piezas para alinear</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="212"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
@@ -187,22 +191,22 @@
         <translation>¡Ganaste el juego!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="314"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="315"/>
         <source>Draw</source>
         <translation>Empate</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="357"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="359"/>
         <source>New Game</source>
         <translation>Nuevo Juego</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="369"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="371"/>
         <source>Main Menu</source>
         <translation>Menú Principal</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="385"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="388"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>

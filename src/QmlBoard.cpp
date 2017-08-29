@@ -69,7 +69,7 @@ int QmlBoard::fieldsToAllign() const {
  * Returns \c true if any of the players have won the game
  */
 bool QmlBoard::gameWon() const {
-    return gameState() == GameEnded;
+    return gameState() == GameWon;
 }
 
 /**
@@ -103,59 +103,83 @@ QmlBoard::Player QmlBoard::winner() const {
     return (Player) board().winner;
 }
 
+/**
+ * Returns the game state of the board. Possible return values are:
+ *   - \c GameWon
+ *   - \c GameDraw
+ *   - \c GameInProgress
+ */
 QmlBoard::GameState QmlBoard::gameState() const {
     return (GameState) board().state;
 }
 
+/**
+ * Returns the player that should make a move in order to continue the game
+ */
 QmlBoard::Player QmlBoard::currentPlayer() const {
     return (Player) board().turn;
 }
 
+/**
+ * Returns a list with all the field states of the board
+ */
 QList<QmlBoard::Player> QmlBoard::fields() const {
-    QList<QmlBoard::Player> list;
+    QList<Player> fields;
 
-    foreach (BoardPlayer element, board().fields)
-        list.append ((Player) element);
+    foreach (BoardPlayer field, board().fields)
+        fields.append ((Player) field);
 
-    return list;
+    return fields;
 }
 
+/**
+ * Returns a list with all the fields that one of the players alligned in
+ * order to win the game
+ */
 QList<int> QmlBoard::allignedFields() const {
-    QList<int> list;
-    QVector<int> vector = board().allignedFields;
-
-    foreach (int element, vector)
-        list.append (element);
-
-    return list;
+    return board().allignedFields.toList();
 }
 
+/**
+ * Returns a list with all the unused fields on the game board
+ */
 QList<int> QmlBoard::availableFields() const {
-    QList<int> list;
-    QVector<int> vector = AvailableFields (board());
-
-    foreach (int element, vector)
-        list.append (element);
-
-    return list;
+    return AvailableFields (board()).toList();
 }
 
+/**
+ * Returns the current owner/user of the given field. Possible return values
+ * are:
+ *   - \c Player1
+ *   - \c Player2
+ *   - \c Undefined
+ */
 QmlBoard::Player QmlBoard::fieldOwner (const int field) const {
     Q_ASSERT (field < numFields());
     return (Player) board().fields.at (field);
 }
 
+/**
+ * Clears all the field owners and resets the turns
+ */
 void QmlBoard::resetBoard() {
     ResetBoard (m_board);
 
     for (int i = 0; i < numFields(); ++i)
-        changeOwner (i, Undefined);
+        fieldStateChanged (i, Undefined);
 
     emit boardReset();
     emit winnerChanged();
     emit gameStateChanged();
 }
 
+/**
+ * Executes several algorithms on the board in order to find the new game
+ * state, which can be:
+ *   - \c GameWon
+ *   - \c GameDraw
+ *   - \c GameInProgress
+ */
 void QmlBoard::updateGameState() {
     UpdateGameState (m_board);
 
@@ -163,17 +187,27 @@ void QmlBoard::updateGameState() {
     emit gameStateChanged();
 }
 
+/**
+ * Changes the owner of the given \a field to the current player.
+ * \note This function shall only change the owner of the given \a field
+ *       if the \a field is unused
+ */
 void QmlBoard::selectField (const int field) {
     Q_ASSERT (field < numFields());
 
     if (m_board.fields.at (field) == kUndefined) {
         SelectField (m_board, field);
-        emit turnChanged();
         emit fieldStateChanged (field, fieldOwner (field));
-        updateGameState();
+
+        emit turnChanged();
+        emit winnerChanged();
+        emit gameStateChanged();
     }
 }
 
+/**
+ * Updates the board \a size and resets the game
+ */
 void QmlBoard::setBoardSize (const int size) {
     ResizeBoard (m_board, size);
 
@@ -183,6 +217,10 @@ void QmlBoard::setBoardSize (const int size) {
     emit gameStateChanged();
 }
 
+/**
+ * Changes the number of \a fields that a player needs to allign in order
+ * to win the game
+ */
 void QmlBoard::setFieldsToAllign (const int fields) {
     Q_ASSERT (fields <= boardSize());
     Q_ASSERT (fields >= 3);
@@ -191,11 +229,20 @@ void QmlBoard::setFieldsToAllign (const int fields) {
     emit fieldsToAllignChanged();
 }
 
+/**
+ * Changes the current \a player in turn
+ */
 void QmlBoard::setCurrentPlayer (const Player player) {
     m_board.turn = (BoardPlayer) player;
     emit turnChanged();
 }
 
+/**
+ * Changes the \a owner of the given \a field
+ * \note Unlike the \c selectField() function, this function shall overwrite
+ *       the field owner without taking into consideration the current owner
+ *       of the \a field
+ */
 void QmlBoard::changeOwner (const int field, const Player owner) {
     Q_ASSERT (field < numFields());
     ChangeOwner (m_board, field, (BoardPlayer) owner);

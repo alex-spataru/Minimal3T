@@ -121,8 +121,13 @@ void Minimax::makeAiMove() {
         SelectField (aiMove, field);
         SelectField (enemyMove, field);
 
-        if (aiMove.state == kGameWon)
+        /* We found a winning move, go for it and forget everything else */
+        if (aiMove.state == kGameWon) {
             winMove = field;
+            break;
+        }
+
+        /* We found a threat, save it and check if we can find a win move */
         else if (enemyMove.state == kGameWon)
             saveMove = field;
     }

@@ -74,7 +74,7 @@ class QmlBoard : public QObject {
 
     enum GameState {
         Draw           = kDraw,
-        GameEnded      = kGameWon,
+        GameWon        = kGameWon,
         GameInProgress = kGameInProgress,
     };
     Q_ENUMS (GameState)
