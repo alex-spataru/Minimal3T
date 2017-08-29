@@ -161,7 +161,7 @@
     <message>
         <location filename="../qml/Pages/Settings.qml" line="195"/>
         <source>Pieces to Align</source>
-        <translation>Piezas para alinear</translation>
+        <translation>Piezas para Alinear</translation>
     </message>
     <message>
         <source>Pieces to Allign</source>

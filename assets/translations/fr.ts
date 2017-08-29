@@ -141,7 +141,7 @@
     <message>
         <location filename="../qml/Pages/Settings.qml" line="170"/>
         <source>AI Level</source>
-        <translation>Niveau AI</translation>
+        <translation>Niveau IA</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="174"/>

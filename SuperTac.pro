@@ -57,9 +57,9 @@ DEFINES += QTADMOB_QML
 #-------------------------------------------------------------------------------
 
 TRANSLATIONS += \
-    $$PWD/translations/en.ts \
-    $$PWD/translations/es.ts \
-    $$PWD/translations/fr.ts
+    $$PWD/assets/translations/en.ts \
+    $$PWD/assets/translations/es.ts \
+    $$PWD/assets/translations/fr.ts
 
 #-------------------------------------------------------------------------------
 # Include libraries

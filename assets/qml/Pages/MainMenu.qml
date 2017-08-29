@@ -159,7 +159,7 @@ Page {
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
-            property int pxSixe: app.adsEnabled ? app.font.pixelSize - 4 :
+            property int pxSixe: app.adsEnabled ? app.font.pixelSize - 5 :
                                                     app.font.pixelSize
 
             ImageButton {
