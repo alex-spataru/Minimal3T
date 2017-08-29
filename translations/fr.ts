@@ -92,7 +92,7 @@
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="185"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>Paramètres</translation>
     </message>
 </context>
 <context>

@@ -161,12 +161,12 @@
     <message>
         <location filename="../qml/Pages/Settings.qml" line="195"/>
         <source>Pieces to Align</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="212"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="249"/>
