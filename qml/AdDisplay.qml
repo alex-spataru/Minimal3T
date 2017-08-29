@@ -74,10 +74,11 @@ Item {
     }
 
     //
-    // Registers the test devices
+    // Registers the test devices that I use
     //
     Component.onCompleted: {
         bannerAd.addTestDevice ("4F039A153EF594B22BF1F3B75D362C1C")
+        bannerAd.addTestDevice ("0695E556B27F6703BFB53D0713352020")
     }
 
     //
