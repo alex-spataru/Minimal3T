@@ -81,11 +81,11 @@ Page {
         // Subtitle
         //
         Label {
-            text: qsTr ("Tic-Tac-Toe Game")
             font.pixelSize: app.mediumLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("Tic-Tac-Toe Game") + Translator.dummy
         }
 
         //
@@ -118,9 +118,9 @@ Page {
 
                 Label {
                     font.bold: true
-                    text: qsTr ("Play")
                     font.pixelSize: app.largeLabel
                     Layout.preferredWidth: app.paneWidth
+                    text: qsTr ("Play") + Translator.dummy
                     horizontalAlignment: Label.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -136,11 +136,11 @@ Page {
         //
         Button {
             flat: true
-            text: qsTr ("Multiplayer")
             onClicked: multiplayerClicked()
             font.pixelSize: app.largeLabel
             font.capitalization: Font.MixedCase
             Layout.preferredWidth: app.paneWidth
+            text: qsTr ("Multiplayer") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -161,28 +161,28 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
 
             ImageButton {
-                text: qsTr ("About")
                 onClicked: aboutClicked()
                 source: "qrc:/images/info.svg"
+                text: qsTr ("About") + Translator.dummy
             }
 
             ImageButton {
                 visible: app.adsEnabled
-                text: qsTr ("Remove Ads")
                 onClicked: removeAdsClicked()
                 source: "qrc:/images/no-ads.svg"
+                text: qsTr ("Remove Ads") + Translator.dummy
             }
 
             ImageButton {
-                text: qsTr ("Share")
                 onClicked: shareClicked()
                 source: "qrc:/images/share.svg"
+                text: qsTr ("Share") + Translator.dummy
             }
 
             ImageButton {
-                text: qsTr ("Settings")
                 onClicked: settingsClicked()
                 source: "qrc:/images/settings.svg"
+                text: qsTr ("Settings") + Translator.dummy
             }
         }
 

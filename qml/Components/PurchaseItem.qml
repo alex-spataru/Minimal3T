@@ -29,7 +29,7 @@ ColumnLayout {
     property string price
     property alias text: label.text
     property alias icon: image.source
-    property string buttonText: qsTr ("Purchase")
+    property string buttonText: qsTr ("Purchase") + Translator.dummy
 
     signal purchase
 

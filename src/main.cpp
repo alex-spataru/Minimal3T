@@ -30,8 +30,9 @@
 #include "QtAdMobBanner.h"
 #include "QtAdMobInterstitial.h"
 
-#include "QmlBoard.h"
 #include "AdInfo.h"
+#include "QmlBoard.h"
+#include "Translator.h"
 #include "ComputerPlayer.h"
 
 int main (int argc, char** argv) {
@@ -42,11 +43,13 @@ int main (int argc, char** argv) {
 
     QGuiApplication app (argc, argv);
 
+    Translator translator;
     ComputerPlayer aiPlayer;
     aiPlayer.setPlayer (QmlBoard::Player2);
 
-    ShareUtils::DeclareQML();
     QmlBoard::DeclareQML();
+    ShareUtils::DeclareQML();
+    Translator::DeclareQML();
     ComputerPlayer::DeclareQML();
     QmlAdMobBanner::DeclareQML();
     QmlAdMobInterstitial::DeclareQML();
@@ -57,6 +60,7 @@ int main (int argc, char** argv) {
     QQuickStyle::setStyle ("Universal");
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
     engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
+    engine.rootContext()->setContextProperty ("Translator", &translator);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());
     engine.rootContext()->setContextProperty ("Company", app.organizationName());

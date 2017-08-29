@@ -121,7 +121,7 @@ Item {
 
             onPurchaseSucceeded: {
                 transaction.finalize()
-                messageBox.text = qsTr ("Thanks for your purchase!")
+                messageBox.text = qsTr ("Thanks for your purchase!") + Translator.dummy
                 messageBox.open()
 
                 adsEnabled = false
@@ -130,7 +130,7 @@ Item {
 
             onPurchaseFailed: {
                 transition.finalize()
-                messageBox.text = qsTr ("Failed to perform transaction")
+                messageBox.text = qsTr ("Failed to perform transaction") + Translator.dummy
                 messageBox.open()
             }
 
@@ -138,7 +138,7 @@ Item {
                 adsEnabled = false
                 removeAdsBought = true
 
-                messageBox.text = qsTr ("Purchases restored!")
+                messageBox.text = qsTr ("Purchases restored!") + Translator.dummy
                 messageBox.open()
             }
 

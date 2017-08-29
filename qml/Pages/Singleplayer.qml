@@ -301,18 +301,18 @@ Page {
             if (Board.gameWon) {
                 if (Board.winner === AiPlayer.player) {
                     logo.source = "qrc:/images/frown.svg"
-                    title.text = qsTr ("You lost the game!")
+                    title.text = qsTr ("You lost the game!") + Translator.dummy
                 }
 
                 else {
                     logo.source = "qrc:/images/smile.svg"
-                    title.text = qsTr ("You won the game!")
+                    title.text = qsTr ("You won the game!") + Translator.dummy
                 }
             }
 
             else if (Board.gameDraw) {
-                title.text = qsTr ("Draw")
                 logo.source = "qrc:/images/meh.svg"
+                title.text = qsTr ("Draw") + Translator.dummy
             }
 
             if (page.enabled) {
@@ -354,9 +354,9 @@ Page {
 
             Button {
                 font.bold: true
-                text: qsTr ("New Game")
                 font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
+                text: qsTr ("New Game") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
@@ -366,9 +366,9 @@ Page {
             }
 
             Button {
-                text: qsTr ("Main Menu")
                 font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
+                text: qsTr ("Main Menu") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 onClicked: {
@@ -382,10 +382,10 @@ Page {
             }
 
             Button {
-                text: qsTr ("Settings")
                 onClicked: settings.open()
                 font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
+                text: qsTr ("Settings") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

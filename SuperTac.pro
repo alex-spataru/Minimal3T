@@ -53,6 +53,16 @@ QT += quickcontrols2
 DEFINES += QTADMOB_QML
 
 #-------------------------------------------------------------------------------
+# Translations
+#-------------------------------------------------------------------------------
+
+TRANSLATIONS += \
+    $$PWD/translations/en.ts \
+    $$PWD/translations/es.ts \
+    $$PWD/translations/fr.ts \
+    $$PWD/translations/de.ts
+
+#-------------------------------------------------------------------------------
 # Include libraries
 #-------------------------------------------------------------------------------
 
@@ -68,14 +78,16 @@ HEADERS += \
     $$PWD/src/AdInfo.h \
     $$PWD/src/Minimax.h \
     $$PWD/src/ComputerPlayer.h \
-    $$PWD/src/QmlBoard.h
+    $$PWD/src/QmlBoard.h \
+    $$PWD/src/Translator.h
 
 SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/Board.cpp \
     $$PWD/src/Minimax.cpp \
     $$PWD/src/ComputerPlayer.cpp \
-    $$PWD/src/QmlBoard.cpp
+    $$PWD/src/QmlBoard.cpp \
+    $$PWD/src/Translator.cpp
 
 OTHER_FILES += \
     $$PWD/qml/*.qml \
@@ -86,7 +98,8 @@ OTHER_FILES += \
 RESOURCES += \
     $$PWD/qml/qml.qrc \
     $$PWD/images/images.qrc \
-    $$PWD/sounds/sounds.qrc
+    $$PWD/sounds/sounds.qrc \
+    $$PWD/translations/translations.qrc
 
 #-------------------------------------------------------------------------------
 # Deploy configurations

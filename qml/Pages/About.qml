@@ -61,7 +61,9 @@ Overlay {
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr ("Developed by %1").arg ("<a href='https://github.com/alex-spataru/'>Alex Spataru</a>")
+            text: qsTr ("Developed by %1").arg (
+                      "<a href='https://github.com/alex-spataru/'>" +
+                      "Alex Spataru</a>") + Translator.dummy
         }
 
         Label {
@@ -70,7 +72,8 @@ Overlay {
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr ("Music by %1").arg ("<a href='#'>Daniel Spataru</a>")
+            text: qsTr ("Music by %1").arg (
+                      "<a href='#'>Daniel Spataru</a>") + Translator.dummy
         }
 
         Item {
@@ -79,23 +82,23 @@ Overlay {
         }
 
         Button {
-            text: qsTr ("Rate")
             Layout.fillWidth: true
             onClicked: app.openWebsite()
+            text: qsTr ("Rate") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Button {
             Layout.fillWidth: true
-            text: qsTr ("GitHub Project")
+            text: qsTr ("GitHub Project") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: Qt.openUrlExternally ("https://github.com/alex-spataru/SuperTac")
         }
 
         Button {
             Layout.fillWidth: true
-            text: qsTr ("Contact Developer")
             anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("Contact Developer") + Translator.dummy
             onClicked: Qt.openUrlExternally ("mailto:alex_spataru@outlook.com")
         }
 
@@ -122,7 +125,7 @@ Overlay {
                 }
 
                 Label {
-                    text: qsTr ("Back")
+                    text: qsTr ("Back") + Translator.dummy
                     font.capitalization: Font.AllUppercase
                     anchors.verticalCenter: parent.verticalCenter
                 }

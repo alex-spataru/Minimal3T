@@ -94,26 +94,6 @@ Overlay {
         }
 
         //
-        // Title
-        //
-        Label {
-            font.bold: true
-            text: qsTr ("Settings")
-            font.pixelSize: app.largeLabel
-            font.capitalization: Font.AllUppercase
-            horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        //
-        // Spacer
-        //
-        Item {
-            Layout.fillHeight: true
-            Layout.preferredHeight: app.spacing
-        }
-
-        //
         // Sound and music
         //
         RowLayout {
@@ -123,24 +103,24 @@ Overlay {
 
             ImageButton {
                 btSize: 0
-                text: qsTr ("Piece")
                 onClicked: useCross = !useCross
+                text: qsTr ("Piece") + Translator.dummy
                 source: useCross ? "qrc:/images/settings/cross.svg" :
                                    "qrc:/images/settings/circle.svg"
             }
 
             ImageButton {
                 btSize: 0
-                text: qsTr ("First Turn")
                 onClicked: humanFirst = !humanFirst
+                text: qsTr ("First Turn") + Translator.dummy
                 source: humanFirst ? "qrc:/images/settings/human.svg" :
                                      "qrc:/images/settings/ai.svg"
             }
 
             ImageButton {
                 btSize: 0
-                text: qsTr ("Music")
                 onClicked: enableMusic = !enableMusic
+                text: qsTr ("Music") + Translator.dummy
                 Behavior on opacity { NumberAnimation {duration: 150} }
                 source: enableMusic ? "qrc:/images/settings/music-on.svg" :
                                       "qrc:/images/settings/music-off.svg"
@@ -148,7 +128,7 @@ Overlay {
 
             ImageButton {
                 btSize: 0
-                text: qsTr ("Effects")
+                text: qsTr ("Effects") + Translator.dummy
                 onClicked: enableSoundEffects = !enableSoundEffects
                 Behavior on opacity { NumberAnimation {duration: 150} }
                 source: enableSoundEffects ? "qrc:/images/settings/volume-on.svg" :
@@ -169,8 +149,8 @@ Overlay {
         //
         TextSpinBox {
             id: _boardSize
-            title: qsTr ("Map Dimension")
             Layout.preferredWidth: app.paneWidth
+            title: qsTr ("Map Dimension") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
             model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10"]
 
@@ -186,14 +166,14 @@ Overlay {
         //
         TextSpinBox {
             id: _aiLevel
-            title: qsTr ("AI Level")
             Layout.preferredWidth: app.paneWidth
+            title: qsTr ("AI Level") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
 
             model: [
-                qsTr ("Easy"),
-                qsTr ("Normal"),
-                qsTr ("Hard"),
+                qsTr ("Easy") + Translator.dummy,
+                qsTr ("Normal") + Translator.dummy,
+                qsTr ("Hard") + Translator.dummy,
             ]
 
             onValueChanged: {
@@ -210,15 +190,30 @@ Overlay {
             from: 3
             id: _fieldsToAllign
             to: Board.boardSize
-            title: qsTr ("Pieces to Allign")
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
+            title: qsTr ("Pieces to Allign") + Translator.dummy
             onValueChanged: {
                 if (value >= 3)
                     Board.fieldsToAllign = value
 
                 if (page.visible)
                     app.playSoundEffect ("qrc:/sounds/effects/click.wav")
+            }
+        }
+
+        //
+        // Language
+        //
+        TextSpinBox {
+            value: Translator.language
+            model: Translator.availableLanguages
+            Layout.preferredWidth: app.paneWidth
+            title: qsTr ("Language") + Translator.dummy
+            anchors.horizontalCenter: parent.horizontalCenter
+            onValueChanged: {
+                if (Translator.language != value)
+                    Translator.language = value
             }
         }
 
@@ -251,7 +246,7 @@ Overlay {
                 }
 
                 Label {
-                    text: qsTr ("Back")
+                    text: qsTr ("Back") + Translator.dummy
                     font.capitalization: Font.AllUppercase
                     anchors.verticalCenter: parent.verticalCenter
                 }

@@ -72,8 +72,8 @@ Popup {
 
         Label {
             Layout.fillWidth: true
-            text: qsTr ("AI is thinking") + "..."
             anchors.verticalCenter: parent.verticalCenter
+            text: qsTr ("AI is thinking") + "..." + Translator.dummy
         }
     }
 }

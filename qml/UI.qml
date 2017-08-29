@@ -133,7 +133,7 @@ Item {
                 transformOrigin: Menu.TopRight
 
                 MenuItem {
-                    text: qsTr ("New Game")
+                    text: qsTr ("New Game") + Translator.dummy
                     enabled: stack.depth == 2
                     onClicked: {
                         startNewGame()
@@ -142,7 +142,7 @@ Item {
                 }
 
                 MenuItem {
-                    text: qsTr ("Settings")
+                    text: qsTr ("Settings") + Translator.dummy
                     onClicked: {
                         settings.open()
                         app.playSoundEffect ("qrc:/sounds/effects/click.wav")
@@ -150,7 +150,7 @@ Item {
                 }
 
                 MenuItem {
-                    text: qsTr ("Restore Purchases")
+                    text: qsTr ("Restore Purchases") + Translator.dummy
                     onClicked: {
                         app.restorePurchases()
                         app.playSoundEffect ("qrc:/sounds/effects/click.wav")
@@ -158,7 +158,7 @@ Item {
                 }
 
                 MenuItem {
-                    text: qsTr ("Rate")
+                    text: qsTr ("Rate") + Translator.dummy
                     onClicked: {
                         openWebsite()
                         app.playSoundEffect ("qrc:/sounds/effects/click.wav")
@@ -216,7 +216,7 @@ Item {
                     settings.applySettings()
                     philosophicalAi.enableDialog = visible
                     if (visible)
-                        title.text = qsTr ("Match")
+                        title.text = qsTr ("Match") + Translator.dummy
                 }
             }
 
@@ -226,7 +226,7 @@ Item {
 
                 onVisibleChanged: {
                     if (visible)
-                        title.text = qsTr ("Match")
+                        title.text = qsTr ("Match") + Translator.dummy
                 }
             }
         }

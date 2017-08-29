@@ -34,6 +34,11 @@ Item {
     property size iconSize: Qt.size (app.font.pixelSize * 2,
                                      app.font.pixelSize * 2)
 
+    Connections {
+        target: Translator
+        onLanguageChanged: currentText.text = model [value - from]
+    }
+
     function updateModel() {
         if (to > 0 && from > 0) {
             model = []
@@ -48,7 +53,7 @@ Item {
 
         else {
             from = 0
-            to = model.length
+            to = model.length - 1
         }
 
         currentText.text = model [value - from]
@@ -57,16 +62,9 @@ Item {
     onToChanged: updateModel()
     onFromChanged: updateModel()
     Component.onCompleted: updateModel()
-    Layout.preferredHeight: layout.implicitHeight * 1.2
+    Layout.preferredHeight: layout.implicitHeight
 
-    onValueChanged: {
-        if (value > to)
-            value = to
-        if (value < from)
-            value = from
-
-        currentText.text = model [value - from]
-    }
+    onValueChanged: currentText.text = model [value - from]
 
     ColumnLayout {
         id: layout
