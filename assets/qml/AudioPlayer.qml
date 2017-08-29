@@ -27,7 +27,6 @@ Item {
     //
     // Custom properties, no need for explanations
     //
-    property bool introPlayed: false
     property bool enableMusic: true
     property bool enableSoundEffects: true
 
@@ -36,6 +35,7 @@ Item {
     // property
     //
     onEnableMusicChanged: playMusic()
+    Component.onCompleted: playMusic()
 
     //
     // Ceates a temporary SoundEffect type that plays the given file
@@ -56,19 +56,10 @@ Item {
     // Stops or plays the music based on the settings and app visibility
     //
     function playMusic() {
-        if (!introPlayed && enableMusic && app.active)
-            intro.play()
-
-        else if (!introPlayed)
-            intro.stop()
-
-        else if (enableMusic && app.active)
+        if (enableMusic && app.active)
             player.play()
-
-        else {
+        else
             player.stop()
-            introPlayed = false
-        }
     }
 
     //
@@ -79,16 +70,13 @@ Item {
         onStateChanged: {
             if (Qt.application.state === Qt.ApplicationActive)
                 playMusic()
-
-            else {
-                intro.pause()
+            else
                 player.pause()
-            }
         }
     }
 
     //
-    // Main player, used to play the background music loop
+    // Background music player
     //
     Audio {
         id: player
@@ -96,20 +84,5 @@ Item {
         loops: Audio.Infinite
         audioRole: Audio.GameRole
         source: "qrc:/sounds/loop.ogg"
-    }
-
-    //
-    // Intro player, only used to play the intro music, which is a little
-    // bit different than the background loop
-    //
-    Audio {
-        id: intro
-        autoLoad: true
-        audioRole: Audio.GameRole
-        source: "qrc:/sounds/intro.ogg"
-        onStopped: {
-            introPlayed = true
-            playMusic()
-        }
     }
 }
