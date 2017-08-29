@@ -80,7 +80,6 @@ Item {
         bannerAd.addTestDevice ("4F039A153EF594B22BF1F3B75D362C1C")
     }
 
-
     //
     // Locate the banner when the custom properties are changed
     //
