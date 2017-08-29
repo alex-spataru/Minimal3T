@@ -82,7 +82,7 @@
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="173"/>
         <source>Remove Ads</source>
-        <translation>Supprimer la Pub</translation>
+        <translation>Supprimer Pub</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="179"/>

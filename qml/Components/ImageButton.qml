@@ -60,7 +60,7 @@ Item {
             id: label
             visible: text.length > 0
             Layout.preferredWidth: btSize
-            font.pixelSize: app.font.pixelSize - 2
+            font.pixelSize: app.font.pixelSize - 4
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
         }
