@@ -161,12 +161,14 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
 
             ImageButton {
+                btSize: 0
                 onClicked: aboutClicked()
                 source: "qrc:/images/info.svg"
                 text: qsTr ("About") + Translator.dummy
             }
 
             ImageButton {
+                btSize: 0
                 visible: app.adsEnabled
                 onClicked: removeAdsClicked()
                 source: "qrc:/images/no-ads.svg"
@@ -174,12 +176,14 @@ Page {
             }
 
             ImageButton {
+                btSize: 0
                 onClicked: shareClicked()
                 source: "qrc:/images/share.svg"
                 text: qsTr ("Share") + Translator.dummy
             }
 
             ImageButton {
+                btSize: 0
                 onClicked: settingsClicked()
                 source: "qrc:/images/settings.svg"
                 text: qsTr ("Settings") + Translator.dummy
