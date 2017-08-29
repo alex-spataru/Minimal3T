@@ -23,7 +23,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
 
 import "../Components"
 
@@ -83,21 +82,18 @@ Overlay {
             text: qsTr ("Rate")
             Layout.fillWidth: true
             onClicked: app.openWebsite()
-            Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Button {
             Layout.fillWidth: true
             text: qsTr ("GitHub Project")
-            Material.theme: Material.Light
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: Qt.openUrlExternally ("https://github.com/alex-spataru/SuperTac")
         }
 
         Button {
             Layout.fillWidth: true
-            Material.theme: Material.Light
             text: qsTr ("Contact Developer")
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: Qt.openUrlExternally ("mailto:alex_spataru@outlook.com")

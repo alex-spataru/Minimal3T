@@ -3,14 +3,14 @@
         <file>effects/click.wav</file>
         <file>effects/loose.wav</file>
         <file>effects/win.wav</file>
-        <file>notes/a.wav</file>
-        <file>notes/b.wav</file>
-        <file>notes/c.wav</file>
-        <file>notes/d.wav</file>
-        <file>notes/e.wav</file>
-        <file>notes/f.wav</file>
-        <file>notes/g.wav</file>
-        <file>intro.wav</file>
-        <file>loop.wav</file>
+        <file>intro.ogg</file>
+        <file>loop.ogg</file>
+        <file>notes/a.ogg</file>
+        <file>notes/b.ogg</file>
+        <file>notes/c.ogg</file>
+        <file>notes/d.ogg</file>
+        <file>notes/e.ogg</file>
+        <file>notes/f.ogg</file>
+        <file>notes/g.ogg</file>
     </qresource>
 </RCC>

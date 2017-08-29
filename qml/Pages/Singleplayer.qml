@@ -23,7 +23,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
 
 import Board 1.0
 
@@ -356,8 +355,7 @@ Page {
             Button {
                 font.bold: true
                 text: qsTr ("New Game")
-                Material.theme: Material.Light
-                font.pixelSize: app.mediumLabel
+                font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -369,7 +367,6 @@ Page {
 
             Button {
                 text: qsTr ("Main Menu")
-                Material.theme: Material.Light
                 font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -387,7 +384,6 @@ Page {
             Button {
                 text: qsTr ("Settings")
                 onClicked: settings.open()
-                Material.theme: Material.Light
                 font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
                 anchors.horizontalCenter: parent.horizontalCenter

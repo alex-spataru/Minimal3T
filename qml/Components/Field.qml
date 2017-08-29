@@ -45,7 +45,7 @@ Item {
     function playRandomNote() {
         var notes = ["a", "b", "c", "d", "e", "f", "g"]
         var note = Math.floor (Math.random() * notes.length)
-        app.playSoundEffect ("qrc:/sounds/notes/" + notes [note] + ".wav")
+        app.playSoundEffect ("qrc:/sounds/notes/" + notes [note] + ".ogg")
     }
 
     //

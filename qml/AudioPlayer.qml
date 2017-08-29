@@ -24,24 +24,37 @@ import QtQuick 2.0
 import QtMultimedia 5.8
 
 Item {
+    //
+    // Custom properties, no need for explanations
+    //
     property bool introPlayed: false
     property bool enableMusic: true
     property bool enableSoundEffects: true
 
+    //
+    // Play or pause the music when the program changes the enableMusic
+    // property
+    //
     onEnableMusicChanged: playMusic()
 
-    function playSoundEffect (effect) {
+    //
+    // Ceates a temporary Audio type that plays the given file
+    //
+    function playSoundEffect (file) {
         if (enableSoundEffects && app.visible) {
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
-                    "SoundEffect {" +
-                    "   source: \"" + effect + "\";" +
-                    "   Component.onCompleted: play(); " +
-                    "   onPlayingChanged: if (!playing) destroy (100); }"
+                    "Audio {" +
+                    "   source: \"" + file + "\";" +
+                    "   autoLoad: true; autoPlay: true; " +
+                    "   onStopped: destroy (100); }"
             Qt.createQmlObject (qmlSourceCode, app, "SoundEffects")
         }
     }
 
+    //
+    // Stops or plays the music based on the settings and app visibility
+    //
     function playMusic() {
         if (!introPlayed && enableMusic && app.active)
             intro.play()
@@ -58,6 +71,9 @@ Item {
         }
     }
 
+    //
+    // Stop the background music when the application is not visible
+    //
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -71,19 +87,26 @@ Item {
         }
     }
 
+    //
+    // Main player, used to play the background music loop
+    //
     Audio {
         id: player
         autoLoad: true
         loops: Audio.Infinite
         audioRole: Audio.GameRole
-        source: "qrc:/sounds/loop.wav"
+        source: "qrc:/sounds/loop.ogg"
     }
 
+    //
+    // Intro player, only used to play the intro music, which is a little
+    // bit different than the background loop
+    //
     Audio {
         id: intro
         autoLoad: true
         audioRole: Audio.GameRole
-        source: "qrc:/sounds/intro.wav"
+        source: "qrc:/sounds/intro.ogg"
         onStopped: {
             introPlayed = true
             playMusic()
