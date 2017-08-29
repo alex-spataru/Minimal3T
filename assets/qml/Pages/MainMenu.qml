@@ -70,7 +70,6 @@ Page {
         //
         Label {
             text: AppName
-            font.bold: true
             font.pixelSize: app.xLargeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
@@ -117,7 +116,6 @@ Page {
                 }
 
                 Label {
-                    font.bold: true
                     font.pixelSize: app.largeLabel
                     Layout.preferredWidth: app.paneWidth
                     text: qsTr ("Play") + Translator.dummy
@@ -155,15 +153,20 @@ Page {
         // Utility buttons
         //
         RowLayout {
-            spacing: 0
+            id: buttons
+            spacing: 0.0
             Layout.fillWidth: true
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
+
+            property int pxSixe: app.adsEnabled ? app.font.pixelSize - 4 :
+                                                    app.font.pixelSize
 
             ImageButton {
                 btSize: 0
                 onClicked: aboutClicked()
                 source: "qrc:/images/info.svg"
+                font.pixelSize: buttons.pxSixe
                 text: qsTr ("About") + Translator.dummy
             }
 
@@ -171,6 +174,7 @@ Page {
                 btSize: 0
                 visible: app.adsEnabled
                 onClicked: removeAdsClicked()
+                font.pixelSize: buttons.pxSixe
                 source: "qrc:/images/no-ads.svg"
                 text: qsTr ("Remove Ads") + Translator.dummy
             }
@@ -178,6 +182,7 @@ Page {
             ImageButton {
                 btSize: 0
                 onClicked: shareClicked()
+                font.pixelSize: buttons.pxSixe
                 source: "qrc:/images/share.svg"
                 text: qsTr ("Share") + Translator.dummy
             }
@@ -185,6 +190,7 @@ Page {
             ImageButton {
                 btSize: 0
                 onClicked: settingsClicked()
+                font.pixelSize: buttons.pxSixe
                 source: "qrc:/images/settings.svg"
                 text: qsTr ("Settings") + Translator.dummy
             }

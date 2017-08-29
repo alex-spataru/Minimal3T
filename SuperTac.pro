@@ -89,16 +89,17 @@ SOURCES += \
     $$PWD/src/Translator.cpp
 
 OTHER_FILES += \
-    $$PWD/qml/*.qml \
-    $$PWD/qml/Pages/*.qml \
-    $$PWD/qml/Dialogs/*.qml \
-    $$PWD/qml/Components/*.qml
+    $$PWD/assets/qml/*.qml \
+    $$PWD/assets/qml/Pages/*.qml \
+    $$PWD/assets/qml/Dialogs/*.qml \
+    $$PWD/assets/qml/Components/*.qml
 
 RESOURCES += \
-    $$PWD/qml/qml.qrc \
-    $$PWD/images/images.qrc \
-    $$PWD/sounds/sounds.qrc \
-    $$PWD/translations/translations.qrc
+    $$PWD/assets/qml/qml.qrc \
+    $$PWD/assets/fonts/fonts.qrc \
+    $$PWD/assets/images/images.qrc \
+    $$PWD/assets/sounds/sounds.qrc \
+    $$PWD/assets/translations/translations.qrc
 
 #-------------------------------------------------------------------------------
 # Deploy configurations

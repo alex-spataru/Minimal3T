@@ -46,7 +46,6 @@ Overlay {
         }
 
         Label {
-            font.bold: true
             Layout.fillWidth: true
             font.pixelSize: app.largeLabel
             font.capitalization: Font.AllUppercase

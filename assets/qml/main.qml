@@ -110,6 +110,13 @@ ApplicationWindow {
     }
 
     //
+    // Load fonts
+    //
+    FontLoader { source: "qrc:/fonts/Raleway-Light.ttf" }
+    FontLoader { source: "qrc:/fonts/Raleway-ExtraLight.ttf" }
+    FontLoader { id: regular; source: "qrc:/fonts/Raleway-Regular.ttf" }
+
+    //
     // Window options
     //
     width: 320
@@ -132,8 +139,9 @@ ApplicationWindow {
     Universal.accent: accentColor
 
     //
-    // Set font size depending on screen size
+    // Configure font
     //
+    font.family: regular.name
     font.pixelSize: Math.max (14, Math.min (app.height / 34, 18))
 
     //

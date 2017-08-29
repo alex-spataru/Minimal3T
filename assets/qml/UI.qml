@@ -74,6 +74,7 @@ Item {
     //
     RowLayout {
         id: toolbar
+        Layout.preferredHeight: app.mediumLabel
 
         anchors {
             top: parent.top
@@ -97,6 +98,7 @@ Item {
                 anchors.horizontalCenterOffset: -2
                 verticalAlignment: Image.AlignVCenter
                 horizontalAlignment: Image.AlignHCenter
+                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
 
             Behavior on opacity { NumberAnimation{} }
@@ -104,9 +106,8 @@ Item {
 
         Label {
             id: title
-            font.bold: true
             opacity: text.length > 0
-            font.pixelSize: app.mediumLabel
+            font.pixelSize: app.largeLabel * 3/4
             Behavior on opacity { NumberAnimation{} }
         }
 
@@ -125,6 +126,7 @@ Item {
                 source: "qrc:/images/more.svg"
                 verticalAlignment: Image.AlignVCenter
                 horizontalAlignment: Image.AlignHCenter
+                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
 
             Menu {
