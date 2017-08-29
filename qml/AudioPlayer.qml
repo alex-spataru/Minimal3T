@@ -38,16 +38,16 @@ Item {
     onEnableMusicChanged: playMusic()
 
     //
-    // Ceates a temporary Audio type that plays the given file
+    // Ceates a temporary SoundEffect type that plays the given file
     //
     function playSoundEffect (file) {
         if (enableSoundEffects && app.visible) {
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
-                    "Audio {" +
+                    "SoundEffect {" +
                     "   source: \"" + file + "\";" +
-                    "   autoLoad: true; autoPlay: true; " +
-                    "   onStopped: destroy (100); }"
+                    "   Component.onCompleted: play(); " +
+                    "   onPlayingChanged: if (!playing) destroy (100); }"
             Qt.createQmlObject (qmlSourceCode, app, "SoundEffects")
         }
     }
