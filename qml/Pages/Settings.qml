@@ -177,7 +177,7 @@ Overlay {
             onValueChanged: {
                 applySettings()
                 if (page.visible)
-                    app.playSoundEffect ("click.wav")
+                    app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
         }
 
@@ -199,7 +199,7 @@ Overlay {
             onValueChanged: {
                 applySettings()
                 if (page.visible)
-                    app.playSoundEffect ("click.wav")
+                    app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
         }
 
@@ -218,7 +218,7 @@ Overlay {
                     Board.fieldsToAllign = value
 
                 if (page.visible)
-                    app.playSoundEffect ("click.wav")
+                    app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
         }
 
@@ -259,7 +259,7 @@ Overlay {
 
             onClicked: {
                 page.hide()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
         }
 

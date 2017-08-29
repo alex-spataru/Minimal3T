@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/music">
-        <file>Clouds.ogg</file>
-        <file>GlowInSpace.ogg</file>
-        <file>WhiteAtlantis.ogg</file>
-    </qresource>
-</RCC>

@@ -49,19 +49,19 @@ Item {
         if (Qt.platform.os == "android") {
             if (settings.opacity > 0) {
                 settings.hide()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                 return false
             }
 
             else if (about.opacity > 0) {
                 about.hide()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                 return false
             }
 
             else if (stack.depth > 1) {
                 stack.pop()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                 return false
             }
         }
@@ -87,7 +87,7 @@ Item {
 
             onClicked: {
                 stack.pop()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
 
             contentItem: SvgImage {
@@ -117,7 +117,7 @@ Item {
         ToolButton {
             onClicked: {
                 menu.open()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
 
             contentItem: SvgImage {
@@ -137,7 +137,7 @@ Item {
                     enabled: stack.depth == 2
                     onClicked: {
                         startNewGame()
-                        app.playSoundEffect ("click.wav")
+                        app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                     }
                 }
 
@@ -145,7 +145,7 @@ Item {
                     text: qsTr ("Settings")
                     onClicked: {
                         settings.open()
-                        app.playSoundEffect ("click.wav")
+                        app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                     }
                 }
 
@@ -153,7 +153,7 @@ Item {
                     text: qsTr ("Restore Purchases")
                     onClicked: {
                         app.restorePurchases()
-                        app.playSoundEffect ("click.wav")
+                        app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                     }
                 }
 
@@ -161,7 +161,7 @@ Item {
                     text: qsTr ("Rate")
                     onClicked: {
                         openWebsite()
-                        app.playSoundEffect ("click.wav")
+                        app.playSoundEffect ("qrc:/sounds/effects/click.wav")
                     }
                 }
             }

@@ -36,7 +36,7 @@ Item {
     Layout.preferredWidth: btSize > 0 ? btSize : 81
     Layout.preferredHeight: btSize > 0 ? btSize : 81
 
-    onClicked: app.playSoundEffect ("click.wav")
+    onClicked: app.playSoundEffect ("qrc:/sounds/effects/click.wav")
 
     MouseArea {
         anchors.fill: parent

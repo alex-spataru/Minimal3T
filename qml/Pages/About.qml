@@ -71,7 +71,7 @@ Overlay {
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr ("Music by %1").arg ("<a href='https://www.s-cheremisinov.com/'>Sergey Cheremisinov</a>")
+            text: qsTr ("Music by %1").arg ("<a href='#'>Daniel Spataru</a>")
         }
 
         Item {
@@ -134,7 +134,7 @@ Overlay {
 
             onClicked: {
                 overlay.hide()
-                app.playSoundEffect ("click.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
             }
         }
     }

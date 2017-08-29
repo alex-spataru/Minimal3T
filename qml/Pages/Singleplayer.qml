@@ -178,13 +178,13 @@ Page {
 
             if (Board.gameWon) {
                 if (Board.winner === AiPlayer.opponent)
-                    app.playSoundEffect ("win.wav")
+                    app.playSoundEffect ("qrc:/sounds/effects/win.wav")
                 else
-                    app.playSoundEffect ("loose.wav")
+                    app.playSoundEffect ("qrc:/sounds/effects/loose.wav")
             }
 
             if (Board.gameDraw)
-                app.playSoundEffect ("loose.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/loose.wav")
 
             updateScores()
             updateClickableFields()

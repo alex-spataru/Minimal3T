@@ -46,7 +46,6 @@ ApplicationWindow {
                                                  Math.max (height / 14,
                                                            font.pixelSize * 2))
 
-
     //
     // Aliases
     //

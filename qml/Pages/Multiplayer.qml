@@ -128,10 +128,10 @@ Page {
                 timer.start()
 
             if (Board.gameWon)
-                app.playSoundEffect ("win.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/win.wav")
 
             else if (Board.gameDraw)
-                app.playSoundEffect ("loose.wav")
+                app.playSoundEffect ("qrc:/sounds/effects/loose.wav")
         }
     }
 

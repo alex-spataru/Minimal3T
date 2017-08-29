@@ -40,6 +40,15 @@ Item {
     property alias symbol: _symbol.source
 
     //
+    // Plays a random note when the field is selected
+    //
+    function playRandomNote() {
+        var notes = ["a", "b", "c", "d", "e", "f", "g"]
+        var note = Math.floor (Math.random() * notes.length)
+        app.playSoundEffect ("qrc:/sounds/notes/" + notes [note] + ".wav")
+    }
+
+    //
     // Background rectangle
     //
     Rectangle {
@@ -104,14 +113,14 @@ Item {
 
             if (owner === TicTacToe.Player1 && field.enabled) {
                 field.symbol = app.getSymbol (TicTacToe.Player1)
-                app.playSoundEffect ("p1_field.wav")
                 _symbol.opacity = 1
+                playRandomNote()
             }
 
             else if (owner === TicTacToe.Player2 && field.enabled) {
                 field.symbol = app.getSymbol (TicTacToe.Player2)
-                app.playSoundEffect ("p2_field.wav")
                 _symbol.opacity = 1
+                playRandomNote()
             }
 
             else {

@@ -85,7 +85,6 @@ OTHER_FILES += \
 
 RESOURCES += \
     $$PWD/qml/qml.qrc \
-    $$PWD/music/music.qrc \
     $$PWD/images/images.qrc \
     $$PWD/sounds/sounds.qrc
 

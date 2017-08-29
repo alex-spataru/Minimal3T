@@ -21,23 +21,21 @@
  */
 
 import QtQuick 2.0
-import QtMultimedia 5.0
+import QtMultimedia 5.8
 
 Item {
-    property int track: -1
+    property bool introPlayed: false
     property bool enableMusic: true
     property bool enableSoundEffects: true
 
     onEnableMusicChanged: playMusic()
-    Component.onCompleted: playMusic()
 
     function playSoundEffect (effect) {
         if (enableSoundEffects && app.visible) {
-            var source = "qrc:/sounds/" + effect
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
                     "SoundEffect {" +
-                    "   source: \"" + source + "\";" +
+                    "   source: \"" + effect + "\";" +
                     "   Component.onCompleted: play(); " +
                     "   onPlayingChanged: if (!playing) destroy (100); }"
             Qt.createQmlObject (qmlSourceCode, app, "SoundEffects")
@@ -45,29 +43,19 @@ Item {
     }
 
     function playMusic() {
-        if (enableMusic && app.active)
+        if (!introPlayed && enableMusic && app.active)
+            intro.play()
+
+        else if (!introPlayed)
+            intro.stop()
+
+        else if (enableMusic && app.active)
             player.play()
-        else
+
+        else {
             player.stop()
-    }
-
-    function pause() {
-        player.pause()
-    }
-
-    function updateTrack() {
-        if (track === -1)
-            track = Math.random() * soundtracks.count
-
-        if (track < soundtracks.count - 1)
-            ++track
-        else
-            track = 0
-
-        player.source = "qrc:/music/" + soundtracks.get (track).source
-
-        if (enableMusic)
-            player.play()
+            introPlayed = false
+        }
     }
 
     Connections {
@@ -75,22 +63,30 @@ Item {
         onStateChanged: {
             if (Qt.application.state === Qt.ApplicationActive)
                 playMusic()
-            else
-                pause()
-        }
-    }
 
-    ListModel {
-        id: soundtracks
-        ListElement { source: "Clouds.ogg" }
-        ListElement { source: "GlowInSpace.ogg" }
-        ListElement { source: "WhiteAtlantis.ogg" }
+            else {
+                intro.pause()
+                player.pause()
+            }
+        }
     }
 
     Audio {
         id: player
-        volume: 0.80
-        onStopped: updateTrack()
-        Component.onCompleted: updateTrack()
+        autoLoad: true
+        loops: Audio.Infinite
+        audioRole: Audio.GameRole
+        source: "qrc:/sounds/loop.wav"
+    }
+
+    Audio {
+        id: intro
+        autoLoad: true
+        audioRole: Audio.GameRole
+        source: "qrc:/sounds/intro.wav"
+        onStopped: {
+            introPlayed = true
+            playMusic()
+        }
     }
 }
