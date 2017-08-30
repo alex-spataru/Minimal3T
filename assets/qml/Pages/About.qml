@@ -72,7 +72,8 @@ Overlay {
             onLinkActivated: Qt.openUrlExternally (link)
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr ("Music by %1").arg (
-                      "<a href='#'>Daniel Spataru</a>") + Translator.dummy
+                      "<a href='https://open.spotify.com/artist/1GgIbWzylPISVk6mMluL7O'>" +
+                      "Daniel Spataru</a>") + Translator.dummy
         }
 
         Item {

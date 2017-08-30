@@ -72,7 +72,7 @@ Item {
         onWidthChanged: board.redraw()
         onHeightChanged: board.redraw()
         onWindowStateChanged: board.redraw()
-        onEnclosedGameBoardChanged: board.redraw()
+        onShowAllBordersChanged: board.redraw()
     }
 
     //
@@ -80,6 +80,9 @@ Item {
     //
     Canvas {
         id: canvas
+        smooth: true
+        renderStrategy: Canvas.Threaded
+        renderTarget: Canvas.FramebufferObject
 
         anchors {
             fill: parent
@@ -102,26 +105,27 @@ Item {
 
             /* Obtain constants */
             var cellWidth = grid.width / Board.boardSize
-            var initialValue = app.enclosedGameBoard ? 0 : 1
-            var boardSize = Board.boardSize + (app.enclosedGameBoard ? 1 : 0)
+            var initialValue = app.showAllBorders ? 0 : 1
+            var boardSize = Board.boardSize + (app.showAllBorders ? 1 : 0)
 
             /* Abort drawing if cell width is invalid */
             if (cellWidth <= 0)
                 return;
 
-            /* Draw grid */
-            for (var i = initialValue; i < boardSize; ++i) {
-                /* Draw columns */
+            /* Draw columns */
+            for (var x = initialValue; x < boardSize; ++x) {
                 ctx.beginPath()
-                ctx.moveTo (cellWidth * i, 0)
-                ctx.lineTo (cellWidth * i, canvas.height)
+                ctx.moveTo (cellWidth * x, 0)
+                ctx.lineTo (cellWidth * x, canvas.height)
                 ctx.closePath()
                 ctx.stroke()
+            }
 
-                /* Draw rows */
+            /* Draw rows */
+            for (var y = initialValue; y < boardSize; ++y) {
                 ctx.beginPath()
-                ctx.moveTo (0, cellWidth * i)
-                ctx.lineTo (canvas.width, cellWidth * i)
+                ctx.moveTo (0, cellWidth * y)
+                ctx.lineTo (canvas.width, cellWidth * y)
                 ctx.closePath()
                 ctx.stroke()
             }

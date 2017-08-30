@@ -38,7 +38,7 @@ Item {
     property alias useCross: settings.useCross
     property alias humanFirst: settings.humanFirst
     property alias enableMusic: settings.enableMusic
-    property alias enclosedGameBoard: settings.enclosedGameBoard
+    property alias showAllBorders: settings.showAllBorders
     property alias enableSoundEffects: settings.enableSoundEffects
 
     //

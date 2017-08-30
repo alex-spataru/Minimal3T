@@ -45,14 +45,13 @@ Item {
     //
     // Redraw the canvas when the perimeter is changed
     //
-    opacity: hidden ? 0 : 1
     onAngleChanged: canvas.requestPaint()
 
     //
     // Set the angle to draw a complete circle
     //
     function show() {
-        opacity = 1
+        angleBehavior.enabled = true
         angle = 2 * Math.PI
     }
 
@@ -60,25 +59,36 @@ Item {
     // Reset the lines
     //
     function hide() {
+        angleBehavior.enabled = false
         angle = 0
-        opacity = 0
     }
 
     //
     // Slowly draw the circle
     //
-    Behavior on angle { NumberAnimation { duration: 175 } }
+    Behavior on angle {
+        id: angleBehavior
+        enabled: false
+
+        NumberAnimation {
+            duration: app.pieceAnimation
+        }
+    }
 
     //
     // Canvas
     //
     Canvas {
         id: canvas
+        smooth: true
         anchors.fill: parent
         anchors.centerIn: parent
         anchors.margins: -2 * item.lineWidth
         anchors.verticalCenterOffset: -2 * item.lineWidth
         anchors.horizontalCenterOffset: -2 * item.lineWidth
+
+        renderStrategy: Canvas.Threaded
+        renderTarget: Canvas.FramebufferObject
 
         onPaint: {
             /* Get context */

@@ -68,6 +68,45 @@ Item {
     }
 
     //
+    // Displays the appropiate piece given the field owner
+    //
+    function drawPiece() {
+        _cross.hide()
+        _nought.hide()
+        _symbol.opacity = 1
+
+        var owner = Board.fieldOwner (fieldNumber)
+        if (field.enabled && owner > TicTacToe.Undefined) {
+            if (app.getSymbol (owner))
+                _cross.show()
+            else
+                _nought.show()
+
+            playRandomNote()
+        }
+    }
+
+    //
+    // Changes the clickable state of the field and updates the opacity
+    // to highlight any winning line streaks
+    //
+    function updateFieldState() {
+        if (fieldNumber >= 0 && field.enabled) {
+            clickable = true
+
+            if (Board.gameDraw)
+                _symbol.opacity = 0.2
+
+            else if (Board.gameWon) {
+                _symbol.opacity = 0.2
+                for (var i = 0; i < Board.allignedFields().length; ++i)
+                    if (Board.allignedFields()[i] === field.fieldNumber)
+                        _symbol.opacity = 1
+            }
+        }
+    }
+
+    //
     // Symbol icon
     //
     Item {
@@ -113,42 +152,12 @@ Item {
     //
     Connections {
         target: Board
-
-        onGameStateChanged: {
-            if (fieldNumber >= 0) {
-                field.clickable = true
-
-                if (Board.gameDraw)
-                    _symbol.opacity = 0.2
-
-                else if (Board.gameWon) {
-                    _symbol.opacity = 0.2
-                    for (var i = 0; i < Board.allignedFields().length; ++i)
-                        if (Board.allignedFields()[i] === field.fieldNumber)
-                            _symbol.opacity = 1
-                }
-            }
-        }
-
+        onGameStateChanged: updateFieldState()
         onFieldStateChanged: {
             if (field.fieldNumber != fieldId)
                 return
 
-            var owner = Board.fieldOwner (fieldNumber)
-            if (field.enabled && owner !== TicTacToe.Undefined) {
-                if (app.getSymbol (owner))
-                    _cross.show()
-                else
-                    _nought.show()
-
-                playRandomNote()
-            }
-
-            else {
-                _cross.hide()
-                _nought.hide()
-                _symbol.opacity = 1
-            }
+            field.drawPiece()
         }
     }
 }

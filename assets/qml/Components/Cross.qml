@@ -45,7 +45,6 @@ Item {
     //
     // Redraw the canvas when the line values are changed
     //
-    opacity: hidden ? 0 : 1
     onLineAChanged: canvasA.requestPaint()
     onLineBChanged: canvasB.requestPaint()
 
@@ -54,44 +53,63 @@ Item {
     // then the second line shall be drawn
     //
     function show() {
-        lineA = 0
+        lineABehavior.enabled = true
+        lineBBehavior.enabled = true
+
         lineB = 0
-        opacity = 1
-        startDrawing.start()
+        lineA = item.width
     }
 
     //
     // Reset the lines
     //
     function hide() {
+        lineABehavior.enabled = false
+        lineBBehavior.enabled = false
+
         lineA = 0
         lineB = 0
-        opacity = 0
     }
 
     //
-    // Slowly draw the first line, when finished, draw the second line
+    // Draw the first line, when finished, draw the second line
     //
-    NumberAnimation on lineA {
-        from: 0
-        duration: 175
-        to: item.width
-        id: startDrawing
-        onStopped: lineB = lineA
+    Behavior on lineA {
+        id: lineABehavior
+        enabled: false
+
+        NumberAnimation {
+            duration: app.pieceAnimation
+            onRunningChanged: {
+                if (!running && lineA === item.width)
+                    lineB = item.width
+            }
+        }
     }
 
     //
     // Slowly draw the second line
     //
-    Behavior on lineB { NumberAnimation { duration: 175 } }
+    Behavior on lineB {
+        id: lineBBehavior
+        enabled: false
+
+        NumberAnimation {
+            duration: app.pieceAnimation
+        }
+    }
 
     //
     // First line canvas
     //
     Canvas {
         id: canvasA
+        smooth: true
         anchors.fill: parent
         anchors.centerIn: parent
+        renderStrategy: Canvas.Threaded
+        renderTarget: Canvas.FramebufferObject
+
         onPaint: {
             /* Get context */
             var ctx = getContext("2d")
@@ -121,8 +139,12 @@ Item {
     //
     Canvas {
         id: canvasB
+        smooth: true
         anchors.fill: parent
         anchors.centerIn: parent
+        renderStrategy: Canvas.Threaded
+        renderTarget: Canvas.FramebufferObject
+
         onPaint: {
             /* Get context */
             var ctx = getContext("2d")

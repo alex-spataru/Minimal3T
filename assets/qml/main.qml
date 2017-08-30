@@ -38,6 +38,7 @@ ApplicationWindow {
     //
     readonly property int spacing: 8
     readonly property int bannerHeight: 50
+    readonly property int pieceAnimation: 200
     readonly property int largeLabel: xLargeLabel * 2/3
     readonly property int mediumLabel: xLargeLabel * 1/2
     readonly property int iconSize: Math.min (128, height / 5)
@@ -50,7 +51,7 @@ ApplicationWindow {
     // Aliases
     //
     property alias adsEnabled: ads.adsEnabled
-    property alias enclosedGameBoard: ui.enclosedGameBoard
+    property alias showAllBorders: ui.showAllBorders
 
     //
     // Theme options
@@ -84,7 +85,7 @@ ApplicationWindow {
     //
     function getSymbol (player) {
         if (player === TicTacToe.Player1)
-            return ui.useCross ? 1 : 0
+            return ui.useCross
 
         return !ui.useCross
     }

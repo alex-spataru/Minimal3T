@@ -37,7 +37,7 @@ Overlay {
     property bool useCross: false
     property bool humanFirst: true
     property bool enableMusic: true
-    property bool enclosedGameBoard: false
+    property bool showAllBorders: false
     property bool enableSoundEffects: true
 
     //
@@ -75,6 +75,7 @@ Overlay {
         property alias boardSize: _boardSize.value
         property alias aiDifficulty: _aiLevel.value
         property alias effects: page.enableSoundEffects
+        property alias showAllBorders: page.showAllBorders
         property alias fieldsToAllign: _fieldsToAllign.value
     }
 
@@ -105,6 +106,7 @@ Overlay {
             ImageButton {
                 btSize: 0
                 onClicked: useCross = !useCross
+                font.pixelSize: app.font.pixelSize - 6
                 text: qsTr ("Piece") + Translator.dummy
                 source: useCross ? "qrc:/images/settings/cross.svg" :
                                    "qrc:/images/settings/circle.svg"
@@ -113,6 +115,7 @@ Overlay {
             ImageButton {
                 btSize: 0
                 onClicked: humanFirst = !humanFirst
+                font.pixelSize: app.font.pixelSize - 6
                 text: qsTr ("First Turn") + Translator.dummy
                 source: humanFirst ? "qrc:/images/settings/human.svg" :
                                      "qrc:/images/settings/ai.svg"
@@ -121,19 +124,28 @@ Overlay {
             ImageButton {
                 btSize: 0
                 onClicked: enableMusic = !enableMusic
+                font.pixelSize: app.font.pixelSize - 6
                 text: qsTr ("Music") + Translator.dummy
-                Behavior on opacity { NumberAnimation {duration: 150} }
                 source: enableMusic ? "qrc:/images/settings/music-on.svg" :
                                       "qrc:/images/settings/music-off.svg"
             }
 
             ImageButton {
                 btSize: 0
+                font.pixelSize: app.font.pixelSize - 6
                 text: qsTr ("Effects") + Translator.dummy
                 onClicked: enableSoundEffects = !enableSoundEffects
-                Behavior on opacity { NumberAnimation {duration: 150} }
                 source: enableSoundEffects ? "qrc:/images/settings/volume-on.svg" :
                                              "qrc:/images/settings/volume-off.svg"
+            }
+
+            ImageButton {
+                btSize: 0
+                font.pixelSize: app.font.pixelSize - 6
+                text: qsTr ("Borders") + Translator.dummy
+                onClicked: showAllBorders = !showAllBorders
+                source: showAllBorders ? "qrc:/images/settings/border-all.svg" :
+                                         "qrc:/images/settings/border-inner.svg"
             }
         }
 
