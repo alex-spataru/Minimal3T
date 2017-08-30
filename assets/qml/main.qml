@@ -50,6 +50,7 @@ ApplicationWindow {
     // Aliases
     //
     property alias adsEnabled: ads.adsEnabled
+    property alias enclosedGameBoard: ui.enclosedGameBoard
 
     //
     // Theme options
@@ -79,11 +80,11 @@ ApplicationWindow {
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //
-    // Returns the symbol for the given player
+    // Returns true if we should display a cross for the given player
     //
     function getSymbol (player) {
         if (player === TicTacToe.Player1)
-            return ui.useCross
+            return ui.useCross ? 1 : 0
 
         return !ui.useCross
     }

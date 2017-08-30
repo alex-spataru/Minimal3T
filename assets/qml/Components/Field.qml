@@ -35,7 +35,7 @@ Item {
     //
     property int fieldNumber: -1
     property bool clickable: true
-    property alias border: bg.border
+
 
     //
     // Randomize array element order in-place.
@@ -68,42 +68,30 @@ Item {
     }
 
     //
-    // Background rectangle
-    //
-    Rectangle {
-        id: bg
-        color: "transparent"
-        anchors.fill: parent
-        border.color: app.fieldColor
-        border.width: app.spacing / 2
-    }
-
-    //
     // Symbol icon
     //
     Item {
         id: _symbol
-        opacity: 0.00
-        width: bg.width * 0.7
-        height: bg.height * 0.7
         anchors.centerIn: parent
+        width: field.width * 0.7
+        height: field.height * 0.7
 
         Behavior on opacity { NumberAnimation{} }
-
-        Cross {
-            id: _cross
-            hidden: true
-            anchors.fill: parent
-            anchors.centerIn: parent
-            lineWidth: 1/5 * app.spacing * DevicePixelRatio
-        }
 
         Nought {
             id: _nought
             hidden: true
             anchors.fill: parent
             anchors.centerIn: parent
-            lineWidth: 1/5 * app.spacing * DevicePixelRatio
+            lineWidth: 1/5 * app.spacing
+        }
+
+        Cross {
+            id: _cross
+            hidden: true
+            anchors.fill: parent
+            anchors.centerIn: parent
+            lineWidth: 1/5 * app.spacing
         }
     }
 
@@ -147,20 +135,19 @@ Item {
                 return
 
             var owner = Board.fieldOwner (fieldNumber)
-            if (owner !== TicTacToe.Undefined && field.enabled) {
+            if (field.enabled && owner !== TicTacToe.Undefined) {
                 if (app.getSymbol (owner))
                     _cross.show()
                 else
                     _nought.show()
 
                 playRandomNote()
-                _symbol.opacity = 1
             }
 
             else {
                 _cross.hide()
                 _nought.hide()
-                _symbol.opacity = 0
+                _symbol.opacity = 1
             }
         }
     }

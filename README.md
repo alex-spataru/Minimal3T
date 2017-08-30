@@ -13,6 +13,8 @@ SuperTac is a mobile-friendly implementation of Tic-Tac-Toe written with Qt and 
 - [x] Configure Android splash screen
 - [x] Write custom spinbox controls for settings page
 - [x] Translations
+- [x] Create Tic Tac Toe style grid
+- [ ] Fix inverted cross animation on new fields
 
 ## License
 

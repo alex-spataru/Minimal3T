@@ -39,17 +39,29 @@ Item {
     //
     // Calculate tile size on init
     //
-    onGridWidthChanged: updateSize()
-    onGridHeightChanged: updateSize()
-    Component.onCompleted: updateSize()
+    onGridWidthChanged: redraw()
+    onGridHeightChanged: redraw()
+    Component.onCompleted: redraw()
 
     //
     // Calculates the appropiate size of the game fields/tiles
     //
-    function updateSize() {
+    function redraw() {
         var side = Math.min (gridHeight, gridWidth) * (gridHeight > gridWidth ? 0.85 : 0.65)
         board.width = side
         board.height = side
+        canvas.requestPaint()
+
+        repeater.model = 0
+        repeater.model = Board.numFields
+    }
+
+    //
+    // Redraw board canvas when board size is changed
+    //
+    Connections {
+        target: Board
+        onBoardSizeChanged: board.redraw()
     }
 
     //
@@ -57,37 +69,95 @@ Item {
     //
     Connections {
         target: app
-        onWidthChanged: board.updateSize()
-        onHeightChanged: board.updateSize()
-        onWindowStateChanged: board.updateSize()
+        onWidthChanged: board.redraw()
+        onHeightChanged: board.redraw()
+        onWindowStateChanged: board.redraw()
+        onEnclosedGameBoardChanged: board.redraw()
     }
 
     //
-    // Main layout of the tiles
+    // Generate the borders
     //
-    GridLayout {
+    Canvas {
+        id: canvas
+
+        anchors {
+            fill: parent
+            centerIn: parent
+            margins: app.spacing
+        }
+
+        onPaint: {
+            /* Get context */
+            var ctx = getContext("2d")
+
+            /* Reset and fill with transparent background */
+            ctx.reset()
+            ctx.fillStyle = "transparent"
+
+            /* Set line properties */
+            ctx.lineCap = 'round'
+            ctx.strokeStyle = '#fff'
+            ctx.lineWidth = app.spacing / 10
+
+            /* Obtain constants */
+            var cellWidth = grid.width / Board.boardSize
+            var initialValue = app.enclosedGameBoard ? 0 : 1
+            var boardSize = Board.boardSize + (app.enclosedGameBoard ? 1 : 0)
+
+            /* Abort drawing if cell width is invalid */
+            if (cellWidth <= 0)
+                return;
+
+            /* Draw grid */
+            for (var i = initialValue; i < boardSize; ++i) {
+                /* Draw columns */
+                ctx.beginPath()
+                ctx.moveTo (cellWidth * i, 0)
+                ctx.lineTo (cellWidth * i, canvas.height)
+                ctx.closePath()
+                ctx.stroke()
+
+                /* Draw rows */
+                ctx.beginPath()
+                ctx.moveTo (0, cellWidth * i)
+                ctx.lineTo (canvas.width, cellWidth * i)
+                ctx.closePath()
+                ctx.stroke()
+            }
+        }
+    }
+
+    //
+    // Arrange fields in a grid
+    //
+    Grid {
         id: grid
-        anchors.fill: parent
+        rowSpacing: 0
+        columnSpacing: 0
         rows: Board.boardSize
         columns: Board.boardSize
-        Layout.margins: app.spacing
-        rowSpacing: app.spacing * -1/4
-        columnSpacing: app.spacing * -1/4
+
+        anchors {
+            fill: parent
+            centerIn: parent
+            margins: app.spacing
+        }
 
         //
         // Tile/filed generator
         //
         Repeater {
-            model: parent.rows * parent.columns
+            id: repeater
+            model: 0
 
             Field {
                 id: field
                 fieldNumber: index
                 enabled: board.enabled
-                Layout.fillWidth: true
-                Layout.fillHeight: true
                 clickable: board.clickableFields
-                border.width: grid.rowSpacing * -1
+                width: grid.width / Board.boardSize
+                height: grid.width / Board.boardSize
 
                 Connections {
                     target: board

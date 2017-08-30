@@ -33,27 +33,30 @@ Item {
     //
     // Line properties
     //
+    property real lineWidth: 1
     property string lineColor: "#fff"
-    property real lineWidth: DevicePixelRatio
 
     //
     // Used to draw the cross, do not change them please
     //
-    property real _lineA: hidden ? 0 : item.width
-    property real _lineB: hidden ? 0 : item.width
+    property real lineA: hidden ? 0 : item.width
+    property real lineB: hidden ? 0 : item.width
 
     //
     // Redraw the canvas when the line values are changed
     //
-    on_LineAChanged: canvasA.requestPaint()
-    on_LineBChanged: canvasB.requestPaint()
+    opacity: hidden ? 0 : 1
+    onLineAChanged: canvasA.requestPaint()
+    onLineBChanged: canvasB.requestPaint()
 
     //
     // Draw the first line, when the animation of the first line finishes,
     // then the second line shall be drawn
     //
     function show() {
-        _lineB = 0
+        lineA = 0
+        lineB = 0
+        opacity = 1
         startDrawing.start()
     }
 
@@ -61,25 +64,26 @@ Item {
     // Reset the lines
     //
     function hide() {
-        _lineA = 0
-        _lineB = 0
+        lineA = 0
+        lineB = 0
+        opacity = 0
     }
 
     //
     // Slowly draw the first line, when finished, draw the second line
     //
-    NumberAnimation on _lineA {
+    NumberAnimation on lineA {
         from: 0
         duration: 175
         to: item.width
         id: startDrawing
-        onStopped: _lineB = _lineA
+        onStopped: lineB = lineA
     }
 
     //
     // Slowly draw the second line
     //
-    Behavior on _lineB { NumberAnimation { duration: 175 } }
+    Behavior on lineB { NumberAnimation { duration: 175 } }
 
     //
     // First line canvas
@@ -101,16 +105,14 @@ Item {
             ctx.lineWidth = item.lineWidth
             ctx.strokeStyle = item.lineColor
 
-            /* Begin line at (width, 0) */
-            ctx.beginPath()
-            ctx.moveTo (canvasA.width, 0)
-
-            /* Set end point of line */
-            ctx.lineTo (canvasA.width - _lineA, _lineA)
-            ctx.closePath()
-
             /* Draw line */
-            ctx.stroke()
+            if (lineA > 0 && canvasA.width > 0) {
+                ctx.beginPath()
+                ctx.moveTo (canvasA.width, 0)
+                ctx.lineTo (canvasA.width - lineA, lineA)
+                ctx.closePath()
+                ctx.stroke()
+            }
         }
     }
 
@@ -133,16 +135,14 @@ Item {
             ctx.lineWidth = item.lineWidth;
             ctx.strokeStyle = item.lineColor;
 
-            /* Begin line at (0, 0) */
-            ctx.beginPath()
-            ctx.moveTo (0, 0)
-
-            /* Set end point of line */
-            ctx.lineTo (_lineB, _lineB)
-            ctx.closePath()
-
             /* Draw line */
-            ctx.stroke()
+            if (lineB > 0 && canvasB.width > 0) {
+                ctx.beginPath()
+                ctx.moveTo (0, 0)
+                ctx.lineTo (lineB, lineB)
+                ctx.closePath()
+                ctx.stroke()
+            }
         }
     }
 }

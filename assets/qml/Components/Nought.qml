@@ -34,37 +34,40 @@ Item {
     //
     // Line properties
     //
+    property real lineWidth: 1
     property string lineColor: "#fff"
-    property real lineWidth: DevicePixelRatio
 
     //
     // Used to draw the circle, do not change them please
     //
-    property real _angle: hidden ? 0 : 2 * Math.PI
+    property real angle: hidden ? 0 : 2 * Math.PI
 
     //
     // Redraw the canvas when the perimeter is changed
     //
-    on_AngleChanged: canvas.requestPaint()
+    opacity: hidden ? 0 : 1
+    onAngleChanged: canvas.requestPaint()
 
     //
     // Set the angle to draw a complete circle
     //
     function show() {
-        _angle = 2 * Math.PI
+        opacity = 1
+        angle = 2 * Math.PI
     }
 
     //
     // Reset the lines
     //
     function hide() {
-        _angle = 0
+        angle = 0
+        opacity = 0
     }
 
     //
     // Slowly draw the circle
     //
-    Behavior on _angle { NumberAnimation { duration: 175 } }
+    Behavior on angle { NumberAnimation { duration: 175 } }
 
     //
     // Canvas
@@ -95,9 +98,11 @@ Item {
             var centerY = canvas.height / 2
 
             /* Draw circle */
-            ctx.beginPath()
-            ctx.arc (centerX, centerY, radius, 0, _angle)
-            ctx.stroke()
+            if (radius > 0) {
+                ctx.beginPath()
+                ctx.arc (centerX, centerY, radius, 0, angle)
+                ctx.stroke()
+            }
         }
     }
 }

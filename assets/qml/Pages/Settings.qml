@@ -37,6 +37,7 @@ Overlay {
     property bool useCross: false
     property bool humanFirst: true
     property bool enableMusic: true
+    property bool enclosedGameBoard: false
     property bool enableSoundEffects: true
 
     //
