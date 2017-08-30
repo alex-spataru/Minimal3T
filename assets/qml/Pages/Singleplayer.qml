@@ -207,11 +207,16 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
             }
 
+            Item {
+                Layout.fillHeight: true
+            }
+
             Label {
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: -1/6 * app.spacing
                 text: app.getSymbol (TicTacToe.Player1) ? p1TotalWins : p2TotalWins
             }
 
@@ -221,6 +226,7 @@ Page {
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: -1/6 * app.spacing
             }
 
             Label {
@@ -228,7 +234,12 @@ Page {
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: -1/6 * app.spacing
                 text: app.getSymbol (TicTacToe.Player2) ? p1TotalWins : p2TotalWins
+            }
+
+            Item {
+                Layout.fillHeight: true
             }
 
             Nought {

@@ -24,7 +24,6 @@ import QtQuick 2.0
 
 Item {
     id: item
-    height: width
 
     //
     // If set to true, the lines shall not be drawn at start
