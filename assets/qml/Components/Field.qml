@@ -36,7 +36,6 @@ Item {
     property int fieldNumber: -1
     property bool clickable: true
     property alias border: bg.border
-    property alias symbol: _symbol.source
 
     //
     // Randomize array element order in-place.
@@ -82,13 +81,30 @@ Item {
     //
     // Symbol icon
     //
-    SvgImage {
+    Item {
         id: _symbol
-        source: ""
-        opacity: 0
+        opacity: 0.00
+        width: bg.width * 0.7
+        height: bg.height * 0.7
         anchors.centerIn: parent
-        sourceSize: Qt.size (bg.width * 0.8, bg.width * 0.8)
-        Behavior on opacity { NumberAnimation {} }
+
+        Behavior on opacity { NumberAnimation{} }
+
+        Cross {
+            id: _cross
+            hidden: true
+            anchors.fill: parent
+            anchors.centerIn: parent
+            lineWidth: 1/5 * app.spacing * DevicePixelRatio
+        }
+
+        Nought {
+            id: _nought
+            hidden: true
+            anchors.fill: parent
+            anchors.centerIn: parent
+            lineWidth: 1/5 * app.spacing * DevicePixelRatio
+        }
     }
 
     //
@@ -98,8 +114,9 @@ Item {
         enabled: clickable
         anchors.fill: parent
         onClicked: {
-            if (fieldNumber >= 0 && symbol == "" && Board.gameInProgress)
-                Board.selectField (fieldNumber)
+            if (fieldNumber >= 0 && Board.gameInProgress)
+                if (Board.fieldOwner (fieldNumber) === TicTacToe.Undefined)
+                    Board.selectField (fieldNumber)
         }
     }
 
@@ -130,21 +147,19 @@ Item {
                 return
 
             var owner = Board.fieldOwner (fieldNumber)
+            if (owner !== TicTacToe.Undefined && field.enabled) {
+                if (app.getSymbol (owner))
+                    _cross.show()
+                else
+                    _nought.show()
 
-            if (owner === TicTacToe.Player1 && field.enabled) {
-                field.symbol = app.getSymbol (TicTacToe.Player1)
-                _symbol.opacity = 1
                 playRandomNote()
-            }
-
-            else if (owner === TicTacToe.Player2 && field.enabled) {
-                field.symbol = app.getSymbol (TicTacToe.Player2)
                 _symbol.opacity = 1
-                playRandomNote()
             }
 
             else {
-                field.symbol = ""
+                _cross.hide()
+                _nought.hide()
                 _symbol.opacity = 0
             }
         }

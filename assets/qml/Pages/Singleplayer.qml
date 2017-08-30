@@ -201,18 +201,18 @@ Page {
             spacing: app.spacing
             anchors.horizontalCenter: parent.horizontalCenter
 
-            SvgImage {
-                source: app.getSymbol (TicTacToe.Player1)
+            Cross {
+                width: app.largeLabel * 0.75
+                height: app.largeLabel * 0.75
                 anchors.verticalCenter: parent.verticalCenter
-                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
 
             Label {
-                text: p1TotalWins
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
+                text: app.getSymbol (TicTacToe.Player1) ? p1TotalWins : p2TotalWins
             }
 
             Label {
@@ -224,17 +224,17 @@ Page {
             }
 
             Label {
-                text: p2TotalWins
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
+                text: app.getSymbol (TicTacToe.Player2) ? p1TotalWins : p2TotalWins
             }
 
-            SvgImage {
-                source: app.getSymbol (TicTacToe.Player2)
+            Nought {
+                width: app.largeLabel * 0.75
+                height: app.largeLabel * 0.75
                 anchors.verticalCenter: parent.verticalCenter
-                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
         }
 

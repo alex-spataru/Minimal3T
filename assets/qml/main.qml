@@ -82,15 +82,10 @@ ApplicationWindow {
     // Returns the symbol for the given player
     //
     function getSymbol (player) {
-        function symbol (cross) {
-            return cross ? "qrc:/images/cross.svg" :
-                           "qrc:/images/circle.svg"
-        }
-
         if (player === TicTacToe.Player1)
-            return symbol (ui.useCross)
+            return ui.useCross
 
-        return symbol (!ui.useCross)
+        return !ui.useCross
     }
 
     //

@@ -20,5 +20,7 @@
         <file>Components/Overlay.qml</file>
         <file>AudioPlayer.qml</file>
         <file>Components/Dots.qml</file>
+        <file>Components/Cross.qml</file>
+        <file>Components/Nought.qml</file>
     </qresource>
 </RCC>
