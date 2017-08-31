@@ -115,7 +115,7 @@ Item {
             var ctx = getContext (contextType)
 
             /* Set line style */
-            ctx.lineCap = 'round'
+            ctx.lineCap = "round"
             ctx.lineWidth = item.lineWidth
             ctx.strokeStyle = item.lineColor
 
@@ -127,7 +127,6 @@ Item {
                 ctx.beginPath()
                 ctx.moveTo (canvas.width, 0)
                 ctx.lineTo (canvas.width - _diagA, _diagA)
-                ctx.closePath()
                 ctx.stroke()
             }
 
@@ -136,12 +135,8 @@ Item {
                 ctx.beginPath()
                 ctx.moveTo (0, 0)
                 ctx.lineTo (_diagB, _diagB)
-                ctx.closePath()
                 ctx.stroke()
             }
-
-            /* Save ctx */
-            ctx.save()
         }
     }
 }

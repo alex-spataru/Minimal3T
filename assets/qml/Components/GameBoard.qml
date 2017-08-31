@@ -51,9 +51,9 @@ Item {
     // Calculate tile size on init
     //
     onGridWidthChanged: redraw()
+    on_Wl_limitChanged: redraw()
     onGridHeightChanged: redraw()
     Component.onCompleted: redraw()
-    on_Wl_limitChanged: redraw()
 
     //
     // Calculates the appropiate size of the game fields/tiles
@@ -150,7 +150,6 @@ Item {
         onPaint: {
             /* Get context */
             var ctx = getContext (contextType)
-            ctx.lineCap = 'round'
 
             /* Clear canvas */
             ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
@@ -166,6 +165,7 @@ Item {
                 return;
 
             /* Set line style */
+            ctx.lineCap = "round"
             ctx.strokeStyle = "#fff"
             ctx.lineWidth = board.lineWidth
 
@@ -184,7 +184,6 @@ Item {
                 ctx.beginPath()
                 ctx.moveTo (spacing + cellSize * x, 0)
                 ctx.lineTo (spacing + cellSize * x, canvas.height)
-                ctx.closePath()
                 ctx.stroke()
             }
 
@@ -203,7 +202,6 @@ Item {
                 ctx.beginPath()
                 ctx.moveTo (0, cellSize * y + spacing)
                 ctx.lineTo (canvas.width, cellSize * y + spacing)
-                ctx.closePath()
                 ctx.stroke()
             }
 
@@ -224,13 +222,12 @@ Item {
 
                 /* Set line style */
                 ctx.strokeStyle = "#fff"
-                ctx.lineWidth = 0//board.lineWidth
+                ctx.lineWidth = board.lineWidth
 
                 /* Draw the line */
                 ctx.beginPath()
                 ctx.moveTo (_wl_xA, _wl_yA)
                 ctx.lineTo (fx, fy)
-                ctx.closePath()
                 ctx.stroke()
             }
         }
@@ -249,8 +246,6 @@ Item {
         anchors {
             fill: parent
             centerIn: parent
-            verticalCenterOffset: app.showAllBorders ? -board.lineWidth : 0
-            horizontalCenterOffset: app.showAllBorders ? -board.lineWidth : 0
         }
 
         //
