@@ -188,6 +188,7 @@ Overlay {
         //
         TextSpinBox {
             id: _aiLevel
+            value: 1
             Layout.preferredWidth: app.paneWidth
             title: qsTr ("AI Level") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
