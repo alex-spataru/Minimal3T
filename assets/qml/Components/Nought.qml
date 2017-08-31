@@ -27,6 +27,11 @@ Item {
     height: width
 
     //
+    // Rotate to 45° counter-clockwise
+    //
+    rotation: 360 - 45
+
+    //
     // If set to true, the circle shall not be drawn at start
     //
     property bool hidden: false
@@ -38,7 +43,7 @@ Item {
     property string lineColor: "#fff"
 
     //
-    // Used to draw the circle, do not change them please
+    // Used to draw the circle, do not change please
     //
     property real angle: hidden ? 0 : 2 * Math.PI
 
@@ -81,6 +86,7 @@ Item {
     Canvas {
         id: canvas
         smooth: true
+        contextType: "2d"
         anchors.fill: parent
         anchors.centerIn: parent
         renderStrategy: Canvas.Threaded
@@ -89,8 +95,10 @@ Item {
         anchors.horizontalCenterOffset: -2 * item.lineWidth
 
         onPaint: {
+            /* Create context */
+            var ctx = getContext (contextType)
+
             /* Reset and fill with transparent background */
-            var ctx = canvas.getContext ("2d")
             ctx.lineWidth = item.lineWidth;
             ctx.strokeStyle = item.lineColor;
 

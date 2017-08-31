@@ -104,14 +104,17 @@ Item {
     //
     Canvas {
         id: canvas
+        contextType: "2d"
         anchors.centerIn: parent
         width: parent.width * 0.95
         height: parent.height * 0.95
         renderStrategy: Canvas.Threaded
 
         onPaint: {
+            /* Get context */
+            var ctx = getContext (contextType)
+
             /* Get context and clear canvas */
-            var ctx = getContext("2d")
             ctx.lineCap = 'round'
             ctx.lineWidth = item.lineWidth
             ctx.strokeStyle = item.lineColor
@@ -136,6 +139,9 @@ Item {
                 ctx.closePath()
                 ctx.stroke()
             }
+
+            /* Save ctx */
+            ctx.save()
         }
     }
 }

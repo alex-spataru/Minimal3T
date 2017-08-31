@@ -110,6 +110,14 @@ Item {
     }
 
     //
+    // Get component piece on creation
+    //
+    Component.onCompleted: {
+        drawPiece()
+        updateFieldState()
+    }
+
+    //
     // Symbol icon
     //
     Item {

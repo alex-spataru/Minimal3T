@@ -32,8 +32,9 @@ Item {
     //
     // Custom properties
     //
-    property var gridWidth: app.width
-    property var gridHeight: app.height
+    property real cellSize: 0
+    property real gridWidth: app.width
+    property real gridHeight: app.height
     property bool clickableFields: false
 
     //
@@ -51,9 +52,6 @@ Item {
         board.width = side
         board.height = side
         canvas.requestPaint()
-
-        repeater.model = 0
-        repeater.model = Board.numFields
     }
 
     //
@@ -81,6 +79,7 @@ Item {
     Canvas {
         id: canvas
         smooth: true
+        contextType: "2d"
         renderStrategy: Canvas.Threaded
 
         anchors {
@@ -91,7 +90,7 @@ Item {
 
         onPaint: {
             /* Get context */
-            var ctx = getContext("2d")
+            var ctx = getContext (contextType)
 
             /* Reset and fill with transparent background */
             ctx.reset()
@@ -103,19 +102,19 @@ Item {
             ctx.lineWidth = app.spacing / 10
 
             /* Obtain constants */
-            var cellWidth = grid.width / Board.boardSize
+            cellSize = grid.width / Board.boardSize
             var initialValue = app.showAllBorders ? 0 : 1
             var boardSize = Board.boardSize + (app.showAllBorders ? 1 : 0)
 
             /* Abort drawing if cell width is invalid */
-            if (cellWidth <= 0)
+            if (cellSize <= 0)
                 return;
 
             /* Draw columns */
             for (var x = initialValue; x < boardSize; ++x) {
                 ctx.beginPath()
-                ctx.moveTo (cellWidth * x, 0)
-                ctx.lineTo (cellWidth * x, canvas.height)
+                ctx.moveTo (cellSize * x, 0)
+                ctx.lineTo (cellSize * x, canvas.height)
                 ctx.closePath()
                 ctx.stroke()
             }
@@ -123,8 +122,8 @@ Item {
             /* Draw rows */
             for (var y = initialValue; y < boardSize; ++y) {
                 ctx.beginPath()
-                ctx.moveTo (0, cellWidth * y)
-                ctx.lineTo (canvas.width, cellWidth * y)
+                ctx.moveTo (0, cellSize * y)
+                ctx.lineTo (canvas.width, cellSize * y)
                 ctx.closePath()
                 ctx.stroke()
             }
@@ -151,20 +150,26 @@ Item {
         // Tile/filed generator
         //
         Repeater {
-            id: repeater
-            model: 0
+            model: grid.rows * grid.columns
 
             Field {
                 id: field
+                width: cellSize
+                height: cellSize
                 fieldNumber: index
                 enabled: board.enabled
                 clickable: board.clickableFields
-                width: grid.width / Board.boardSize
-                height: grid.width / Board.boardSize
 
                 Connections {
                     target: board
-                    onClickableFieldsChanged: field.clickable = board.clickableFields
+                    onClickableFieldsChanged: {
+                        field.clickable = board.clickableFields
+                    }
+
+                    onCellSizeChanged: {
+                        width = cellSize
+                        height = cellSize
+                    }
                 }
 
                 Connections {
