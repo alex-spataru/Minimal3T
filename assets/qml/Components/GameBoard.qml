@@ -36,6 +36,7 @@ Item {
     property real gridWidth: app.width
     property real gridHeight: app.height
     property bool clickableFields: false
+    property real lineWidth: app.spacing / 5
 
     //
     // Calculate tile size on init
@@ -85,23 +86,22 @@ Item {
         anchors {
             fill: parent
             centerIn: parent
-            margins: app.spacing
         }
 
         onPaint: {
             /* Get context */
             var ctx = getContext (contextType)
 
-            /* Reset and fill with transparent background */
-            ctx.reset()
-            ctx.fillStyle = "transparent"
-
-            /* Set line properties */
+            /* Set line style */
             ctx.lineCap = 'round'
-            ctx.strokeStyle = '#fff'
-            ctx.lineWidth = app.spacing / 10
+            ctx.strokeStyle = "#fff"
+            ctx.lineWidth = board.lineWidth
+
+            /* Clear canvas */
+            ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
 
             /* Obtain constants */
+            var spacing = 0
             cellSize = grid.width / Board.boardSize
             var initialValue = app.showAllBorders ? 0 : 1
             var boardSize = Board.boardSize + (app.showAllBorders ? 1 : 0)
@@ -112,18 +112,38 @@ Item {
 
             /* Draw columns */
             for (var x = initialValue; x < boardSize; ++x) {
+                /* Calculate spacing (to fit outer borders) */
+                spacing = 0
+                if (app.showAllBorders) {
+                    if (x === 0)
+                        spacing = (ctx.lineWidth / 2)
+                    else if (x === boardSize - 1)
+                        spacing = (ctx.lineWidth / 2) * -1
+                }
+
+                /* Draw column */
                 ctx.beginPath()
-                ctx.moveTo (cellSize * x, 0)
-                ctx.lineTo (cellSize * x, canvas.height)
+                ctx.moveTo (spacing + cellSize * x, 0)
+                ctx.lineTo (spacing + cellSize * x, canvas.height)
                 ctx.closePath()
                 ctx.stroke()
             }
 
             /* Draw rows */
             for (var y = initialValue; y < boardSize; ++y) {
+                /* Calculate spacing (to fit outer borders) */
+                spacing = 0
+                if (app.showAllBorders) {
+                    if (y === 0)
+                        spacing = (ctx.lineWidth / 2)
+                    else if (y === boardSize - 1)
+                        spacing = (ctx.lineWidth / 2) * -1
+                }
+
+                /* Draw row */
                 ctx.beginPath()
-                ctx.moveTo (0, cellSize * y)
-                ctx.lineTo (canvas.width, cellSize * y)
+                ctx.moveTo (0, cellSize * y + spacing)
+                ctx.lineTo (canvas.width, cellSize * y + spacing)
                 ctx.closePath()
                 ctx.stroke()
             }
@@ -143,7 +163,8 @@ Item {
         anchors {
             fill: parent
             centerIn: parent
-            margins: app.spacing
+            verticalCenterOffset: app.showAllBorders ? -board.lineWidth : 0
+            horizontalCenterOffset: app.showAllBorders ? -board.lineWidth : 0
         }
 
         //

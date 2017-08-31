@@ -95,10 +95,10 @@ Item {
         anchors.horizontalCenterOffset: -2 * item.lineWidth
 
         onPaint: {
-            /* Create context */
+            /* Get context */
             var ctx = getContext (contextType)
 
-            /* Reset and fill with transparent background */
+            /* Set line style */
             ctx.lineWidth = item.lineWidth;
             ctx.strokeStyle = item.lineColor;
 

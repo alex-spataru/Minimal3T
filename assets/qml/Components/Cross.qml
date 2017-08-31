@@ -114,7 +114,7 @@ Item {
             /* Get context */
             var ctx = getContext (contextType)
 
-            /* Get context and clear canvas */
+            /* Set line style */
             ctx.lineCap = 'round'
             ctx.lineWidth = item.lineWidth
             ctx.strokeStyle = item.lineColor
