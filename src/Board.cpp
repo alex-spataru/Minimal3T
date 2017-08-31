@@ -21,6 +21,8 @@
  */
 
 #include "Board.h"
+
+#include <qdebug.h>
 #include <stdlib.h>
 
 //------------------------------------------------------------------------------
@@ -31,12 +33,11 @@
 // Define utility functions
 //------------------------------------------------------------------------------
 
-static inline bool checkRows (Board&, BoardPlayer**);
-static inline bool checkColumns (Board&, BoardPlayer**);
-static inline bool checkLtrDiagonals (Board&, BoardPlayer**);
-static inline bool checkRtlDiagonals (Board&, BoardPlayer**);
-static inline bool checkWinners (Board&, QVector<int>, QVector<int>);
-static inline void checkAllignedFields (Board&, QVector<int>&, QVector<int>&, int, int);
+static inline bool checkRows (Board&);
+static inline bool checkColumns (Board&);
+static inline bool checkLtrDiagonals (Board&);
+static inline bool checkRtlDiagonals (Board&);
+static inline bool checkWinners (Board&, QVector<int>);
 
 //------------------------------------------------------------------------------
 // Implementation of public functions
@@ -64,13 +65,11 @@ void ResetBoard (Board& board) {
  *   - If there is a winner, then the game state shall be set to \c kGameWon
  */
 void UpdateGameState (Board& board) {
-    BoardPlayer** matrix = BoardMatrix (board);
-
     bool won = false;
-    won |= checkRows (board, matrix);
-    won |= checkColumns (board, matrix);
-    won |= checkLtrDiagonals (board, matrix);
-    won |= checkRtlDiagonals (board, matrix);
+    won |= checkRows (board);
+    won |= checkColumns (board);
+    won |= checkLtrDiagonals (board);
+    won |= checkRtlDiagonals (board);
 
     if (won)
         board.state = kGameWon;
@@ -80,8 +79,6 @@ void UpdateGameState (Board& board) {
 
     else
         board.state = kGameInProgress;
-
-    DeleteMatrix (board, matrix);
 }
 
 /**
@@ -140,10 +137,10 @@ int BoardSize (const Board& board) {
 }
 
 /**
- * Returns the field ID of the given (i,j) matrix coordinate
+ * Returns the field ID of the given column and row
  */
-int FieldAt (const Board& board, const int i, const int j) {
-    return i * board.size + j;
+int FieldAt (const Board& board, const int row, const int col) {
+    return row * board.size + col;
 }
 
 /**
@@ -193,117 +190,93 @@ BoardPlayer OpponentOf (const BoardPlayer player) {
 // Implementation of utility functions
 //------------------------------------------------------------------------------
 
-static bool checkRows (Board& board, BoardPlayer** matrix) {
-    Q_ASSERT (matrix);
+static bool checkRows (Board& board) {
+    int limit = board.size - board.fieldsToAllign;
+    for (int row = 0; row < board.size; ++row) {
+        for (int col = 0; col <= limit; ++col) {
+            QVector<int> fields;
+            for (int field = 0; field < board.fieldsToAllign; ++field)
+                fields.append (FieldAt (board, row, col + field));
 
-    QVector<int> p1, p2;
-    for (int i = 0; i < board.size; ++i) {
-        p1.clear();
-        p2.clear();
-
-        for (int j = 0; j < board.size; ++j)
-            checkAllignedFields (board, p1, p2, i, j);
-
-        if (checkWinners (board, p1, p2))
-            return true;
+            if (checkWinners (board, fields))
+                return true;
+        }
     }
 
     return false;
 }
 
-static bool checkColumns (Board& board, BoardPlayer** matrix) {
-    Q_ASSERT (matrix);
+static bool checkColumns (Board& board) {
+    int limit = board.size - board.fieldsToAllign;
 
-    QVector<int> p1, p2;
-    for (int i = 0; i < board.size; ++i) {
-        p1.clear();
-        p2.clear();
+    for (int col = 0; col < board.size; ++col) {
+        for (int row = 0; row <= limit; ++row) {
+            QVector<int> fields;
+            for (int field = 0; field < board.fieldsToAllign; ++field)
+                fields.append (FieldAt (board, row + field, col));
 
-        for (int j = 0; j < board.size; ++j)
-            checkAllignedFields (board, p1, p2, j, i);
-
-        if (checkWinners (board, p1, p2))
-            return true;
+            if (checkWinners (board, fields))
+                return true;
+        }
     }
 
     return false;
 }
 
-static bool checkLtrDiagonals (Board& board, BoardPlayer** matrix) {
-    Q_ASSERT (matrix);
+static bool checkLtrDiagonals (Board& board) {
+    int limit = board.size - board.fieldsToAllign;
 
-    QVector<int> p1, p2;
-    for (int i = 0; i < board.size; ++i)
-        checkAllignedFields (board, p1, p2, i, i);
+    for (int row = 0; row <= limit; ++row) {
+        for (int col = 0; col <= limit; ++col) {
+            QVector<int> fields;
+            int field = FieldAt (board, row, col);
 
-    return checkWinners (board, p1, p2);
+            for (int diag = 0; diag < board.fieldsToAllign; ++diag)
+                fields.append (field + (diag * (board.size + 1)));
+
+            if (checkWinners (board, fields))
+                return true;
+        }
+    }
+
+    return false;
 }
 
-static bool checkRtlDiagonals (Board& board, BoardPlayer** matrix) {
-    Q_ASSERT (matrix);
+static bool checkRtlDiagonals (Board& board) {
+    int maxRow = board.size - board.fieldsToAllign;
+    int maxCol = board.size - maxRow - 1;
 
-    QVector<int> p1, p2;
-    for (int i = 0; i < board.size; ++i)
-        checkAllignedFields (board, p1, p2, i, board.size - i - 1);
+    for (int row = 0; row <= maxRow; ++row) {
+        for (int col = board.size - 1; col >= maxCol; --col) {
+            QVector<int> fields;
+            int field = FieldAt (board, row, col);
 
-    return checkWinners (board, p1, p2);
+            for (int diag = 0; diag < board.fieldsToAllign; ++diag)
+                fields.append (field + (diag * (board.size - 1)));
+
+            if (checkWinners (board, fields))
+                return true;
+        }
+    }
+
+    return false;
 }
 
-static bool checkWinners (Board& board, QVector<int> p1, QVector<int> p2) {
-    int p1_allignedFields = p1.count();
-    int p2_allignedFields = p2.count();
+static bool checkWinners (Board& board, QVector<int> line) {
+    Q_ASSERT (board.fieldsToAllign == line.count());
+    BoardPlayer player = board.fields.at (line.at (0));
 
-    if (p1_allignedFields >= board.fieldsToAllign ||
-            p2_allignedFields >= board.fieldsToAllign) {
-
-        if (p1_allignedFields > p2_allignedFields) {
-            board.winner = kPlayer1;
-            board.allignedFields = p1;
+    if (player != kUndefined) {
+        foreach (int field, line) {
+            BoardPlayer owner = board.fields.at (field);
+            if (owner != player)
+                return false;
         }
 
-        else if (p1_allignedFields < p2_allignedFields) {
-            board.winner = kPlayer2;
-            board.allignedFields = p2;
-        }
-
-        else {
-            board.winner = kUndefined;
-            board.allignedFields.clear();
-            return false;
-        }
-
-        board.state = kGameWon;
+        board.winner = player;
+        board.allignedFields = line;
         return true;
     }
 
     return false;
 }
-
-static void checkAllignedFields (Board& board,
-                                 QVector<int>& p1, QVector<int>& p2,
-                                 int i, int j) {
-    int field = FieldAt (board, i, j);
-    if (field < board.fields.count()) {
-        if (board.fields.at (field) == kPlayer1) {
-            if (p1.count() < board.fieldsToAllign)
-                p1.append (field);
-            if (p2.count() < board.fieldsToAllign)
-                p2.clear();
-        }
-
-        else if (board.fields.at (field) == kPlayer2) {
-            if (p2.count() < board.fieldsToAllign)
-                p2.append (field);
-            if (p1.count() < board.fieldsToAllign)
-                p1.clear();
-        }
-
-        else {
-            if (p1.count() < board.fieldsToAllign)
-                p1.clear();
-            if (p2.count() < board.fieldsToAllign)
-                p2.clear();
-        }
-    }
-}
-

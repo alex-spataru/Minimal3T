@@ -21,25 +21,40 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 
 Row {
-    property int dots: 0
+    property int maxDots: 3
     property bool mirror: false
     property int highlightedDots: 0
+    property bool invertedText: false
+    property int dots: Math.max (3, highlightedDots - 1)
 
     spacing: app.spacing * 2
     LayoutMirroring.enabled: mirror
     anchors.horizontalCenter: parent.horizontalCenter
 
+    Label {
+        rotation: invertedText ? 180 : 0
+        visible: highlightedDots > maxDots
+        text: "+ " + (highlightedDots - maxDots)
+        opacity: highlightedDots > maxDots ? 1 : 0
+        anchors.verticalCenter: parent.verticalCenter
+
+        Behavior on opacity { NumberAnimation{} }
+    }
+
     Repeater {
-        model: dots
+        model: Math.min (dots, maxDots)
+
         delegate: Rectangle {
             width: 12
             height: 12
             color: "#fff"
             radius: width / 2
-            opacity: highlightedDots > index ? 1 : 0.4
             Behavior on opacity { NumberAnimation{} }
+            opacity: highlightedDots > index ? 1 : 0.4
+            anchors.verticalCenter: parent.verticalCenter
         }
     }
 }

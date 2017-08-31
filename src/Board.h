@@ -70,7 +70,7 @@ extern void DeleteMatrix (const Board& board, BoardPlayer** matrix);
 extern void ChangeOwner (Board& board, const int field, const BoardPlayer owner);
 
 extern int BoardSize (const Board& board);
-extern int FieldAt (const Board& board, const int i, const int j);
+extern int FieldAt (const Board& board, const int row, const int col);
 
 extern BoardPlayer** BoardMatrix (const Board& board);
 extern QVector<int> AvailableFields (const Board& board);

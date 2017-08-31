@@ -43,18 +43,15 @@ Page {
     property int p2Wins: 0
     property int p1TotalWins: 0
     property int p2TotalWins: 0
-    property int numberOfGames: 3
 
     //
     // Updates number of dots shown above and below the game board
     //
-    function updateNumberOfGames() {
+    function getScoreDifference() {
         while (p1Wins > 0 && p2Wins > 0) {
             --p1Wins
             --p2Wins
         }
-
-        numberOfGames = Math.max (Math.max (p1Wins, p2Wins) + 1, 3)
     }
 
     //
@@ -86,7 +83,6 @@ Page {
             p2Wins = 0
             p1TotalWins = 0
             p2TotalWins = 0
-            numberOfGames = 3
         }
 
         prompt.opacity = 0
@@ -129,7 +125,7 @@ Page {
             }
         }
 
-        updateNumberOfGames()
+        getScoreDifference()
     }
 
 
@@ -255,7 +251,6 @@ Page {
 
         Dots {
             mirror: true
-            dots: numberOfGames
             highlightedDots: p1Wins
         }
 
@@ -268,7 +263,6 @@ Page {
         }
 
         Dots {
-            dots: numberOfGames
             highlightedDots: p2Wins
         }
     }
