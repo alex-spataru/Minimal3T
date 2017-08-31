@@ -152,7 +152,7 @@ Item {
             var ctx = getContext (contextType)
 
             /* Clear canvas */
-            ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
+            ctx.clearRect (0, 0, canvas.width + 10, canvas.height + 10)
 
             /* Obtain constants */
             var spacing = 0

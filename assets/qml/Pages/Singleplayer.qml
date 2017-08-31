@@ -359,10 +359,11 @@ Page {
 
             Button {
                 font.bold: true
-                font.pixelSize: app.mediumLabel - 2
+                font.pixelSize: app.mediumLabel - 3
                 Layout.preferredWidth: app.paneWidth
-                text: qsTr ("New Game") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr ("New Game") + Translator.dummy
 
                 onClicked: {
                     prompt.hide()
@@ -371,8 +372,12 @@ Page {
                 }
             }
 
+            Item {
+                Layout.preferredHeight: app.spacing * 2
+            }
+
             Button {
-                font.pixelSize: app.mediumLabel - 2
+                font.pixelSize: app.mediumLabel - 3
                 Layout.preferredWidth: app.paneWidth
                 text: qsTr ("Main Menu") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -384,12 +389,8 @@ Page {
                 }
             }
 
-            Item {
-                Layout.preferredWidth: app.spacing * 2
-            }
-
             Button {
-                font.pixelSize: app.mediumLabel - 2
+                font.pixelSize: app.mediumLabel - 3
                 Layout.preferredWidth: app.paneWidth
                 text: qsTr ("Settings") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter

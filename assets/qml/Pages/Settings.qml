@@ -56,10 +56,16 @@ Overlay {
         case 1:
             AiPlayer.randomness = 3
             AiPlayer.offensiveMoves = true
-            AiPlayer.defensiveMoves = true
-            AiPlayer.preferOffensive = false
+            AiPlayer.defensiveMoves = false
+            AiPlayer.preferOffensive = true
             break
         case 2:
+            AiPlayer.randomness = 2
+            AiPlayer.defensiveMoves = true
+            AiPlayer.offensiveMoves = true
+            AiPlayer.preferOffensive = true
+            break
+        case 3:
             AiPlayer.randomness = 0
             AiPlayer.defensiveMoves = true
             AiPlayer.offensiveMoves = true
@@ -108,7 +114,8 @@ Overlay {
         // Sound and music
         //
         RowLayout {
-            spacing: app.spacing
+            Layout.fillWidth: true
+            Layout.fillHeight: false
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -163,7 +170,6 @@ Overlay {
         //
         Item {
             Layout.fillHeight: true
-            Layout.preferredHeight: app.spacing
         }
 
         //
@@ -197,6 +203,7 @@ Overlay {
                 qsTr ("Easy") + Translator.dummy,
                 qsTr ("Normal") + Translator.dummy,
                 qsTr ("Hard") + Translator.dummy,
+                qsTr ("Very Hard") + Translator.dummy,
             ]
 
             onValueChanged: {
@@ -245,7 +252,6 @@ Overlay {
         //
         Item {
             Layout.fillHeight: true
-            Layout.preferredHeight: app.spacing
         }
 
         //

@@ -58,8 +58,8 @@ Item {
 
         Label {
             id: label
-            font.weight: Font.ExtraLight
             visible: text.length > 0
+            font.weight: Font.ExtraLight
             Layout.preferredWidth: btSize
             font.pixelSize: app.font.pixelSize - 3
             horizontalAlignment: Label.AlignHCenter

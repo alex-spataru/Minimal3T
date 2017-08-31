@@ -42,17 +42,17 @@
 <context>
     <name>AdDisplay</name>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="124"/>
+        <location filename="../qml/AdDisplay.qml" line="126"/>
         <source>Thanks for your purchase!</source>
         <translation>¡Gracias por su compra!</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="133"/>
+        <location filename="../qml/AdDisplay.qml" line="135"/>
         <source>Failed to perform transaction</source>
         <translation>No se pudo realizar la transacción</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="141"/>
+        <location filename="../qml/AdDisplay.qml" line="143"/>
         <source>Purchases restored!</source>
         <translation>¡Compras restauradas!</translation>
     </message>
@@ -114,57 +114,62 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="110"/>
+        <location filename="../qml/Pages/Settings.qml" line="126"/>
         <source>Piece</source>
         <translation>Pieza</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="119"/>
+        <location filename="../qml/Pages/Settings.qml" line="135"/>
         <source>First Turn</source>
         <translation>Primer Turno</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="128"/>
+        <location filename="../qml/Pages/Settings.qml" line="144"/>
         <source>Music</source>
         <translation>Música</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="136"/>
+        <location filename="../qml/Pages/Settings.qml" line="152"/>
         <source>Effects</source>
         <translation>Efectos</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="145"/>
+        <location filename="../qml/Pages/Settings.qml" line="161"/>
         <source>Borders</source>
         <translation>Bordes</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="166"/>
+        <location filename="../qml/Pages/Settings.qml" line="181"/>
         <source>Map Dimension</source>
         <translation>Dimensión del Mapa</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="183"/>
+        <location filename="../qml/Pages/Settings.qml" line="199"/>
         <source>AI Level</source>
         <translation>Nivel de la IA</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="187"/>
+        <location filename="../qml/Pages/Settings.qml" line="203"/>
         <source>Easy</source>
         <translation>Fácil</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="188"/>
+        <location filename="../qml/Pages/Settings.qml" line="204"/>
         <source>Normal</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="189"/>
+        <location filename="../qml/Pages/Settings.qml" line="205"/>
         <source>Hard</source>
         <translation>Difícil</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="208"/>
+        <location filename="../qml/Pages/Settings.qml" line="206"/>
+        <source>Very Hard</source>
+        <translation>Muy Difícil</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="225"/>
         <source>Pieces to Align</source>
         <translation>Piezas para Alinear</translation>
     </message>
@@ -173,12 +178,12 @@
         <translation type="vanished">Piezas para alinear</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="225"/>
+        <location filename="../qml/Pages/Settings.qml" line="242"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="262"/>
+        <location filename="../qml/Pages/Settings.qml" line="278"/>
         <source>Back</source>
         <translation>Atras</translation>
     </message>
@@ -186,22 +191,22 @@
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="315"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="309"/>
         <source>You lost the game!</source>
         <translation>¡Perdiste el juego!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="320"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="314"/>
         <source>You won the game!</source>
         <translation>¡Ganaste el juego!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="326"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="320"/>
         <source>Draw</source>
         <translation>Empate</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="370"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="366"/>
         <source>New Game</source>
         <translation>Nuevo Juego</translation>
     </message>
@@ -211,7 +216,7 @@
         <translation>Menú Principal</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="399"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="395"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>

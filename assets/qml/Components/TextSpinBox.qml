@@ -61,10 +61,10 @@ Item {
 
     onToChanged: updateModel()
     onFromChanged: updateModel()
+    onValueChanged: currentText.text = model [value - from]
+
     Component.onCompleted: updateModel()
     Layout.preferredHeight: layout.implicitHeight
-
-    onValueChanged: currentText.text = model [value - from]
 
     ColumnLayout {
         id: layout
