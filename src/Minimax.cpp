@@ -98,8 +98,8 @@ ComputerPlayer* Minimax::cpuPlayer() const {
 void Minimax::makeAiMove() {
     /* Init. variables */
     int move = INT_MIN;
-    int winMove = INT_MIN;
-    int saveMove = INT_MIN;
+    int offensive = INT_MIN;
+    int defensive = INT_MIN;
     int maxScore = INT_MIN;
 
     /* Initialize board objects */
@@ -121,22 +121,30 @@ void Minimax::makeAiMove() {
         SelectField (aiMove, field);
         SelectField (enemyMove, field);
 
-        /* We found a winning move, go for it and forget everything else */
-        if (aiMove.state == kGameWon) {
-            winMove = field;
-            break;
-        }
+        /* We found a winning move */
+        if (aiMove.state == kGameWon && cpuPlayer()->offensiveMoves())
+            offensive = field;
 
-        /* We found a threat, save it and check if we can find a win move */
-        else if (enemyMove.state == kGameWon)
-            saveMove = field;
+        /* We found a threat */
+        else if (enemyMove.state == kGameWon && cpuPlayer()->defensiveMoves())
+            defensive = field;
     }
 
-    /* Prefer winning moves rather than ass-saving moves */
-    if (winMove != INT_MIN)
-        move = winMove;
-    else if (saveMove != INT_MIN)
-        move = saveMove;
+    /* Prefer offensive moves rather than deffensive moves */
+    if (cpuPlayer()->preferOffensive()) {
+        if (offensive != INT_MIN)
+            move = offensive;
+        else if (defensive != INT_MIN)
+            move = defensive;
+    }
+
+    /* Prefer deffensive moves rather than offensive moves */
+    else {
+        if (defensive != INT_MIN)
+            move = defensive;
+        else if (offensive != INT_MIN)
+            move = offensive;
+    }
 
     /* Run the minimax algorithm if no win-or-loose sitations where found */
     if (move == INT_MIN) {

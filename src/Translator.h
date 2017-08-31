@@ -27,7 +27,7 @@
 #include <QTranslator>
 
 #ifdef QT_QML_LIB
-    #include <QtQml>
+#include <QtQml>
 #endif
 
 class Translator : public QObject {
@@ -46,10 +46,10 @@ class Translator : public QObject {
                 CONSTANT)
 #endif
 
-  signals:
+signals:
     void languageChanged();
 
-  public:
+public:
     explicit Translator();
 
     int language() const;
@@ -66,10 +66,10 @@ class Translator : public QObject {
 #endif
     }
 
-  public slots:
+public slots:
     void setLanguage (const int language);
 
-  private:
+private:
     int m_language;
     QTranslator m_translator;
 };

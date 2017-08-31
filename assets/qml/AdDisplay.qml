@@ -79,6 +79,16 @@ Item {
     onAdsEnabledChanged: displayBanner()
 
     //
+    // Configure the test devices on init.
+    //
+    Component.onCompleted: {
+        for (var i = 0; i < TestDevices.length; ++i) {
+            bannerAd.addTestDevice (TestDevices [i])
+            interstitialAd.addTestDevice (TestDevices [i])
+        }
+    }
+
+    //
     // Locate the banner when window size is changed
     //
     Connections {

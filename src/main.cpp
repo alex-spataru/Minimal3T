@@ -61,6 +61,7 @@ int main (int argc, char** argv) {
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
     engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
     engine.rootContext()->setContextProperty ("Translator", &translator);
+    engine.rootContext()->setContextProperty ("TestDevices", TEST_DEVICES);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());
     engine.rootContext()->setContextProperty ("Company", app.organizationName());

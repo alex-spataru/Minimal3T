@@ -28,7 +28,7 @@
 #include "QmlBoard.h"
 
 #ifdef QT_QML_LIB
-    #include <QtQml>
+#include <QtQml>
 #endif
 
 class ComputerPlayer : public QObject {
@@ -46,26 +46,43 @@ class ComputerPlayer : public QObject {
                 READ randomness
                 WRITE setRandomness
                 NOTIFY randomnessChanged)
+    Q_PROPERTY (bool offensiveMoves
+                READ offensiveMoves
+                WRITE setOffensiveMoves
+                NOTIFY behaviorChanged)
+    Q_PROPERTY (bool defensiveMoves
+                READ defensiveMoves
+                WRITE setDefensiveMoves
+                NOTIFY behaviorChanged)
+    Q_PROPERTY (bool preferOffensive
+                READ preferOffensive
+                WRITE setPreferOffensive
+                NOTIFY behaviorChanged)
 #endif
 
-  public:
+public:
     static void DeclareQML() {
 #ifdef QT_QML_LIB
         qmlRegisterType<ComputerPlayer> ("ComputerPlayer", 1, 0, "AI");
 #endif
     }
 
-  signals:
+signals:
     void boardChanged();
     void playerChanged();
+    void behaviorChanged();
     void randomnessChanged();
 
-  public:
+public:
     ComputerPlayer();
+
+    bool offensiveMoves() const;
+    bool defensiveMoves() const;
+    bool preferOffensive() const;
+
     int randomness() const;
     BoardPlayer player() const;
     BoardPlayer opponent() const;
-
 
     inline QmlBoard::Player qmlPlayer() const {
         return (QmlBoard::Player) player();
@@ -75,14 +92,20 @@ class ComputerPlayer : public QObject {
         return (QmlBoard::Player) opponent();
     }
 
-  public slots:
+public slots:
     void makeMove();
     void setRandomness (const int randomness);
+    void setOffensiveMoves (const bool enabled);
+    void setDefensiveMoves (const bool enabled);
+    void setPreferOffensive (const bool enabled);
     void setPlayer (const QmlBoard::Player player);
 
-  private:
+private:
     int m_randomness;
     BoardPlayer m_player;
+    bool m_offensiveMoves;
+    bool m_defensiveMoves;
+    bool m_preferOffensive;
 };
 
 #endif

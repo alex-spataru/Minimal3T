@@ -48,13 +48,22 @@ Overlay {
 
         switch (_aiLevel.value) {
         case 0:
-            AiPlayer.randomness = 7
+            AiPlayer.randomness = 8
+            AiPlayer.defensiveMoves = false
+            AiPlayer.offensiveMoves = false
+            AiPlayer.preferOffensive = false
             break
         case 1:
-            AiPlayer.randomness = 3
+            AiPlayer.randomness = 4
+            AiPlayer.defensiveMoves = true
+            AiPlayer.offensiveMoves = false
+            AiPlayer.preferOffensive = false
             break
         case 2:
             AiPlayer.randomness = 0
+            AiPlayer.defensiveMoves = true
+            AiPlayer.offensiveMoves = true
+            AiPlayer.preferOffensive = true
             break
         }
     }

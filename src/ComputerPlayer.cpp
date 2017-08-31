@@ -28,6 +28,33 @@
 ComputerPlayer::ComputerPlayer() {
     m_randomness = 0;
     m_player = kUndefined;
+    m_offensiveMoves = false;
+    m_defensiveMoves = false;
+    m_preferOffensive = false;
+}
+
+/**
+ * Returns \c true if the AI shall directly select fields that represent an
+ * immediate win situation for the AI
+ */
+bool ComputerPlayer::offensiveMoves() const {
+    return m_offensiveMoves;
+}
+
+/**
+ * Returns \c true if the AI shall directly select fields that represent an
+ * immediate loose situation for the AI
+ */
+bool ComputerPlayer::defensiveMoves() const {
+    return m_defensiveMoves;
+}
+
+/**
+ * Returns \c true, if, given the conditions, the AI shall prefer to select
+ * a winning field rather than a deffensive move
+ */
+bool ComputerPlayer::preferOffensive() const {
+    return m_preferOffensive;
 }
 
 /**
@@ -81,6 +108,30 @@ void ComputerPlayer::makeMove() {
 void ComputerPlayer::setRandomness (const int randomness) {
     m_randomness = randomness;
     emit randomnessChanged();
+}
+
+/**
+ * Enables or disables the offensive behavior of the AI based on the \a enabled
+ */
+void ComputerPlayer::setOffensiveMoves (const bool enabled) {
+    m_offensiveMoves = enabled;
+    emit behaviorChanged();
+}
+
+/**
+ * Enables or disables the defensive behavior of the AI based on the \a enabled
+ */
+void ComputerPlayer::setDefensiveMoves (const bool enabled) {
+    m_defensiveMoves = enabled;
+    emit behaviorChanged();
+}
+
+/**
+ * Changes how merciful the AI is with the player :)
+ */
+void ComputerPlayer::setPreferOffensive (const bool enabled) {
+    m_preferOffensive = enabled;
+    emit behaviorChanged();
 }
 
 /**

@@ -31,27 +31,28 @@ class ComputerPlayer;
 class Minimax : public QObject {
     Q_OBJECT
 
-  signals:
+signals:
     void finished();
     void aiFinished (const int);
 
-  public:
+public:
     explicit Minimax();
 
     int decision() const;
     bool decisionTaken() const;
     ComputerPlayer* cpuPlayer() const;
+
     int maximumDepth (const Board& board);
 
-  public slots:
+public slots:
     void makeAiMove();
     void setComputerPlayer (ComputerPlayer* player);
 
-  private slots:
+private slots:
     void selectRandomField();
     void setDecision (const int decision);
 
-  private:
+private:
     int minimax (Board& board, int depth, int alpha, int beta);
 
     QVector<int> availableCorners (const Board& board);
@@ -59,7 +60,7 @@ class Minimax : public QObject {
     QVector<int> considerableFields (const Board& board, const int depth);
     QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
 
-  private:
+private:
     int m_decision;
     ComputerPlayer* m_cpuPlayer;
 };
