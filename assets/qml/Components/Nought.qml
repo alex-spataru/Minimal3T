@@ -43,36 +43,36 @@ Item {
     property string lineColor: "#fff"
 
     //
-    // Used to draw the circle, do not change please
+    // Used to draw the circle, do not change
     //
-    property real angle: hidden ? 0 : 2 * Math.PI
+    property real _angle: hidden ? 0 : 2 * Math.PI
 
     //
-    // Redraw the canvas when the perimeter is changed
+    // Redraw the canvas when the angle is changed
     //
-    onAngleChanged: canvas.requestPaint()
+    on_AngleChanged: canvas.requestPaint()
 
     //
     // Set the angle to draw a complete circle
     //
     function show() {
-        angleBehavior.enabled = true
-        angle = 2 * Math.PI
+        _aBehavior.enabled = true
+        _angle = 2 * Math.PI
     }
 
     //
-    // Reset the lines
+    // Reset the angle and disable the animations
     //
     function hide() {
-        angleBehavior.enabled = false
-        angle = 0
+        _aBehavior.enabled = false
+        _angle = 0
     }
 
     //
-    // Slowly draw the circle
+    // Use an animation when drawing the circle
     //
-    Behavior on angle {
-        id: angleBehavior
+    Behavior on _angle {
+        id: _aBehavior
         enabled: false
 
         NumberAnimation {
@@ -113,7 +113,7 @@ Item {
             /* Draw circle */
             if (radius > 0) {
                 ctx.beginPath()
-                ctx.arc (centerX, centerY, radius, 0, angle)
+                ctx.arc (centerX, centerY, radius, 0, _angle)
                 ctx.stroke()
             }
         }

@@ -37,65 +37,65 @@ Item {
     property string lineColor: "#fff"
 
     //
-    // Used to draw the cross, do not change them please
+    // Used to draw the cross, do not change them
     //
-    property real lineA: hidden ? 0 : item.width
-    property real lineB: hidden ? 0 : item.width
+    property real _diagA: hidden ? 0 : item.width
+    property real _diagB: hidden ? 0 : item.width
 
     //
     // Redraw the canvas when the line values are changed
     //
-    onLineAChanged: canvas.requestPaint()
-    onLineBChanged: canvas.requestPaint()
+    on_DiagAChanged: canvas.requestPaint()
+    on_DiagBChanged: canvas.requestPaint()
 
     //
     // Draw the first line, when the animation of the first line finishes,
     // then the second line shall be drawn
     //
     function show() {
-        lineABehavior.enabled = true
-        lineBBehavior.enabled = true
+        _dABehavior.enabled = true
+        _dBBehavior.enabled = true
 
-        lineB = 0
-        lineA = canvas.width
+        _diagB = 0
+        _diagA = canvas.width
     }
 
     //
     // Reset the lines
     //
     function hide() {
-        lineABehavior.enabled = false
-        lineBBehavior.enabled = false
+        _dABehavior.enabled = false
+        _dBBehavior.enabled = false
 
-        lineA = 0
-        lineB = 0
+        _diagA = 0
+        _diagB = 0
     }
 
     //
     // Draw the first line, when finished, draw the second line
     //
-    Behavior on lineA {
-        id: lineABehavior
+    Behavior on _diagA {
+        id: _dABehavior
         enabled: false
 
         NumberAnimation {
-            duration: app.pieceAnimation
+            duration: app.pieceAnimation / 2
             onRunningChanged: {
-                if (!running && lineA === canvas.width)
-                    lineB = lineA
+                if (!running && _diagA > 0)
+                    _diagB = _diagA
             }
         }
     }
 
     //
-    // Slowly draw the second line
+    // Draw the second line
     //
-    Behavior on lineB {
-        id: lineBBehavior
+    Behavior on _diagB {
+        id: _dBBehavior
         enabled: false
 
         NumberAnimation {
-            duration: app.pieceAnimation
+            duration: app.pieceAnimation / 2
         }
     }
 
@@ -123,19 +123,19 @@ Item {
             ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
 
             /* Draw line A */
-            if (lineA > 0 && canvas.width > 0) {
+            if (_diagA > 0 && canvas.width > 0) {
                 ctx.beginPath()
                 ctx.moveTo (canvas.width, 0)
-                ctx.lineTo (canvas.width - lineA, lineA)
+                ctx.lineTo (canvas.width - _diagA, _diagA)
                 ctx.closePath()
                 ctx.stroke()
             }
 
             /* Draw line B */
-            if (lineB > 0 && canvas.width > 0) {
+            if (_diagB > 0 && canvas.width > 0) {
                 ctx.beginPath()
                 ctx.moveTo (0, 0)
-                ctx.lineTo (lineB, lineB)
+                ctx.lineTo (_diagB, _diagB)
                 ctx.closePath()
                 ctx.stroke()
             }

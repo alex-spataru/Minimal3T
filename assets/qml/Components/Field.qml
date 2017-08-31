@@ -71,6 +71,9 @@ Item {
     // Displays the appropiate piece given the field owner
     //
     function drawPiece() {
+        if (fieldNumber < 0 || fieldNumber >= Board.numFields)
+            return
+
         _symbol.opacity = 1
 
         var owner = Board.fieldOwner (fieldNumber)

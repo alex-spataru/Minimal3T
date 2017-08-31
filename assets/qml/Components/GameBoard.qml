@@ -39,21 +39,21 @@ Item {
     property real lineWidth: app.spacing / 5
 
     //
-    // For drawing the winning lines
+    // For drawing the winning line
     //
-    property real x1: 0
-    property real x2: 0
-    property real y1: 0
-    property real y2: 0
-    property real lineLength: 0
+    property real _wl_xA: 0
+    property real _wl_xB: 0
+    property real _wl_yA: 0
+    property real _wl_yB: 0
+    property real _wl_limit: 0
 
     //
     // Calculate tile size on init
     //
     onGridWidthChanged: redraw()
-    onLineLengthChanged: redraw()
     onGridHeightChanged: redraw()
     Component.onCompleted: redraw()
+    on_Wl_limitChanged: redraw()
 
     //
     // Calculates the appropiate size of the game fields/tiles
@@ -75,43 +75,43 @@ Item {
             var fieldB = Board.allignedFields() [Board.fieldsToAllign - 1]
 
             /* Get location of both fields */
-            x1 = repeater.itemAt (fieldA).x
-            y1 = repeater.itemAt (fieldA).y
-            x2 = repeater.itemAt (fieldB).x
-            y2 = repeater.itemAt (fieldB).y
+            _wl_xA = repeater.itemAt (fieldA).x
+            _wl_yA = repeater.itemAt (fieldA).y
+            _wl_xB = repeater.itemAt (fieldB).x
+            _wl_yB = repeater.itemAt (fieldB).y
 
             /* Update the points to create a line between corners */
-            if (y1 == y2) {
-                y1 += cellSize / 2
-                y2 += cellSize / 2
-                x2 += cellSize / 2
-            } else if (x1 > x2) {
-                x1 += cellSize
-                y2 += cellSize
-            } else if (x1 < x2) {
-                x2 += cellSize
-                y2 += cellSize
-            } else if (x1 == x2) {
-                x1 += cellSize / 2
-                x2 += cellSize / 2
-                y2 += cellSize
+            if (_wl_yA == _wl_yB) {
+                _wl_yA += cellSize / 2
+                _wl_yB += cellSize / 2
+                _wl_xB += cellSize
+            } else if (_wl_xA > _wl_xB) {
+                _wl_xA += cellSize
+                _wl_yB += cellSize
+            } else if (_wl_xA < _wl_xB) {
+                _wl_xB += cellSize
+                _wl_yB += cellSize
+            } else if (_wl_xA == _wl_xB) {
+                _wl_xA += cellSize / 2
+                _wl_xB += cellSize / 2
+                _wl_yB += cellSize
             }
 
             /* Set line length to 0 (inverse prop. to drawn line) */
-            lineLength = 0
+            _wl_limit = 0
         }
 
         else {
-            x1 = 0; y1 = 0
-            x2 = 0; y2 = 0
-            lineLength = cellSize * Board.fieldsToAllign
+            _wl_xA = 0; _wl_yA = 0
+            _wl_xB = 0; _wl_yB = 0
+            _wl_limit = cellSize * Board.fieldsToAllign
         }
     }
 
     //
     // Animate winning line
     //
-    Behavior on lineLength { NumberAnimation{} }
+    Behavior on _wl_limit { NumberAnimation {duration: pieceAnimation} }
 
     //
     // Redraw board canvas when board size is changed
@@ -119,10 +119,7 @@ Item {
     Connections {
         target: Board
         onBoardSizeChanged: board.redraw()
-        onGameStateChanged: {
-            findWinningLine()
-            board.redraw()
-        }
+        onGameStateChanged: findWinningLine()
     }
 
     //
@@ -212,20 +209,18 @@ Item {
 
             /* Draw the winning line */
             if (Board.gameWon) {
-                var fx = x2
-                var fy = y2
+                var fx = _wl_xB
+                var fy = _wl_yB
 
                 /* Get end point based on line length */
-                if (lineLength > 0) {
-                    if (x2 > x1)
-                        fx -= lineLength
-                    else if (x2 < x1)
-                        fx += lineLength
-                    if (y2 > y1)
-                        fy -= lineLength
-                    else if (y2 < y1)
-                        fy += lineLength
-                }
+                if (_wl_xB > _wl_xA)
+                    fx -= _wl_limit
+                else if (_wl_xB < _wl_xA)
+                    fx += _wl_limit
+                if (_wl_yB > _wl_yA)
+                    fy -= _wl_limit
+                else if (_wl_yB < _wl_yA)
+                    fy += _wl_limit
 
                 /* Set line style */
                 ctx.strokeStyle = "#fff"
@@ -233,7 +228,7 @@ Item {
 
                 /* Draw the line */
                 ctx.beginPath()
-                ctx.moveTo (x1, y1)
+                ctx.moveTo (_wl_xA, _wl_yA)
                 ctx.lineTo (fx, fy)
                 ctx.closePath()
                 ctx.stroke()
