@@ -45,8 +45,8 @@ Item {
     //
     // Redraw the canvas when the line values are changed
     //
-    onLineAChanged: canvasA.requestPaint()
-    onLineBChanged: canvasB.requestPaint()
+    onLineAChanged: canvas.requestPaint()
+    onLineBChanged: canvas.requestPaint()
 
     //
     // Draw the first line, when the animation of the first line finishes,
@@ -57,7 +57,7 @@ Item {
         lineBBehavior.enabled = true
 
         lineB = 0
-        lineA = item.width
+        lineA = canvas.width
     }
 
     //
@@ -81,8 +81,8 @@ Item {
         NumberAnimation {
             duration: app.pieceAnimation
             onRunningChanged: {
-                if (!running && lineA === item.width)
-                    lineB = item.width
+                if (!running && lineA === canvas.width)
+                    lineB = lineA
             }
         }
     }
@@ -100,65 +100,36 @@ Item {
     }
 
     //
-    // First line canvas
+    // Canvas
     //
     Canvas {
-        id: canvasA
-        smooth: true
-        anchors.fill: parent
+        id: canvas
         anchors.centerIn: parent
+        width: parent.width * 0.95
+        height: parent.height * 0.95
         renderStrategy: Canvas.Threaded
-        renderTarget: Canvas.FramebufferObject
 
         onPaint: {
-            /* Get context */
+            /* Get context and clear canvas */
             var ctx = getContext("2d")
-
-            /* Reset and fill with transparent background */
-            ctx.reset()
-            ctx.fillStyle = "transparent"
-
-            /* Set line properties */
             ctx.lineCap = 'round'
             ctx.lineWidth = item.lineWidth
             ctx.strokeStyle = item.lineColor
 
-            /* Draw line */
-            if (lineA > 0 && canvasA.width > 0) {
+            /* Clear canvas */
+            ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
+
+            /* Draw line A */
+            if (lineA > 0 && canvas.width > 0) {
                 ctx.beginPath()
-                ctx.moveTo (canvasA.width, 0)
-                ctx.lineTo (canvasA.width - lineA, lineA)
+                ctx.moveTo (canvas.width, 0)
+                ctx.lineTo (canvas.width - lineA, lineA)
                 ctx.closePath()
                 ctx.stroke()
             }
-        }
-    }
 
-    //
-    // Second line canvas
-    //
-    Canvas {
-        id: canvasB
-        smooth: true
-        anchors.fill: parent
-        anchors.centerIn: parent
-        renderStrategy: Canvas.Threaded
-        renderTarget: Canvas.FramebufferObject
-
-        onPaint: {
-            /* Get context */
-            var ctx = getContext("2d")
-
-            /* Reset and fill with transparent background */
-            ctx.reset()
-            ctx.fillStyle = "transparent"
-
-            /* Set line properties */
-            ctx.lineWidth = item.lineWidth;
-            ctx.strokeStyle = item.lineColor;
-
-            /* Draw line */
-            if (lineB > 0 && canvasB.width > 0) {
+            /* Draw line B */
+            if (lineB > 0 && canvas.width > 0) {
                 ctx.beginPath()
                 ctx.moveTo (0, 0)
                 ctx.lineTo (lineB, lineB)

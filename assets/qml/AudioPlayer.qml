@@ -38,10 +38,11 @@ Item {
     Component.onCompleted: playMusic()
 
     //
-    // Ceates a temporary SoundEffect type that plays the given file
+    // Executes a 'switch' to play the given file, if the switch defaults, then
+    // the sound effect shall be played dinamically
     //
     function playSoundEffect (file) {
-        if (enableSoundEffects && app.visible) {
+        function dynamicSoundEffect (file) {
             var qmlSourceCode = "import QtQuick 2.0;" +
                     "import QtMultimedia 5.0;" +
                     "SoundEffect {" +
@@ -49,6 +50,24 @@ Item {
                     "   Component.onCompleted: play(); " +
                     "   onPlayingChanged: if (!playing) destroy (100); }"
             Qt.createQmlObject (qmlSourceCode, app, "SoundEffects")
+        }
+
+        if (!enableSoundEffects || !app.visible)
+            return
+
+        switch(file) {
+        case "win": win.play(); break;
+        case "loose": loose.play(); break;
+        case "click": click.play(); break;
+        case "notes/a": noteA.play(); break;
+        case "notes/b": noteB.play(); break;
+        case "notes/c": noteC.play(); break;
+        case "notes/d": noteD.play(); break;
+        case "notes/e": noteE.play(); break;
+        case "notes/f": noteF.play(); break;
+        case "notes/g": noteG.play(); break;
+        case "game-start": gameStart.play(); break;
+        default: dynamicSoundEffect(file); break;
         }
     }
 
@@ -84,5 +103,65 @@ Item {
         loops: Audio.Infinite
         audioRole: Audio.GameRole
         source: "qrc:/sounds/loop.ogg"
+    }
+
+    //
+    // SoundEffect Army
+    //
+    Item {
+        SoundEffect {
+            id: click
+            source: "qrc:/sounds/effects/click.wav"
+        }
+
+        SoundEffect {
+            id: win
+            source: "qrc:/sounds/effects/win.wav"
+        }
+
+        SoundEffect {
+            id: loose
+            source: "qrc:/sounds/effects/loose.wav"
+        }
+
+        SoundEffect {
+            id: gameStart
+            source: "qrc:/sounds/effects/game_start.wav"
+        }
+
+        SoundEffect {
+            id: noteA
+            source: "qrc:/sounds/notes/a.wav"
+        }
+
+        SoundEffect {
+            id: noteB
+            source: "qrc:/sounds/notes/b.wav"
+        }
+
+        SoundEffect {
+            id: noteC
+            source: "qrc:/sounds/notes/c.wav"
+        }
+
+        SoundEffect {
+            id: noteD
+            source: "qrc:/sounds/notes/d.wav"
+        }
+
+        SoundEffect {
+            id: noteE
+            source: "qrc:/sounds/notes/e.wav"
+        }
+
+        SoundEffect {
+            id: noteF
+            source: "qrc:/sounds/notes/f.wav"
+        }
+
+        SoundEffect {
+            id: noteG
+            source: "qrc:/sounds/notes/g.wav"
+        }
     }
 }

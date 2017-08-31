@@ -83,24 +83,19 @@ Item {
         smooth: true
         anchors.fill: parent
         anchors.centerIn: parent
+        renderStrategy: Canvas.Threaded
         anchors.margins: -2 * item.lineWidth
         anchors.verticalCenterOffset: -2 * item.lineWidth
         anchors.horizontalCenterOffset: -2 * item.lineWidth
 
-        renderStrategy: Canvas.Threaded
-        renderTarget: Canvas.FramebufferObject
-
         onPaint: {
-            /* Get context */
-            var ctx = canvas.getContext ("2d")
-
             /* Reset and fill with transparent background */
-            ctx.reset()
-            ctx.fillStyle = "transparent"
-
-            /* Set line properties */
+            var ctx = canvas.getContext ("2d")
             ctx.lineWidth = item.lineWidth;
             ctx.strokeStyle = item.lineColor;
+
+            /* Clear canvas */
+            ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
 
             /* Calcualte center and radius */
             var radius = item.width / 2

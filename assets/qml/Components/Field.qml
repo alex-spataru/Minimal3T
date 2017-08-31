@@ -64,15 +64,13 @@ Item {
         while (note >= notes.length)
             note -= notes.length
 
-        app.playSoundEffect ("qrc:/sounds/notes/" + notes [note] + ".wav")
+        app.playSoundEffect ("notes/" + notes [note])
     }
 
     //
     // Displays the appropiate piece given the field owner
     //
     function drawPiece() {
-        _cross.hide()
-        _nought.hide()
         _symbol.opacity = 1
 
         var owner = Board.fieldOwner (fieldNumber)
@@ -83,6 +81,11 @@ Item {
                 _nought.show()
 
             playRandomNote()
+        }
+
+        else {
+            _cross.hide()
+            _nought.hide()
         }
     }
 

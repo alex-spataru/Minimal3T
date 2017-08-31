@@ -133,7 +133,7 @@ Overlay {
 
             onClicked: {
                 overlay.hide()
-                app.playSoundEffect ("qrc:/sounds/effects/click.wav")
+                app.playSoundEffect ("click")
             }
         }
     }

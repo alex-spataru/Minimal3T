@@ -177,13 +177,13 @@ Page {
 
             if (Board.gameWon) {
                 if (Board.winner === AiPlayer.opponent)
-                    app.playSoundEffect ("qrc:/sounds/effects/win.wav")
+                    app.playSoundEffect ("win")
                 else
-                    app.playSoundEffect ("qrc:/sounds/effects/loose.wav")
+                    app.playSoundEffect ("loose")
             }
 
             if (Board.gameDraw)
-                app.playSoundEffect ("qrc:/sounds/effects/loose.wav")
+                app.playSoundEffect ("loose")
 
             updateScores()
             updateClickableFields()
@@ -373,6 +373,7 @@ Page {
                 onClicked: {
                     prompt.hide()
                     app.startNewGame()
+                    app.playSoundEffect ("click")
                 }
             }
 
@@ -385,6 +386,7 @@ Page {
                 onClicked: {
                     stack.pop()
                     prompt.hide()
+                    app.playSoundEffect ("click")
                 }
             }
 
@@ -393,11 +395,15 @@ Page {
             }
 
             Button {
-                onClicked: settings.open()
                 font.pixelSize: app.mediumLabel - 2
                 Layout.preferredWidth: app.paneWidth
                 text: qsTr ("Settings") + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: {
+                    settings.open()
+                    app.playSoundEffect ("click")
+                }
             }
         }
     }

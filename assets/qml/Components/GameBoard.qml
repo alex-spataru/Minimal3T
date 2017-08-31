@@ -82,7 +82,6 @@ Item {
         id: canvas
         smooth: true
         renderStrategy: Canvas.Threaded
-        renderTarget: Canvas.FramebufferObject
 
         anchors {
             fill: parent

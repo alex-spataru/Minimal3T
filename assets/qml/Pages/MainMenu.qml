@@ -41,8 +41,8 @@ Page {
     //
     // Sound effects
     //
-    onMultiplayerClicked: app.playSoundEffect ("qrc:/sounds/effects/click.wav")
-    onSingleplayerClicked: app.playSoundEffect ("qrc:/sounds/effects/game_start.wav")
+    onMultiplayerClicked: app.playSoundEffect ("click")
+    onSingleplayerClicked: app.playSoundEffect ("game-start")
 
     //
     // Transparent bacground
