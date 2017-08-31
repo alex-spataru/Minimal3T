@@ -39,9 +39,19 @@ Item {
     property real lineWidth: app.spacing / 5
 
     //
+    // For drawing the winning lines
+    //
+    property real x1: 0
+    property real x2: 0
+    property real y1: 0
+    property real y2: 0
+    property real lineLength: 0
+
+    //
     // Calculate tile size on init
     //
     onGridWidthChanged: redraw()
+    onLineLengthChanged: redraw()
     onGridHeightChanged: redraw()
     Component.onCompleted: redraw()
 
@@ -56,11 +66,63 @@ Item {
     }
 
     //
+    // Finds the (x,y) coordinates of the winning fields
+    //
+    function findWinningLine() {
+        if (Board.gameWon) {
+            /* Get first and last winning fields */
+            var fieldA = Board.allignedFields() [0]
+            var fieldB = Board.allignedFields() [Board.fieldsToAllign - 1]
+
+            /* Get location of both fields */
+            x1 = repeater.itemAt (fieldA).x
+            y1 = repeater.itemAt (fieldA).y
+            x2 = repeater.itemAt (fieldB).x
+            y2 = repeater.itemAt (fieldB).y
+
+            /* Update the points to create a line between corners */
+            if (y1 == y2) {
+                y1 += cellSize / 2
+                y2 += cellSize / 2
+                x2 += cellSize / 2
+            } else if (x1 > x2) {
+                x1 += cellSize
+                y2 += cellSize
+            } else if (x1 < x2) {
+                x2 += cellSize
+                y2 += cellSize
+            } else if (x1 == x2) {
+                x1 += cellSize / 2
+                x2 += cellSize / 2
+                y2 += cellSize
+            }
+
+            /* Set line length to 0 (inverse prop. to drawn line) */
+            lineLength = 0
+        }
+
+        else {
+            x1 = 0; y1 = 0
+            x2 = 0; y2 = 0
+            lineLength = cellSize * Board.fieldsToAllign
+        }
+    }
+
+    //
+    // Animate winning line
+    //
+    Behavior on lineLength { NumberAnimation{} }
+
+    //
     // Redraw board canvas when board size is changed
     //
     Connections {
         target: Board
         onBoardSizeChanged: board.redraw()
+        onGameStateChanged: {
+            findWinningLine()
+            board.redraw()
+        }
     }
 
     //
@@ -91,11 +153,7 @@ Item {
         onPaint: {
             /* Get context */
             var ctx = getContext (contextType)
-
-            /* Set line style */
             ctx.lineCap = 'round'
-            ctx.strokeStyle = "#fff"
-            ctx.lineWidth = board.lineWidth
 
             /* Clear canvas */
             ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
@@ -109,6 +167,10 @@ Item {
             /* Abort drawing if cell width is invalid */
             if (cellSize <= 0)
                 return;
+
+            /* Set line style */
+            ctx.strokeStyle = "#fff"
+            ctx.lineWidth = board.lineWidth
 
             /* Draw columns */
             for (var x = initialValue; x < boardSize; ++x) {
@@ -147,6 +209,35 @@ Item {
                 ctx.closePath()
                 ctx.stroke()
             }
+
+            /* Draw the winning line */
+            if (Board.gameWon) {
+                var fx = x2
+                var fy = y2
+
+                /* Get end point based on line length */
+                if (lineLength > 0) {
+                    if (x2 > x1)
+                        fx -= lineLength
+                    else if (x2 < x1)
+                        fx += lineLength
+                    if (y2 > y1)
+                        fy -= lineLength
+                    else if (y2 < y1)
+                        fy += lineLength
+                }
+
+                /* Set line style */
+                ctx.strokeStyle = "#fff"
+                ctx.lineWidth = 0//board.lineWidth
+
+                /* Draw the line */
+                ctx.beginPath()
+                ctx.moveTo (x1, y1)
+                ctx.lineTo (fx, fy)
+                ctx.closePath()
+                ctx.stroke()
+            }
         }
     }
 
@@ -171,6 +262,7 @@ Item {
         // Tile/filed generator
         //
         Repeater {
+            id: repeater
             model: grid.rows * grid.columns
 
             Field {
