@@ -284,4 +284,12 @@ Item {
             }
         }
     }
+
+    //
+    // Fool-proof for avoiding user input
+    //
+    MouseArea {
+        anchors.fill: parent
+        enabled: !clickableFields
+    }
 }

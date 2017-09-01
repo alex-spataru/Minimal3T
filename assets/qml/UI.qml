@@ -145,6 +145,7 @@ Item {
                 }
 
                 MenuItem {
+                    enabled: singlePlayer.visible ? Board.currentPlayer !== AiPlayer.player : true
                     text: qsTr ("Settings") + Translator.dummy
                     onClicked: {
                         settings.open()

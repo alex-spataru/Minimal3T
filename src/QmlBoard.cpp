@@ -209,7 +209,7 @@ void QmlBoard::selectField (const int field) {
  * Updates the board \a size and resets the game
  */
 void QmlBoard::setBoardSize (const int size) {
-    ResizeBoard (m_board, size);
+    ResizeBoard (m_board, qMax (qMin (size, 10), 3));
 
     emit boardReset();
     emit turnChanged();
@@ -222,10 +222,7 @@ void QmlBoard::setBoardSize (const int size) {
  * to win the game
  */
 void QmlBoard::setFieldsToAllign (const int fields) {
-    Q_ASSERT (fields <= boardSize());
-    Q_ASSERT (fields >= 3);
-
-    m_board.fieldsToAllign = fields;
+    m_board.fieldsToAllign = qMax (qMin (fields, boardSize()), 3);
     emit fieldsToAllignChanged();
 }
 

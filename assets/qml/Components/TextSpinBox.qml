@@ -91,7 +91,11 @@ Item {
                 Behavior on opacity { NumberAnimation{} }
 
                 MouseArea {
-                    onClicked: --value
+                    onClicked: {
+                        if (value > from)
+                            --value
+                    }
+
                     anchors.fill: parent
                     enabled: parent.opacity == 1
                 }
@@ -114,7 +118,11 @@ Item {
                 Behavior on opacity { NumberAnimation{} }
 
                 MouseArea {
-                    onClicked: ++value
+                    onClicked: {
+                        if (value < to)
+                            ++value
+                    }
+
                     anchors.fill: parent
                     enabled: parent.opacity == 1
                 }
