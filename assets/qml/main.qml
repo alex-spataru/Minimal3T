@@ -146,12 +146,6 @@ ApplicationWindow {
     //
     background: ColorRectangle {
         anchors.fill: parent
-
-        Stars {
-            opacity: 0.2
-            verticalSpeed: 0.1
-            anchors.fill: parent
-        }
     }
 
     //

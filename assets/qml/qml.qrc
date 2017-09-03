@@ -20,6 +20,5 @@
         <file>Components/Dots.qml</file>
         <file>Components/Cross.qml</file>
         <file>Components/Nought.qml</file>
-        <file>Components/Stars.qml</file>
     </qresource>
 </RCC>
