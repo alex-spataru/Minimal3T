@@ -54,7 +54,8 @@ Page {
     //
     ColumnLayout {
         spacing: 0
-        anchors.fill: parent
+        Layout.fillWidth: true
+        Layout.fillHeight: true
         anchors.centerIn: parent
         anchors.margins: 2 * app.spacing
 
@@ -154,7 +155,6 @@ Page {
         //
         RowLayout {
             id: buttons
-            spacing: 0.0
             Layout.fillWidth: true
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
