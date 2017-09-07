@@ -154,6 +154,11 @@ Item {
                 }
 
                 MenuItem {
+                    onClicked: app.restorePurchases()
+                    text: qsTr ("Restore Purchases") + Translator.dummy
+                }
+
+                MenuItem {
                     text: qsTr ("Rate") + Translator.dummy
                     onClicked: {
                         openWebsite()

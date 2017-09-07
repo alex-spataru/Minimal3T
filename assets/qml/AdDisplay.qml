@@ -25,12 +25,24 @@ import QtPurchasing 1.0
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
+
+import Qt.labs.settings 1.0
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
 Item {
+    id: ads
     property bool adsEnabled: false
     property bool removeAdsBought: false
+
+    //
+    // Save ad-settings (used by the purchases)
+    //
+    Settings {
+        category: "ads"
+        property alias enabled: ads.adsEnabled
+        property alias bought:  ads.removeAdsBought
+    }
 
     //
     // Locates the banner on the bottom of the screen
@@ -59,6 +71,13 @@ Item {
     }
 
     //
+    // Restores the user's purchased items
+    //
+    function restorePurchaseS() {
+        store.restorePurchases()
+    }
+
+    //
     // Shows the interstitial ad
     //
     function showInterstitialAd() {
@@ -75,17 +94,6 @@ Item {
     }
 
     //
-    // Configure the test devices on init.
-    //
-    Component.onCompleted: {
-        store.restorePurchases()
-        for (var i = 0; i < TestDevices.length; ++i) {
-            bannerAd.addTestDevice (TestDevices [i])
-            interstitialAd.addTestDevice (TestDevices [i])
-        }
-    }
-
-    //
     // Locate the banner when window size is changed
     //
     Connections {
@@ -95,16 +103,30 @@ Item {
     }
 
     //
-    // Waits five seconds to check if the user has purchased the 'remove ads'
-    // extension
+    // Shows or hides the ads
     //
-    Timer {
-        id: timer
-        interval: 5000
-        onTriggered: {
-            if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
-                adsEnabled = true
+    Component.onCompleted: {
+        /* Configure test devices */
+        for (var i = 0; i < TestDevices.length; ++i) {
+            bannerAd.addTestDevice (TestDevices [i])
+            interstitialAd.addTestDevice (TestDevices [i])
         }
+
+        /* Enable ads if needed */
+        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios") {
+            adsEnabled = true
+            bannerAd.visible = true
+        }
+
+        /* Hide ads */
+        else {
+            adsEnabled = false
+            removeAdsBought = true
+            bannerAd.visible = false
+        }
+
+        /* Update banner position */
+        displayBanner()
     }
 
     //
@@ -136,6 +158,8 @@ Item {
             onPurchaseRestored: {
                 adsEnabled = false
                 removeAdsBought = true
+                messageBox.title = qsTr ("Purchases Restored!") + Translator.dummy
+                messageBox.open()
             }
 
             onStatusChanged: timer.start()

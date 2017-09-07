@@ -43,6 +43,7 @@ Page {
     property int p2Wins: 0
     property int p1TotalWins: 0
     property int p2TotalWins: 0
+    property string overlayTitle: ""
 
     //
     // Updates number of dots shown above and below the game board
@@ -306,18 +307,18 @@ Page {
             if (Board.gameWon) {
                 if (Board.winner === AiPlayer.player) {
                     logo.source = "qrc:/images/frown.svg"
-                    title.text = qsTr ("You lost the game!") + Translator.dummy
+                    overlayTitle = qsTr ("You lost the game!")
                 }
 
                 else {
                     logo.source = "qrc:/images/smile.svg"
-                    title.text = qsTr ("You won the game!") + Translator.dummy
+                    overlayTitle = qsTr ("You won the game!")
                 }
             }
 
             else if (Board.gameDraw) {
                 logo.source = "qrc:/images/meh.svg"
-                title.text = qsTr ("Draw") + Translator.dummy
+                overlayTitle = qsTr ("Draw")
             }
 
             if (page.enabled) {
@@ -346,9 +347,9 @@ Page {
             }
 
             Label {
-                id: title
                 font.bold: true
                 font.pixelSize: 28
+                text: overlayTitle + Translator.dummy
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 

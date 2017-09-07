@@ -76,9 +76,9 @@ ApplicationWindow {
     // Function aliases
     //
     function removeAds()              { ads.removeAds() }
+    function restorePurchases()       { ads.restorePurchases() }
     function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
-
     //
     // Returns true if we should display a cross for the given player
     //

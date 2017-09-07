@@ -4,7 +4,7 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../qml/Pages/About.qml" line="50"/>
+        <location filename="../qml/Pages/About.qml" line="54"/>
         <source>SuperTac %1</source>
         <translation>SuperTac %1</translation>
     </message>
@@ -42,20 +42,25 @@
 <context>
     <name>AdDisplay</name>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="123"/>
+        <location filename="../qml/AdDisplay.qml" line="145"/>
         <source>Thanks for your purchase!</source>
         <translation>谢谢你的惠顾！</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="132"/>
+        <location filename="../qml/AdDisplay.qml" line="154"/>
         <source>Failed to perform transaction</source>
         <translation>无法执行交易</translation>
+    </message>
+    <message>
+        <location filename="../qml/AdDisplay.qml" line="161"/>
+        <source>Purchases Restored!</source>
+        <translation>购买恢复了！</translation>
     </message>
 </context>
 <context>
     <name>MainMenu</name>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="73"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="76"/>
         <source>SuperTac</source>
         <translation></translation>
     </message>
@@ -223,12 +228,17 @@
     </message>
     <message>
         <location filename="../qml/UI.qml" line="157"/>
+        <source>Restore Purchases</source>
+        <translation>恢复购买</translation>
+    </message>
+    <message>
+        <location filename="../qml/UI.qml" line="162"/>
         <source>Rate</source>
         <translation>评估</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="215"/>
-        <location filename="../qml/UI.qml" line="225"/>
+        <location filename="../qml/UI.qml" line="220"/>
+        <location filename="../qml/UI.qml" line="230"/>
         <source>Match</source>
         <translation>赛</translation>
     </message>

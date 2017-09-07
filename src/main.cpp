@@ -36,7 +36,7 @@
 #include "ComputerPlayer.h"
 
 int main (int argc, char** argv) {
-    QGuiApplication::setApplicationVersion ("1.2");
+    QGuiApplication::setApplicationVersion ("1.2.1");
     QGuiApplication::setApplicationName ("SuperTac");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);

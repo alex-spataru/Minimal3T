@@ -111,7 +111,7 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
 
 android {
     # Uncomment this line if releasing to the Play Store
-    #android:DEFINES += ENABLE_REAL_ADS
+    android:DEFINES += ENABLE_REAL_ADS
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/res/values/libs.xml \
