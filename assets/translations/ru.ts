@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en" sourcelanguage="en">
+<TS version="2.1" language="ru" sourcelanguage="en">
 <context>
     <name>About</name>
     <message>
         <location filename="../qml/Pages/About.qml" line="50"/>
         <source>SuperTac %1</source>
-        <translation></translation>
+        <translation>СуперТак %1</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="63"/>
         <source>Developed by %1</source>
-        <translation></translation>
+        <translation>Разработано %1</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="74"/>
         <source>Music by %1</source>
-        <translation></translation>
+        <translation>Музыка от %1</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="87"/>
         <source>Rate</source>
-        <translation></translation>
+        <translation>Оценить</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="93"/>
         <source>GitHub Project</source>
-        <translation></translation>
+        <translation>Проект GitHub</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="101"/>
         <source>Contact Developer</source>
-        <translation></translation>
+        <translation>Контакты</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="128"/>
         <source>Back</source>
-        <translation></translation>
+        <translation>Вернуть</translation>
     </message>
 </context>
 <context>
@@ -44,12 +44,12 @@
     <message>
         <location filename="../qml/AdDisplay.qml" line="123"/>
         <source>Thanks for your purchase!</source>
-        <translation></translation>
+        <translation>Спасибо за покупку!</translation>
     </message>
     <message>
         <location filename="../qml/AdDisplay.qml" line="132"/>
         <source>Failed to perform transaction</source>
-        <translation></translation>
+        <translation>Не удалось выполнить транзакцию</translation>
     </message>
 </context>
 <context>
@@ -57,42 +57,42 @@
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="73"/>
         <source>SuperTac</source>
-        <translation></translation>
+        <translation>СуперТак</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="88"/>
         <source>Tic-Tac-Toe Game</source>
-        <translation></translation>
+        <translation>Игра Крестики-нолики</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="122"/>
         <source>Play</source>
-        <translation></translation>
+        <translation>Играть</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="142"/>
         <source>Multiplayer</source>
-        <translation></translation>
+        <translation>Мультиплеер</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="170"/>
         <source>About</source>
-        <translation></translation>
+        <translation>Около</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="179"/>
         <source>Remove Ads</source>
-        <translation></translation>
+        <translation>Убрать рекламу</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="187"/>
         <source>Share</source>
-        <translation></translation>
+        <translation>Поделиться</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="195"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -100,7 +100,7 @@
     <message>
         <location filename="../qml/Dialogs/PhilosophicalAi.qml" line="84"/>
         <source>AI is thinking</source>
-        <translation></translation>
+        <translation>AI думает</translation>
     </message>
 </context>
 <context>
@@ -108,72 +108,72 @@
     <message>
         <location filename="../qml/Pages/Settings.qml" line="126"/>
         <source>Piece</source>
-        <translation></translation>
+        <translation>Кусок</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="135"/>
         <source>First Turn</source>
-        <translation></translation>
+        <translation>Игрок</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="144"/>
         <source>Music</source>
-        <translation></translation>
+        <translation>Музыка</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="152"/>
         <source>Effects</source>
-        <translation></translation>
+        <translation>Эффекты</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="161"/>
         <source>Borders</source>
-        <translation></translation>
+        <translation>Кайма</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="181"/>
         <source>Map Dimension</source>
-        <translation></translation>
+        <translation>Размер карты</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="199"/>
         <source>AI Level</source>
-        <translation></translation>
+        <translation>Уровень AI</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="203"/>
         <source>Easy</source>
-        <translation></translation>
+        <translation>Легко</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="204"/>
         <source>Normal</source>
-        <translation></translation>
+        <translation>Нормальный</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="205"/>
         <source>Hard</source>
-        <translation></translation>
+        <translation>Жесткий</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="206"/>
         <source>Very Hard</source>
-        <translation></translation>
+        <translation>Очень Жесткий</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="225"/>
         <source>Pieces to Align</source>
-        <translation></translation>
+        <translation>Части для выравнивания</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="242"/>
         <source>Language</source>
-        <translation></translation>
+        <translation>Язык</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="278"/>
         <source>Back</source>
-        <translation></translation>
+        <translation>Вернуть</translation>
     </message>
 </context>
 <context>
@@ -181,32 +181,32 @@
     <message>
         <location filename="../qml/Pages/Singleplayer.qml" line="309"/>
         <source>You lost the game!</source>
-        <translation></translation>
+        <translation>Вы проиграли игру!</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Singleplayer.qml" line="314"/>
         <source>You won the game!</source>
-        <translation></translation>
+        <translation>Вы выиграли игру!</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Singleplayer.qml" line="320"/>
         <source>Draw</source>
-        <translation></translation>
+        <translation>Ничья</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Singleplayer.qml" line="366"/>
         <source>New Game</source>
-        <translation></translation>
+        <translation>Новая игра</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Singleplayer.qml" line="382"/>
         <source>Main Menu</source>
-        <translation></translation>
+        <translation>Главное меню</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Singleplayer.qml" line="395"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -219,18 +219,18 @@
     <message>
         <location filename="../qml/UI.qml" line="149"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../qml/UI.qml" line="157"/>
         <source>Rate</source>
-        <translation></translation>
+        <translation>Оценить</translation>
     </message>
     <message>
         <location filename="../qml/UI.qml" line="215"/>
         <location filename="../qml/UI.qml" line="225"/>
         <source>Match</source>
-        <translation></translation>
+        <translation>Mатч</translation>
     </message>
 </context>
 <context>
@@ -238,7 +238,7 @@
     <message>
         <location filename="../qml/main.qml" line="121"/>
         <source>SuperTac</source>
-        <translation></translation>
+        <translation>СуперТак</translation>
     </message>
 </context>
 </TS>

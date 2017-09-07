@@ -50,8 +50,8 @@ Overlay {
             font.pixelSize: app.largeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr ("%1 %2").arg (AppName).arg (Version)
             anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("SuperTac %1").arg (Version) + Translator.dummy
         }
 
         Label {

@@ -46,16 +46,9 @@ Item {
         }
 
         else {
-            bannerAd.x = app.width * 2
-            bannerAd.y = app.height * 2
+            bannerAd.x = app.width * 2 * DevicePixelRatio
+            bannerAd.y = app.height * 2 * DevicePixelRatio
         }
-    }
-
-    //
-    // Restores the purchases
-    //
-    function restorePurchases() {
-        store.restorePurchases()
     }
 
     //
@@ -76,12 +69,16 @@ Item {
     //
     // Locate the banner when the custom properties are changed
     //
-    onAdsEnabledChanged: displayBanner()
+    onAdsEnabledChanged: {
+        displayBanner()
+        bannerAd.visible = adsEnabled
+    }
 
     //
     // Configure the test devices on init.
     //
     Component.onCompleted: {
+        store.restorePurchases()
         for (var i = 0; i < TestDevices.length; ++i) {
             bannerAd.addTestDevice (TestDevices [i])
             interstitialAd.addTestDevice (TestDevices [i])
@@ -139,9 +136,6 @@ Item {
             onPurchaseRestored: {
                 adsEnabled = false
                 removeAdsBought = true
-
-                messageBox.text = qsTr ("Purchases restored!") + Translator.dummy
-                messageBox.open()
             }
 
             onStatusChanged: timer.start()

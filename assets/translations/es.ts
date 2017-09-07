@@ -4,8 +4,8 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../qml/Pages/About.qml" line="53"/>
-        <source>%1 %2</source>
+        <location filename="../qml/Pages/About.qml" line="50"/>
+        <source>SuperTac %1</source>
         <translation></translation>
     </message>
     <message>
@@ -42,35 +42,39 @@
 <context>
     <name>AdDisplay</name>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="126"/>
+        <location filename="../qml/AdDisplay.qml" line="123"/>
         <source>Thanks for your purchase!</source>
         <translation>¡Gracias por su compra!</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="135"/>
+        <location filename="../qml/AdDisplay.qml" line="132"/>
         <source>Failed to perform transaction</source>
         <translation>No se pudo realizar la transacción</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="143"/>
         <source>Purchases restored!</source>
-        <translation>¡Compras restauradas!</translation>
+        <translation type="vanished">¡Compras restauradas!</translation>
     </message>
 </context>
 <context>
     <name>MainMenu</name>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="87"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="73"/>
+        <source>SuperTac</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/MainMenu.qml" line="88"/>
         <source>Tic-Tac-Toe Game</source>
         <translation>Juego de Tres en Línea</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="121"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="122"/>
         <source>Play</source>
         <translation>Jugar</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="141"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="142"/>
         <source>Multiplayer</source>
         <translation>Multijugador</translation>
     </message>
@@ -106,9 +110,8 @@
 <context>
     <name>PurchaseItem</name>
     <message>
-        <location filename="../qml/Components/PurchaseItem.qml" line="32"/>
         <source>Purchase</source>
-        <translation>Comprar</translation>
+        <translation type="vanished">Comprar</translation>
     </message>
 </context>
 <context>
@@ -229,25 +232,32 @@
         <translation>Nuevo Juego</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="148"/>
+        <location filename="../qml/UI.qml" line="149"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="156"/>
         <source>Restore Purchases</source>
-        <translation>Restaurar Compras</translation>
+        <translation type="vanished">Restaurar Compras</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="164"/>
+        <location filename="../qml/UI.qml" line="157"/>
         <source>Rate</source>
         <translation>Calificar</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="222"/>
-        <location filename="../qml/UI.qml" line="232"/>
+        <location filename="../qml/UI.qml" line="215"/>
+        <location filename="../qml/UI.qml" line="225"/>
         <source>Match</source>
         <translation>Juego</translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <location filename="../qml/main.qml" line="121"/>
+        <source>SuperTac</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

@@ -70,10 +70,10 @@ Page {
         // App name label
         //
         Label {
-            text: AppName
             font.pixelSize: app.xLargeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
+            text: qsTr ("SuperTac") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
         }
 

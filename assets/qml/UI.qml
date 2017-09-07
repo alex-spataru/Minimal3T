@@ -154,14 +154,6 @@ Item {
                 }
 
                 MenuItem {
-                    text: qsTr ("Restore Purchases") + Translator.dummy
-                    onClicked: {
-                        app.restorePurchases()
-                        app.playSoundEffect ("click")
-                    }
-                }
-
-                MenuItem {
                     text: qsTr ("Rate") + Translator.dummy
                     onClicked: {
                         openWebsite()

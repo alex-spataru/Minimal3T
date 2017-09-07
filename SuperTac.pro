@@ -59,7 +59,9 @@ DEFINES += QTADMOB_QML
 TRANSLATIONS += \
     $$PWD/assets/translations/en.ts \
     $$PWD/assets/translations/es.ts \
-    $$PWD/assets/translations/fr.ts
+    $$PWD/assets/translations/fr.ts \
+    $$PWD/assets/translations/ch.ts \
+    $$PWD/assets/translations/ru.ts
 
 #-------------------------------------------------------------------------------
 # Include libraries

@@ -76,7 +76,6 @@ ApplicationWindow {
     // Function aliases
     //
     function removeAds()              { ads.removeAds() }
-    function restorePurchases()       { ads.restorePurchases() }
     function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
@@ -119,7 +118,7 @@ ApplicationWindow {
     width: 320
     height: 533
     visible: true
-    title: AppName
+    title: qsTr ("SuperTac") + Translator.dummy
 
     //
     // Material theme options
