@@ -1,11 +1,10 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=SuperTac
+Categories=Games;Strategy;Puzzle;
 Comment=Play tic-tac-toe in a symphony of colors and sound
-Keywords=games;puzzle;tic-tac-toe;ai;strategy;
-Icon=supertac
 Exec=supertac
+GenericName=Play tic-tac-toe in a symphony of colors and sound
+Icon=supertac
+Keywords=games;puzzle;tic-tac-toe;ai;strategy;
+Name=SuperTac
 Terminal=false
 Type=Application
-StartupNotify=true
-Categories=Games;Strategy;Puzzle;

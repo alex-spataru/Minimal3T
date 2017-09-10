@@ -114,7 +114,7 @@ linux:!android {
     icon.path = /usr/share/pixmaps
     desktop.path = /usr/share/applications
     icon.files += $$PWD/deploy/linux/common/supertac.png
-    desktop.files += $$PWD/deploy/linux/common/supertac.destkop
+    desktop.files += $$PWD/deploy/linux/common/supertac.desktop
 
     TARGET = supertac
     INSTALLS += target desktop icon
