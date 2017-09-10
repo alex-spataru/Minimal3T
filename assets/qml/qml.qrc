@@ -20,5 +20,6 @@
         <file>Components/Dots.qml</file>
         <file>Components/Cross.qml</file>
         <file>Components/Nought.qml</file>
+        <file>Pages/Rate.qml</file>
     </qresource>
 </RCC>

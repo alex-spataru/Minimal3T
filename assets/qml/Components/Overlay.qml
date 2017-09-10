@@ -51,7 +51,7 @@ Item {
         width: 2 * app.width
         height: 2 * app.height
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -1/2 * toolbar.height
+        anchors.verticalCenterOffset: -1/2 * app.largeLabel
 
         Rectangle {
             color: "#000"

@@ -57,11 +57,11 @@ Page {
 
     //
     // Holds the number of games played, used to show
-    // the interstital ad every three games
+    // the interstital ad every x games
     //
     property int gamesPlayed: 0
     onGamesPlayedChanged: {
-        if (gamesPlayed >= 3) {
+        if (gamesPlayed >= app.interstitialAdFreq) {
             gamesPlayed = 0
             app.showInterstitialAd()
         }

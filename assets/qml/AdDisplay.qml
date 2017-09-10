@@ -161,8 +161,6 @@ Item {
                 messageBox.title = qsTr ("Purchases Restored!") + Translator.dummy
                 messageBox.open()
             }
-
-            onStatusChanged: timer.start()
         }
     }
 

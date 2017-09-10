@@ -21,6 +21,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls.Universal 2.0
@@ -28,6 +29,7 @@ import QtQuick.Controls.Universal 2.0
 import Board 1.0
 import Qt.labs.settings 1.0
 
+import "Pages" as Pages
 import "Components"
 
 ApplicationWindow {
@@ -39,6 +41,7 @@ ApplicationWindow {
     readonly property int spacing: 8
     readonly property int bannerHeight: 50
     readonly property int pieceAnimation: 200
+    readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3
     readonly property int mediumLabel: xLargeLabel * 1/2
     readonly property int iconSize: Math.min (128, height / 5)
@@ -79,6 +82,7 @@ ApplicationWindow {
     function restorePurchases()       { ads.restorePurchases() }
     function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
+
     //
     // Returns true if we should display a cross for the given player
     //
@@ -180,6 +184,14 @@ ApplicationWindow {
     UI {
         id: ui
         anchors.fill: parent
+    }
+
+    //
+    // Rate page
+    //
+    Pages.Rate {
+        id: ratePage
+        anchors.centerIn: parent
     }
 
     //
