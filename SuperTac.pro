@@ -109,9 +109,20 @@ RESOURCES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
 
+linux:!android {
+    target.path = /usr/bin
+    icon.path = /usr/share/pixmaps
+    desktop.path = /usr/share/applications
+    icon.files += $$PWD/deploy/linux/common/supertac.png
+    desktop.files += $$PWD/deploy/linux/common/supertac.destkop
+
+    TARGET = supertac
+    INSTALLS += target desktop icon
+}
+
 android {
     # Uncomment this line if releasing to the Play Store
-    android:DEFINES += ENABLE_REAL_ADS
+    #android:DEFINES += ENABLE_REAL_ADS
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/res/values/libs.xml \

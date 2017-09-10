@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SuperTac
+Comment=Play tic-tac-toe in a symphony of colors and sound
+Keywords=games;puzzle;tic-tac-toe;ai;strategy;
+Icon=supertac
+Exec=supertac
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Games;Strategy;Puzzle;
