@@ -47,11 +47,17 @@ int Translator::systemLanguage() const {
     case QLocale::French:
         lang = 2;
         break;
-    case QLocale::Chinese:
+    case QLocale::Italian:
         lang = 3;
         break;
     case QLocale::Russian:
         lang = 4;
+        break;
+    case QLocale::Chinese:
+        lang = 5;
+        break;
+    case QLocale::Vietnamese:
+        lang = 6;
         break;
     default:
         lang = 0;
@@ -66,8 +72,10 @@ QStringList Translator::availableLanguages() const {
         "English",
         "Español",
         "Français",
+        "Italiano",
+        "Русский",
         "中文",
-        "Русский"
+        "Tiếng Việt"
     };
 }
 
@@ -89,12 +97,20 @@ void Translator::setLanguage (const int language) {
         locale = QLocale (QLocale::French);
         break;
     case 3:
-        file = "ch";
-        locale = QLocale (QLocale::Chinese);
+        file = "it";
+        locale = QLocale (QLocale::Italian);
         break;
     case 4:
         file = "ru";
         locale = QLocale (QLocale::Russian);
+        break;
+    case 5:
+        file = "ch";
+        locale = QLocale (QLocale::Chinese);
+        break;
+    case 6:
+        file = "vi";
+        locale = QLocale (QLocale::Vietnamese);
         break;
     default:
         file = "en";

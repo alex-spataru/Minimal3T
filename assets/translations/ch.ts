@@ -109,6 +109,34 @@
     </message>
 </context>
 <context>
+    <name>Rate</name>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="95"/>
+        <source>Rate %1</source>
+        <translation>评估%1</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="104"/>
+        <source>If you enjoy this app, would you like taking a moment to rate it?</source>
+        <translation>如果你喜欢这个应用程序，你想花点时间来评价它吗？</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="114"/>
+        <source>Rate</source>
+        <translation>评估</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="129"/>
+        <source>Later</source>
+        <translation>后来</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="143"/>
+        <source>No, thanks</source>
+        <translation>不用了，谢谢</translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="126"/>
@@ -184,32 +212,32 @@
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="309"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="310"/>
         <source>You lost the game!</source>
         <translation>你失去了游戏！</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="314"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="315"/>
         <source>You won the game!</source>
         <translation>你赢了游戏！</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="320"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="321"/>
         <source>Draw</source>
         <translation>平局</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="366"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="367"/>
         <source>New Game</source>
         <translation>新游戏</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="382"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="383"/>
         <source>Main Menu</source>
         <translation>主菜单</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="395"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="396"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
@@ -227,18 +255,17 @@
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="157"/>
+        <location filename="../qml/UI.qml" line="158"/>
         <source>Restore Purchases</source>
         <translation>恢复购买</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="162"/>
         <source>Rate</source>
-        <translation>评估</translation>
+        <translation type="vanished">评估</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="220"/>
-        <location filename="../qml/UI.qml" line="230"/>
+        <location filename="../qml/UI.qml" line="212"/>
+        <location filename="../qml/UI.qml" line="222"/>
         <source>Match</source>
         <translation>赛</translation>
     </message>
@@ -246,7 +273,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="121"/>
+        <location filename="../qml/main.qml" line="125"/>
         <source>SuperTac</source>
         <translation></translation>
     </message>

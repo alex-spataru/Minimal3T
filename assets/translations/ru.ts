@@ -109,6 +109,34 @@
     </message>
 </context>
 <context>
+    <name>Rate</name>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="95"/>
+        <source>Rate %1</source>
+        <translation>Оценить %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="104"/>
+        <source>If you enjoy this app, would you like taking a moment to rate it?</source>
+        <translation>Если вам понравилось это приложение, не хотите ли вы потратить минутку, чтобы оценить его?</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="114"/>
+        <source>Rate</source>
+        <translation>Оценить</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="129"/>
+        <source>Later</source>
+        <translation>Позже</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Rate.qml" line="143"/>
+        <source>No, thanks</source>
+        <translation>Нет, спасибо</translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="126"/>
@@ -184,32 +212,32 @@
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="309"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="310"/>
         <source>You lost the game!</source>
         <translation>Вы проиграли игру!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="314"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="315"/>
         <source>You won the game!</source>
         <translation>Вы выиграли игру!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="320"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="321"/>
         <source>Draw</source>
         <translation>Ничья</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="366"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="367"/>
         <source>New Game</source>
         <translation>Новая игра</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="382"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="383"/>
         <source>Main Menu</source>
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="395"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="396"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
@@ -227,18 +255,17 @@
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="157"/>
+        <location filename="../qml/UI.qml" line="158"/>
         <source>Restore Purchases</source>
         <translation>Восстановить покупки</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="162"/>
         <source>Rate</source>
-        <translation>Оценить</translation>
+        <translation type="vanished">Оценить</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="220"/>
-        <location filename="../qml/UI.qml" line="230"/>
+        <location filename="../qml/UI.qml" line="212"/>
+        <location filename="../qml/UI.qml" line="222"/>
         <source>Match</source>
         <translation>Mатч</translation>
     </message>
@@ -246,7 +273,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="121"/>
+        <location filename="../qml/main.qml" line="125"/>
         <source>SuperTac</source>
         <translation>СуперТак</translation>
     </message>
