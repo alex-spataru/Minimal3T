@@ -28,10 +28,11 @@
 #include "QmlBoard.h"
 
 #ifdef QT_QML_LIB
-#include <QtQml>
+    #include <QtQml>
 #endif
 
-class ComputerPlayer : public QObject {
+class ComputerPlayer : public QObject
+{
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -61,7 +62,8 @@ class ComputerPlayer : public QObject {
 #endif
 
 public:
-    static void DeclareQML() {
+    static void DeclareQML()
+    {
 #ifdef QT_QML_LIB
         qmlRegisterType<ComputerPlayer> ("ComputerPlayer", 1, 0, "AI");
 #endif
@@ -84,11 +86,13 @@ public:
     BoardPlayer player() const;
     BoardPlayer opponent() const;
 
-    inline QmlBoard::Player qmlPlayer() const {
+    inline QmlBoard::Player qmlPlayer() const
+    {
         return (QmlBoard::Player) player();
     }
 
-    inline QmlBoard::Player qmlOpponent() const {
+    inline QmlBoard::Player qmlOpponent() const
+    {
         return (QmlBoard::Player) opponent();
     }
 

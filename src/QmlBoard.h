@@ -28,7 +28,8 @@
 
 #include "Board.h"
 
-class QmlBoard : public QObject {
+class QmlBoard : public QObject
+{
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -92,7 +93,8 @@ public:
     QmlBoard();
     static QmlBoard* getInstance();
 
-    static void DeclareQML() {
+    static void DeclareQML()
+    {
 #ifdef QT_QML_LIB
         qmlRegisterType<QmlBoard> ("Board", 1, 0, "TicTacToe");
 #endif

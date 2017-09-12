@@ -46,7 +46,8 @@ static inline bool checkWinners (Board&, QVector<int>);
 /**
  * Resets the winner, game state, turn and field owners from the given \a board
  */
-void ResetBoard (Board& board) {
+void ResetBoard (Board& board)
+{
     board.turn = kPlayer1;
     board.winner = kUndefined;
     board.state = kGameInProgress;
@@ -64,7 +65,8 @@ void ResetBoard (Board& board) {
  *     the game shall reach the \c kDraw state
  *   - If there is a winner, then the game state shall be set to \c kGameWon
  */
-void UpdateGameState (Board& board) {
+void UpdateGameState (Board& board)
+{
     bool won = false;
     won |= checkRows (board);
     won |= checkColumns (board);
@@ -84,7 +86,8 @@ void UpdateGameState (Board& board) {
 /**
  * Resizes the given \a board to a \a size x \a size game and resets the game
  */
-void ResizeBoard (Board& board, const int size) {
+void ResizeBoard (Board& board, const int size)
+{
     Q_ASSERT (size > 0);
 
     board.size = size;
@@ -99,7 +102,8 @@ void ResizeBoard (Board& board, const int size) {
  * Changes the owner of the given \a field of the \a board to the current
  * player in turn, updates the turn and updates the game state
  */
-void SelectField (Board& board, const int field) {
+void SelectField (Board& board, const int field)
+{
     ChangeOwner (board, field, board.turn);
     board.turn = OpponentOf (board.turn);
     UpdateGameState (board);
@@ -108,7 +112,8 @@ void SelectField (Board& board, const int field) {
 /**
  * De-allocates each row of the given \a matrix
  */
-void DeleteMatrix (const Board& board, BoardPlayer** matrix) {
+void DeleteMatrix (const Board& board, BoardPlayer** matrix)
+{
     if (matrix) {
         for (int i = 0; i < board.size; ++i) {
             free (matrix [i]);
@@ -122,7 +127,8 @@ void DeleteMatrix (const Board& board, BoardPlayer** matrix) {
 /**
  * Changes the \a owner of the given \a field of the \a board
  */
-void ChangeOwner (Board& board, const int field, const BoardPlayer owner) {
+void ChangeOwner (Board& board, const int field, const BoardPlayer owner)
+{
     Q_ASSERT (board.fields.count() > field);
     board.fields.replace (field, owner);
 }
@@ -132,21 +138,24 @@ void ChangeOwner (Board& board, const int field, const BoardPlayer owner) {
  * of the number of fields. For example, a 3x3 board shall contain 9 fields,
  * so the board size of a 3x3 board is 3
  */
-int BoardSize (const Board& board) {
+int BoardSize (const Board& board)
+{
     return board.size;
 }
 
 /**
  * Returns the field ID of the given column and row
  */
-int FieldAt (const Board& board, const int row, const int col) {
+int FieldAt (const Board& board, const int row, const int col)
+{
     return row * board.size + col;
 }
 
 /**
  * Generates a square matrix containing the field owners of the given board
  */
-BoardPlayer** BoardMatrix (const Board& board) {
+BoardPlayer** BoardMatrix (const Board& board)
+{
     int size = BoardSize (board);
     BoardPlayer** matrix = (BoardPlayer**) calloc (size, sizeof (BoardPlayer*));
 
@@ -162,7 +171,8 @@ BoardPlayer** BoardMatrix (const Board& board) {
 /**
  * Returns a vector with the IDs of all the unused fields in the given \a board
  */
-QVector<int> AvailableFields (const Board& board) {
+QVector<int> AvailableFields (const Board& board)
+{
     QVector<int> list;
 
     for (int i = 0; i < board.fields.count(); ++i)
@@ -175,7 +185,8 @@ QVector<int> AvailableFields (const Board& board) {
 /**
  * Returns the enemy of the given \a player
  */
-BoardPlayer OpponentOf (const BoardPlayer player) {
+BoardPlayer OpponentOf (const BoardPlayer player)
+{
     if (player == kPlayer1)
         return kPlayer2;
 
@@ -190,7 +201,8 @@ BoardPlayer OpponentOf (const BoardPlayer player) {
 // Implementation of utility functions
 //------------------------------------------------------------------------------
 
-static bool checkRows (Board& board) {
+static bool checkRows (Board& board)
+{
     int limit = board.size - board.fieldsToAllign;
     for (int row = 0; row < board.size; ++row) {
         for (int col = 0; col <= limit; ++col) {
@@ -206,7 +218,8 @@ static bool checkRows (Board& board) {
     return false;
 }
 
-static bool checkColumns (Board& board) {
+static bool checkColumns (Board& board)
+{
     int limit = board.size - board.fieldsToAllign;
 
     for (int col = 0; col < board.size; ++col) {
@@ -223,7 +236,8 @@ static bool checkColumns (Board& board) {
     return false;
 }
 
-static bool checkLtrDiagonals (Board& board) {
+static bool checkLtrDiagonals (Board& board)
+{
     int limit = board.size - board.fieldsToAllign;
 
     for (int row = 0; row <= limit; ++row) {
@@ -242,7 +256,8 @@ static bool checkLtrDiagonals (Board& board) {
     return false;
 }
 
-static bool checkRtlDiagonals (Board& board) {
+static bool checkRtlDiagonals (Board& board)
+{
     int maxRow = board.size - board.fieldsToAllign;
     int maxCol = board.size - maxRow - 1;
 
@@ -262,7 +277,8 @@ static bool checkRtlDiagonals (Board& board) {
     return false;
 }
 
-static bool checkWinners (Board& board, QVector<int> line) {
+static bool checkWinners (Board& board, QVector<int> line)
+{
     Q_ASSERT (board.fieldsToAllign == line.count());
     BoardPlayer player = board.fields.at (line.at (0));
 

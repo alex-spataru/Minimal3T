@@ -27,10 +27,11 @@
 #include <QTranslator>
 
 #ifdef QT_QML_LIB
-#include <QtQml>
+    #include <QtQml>
 #endif
 
-class Translator : public QObject {
+class Translator : public QObject
+{
     Q_OBJECT
 
 #ifdef QT_QML_LIB
@@ -56,11 +57,13 @@ public:
     int systemLanguage() const;
     QStringList availableLanguages() const;
 
-    QString dummyString() const {
+    QString dummyString() const
+    {
         return "";
     }
 
-    static void DeclareQML() {
+    static void DeclareQML()
+    {
 #ifdef QT_QML_LIB
         qmlRegisterType<Translator> ("Translator", 1, 0, "CTranslator");
 #endif

@@ -47,12 +47,6 @@ QT += multimedia
 QT += quickcontrols2
 
 #-------------------------------------------------------------------------------
-# Custom defines
-#-------------------------------------------------------------------------------
-
-DEFINES += QTADMOB_QML
-
-#-------------------------------------------------------------------------------
 # Translations
 #-------------------------------------------------------------------------------
 
@@ -69,7 +63,7 @@ TRANSLATIONS += \
 # Include libraries
 #-------------------------------------------------------------------------------
 
-include ($$PWD/lib/QtAdMob/QtAdMob.pri)
+include ($$PWD/lib/Appodeal/Appodeal.pri)
 include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 #-------------------------------------------------------------------------------
@@ -78,7 +72,6 @@ include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 HEADERS += \
     $$PWD/src/Board.h \
-    $$PWD/src/AdInfo.h \
     $$PWD/src/Minimax.h \
     $$PWD/src/ComputerPlayer.h \
     $$PWD/src/QmlBoard.h \
@@ -123,8 +116,6 @@ linux:!android {
 }
 
 android {
-    # Uncomment this line if releasing to the Play Store
-    android:DEFINES += ENABLE_REAL_ADS
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/res/values/libs.xml \

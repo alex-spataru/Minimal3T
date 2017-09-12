@@ -28,14 +28,16 @@
 /**
  * Returns the base score for the minimax function
  */
-static inline int BaseScore (const Board& board) {
+static inline int BaseScore (const Board& board)
+{
     return board.fields.count() + 1;
 }
 
 /**
  * Returns a random number between \a min and \a max
  */
-static inline int RANDOM (const int min, const int max) {
+static inline int RANDOM (const int min, const int max)
+{
     std::random_device device;
     std::mt19937 engine (device());
     std::uniform_int_distribution<int> distribution (min , max);
@@ -45,7 +47,8 @@ static inline int RANDOM (const int min, const int max) {
 /**
  * Initializes the internal variables of the class
  */
-Minimax::Minimax() {
+Minimax::Minimax()
+{
     m_decision = -1;
     m_cpuPlayer = Q_NULLPTR;
 }
@@ -54,7 +57,8 @@ Minimax::Minimax() {
  * Returns the field selected by the AI. If the AI has not made a decision yet,
  * then the decision shall be set to -1
  */
-int Minimax::decision() const {
+int Minimax::decision() const
+{
     return m_decision;
 }
 
@@ -62,7 +66,8 @@ int Minimax::decision() const {
  * Used to stop the minimax search in larger boards in order to avoid loosing
  * too much time simulating inprobable sitations
  */
-int Minimax::maximumDepth (const Board& board) {
+int Minimax::maximumDepth (const Board& board)
+{
     if (board.size > 3)
         return ceil ((pow (board.fieldsToAllign, 2) / board.size) * 2);
 
@@ -72,7 +77,8 @@ int Minimax::maximumDepth (const Board& board) {
 /**
  * Returns \c true if the AI has already made a decision
  */
-bool Minimax::decisionTaken() const {
+bool Minimax::decisionTaken() const
+{
     return decision() != -1;
 }
 
@@ -81,7 +87,8 @@ bool Minimax::decisionTaken() const {
  * The minimax code needs some information from the computer player,
  * such as its assigned game board, player ID and opponent ID.
  */
-ComputerPlayer* Minimax::cpuPlayer() const {
+ComputerPlayer* Minimax::cpuPlayer() const
+{
     return m_cpuPlayer;
 }
 
@@ -95,7 +102,8 @@ ComputerPlayer* Minimax::cpuPlayer() const {
  * \note This function shall automatically mark the choosen field in the game
  *       board used by the computer player
  */
-void Minimax::makeAiMove() {
+void Minimax::makeAiMove()
+{
     /* Init. variables */
     int move = INT_MIN;
     int offensive = INT_MIN;
@@ -171,7 +179,8 @@ void Minimax::makeAiMove() {
 /**
  * Changes the computer player assigned to this class
  */
-void Minimax::setComputerPlayer (ComputerPlayer* player) {
+void Minimax::setComputerPlayer (ComputerPlayer* player)
+{
     Q_ASSERT (player);
     m_cpuPlayer = player;
 }
@@ -179,7 +188,8 @@ void Minimax::setComputerPlayer (ComputerPlayer* player) {
 /**
  * Selects a random field from the 'strategic' field set
  */
-void Minimax::selectRandomField() {
+void Minimax::selectRandomField()
+{
     Board board = QmlBoard::getInstance()->board();
     QVector<int> desirableFields = considerableFields (board, 0);
     setDecision (desirableFields.at (RANDOM (0, desirableFields.count() - 1)));
@@ -188,7 +198,8 @@ void Minimax::selectRandomField() {
 /**
  * Notifies the rest of the program that the AI has selected a field
  */
-void Minimax::setDecision (const int decision) {
+void Minimax::setDecision (const int decision)
+{
     if (!decisionTaken()) {
         m_decision = decision;
         emit aiFinished (decision);
@@ -200,7 +211,8 @@ void Minimax::setDecision (const int decision) {
  * Executes the Minimax algorithm in order to find the most optimal move that
  * can be choosen by the AI player
  */
-int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
+int Minimax::minimax (Board& board, int depth, int alpha, int beta)
+{
     /* AI already made a decision, break recursive loop */
     if (decisionTaken() || depth > maximumDepth (board))
         return 0;
@@ -257,7 +269,8 @@ int Minimax::minimax (Board& board, int depth, int alpha, int beta) {
 /**
  * Returns a vector with all the unused corners in the given \a board
  */
-QVector<int> Minimax::availableCorners (const Board& board) {
+QVector<int> Minimax::availableCorners (const Board& board)
+{
     QVector<int> fields;
     QVector<int> corners = {
         0,
@@ -284,7 +297,8 @@ QVector<int> Minimax::availableCorners (const Board& board) {
  *   - If there are no available fields near enemy marks, and no corners,
  *     consider the central field and its surrounding fields
  */
-QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
+QVector<int> Minimax::considerableFields (const Board& board, const int depth)
+{
     QVector<int> fields;
 
     /* Scan for fields to block or complete only on very possible sitations */
@@ -312,7 +326,8 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth) {
 /**
  * Returns a list with the central field and its surrounding fields
  */
-QVector<int> Minimax::availableCentralFields (const Board& board) {
+QVector<int> Minimax::availableCentralFields (const Board& board)
+{
     QVector<int> fields;
 
     int center = board.size / 2;
@@ -347,7 +362,8 @@ QVector<int> Minimax::availableCentralFields (const Board& board) {
  * \note If this function detects a win-or-loose sitation, then it will
  *       automatically select the field in question and stop the MM process
  */
-QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player) {
+QVector<int> Minimax::nearbyFields (const Board& board, const BoardPlayer player)
+{
     QVector<int> fields;
     BoardPlayer** matrix = BoardMatrix (board);
 

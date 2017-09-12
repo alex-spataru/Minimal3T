@@ -28,7 +28,8 @@
 
 class ComputerPlayer;
 
-class Minimax : public QObject {
+class Minimax : public QObject
+{
     Q_OBJECT
 
 signals:

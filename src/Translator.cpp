@@ -25,16 +25,19 @@
 
 #include "Translator.h"
 
-Translator::Translator() : m_language (0) {
+Translator::Translator() : m_language (0)
+{
     QSettings settings (qApp->organizationName(), qApp->applicationName());
     setLanguage (settings.value ("language", systemLanguage()).toInt());
 }
 
-int Translator::language() const {
+int Translator::language() const
+{
     return m_language;
 }
 
-int Translator::systemLanguage() const {
+int Translator::systemLanguage() const
+{
     int lang = 0;
 
     switch (QLocale::system().language()) {
@@ -67,7 +70,8 @@ int Translator::systemLanguage() const {
     return lang;
 }
 
-QStringList Translator::availableLanguages() const {
+QStringList Translator::availableLanguages() const
+{
     return QStringList {
         "English",
         "Español",
@@ -79,7 +83,8 @@ QStringList Translator::availableLanguages() const {
     };
 }
 
-void Translator::setLanguage (const int language) {
+void Translator::setLanguage (const int language)
+{
     /* Get translation file base name */
     QString file;
     QLocale locale;

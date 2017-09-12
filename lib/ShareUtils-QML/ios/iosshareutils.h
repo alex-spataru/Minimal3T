@@ -25,10 +25,11 @@
 
 #include "shareutils.h"
 
-class IosShareUtils : public PlatformShareUtils {
+class IosShareUtils : public PlatformShareUtils
+{
     Q_OBJECT
 
-  public:
+public:
     explicit IosShareUtils (QQuickItem* parent = 0);
     Q_INVOKABLE void share (const QString& text, const QUrl& url);
 };
