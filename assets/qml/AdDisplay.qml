@@ -177,7 +177,7 @@ Item {
         Component.onCompleted: {
             visible = true
             unitId = BannerId
-            size = AdMobBanner.Banner
+            size = AdMobBanner.SmartBanner
         }
     }
 
