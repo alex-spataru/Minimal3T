@@ -33,9 +33,8 @@ Item {
     // Custom properties
     //
     property real cellSize: 0
-    property real gridWidth: app.width
-    property real gridHeight: app.height
     property bool clickableFields: false
+    property real gridSize: app.paneWidth
     property real lineWidth: app.spacing / 5
 
     //
@@ -50,18 +49,16 @@ Item {
     //
     // Calculate tile size on init
     //
-    onGridWidthChanged: redraw()
+    onGridSizeChanged: redraw()
     on_Wl_limitChanged: redraw()
-    onGridHeightChanged: redraw()
     Component.onCompleted: redraw()
 
     //
     // Calculates the appropiate size of the game fields/tiles
     //
     function redraw() {
-        var side = Math.min (gridHeight, gridWidth) * (gridHeight > gridWidth ? 0.85 : 0.65)
-        board.width = side
-        board.height = side
+        board.width = gridSize
+        board.height = gridSize
         canvas.requestPaint()
     }
 
@@ -123,14 +120,11 @@ Item {
     }
 
     //
-    // Changes the size of the game tiles when the application is resized
+    // Redraw board when settings are changed
     //
     Connections {
         target: app
-        onWidthChanged: board.redraw()
-        onHeightChanged: board.redraw()
-        onWindowStateChanged: board.redraw()
-        onShowAllBordersChanged: board.redraw()
+        onShowBoardMarginsChanged: board.redraw()
     }
 
     //
@@ -155,10 +149,8 @@ Item {
             ctx.clearRect (0, 0, canvas.width + 10, canvas.height + 10)
 
             /* Obtain constants */
-            var spacing = 0
-            cellSize = grid.width / Board.boardSize
-            var initialValue = app.showAllBorders ? 0 : 1
-            var boardSize = Board.boardSize + (app.showAllBorders ? 1 : 0)
+            var boardSize = Board.boardSize
+            cellSize = grid.width / boardSize
 
             /* Abort drawing if cell width is invalid */
             if (cellSize <= 0)
@@ -166,42 +158,23 @@ Item {
 
             /* Set line style */
             ctx.lineCap = "round"
+            ctx.lineJoin = "round"
             ctx.strokeStyle = "#fff"
             ctx.lineWidth = board.lineWidth
 
             /* Draw columns */
-            for (var x = initialValue; x < boardSize; ++x) {
-                /* Calculate spacing (to fit outer borders) */
-                spacing = 0
-                if (app.showAllBorders) {
-                    if (x === 0)
-                        spacing = (ctx.lineWidth / 2)
-                    else if (x === boardSize - 1)
-                        spacing = (ctx.lineWidth / 2) * -1
-                }
-
-                /* Draw column */
+            for (var x = 1; x < boardSize; ++x) {
                 ctx.beginPath()
-                ctx.moveTo (spacing + cellSize * x, 0)
-                ctx.lineTo (spacing + cellSize * x, canvas.height)
+                ctx.moveTo (cellSize * x, 0)
+                ctx.lineTo (cellSize * x, canvas.height)
                 ctx.stroke()
             }
 
             /* Draw rows */
-            for (var y = initialValue; y < boardSize; ++y) {
-                /* Calculate spacing (to fit outer borders) */
-                spacing = 0
-                if (app.showAllBorders) {
-                    if (y === 0)
-                        spacing = (ctx.lineWidth / 2)
-                    else if (y === boardSize - 1)
-                        spacing = (ctx.lineWidth / 2) * -1
-                }
-
-                /* Draw row */
+            for (var y = 1; y < boardSize; ++y) {
                 ctx.beginPath()
-                ctx.moveTo (0, cellSize * y + spacing)
-                ctx.lineTo (canvas.width, cellSize * y + spacing)
+                ctx.moveTo (0, cellSize * y)
+                ctx.lineTo (canvas.width, cellSize * y)
                 ctx.stroke()
             }
 
@@ -220,14 +193,30 @@ Item {
                 else if (_wl_yB < _wl_yA)
                     fy += _wl_limit
 
-                /* Set line style */
-                ctx.strokeStyle = "#fff"
-                ctx.lineWidth = board.lineWidth
-
                 /* Draw the line */
                 ctx.beginPath()
                 ctx.moveTo (_wl_xA, _wl_yA)
                 ctx.lineTo (fx, fy)
+                ctx.stroke()
+            }
+
+            /* Draw margins */
+            if (app.showBoardMargins) {
+                var rR = cellSize / 4
+                var rX = lineWidth / 2
+                var rY = lineWidth / 2
+                var rL = canvas.width - lineWidth
+
+                ctx.beginPath()
+                ctx.moveTo (rX + rR, rY)
+                ctx.lineTo (rX + rL - rR, rY)
+                ctx.quadraticCurveTo (rX + rL, rY, rX + rL, rY + rR)
+                ctx.lineTo (rX + rL, rY + rL - rR)
+                ctx.quadraticCurveTo (rX + rL, rY + rL, rX + rL - rR, rY + rL)
+                ctx.lineTo (rX + rR, rY + rL)
+                ctx.quadraticCurveTo (rX, rY + rL, rX, rY + rL - rR)
+                ctx.lineTo (rX, rY + rR)
+                ctx.quadraticCurveTo (rX, rY, rX + rR, rY)
                 ctx.stroke()
             }
         }

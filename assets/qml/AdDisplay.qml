@@ -34,30 +34,35 @@ Item {
     readonly property bool showAds: adsEnabled && !removeAdsBought
 
     //
+    // Enable or disable ads
+    //
+    onShowAdsChanged: AdEngine.adsEnabled = showAds
+
+    //
+    // Show or hide ads during startup
+    //
+    Component.onCompleted: {
+        /* Enable ads if needed */
+        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
+            adsEnabled = true
+
+        /* Hide ads */
+        else {
+            adsEnabled = false
+            removeAdsBought = true
+        }
+
+        /* Apply changes */
+        AdEngine.adsEnabled = showAds
+    }
+
+    //
     // Save ad-settings (used by the purchases)
     //
     Settings {
         category: "ads"
         property alias enabled: ads.adsEnabled
         property alias bought:  ads.removeAdsBought
-    }
-
-    //
-    // Shows or hides the ads
-    //
-    Component.onCompleted: {
-        /* Enable ads if needed */
-        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios") {
-            adsEnabled = true
-            bannerAd.visible = true
-        }
-
-        /* Hide ads */
-        else {
-            adsEnabled = false
-            removeAdsBought = true
-            bannerAd.visible = false
-        }
     }
 
     //

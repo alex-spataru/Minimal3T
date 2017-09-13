@@ -25,14 +25,12 @@
 /**
  * Initializes the internal variables of the class
  */
-ComputerPlayer::ComputerPlayer()
-{
-    m_randomness = 0;
-    m_player = kUndefined;
-    m_offensiveMoves = false;
-    m_defensiveMoves = false;
-    m_preferOffensive = false;
-}
+ComputerPlayer::ComputerPlayer() :
+    m_randomness (0),
+    m_player (kUndefined),
+    m_offensiveMoves (false),
+    m_defensiveMoves (false),
+    m_preferOffensive (false) {}
 
 /**
  * Returns \c true if the AI shall directly select fields that represent an

@@ -191,11 +191,18 @@ Page {
     // Main layout
     //
     ColumnLayout {
+        anchors.fill: parent
         anchors.centerIn: parent
-        spacing: 3 * app.spacing
+        spacing: 2 * app.spacing
+        anchors.margins: 2 * app.spacing
+
+        Item {
+            Layout.fillHeight: true
+        }
 
         RowLayout {
             spacing: app.spacing
+            Layout.fillHeight: false
             anchors.horizontalCenter: parent.horizontalCenter
 
             Cross {
@@ -246,25 +253,33 @@ Page {
             }
         }
 
-        Item {
-            Layout.preferredHeight: 0
-        }
-
         Dots {
             mirror: true
             highlightedDots: p1Wins
+            Layout.fillHeight: false
         }
 
-        GameBoard {
-            id: board
-            gridWidth: page.width
-            gridHeight: page.height
-            enabled: parent.visible
+        Item {
+            Layout.fillHeight: false
+            Layout.preferredWidth: app.paneWidth * 0.85
+            Layout.preferredHeight: app.paneWidth * 0.85
             anchors.horizontalCenter: parent.horizontalCenter
+
+            GameBoard {
+                id: board
+                enabled: parent.visible
+                anchors.centerIn: parent
+                gridSize: parent.width - 2 * app.spacing
+            }
         }
 
         Dots {
             highlightedDots: p2Wins
+            Layout.fillHeight: false
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 

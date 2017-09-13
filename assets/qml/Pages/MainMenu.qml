@@ -54,8 +54,7 @@ Page {
     //
     ColumnLayout {
         spacing: 0
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        anchors.fill: parent
         anchors.centerIn: parent
         anchors.margins: 2 * app.spacing
 
@@ -70,6 +69,7 @@ Page {
         // App name label
         //
         Label {
+            Layout.fillHeight: false
             font.pixelSize: app.xLargeLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
@@ -81,6 +81,7 @@ Page {
         // Subtitle
         //
         Label {
+            Layout.fillHeight: false
             font.pixelSize: app.mediumLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
@@ -93,6 +94,7 @@ Page {
         //
         Item {
             height: 3 * app.spacing
+            Layout.fillHeight: false
         }
 
         //
@@ -100,6 +102,7 @@ Page {
         //
         Button {
             flat: true
+            Layout.fillHeight: false
             onClicked: singleplayerClicked()
             Layout.preferredWidth: app.paneWidth
             anchors.horizontalCenter: parent.horizontalCenter
@@ -135,6 +138,7 @@ Page {
         //
         Button {
             flat: true
+            Layout.fillHeight: false
             onClicked: multiplayerClicked()
             font.pixelSize: app.largeLabel
             font.capitalization: Font.MixedCase
@@ -147,7 +151,8 @@ Page {
         // Spacer
         //
         Item {
-            Layout.fillHeight: true
+            height: app.spacing
+            Layout.fillHeight: false
         }
 
         //
@@ -156,11 +161,12 @@ Page {
         RowLayout {
             id: buttons
             Layout.fillWidth: true
+            Layout.fillHeight: false
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
             property int pxSixe: app.adsEnabled ? app.font.pixelSize - 5 :
-                                                    app.font.pixelSize
+                                                  app.font.pixelSize
 
             ImageButton {
                 btSize: 0

@@ -1,3 +1,5 @@
+INCLUDEPATH += $$PWD
+
 SOURCES += \
     $$PWD/jnicallbacks.cpp \
     $$PWD/usersettings.cpp \
@@ -20,8 +22,8 @@ HEADERS += \
     $$PWD/appodealads.h
 
 android {
-    QT += androidextras
     QT += gui-private
+    QT += androidextras
     DEFINES += PACKAGE_NAME=\\\"com/appodeal/test/AppodealActivity\\\"
 }
 

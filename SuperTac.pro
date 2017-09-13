@@ -73,6 +73,7 @@ include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 HEADERS += \
     $$PWD/src/Board.h \
     $$PWD/src/Minimax.h \
+    $$PWD/src/AdEngine.h \
     $$PWD/src/ComputerPlayer.h \
     $$PWD/src/QmlBoard.h \
     $$PWD/src/Translator.h
@@ -81,6 +82,7 @@ SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/Board.cpp \
     $$PWD/src/Minimax.cpp \
+    $$PWD/src/AdEngine.cpp \
     $$PWD/src/ComputerPlayer.cpp \
     $$PWD/src/QmlBoard.cpp \
     $$PWD/src/Translator.cpp
@@ -102,8 +104,6 @@ RESOURCES += \
 # Deploy configurations
 #-------------------------------------------------------------------------------
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
-
 linux:!android {
     target.path = /usr/bin
     icon.path = /usr/share/pixmaps
@@ -116,6 +116,8 @@ linux:!android {
 }
 
 android {
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
+    #android:DEFINES += ENABLE_REAL_ADS
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/res/values/libs.xml \

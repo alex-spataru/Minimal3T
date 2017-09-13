@@ -109,6 +109,7 @@ void AppodealUnsupported::trackInAppPurchase (const QString& currencyCode, const
 }
 void AppodealUnsupported::setNonSkippableVideoCallback (NonSkippableVideoCallbacks* callbacks)
 {
+    (void) callbacks;
     qInfo ("Appodeal disabled");
 }
 void AppodealUnsupported::setAge (const int& age)

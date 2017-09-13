@@ -2,7 +2,7 @@
 
 #include "appodealandroid.h"
 #include "QAndroidJniObject"
-#include <QPA/QPlatformNativeInterface.h>
+#include <qpa/qplatformnativeinterface.h>
 #include <QApplication>
 #include <QDebug>
 #include <jni.h>

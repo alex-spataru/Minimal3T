@@ -158,7 +158,7 @@ Overlay {
             ImageButton {
                 btSize: 0
                 font.pixelSize: app.font.pixelSize - 6
-                text: qsTr ("Borders") + Translator.dummy
+                text: qsTr ("Margins") + Translator.dummy
                 onClicked: showAllBorders = !showAllBorders
                 source: showAllBorders ? "qrc:/images/settings/border-all.svg" :
                                          "qrc:/images/settings/border-inner.svg"

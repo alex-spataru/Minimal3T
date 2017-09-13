@@ -47,11 +47,9 @@ static inline int RANDOM (const int min, const int max)
 /**
  * Initializes the internal variables of the class
  */
-Minimax::Minimax()
-{
-    m_decision = -1;
-    m_cpuPlayer = Q_NULLPTR;
-}
+Minimax::Minimax() :
+    m_decision (-1),
+    m_cpuPlayer (Q_NULLPTR) {}
 
 /**
  * Returns the field selected by the AI. If the AI has not made a decision yet,

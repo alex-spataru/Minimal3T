@@ -134,6 +134,7 @@ Item {
         Nought {
             id: _nought
             hidden: true
+            opacity: 0.90
             anchors.fill: parent
             anchors.centerIn: parent
             lineWidth: 1/5 * app.spacing
@@ -142,6 +143,7 @@ Item {
         Cross {
             id: _cross
             hidden: true
+            opacity: 0.90
             anchors.fill: parent
             anchors.centerIn: parent
             lineWidth: 1/5 * app.spacing

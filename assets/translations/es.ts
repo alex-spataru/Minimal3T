@@ -42,17 +42,17 @@
 <context>
     <name>AdDisplay</name>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="145"/>
+        <location filename="../qml/AdDisplay.qml" line="81"/>
         <source>Thanks for your purchase!</source>
         <translation>¡Gracias por su compra!</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="154"/>
+        <location filename="../qml/AdDisplay.qml" line="90"/>
         <source>Failed to perform transaction</source>
         <translation>No se pudo realizar la transacción</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="161"/>
+        <location filename="../qml/AdDisplay.qml" line="97"/>
         <source>Purchases Restored!</source>
         <translation>¡Compras Restauradas!</translation>
     </message>
@@ -84,22 +84,22 @@
         <translation>Multijugador</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="170"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="171"/>
         <source>About</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="179"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="180"/>
         <source>Remove Ads</source>
         <translation>Quitar Anuncios</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="187"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="188"/>
         <source>Share</source>
         <translation>Compartir</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="195"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="196"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>
@@ -170,9 +170,13 @@
         <translation>Efectos</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="161"/>
         <source>Borders</source>
-        <translation>Bordes</translation>
+        <translation type="vanished">Bordes</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="161"/>
+        <source>Margins</source>
+        <translation>Márgenes</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="181"/>
@@ -227,32 +231,32 @@
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="310"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="313"/>
         <source>You lost the game!</source>
         <translation>¡Perdiste el juego!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="315"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="318"/>
         <source>You won the game!</source>
         <translation>¡Ganaste el juego!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="321"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="324"/>
         <source>Draw</source>
         <translation>Empate</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="367"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="370"/>
         <source>New Game</source>
         <translation>Nuevo Juego</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="383"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="386"/>
         <source>Main Menu</source>
         <translation>Menú Principal</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="396"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="399"/>
         <source>Settings</source>
         <translation>Ajustes</translation>
     </message>

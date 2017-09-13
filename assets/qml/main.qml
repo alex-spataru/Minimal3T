@@ -54,7 +54,7 @@ ApplicationWindow {
     // Aliases
     //
     property alias adsEnabled: ads.adsEnabled
-    property alias showAllBorders: ui.showAllBorders
+    property alias showBoardMargins: ui.showAllBorders
 
     //
     // Theme options
@@ -80,7 +80,7 @@ ApplicationWindow {
     //
     function removeAds()              { ads.removeAds() }
     function restorePurchases()       { ads.restorePurchases() }
-    function showInterstitialAd()     { ads.showInterstitialAd() }
+    function showInterstitialAd()     { AdEngine.showInterstial() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //

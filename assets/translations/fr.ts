@@ -42,17 +42,17 @@
 <context>
     <name>AdDisplay</name>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="145"/>
+        <location filename="../qml/AdDisplay.qml" line="81"/>
         <source>Thanks for your purchase!</source>
         <translation>Merci pour votre achat!</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="154"/>
+        <location filename="../qml/AdDisplay.qml" line="90"/>
         <source>Failed to perform transaction</source>
         <translation>Échec de l&apos;exécution de la transaction</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="161"/>
+        <location filename="../qml/AdDisplay.qml" line="97"/>
         <source>Purchases Restored!</source>
         <translation>Achats restaurés!</translation>
     </message>
@@ -84,22 +84,22 @@
         <translation>Multijoueur</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="170"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="171"/>
         <source>About</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="179"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="180"/>
         <source>Remove Ads</source>
         <translation>Supprimer Pub</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="187"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="188"/>
         <source>Share</source>
         <translation>Partager</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="195"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="196"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
@@ -170,9 +170,13 @@
         <translation>Effets</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="161"/>
         <source>Borders</source>
-        <translation>Bordures</translation>
+        <translation type="vanished">Bordures</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="161"/>
+        <source>Margins</source>
+        <translation>Marges</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="181"/>
@@ -223,32 +227,32 @@
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="310"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="313"/>
         <source>You lost the game!</source>
         <translation>Vous avez perdu le jeu!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="315"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="318"/>
         <source>You won the game!</source>
         <translation>Vous avez gagné le jeu!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="321"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="324"/>
         <source>Draw</source>
         <translation>Match nul</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="367"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="370"/>
         <source>New Game</source>
         <translation>Nouveau Jeu</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="383"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="386"/>
         <source>Main Menu</source>
         <translation>Menu Principal</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="396"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="399"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
