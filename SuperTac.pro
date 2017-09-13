@@ -46,6 +46,8 @@ QT += purchasing
 QT += multimedia
 QT += quickcontrols2
 
+DEFINES += QTADMOB_QML
+
 #-------------------------------------------------------------------------------
 # Translations
 #-------------------------------------------------------------------------------
@@ -63,7 +65,7 @@ TRANSLATIONS += \
 # Include libraries
 #-------------------------------------------------------------------------------
 
-include ($$PWD/lib/Appodeal/Appodeal.pri)
+include ($$PWD/lib/QtAdMob/QtAdMob.pri)
 include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 #-------------------------------------------------------------------------------
@@ -72,8 +74,8 @@ include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 HEADERS += \
     $$PWD/src/Board.h \
+    $$PWD/src/AdInfo.h \
     $$PWD/src/Minimax.h \
-    $$PWD/src/AdEngine.h \
     $$PWD/src/ComputerPlayer.h \
     $$PWD/src/QmlBoard.h \
     $$PWD/src/Translator.h
@@ -82,7 +84,6 @@ SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/Board.cpp \
     $$PWD/src/Minimax.cpp \
-    $$PWD/src/AdEngine.cpp \
     $$PWD/src/ComputerPlayer.cpp \
     $$PWD/src/QmlBoard.cpp \
     $$PWD/src/Translator.cpp
@@ -117,7 +118,7 @@ linux:!android {
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
-    #android:DEFINES += ENABLE_REAL_ADS
+    android:DEFINES += ENABLE_REAL_ADS
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/res/values/libs.xml \

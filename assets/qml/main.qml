@@ -80,7 +80,7 @@ ApplicationWindow {
     //
     function removeAds()              { ads.removeAds() }
     function restorePurchases()       { ads.restorePurchases() }
-    function showInterstitialAd()     { AdEngine.showInterstial() }
+    function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //

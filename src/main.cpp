@@ -27,40 +27,42 @@
 #include <QQmlApplicationEngine>
 
 #include "shareutils.h"
+#include "QtAdMobBanner.h"
+#include "QtAdMobInterstitial.h"
 
-#include "AdEngine.h"
+#include "AdInfo.h"
 #include "QmlBoard.h"
 #include "Translator.h"
 #include "ComputerPlayer.h"
 
 int main (int argc, char** argv)
 {
-    QGuiApplication::setApplicationVersion ("1.3");
+    QGuiApplication::setApplicationVersion ("1.3.2");
     QGuiApplication::setApplicationName ("SuperTac");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app (argc, argv);
 
-    AdEngine adEngine;
     Translator translator;
     ComputerPlayer aiPlayer;
     aiPlayer.setPlayer (QmlBoard::Player2);
 
-    AdEngine::DeclareQML();
     QmlBoard::DeclareQML();
     ShareUtils::DeclareQML();
     Translator::DeclareQML();
     ComputerPlayer::DeclareQML();
+    QmlAdMobBanner::DeclareQML();
+    QmlAdMobInterstitial::DeclareQML();
 
     qreal dpr = app.primaryScreen()->devicePixelRatio();
-    adEngine.init ("002e29bb853b18de0509378543fd93f750253507647ff977");
 
     QQmlApplicationEngine engine;
     QQuickStyle::setStyle ("Universal");
-    engine.rootContext()->setContextProperty ("AdEngine", &adEngine);
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
+    engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
     engine.rootContext()->setContextProperty ("Translator", &translator);
+    engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());
     engine.rootContext()->setContextProperty ("Company", app.organizationName());
     engine.rootContext()->setContextProperty ("Version", app.applicationVersion());
