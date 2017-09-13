@@ -28,7 +28,7 @@
          <!--  Messages maps -->
          <meta-data android:name="android.app.background_running" android:value="false"/>
          <!-- Splash screen -->
-         <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/screen"/>
+         <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/background"/>
          <meta-data android:name="android.app.splash_screen_sticky" android:value="false"/>
       </activity>
       <meta-data android:name="com.appodeal.framework" android:value="qt"/>
