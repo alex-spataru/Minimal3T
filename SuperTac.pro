@@ -42,7 +42,6 @@ CONFIG += resources_big
 QT += svg
 QT += core
 QT += quick
-QT += purchasing
 QT += multimedia
 QT += quickcontrols2
 

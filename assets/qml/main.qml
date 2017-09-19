@@ -52,7 +52,6 @@ ApplicationWindow {
     //
     // Aliases
     //
-    property alias adsEnabled: ads.adsEnabled
     property alias showBoardMargins: ui.showAllBorders
 
     //
@@ -77,8 +76,6 @@ ApplicationWindow {
     //
     // Function aliases
     //
-    function removeAds()              { ads.removeAds() }
-    function restorePurchases()       { ads.restorePurchases() }
     function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
@@ -146,6 +143,7 @@ ApplicationWindow {
     //
     // Background rectangle
     //
+    color: "#000"
     background: ColorRectangle {
         anchors.fill: parent
     }

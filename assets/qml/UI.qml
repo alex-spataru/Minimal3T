@@ -178,7 +178,6 @@ Item {
             visible: false
             onAboutClicked: about.open()
             onSettingsClicked: settings.open()
-            onRemoveAdsClicked: app.removeAds()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
 

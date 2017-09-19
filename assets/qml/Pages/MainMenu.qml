@@ -33,7 +33,6 @@ Page {
     //
     signal aboutClicked
     signal shareClicked
-    signal removeAdsClicked
     signal settingsClicked
     signal multiplayerClicked
     signal singleplayerClicked
@@ -90,11 +89,10 @@ Page {
         }
 
         //
-        // Mini-spacer
+        // Spacer
         //
         Item {
-            height: 3 * app.spacing
-            Layout.fillHeight: false
+            Layout.fillHeight: true
         }
 
         //
@@ -151,8 +149,7 @@ Page {
         // Spacer
         //
         Item {
-            height: app.spacing
-            Layout.fillHeight: false
+            Layout.fillHeight: true
         }
 
         //
@@ -166,30 +163,18 @@ Page {
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
-            property int pxSixe: app.adsEnabled ? app.font.pixelSize - 5 :
-                                                  app.font.pixelSize
-
             ImageButton {
                 btSize: 0
                 onClicked: aboutClicked()
                 source: "qrc:/images/info.svg"
-                font.pixelSize: buttons.pxSixe
+                font.pixelSize: app.font.pixelSize
                 text: qsTr ("About") + Translator.dummy
             }
 
             ImageButton {
                 btSize: 0
-                visible: app.adsEnabled
-                onClicked: removeAdsClicked()
-                font.pixelSize: buttons.pxSixe
-                source: "qrc:/images/no-ads.svg"
-                text: qsTr ("Remove Ads") + Translator.dummy
-            }
-
-            ImageButton {
-                btSize: 0
                 onClicked: shareClicked()
-                font.pixelSize: buttons.pxSixe
+                font.pixelSize: app.font.pixelSize
                 source: "qrc:/images/share.svg"
                 text: qsTr ("Share") + Translator.dummy
             }
@@ -197,7 +182,7 @@ Page {
             ImageButton {
                 btSize: 0
                 onClicked: settingsClicked()
-                font.pixelSize: buttons.pxSixe
+                font.pixelSize: app.font.pixelSize
                 source: "qrc:/images/settings.svg"
                 text: qsTr ("Settings") + Translator.dummy
             }

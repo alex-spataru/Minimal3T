@@ -21,112 +21,21 @@
  */
 
 import QtQuick 2.0
-import QtPurchasing 1.0
-import QtQuick.Window 2.2
-import QtQuick.Dialogs 1.2
-
-import Qt.labs.settings 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
 Item {
-    id: ads
     property bool adsEnabled: false
-    property bool removeAdsBought: false
 
-    //
-    // Save ad-settings (used by the purchases)
-    //
-    Settings {
-        category: "ads"
-        property alias enabled: ads.adsEnabled
-        property alias bought:  ads.removeAdsBought
-    }
-
-    //
-    // Tries to buy the 'remove ads' extension
-    //
-    function removeAds() {
-        productRemoveAds.purchase()
-    }
-
-    //
-    // Restores the user's purchased items
-    //
-    function restorePurchaseS() {
-        store.restorePurchases()
-    }
-
-    //
-    // Shows the interstitial ad
-    //
     function showInterstitialAd() {
-        if (interstitialAd.isLoaded && adsEnabled && !removeAdsBought)
+        if (interstitialAd.isLoaded && adsEnabled)
             interstitialAd.visible = true
     }
 
-    //
-    // Shows or hides the ads
-    //
     Component.onCompleted: {
-        /* Enable ads if needed */
-        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
+        if (Qt.platform.os === "android" || Qt.platform.os === "ios")
             adsEnabled = true
-
-        /* Hide ads */
-        else {
-            adsEnabled = false
-            removeAdsBought = true
-        }
     }
 
-    //
-    // Available purchase items
-    //
-    Store {
-        id: store
-
-        Product {
-            id: productRemoveAds
-            type: Product.Unlockable
-            identifier: "com.alexspataru.supertac.remove_ads"
-
-            onPurchaseSucceeded: {
-                transaction.finalize()
-                messageBox.text = qsTr ("Thanks for your purchase!") + Translator.dummy
-                messageBox.open()
-
-                adsEnabled = false
-                removeAdsBought = true
-            }
-
-            onPurchaseFailed: {
-                transition.finalize()
-                messageBox.text = qsTr ("Failed to perform transaction") + Translator.dummy
-                messageBox.open()
-            }
-
-            onPurchaseRestored: {
-                adsEnabled = false
-                removeAdsBought = true
-                messageBox.title = qsTr ("Purchases Restored!") + Translator.dummy
-                messageBox.open()
-            }
-        }
-    }
-
-    //
-    // Used to confirm purchases
-    //
-    MessageDialog {
-        id: messageBox
-        title: app.title
-        icon: StandardIcon.Information
-        standardButtons: StandardButton.Close
-    }
-
-    //
-    // Interstitial ad
-    //
     AdMobInterstitial {
         id: interstitialAd
         onClosed: interstitialAd.unitId = InterstitialId

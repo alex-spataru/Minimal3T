@@ -71,10 +71,5 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
-
-        Item {
-            Layout.fillWidth: true
-            visible: app.adsEnabled
-        }
     }
 }

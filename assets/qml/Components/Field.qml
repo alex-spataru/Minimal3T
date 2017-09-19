@@ -140,7 +140,7 @@ Item {
         Nought {
             id: _nought
             hidden: true
-            opacity: 0.90
+            opacity: 0.00
             anchors.fill: parent
             anchors.centerIn: parent
             lineWidth: 1/5 * app.spacing
