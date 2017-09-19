@@ -78,18 +78,13 @@ Item {
 
         var owner = Board.fieldOwner (fieldNumber)
         if (field.enabled && owner > TicTacToe.Undefined) {
-            if (app.getSymbol (owner))
-                _cross.show()
-            else
-                _nought.show()
-
+            canvas.isNought = app.getSymbol (owner)
             playRandomNote()
+            canvas.show()
         }
 
-        else {
-            _cross.hide()
-            _nought.hide()
-        }
+        else
+            canvas.hide()
     }
 
     //
@@ -137,17 +132,8 @@ Item {
 
         Behavior on opacity { NumberAnimation{} }
 
-        Nought {
-            id: _nought
-            hidden: true
-            opacity: 0.00
-            anchors.fill: parent
-            anchors.centerIn: parent
-            lineWidth: 1/5 * app.spacing
-        }
-
-        Cross {
-            id: _cross
+        FieldCanvas {
+            id: canvas
             hidden: true
             opacity: 0.90
             anchors.fill: parent

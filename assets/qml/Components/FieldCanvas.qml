@@ -26,9 +26,15 @@ Item {
     id: item
 
     //
-    // If set to true, the lines shall not be drawn at start
+    // If set to true, the piece shall not be drawn at start
     //
     property bool hidden: false
+
+    //
+    // Set field type
+    //
+    property bool isNought: false
+    readonly property bool isCross: !isNought
 
     //
     // Line properties
@@ -43,30 +49,48 @@ Item {
     property real _diagB: hidden ? 0 : item.width
 
     //
+    // Used to draw the circle, do not change
+    //
+    property real _angle: hidden ? 0 : 2 * Math.PI
+
+    //
+    // Redraw the canvas when the angle is changed
+    //
+    on_AngleChanged: canvas.requestPaint()
+
+    //
     // Redraw the canvas when the line values are changed
     //
     on_DiagAChanged: canvas.requestPaint()
     on_DiagBChanged: canvas.requestPaint()
 
     //
-    // Draw the first line, when the animation of the first line finishes,
-    // then the second line shall be drawn
+    // Draws the piece
     //
     function show() {
-        _dABehavior.enabled = true
-        _dBBehavior.enabled = true
+        if (isCross) {
+            _dABehavior.enabled = true
+            _dBBehavior.enabled = true
 
-        _diagB = 0
-        _diagA = canvas.width
+            _diagB = 0
+            _diagA = canvas.width
+        }
+
+        else if (isNought) {
+            _anBehavior.enabled = true
+            _angle = 2 * Math.PI
+        }
     }
 
     //
     // Reset the lines
     //
     function hide() {
+        _anBehavior.enabled = false
         _dABehavior.enabled = false
         _dBBehavior.enabled = false
 
+        _angle = 0
         _diagA = 0
         _diagB = 0
     }
@@ -100,15 +124,30 @@ Item {
     }
 
     //
+    // Use an animation when drawing the circle
+    //
+    Behavior on _angle {
+        id: _anBehavior
+        enabled: false
+
+        NumberAnimation {
+            duration: app.pieceAnimation
+        }
+    }
+
+    //
     // Canvas
     //
     Canvas {
         id: canvas
+        smooth: true
         contextType: "2d"
+        anchors.fill: parent
         anchors.centerIn: parent
-        width: parent.width * 0.95
-        height: parent.height * 0.95
         renderStrategy: Canvas.Threaded
+        anchors.verticalCenterOffset: anchors.margins
+        anchors.horizontalCenterOffset: anchors.margins
+        anchors.margins: (isNought ? -2 : 1) * item.lineWidth
 
         onPaint: {
             /* Get context */
@@ -122,20 +161,34 @@ Item {
             /* Clear canvas */
             ctx.clearRect (0, 0, canvas.width + 2, canvas.height + 2)
 
-            /* Draw line A */
-            if (_diagA > 0 && canvas.width > 0) {
-                ctx.beginPath()
-                ctx.moveTo (canvas.width, 0)
-                ctx.lineTo (canvas.width - _diagA, _diagA)
-                ctx.stroke()
+            /* Draw cross */
+            if (isCross) {
+                if (_diagA > 0 && canvas.width > 0) {
+                    ctx.beginPath()
+                    ctx.moveTo (canvas.width, 0)
+                    ctx.lineTo (canvas.width - _diagA, _diagA)
+                    ctx.stroke()
+                }
+
+                if (_diagB > 0 && canvas.width > 0) {
+                    ctx.beginPath()
+                    ctx.moveTo (0, 0)
+                    ctx.lineTo (_diagB, _diagB)
+                    ctx.stroke()
+                }
             }
 
-            /* Draw line B */
-            if (_diagB > 0 && canvas.width > 0) {
-                ctx.beginPath()
-                ctx.moveTo (0, 0)
-                ctx.lineTo (_diagB, _diagB)
-                ctx.stroke()
+            /* Draw circle */
+            else if (isNought) {
+                var radius = item.width / 2
+                var centerX = canvas.width / 2
+                var centerY = canvas.height / 2
+
+                if (radius > 0) {
+                    ctx.beginPath()
+                    ctx.arc (centerX, centerY, radius, 0, _angle)
+                    ctx.stroke()
+                }
             }
         }
     }

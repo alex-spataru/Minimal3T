@@ -205,7 +205,8 @@ Page {
             Layout.fillHeight: false
             anchors.horizontalCenter: parent.horizontalCenter
 
-            Cross {
+            FieldCanvas {
+                isNought: false
                 width: app.largeLabel * 0.75
                 height: app.largeLabel * 0.75
                 anchors.verticalCenter: parent.verticalCenter
@@ -246,7 +247,8 @@ Page {
                 Layout.fillHeight: true
             }
 
-            Nought {
+            FieldCanvas {
+                isNought: true
                 width: app.largeLabel * 0.75
                 height: app.largeLabel * 0.75
                 anchors.verticalCenter: parent.verticalCenter
