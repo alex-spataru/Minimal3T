@@ -162,15 +162,14 @@ Page {
 
         Item {
             Layout.fillHeight: false
-            Layout.preferredWidth: app.paneWidth * 0.85
-            Layout.preferredHeight: app.paneWidth * 0.85
             anchors.horizontalCenter: parent.horizontalCenter
+            Layout.preferredWidth: board.gridSize + 2 * app.spacing
+            Layout.preferredHeight: board.gridSize + 2 * app.spacing
 
             GameBoard {
                 id: board
                 enabled: parent.visible
                 anchors.centerIn: parent
-                gridSize: parent.width - 2 * app.spacing
             }
         }
 

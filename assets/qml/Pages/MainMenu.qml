@@ -159,9 +159,10 @@ Page {
         // Utility buttons
         //
         RowLayout {
-            id: buttons
+            id: buttons           
             Layout.fillWidth: true
             Layout.fillHeight: false
+            Layout.maximumWidth: 512
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 

@@ -121,6 +121,12 @@ Item {
     }
 
     //
+    // Redraw piece if field size is changed
+    //
+    onWidthChanged: drawPiece()
+    onHeightChanged: drawPiece()
+
+    //
     // Symbol icon
     //
     Item {

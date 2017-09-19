@@ -75,7 +75,6 @@ Item {
         Item {
             Layout.fillWidth: true
             visible: app.adsEnabled
-            height: app.bannerHeight
         }
     }
 }

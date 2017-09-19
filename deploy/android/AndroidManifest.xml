@@ -3,7 +3,7 @@
   <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16"/>
   <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="SuperTac" android:icon="@drawable/ic_launcher">
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-    <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:name="org.dreamdev.QtAdMob.QtAdMobActivity" android:label="SuperTac" android:screenOrientation="portrait" android:launchMode="singleTop">
+    <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:name="org.dreamdev.QtAdMob.QtAdMobActivity" android:label="SuperTac" android:screenOrientation="behind" android:launchMode="singleTop">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>

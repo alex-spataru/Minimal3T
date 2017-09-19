@@ -25,9 +25,7 @@ import QtPurchasing 1.0
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
-
 import Qt.labs.settings 1.0
-import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
 Item {
@@ -42,25 +40,6 @@ Item {
         category: "ads"
         property alias enabled: ads.adsEnabled
         property alias bought:  ads.removeAdsBought
-    }
-
-    //
-    // Locates the banner on the bottom of the screen
-    //
-    function displayBanner() {
-        var w = bannerAd.width / DevicePixelRatio
-        var h = bannerAd.height / DevicePixelRatio
-
-        if (adsEnabled && !removeAdsBought) {
-            var sbHeight = Screen.height - Screen.desktopAvailableHeight
-            bannerAd.x = (app.width - w) * DevicePixelRatio / 2
-            bannerAd.y = (app.height - h + sbHeight + 1) * DevicePixelRatio
-        }
-
-        else {
-            bannerAd.x = app.width * 2 * DevicePixelRatio
-            bannerAd.y = app.height * 2 * DevicePixelRatio
-        }
     }
 
     //
@@ -86,41 +65,18 @@ Item {
     }
 
     //
-    // Locate the banner when the custom properties are changed
-    //
-    onAdsEnabledChanged: {
-        displayBanner()
-        bannerAd.visible = adsEnabled
-    }
-
-    //
-    // Locate the banner when window size is changed
-    //
-    Connections {
-        target: app
-        onWidthChanged: displayBanner()
-        onHeightChanged: displayBanner()
-    }
-
-    //
     // Shows or hides the ads
     //
     Component.onCompleted: {
         /* Enable ads if needed */
-        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios") {
+        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
             adsEnabled = true
-            bannerAd.visible = true
-        }
 
         /* Hide ads */
         else {
             adsEnabled = false
             removeAdsBought = true
-            bannerAd.visible = false
         }
-
-        /* Update banner position */
-        displayBanner()
     }
 
     //
@@ -166,19 +122,6 @@ Item {
         title: app.title
         icon: StandardIcon.Information
         standardButtons: StandardButton.Close
-    }
-
-    //
-    // Banner add
-    //
-    AdMobBanner {
-        id: bannerAd
-        onLoaded: displayBanner()
-        Component.onCompleted: {
-            visible = true
-            unitId = BannerId
-            size = AdMobBanner.SmartBanner
-        }
     }
 
     //

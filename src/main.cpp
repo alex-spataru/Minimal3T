@@ -27,7 +27,6 @@
 #include <QQmlApplicationEngine>
 
 #include "shareutils.h"
-#include "QtAdMobBanner.h"
 #include "QtAdMobInterstitial.h"
 
 #include "AdInfo.h"
@@ -52,7 +51,6 @@ int main (int argc, char** argv)
     ShareUtils::DeclareQML();
     Translator::DeclareQML();
     ComputerPlayer::DeclareQML();
-    QmlAdMobBanner::DeclareQML();
     QmlAdMobInterstitial::DeclareQML();
 
     qreal dpr = app.primaryScreen()->devicePixelRatio();
@@ -60,7 +58,6 @@ int main (int argc, char** argv)
     QQmlApplicationEngine engine;
     QQuickStyle::setStyle ("Universal");
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
-    engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
     engine.rootContext()->setContextProperty ("Translator", &translator);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());

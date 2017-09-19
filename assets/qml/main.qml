@@ -39,7 +39,6 @@ ApplicationWindow {
     // Constants
     //
     readonly property int spacing: 8
-    readonly property int bannerHeight: 50
     readonly property int pieceAnimation: 200
     readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3

@@ -163,74 +163,58 @@ Item {
     }
 
     //
-    // UI layout
+    // Stack view
     //
-    ColumnLayout {
+    StackView {
+        id: stack
+        initialItem: mainMenu
         anchors.fill: parent
         anchors.margins: app.spacing
         anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
 
-        //
-        // Stack view
-        //
-        StackView {
-            id: stack
-            initialItem: mainMenu
-            Layout.fillWidth: true
-            Layout.fillHeight: true
 
-            MainMenu {
-                id: mainMenu
-                visible: false
-                onAboutClicked: about.open()
-                onSettingsClicked: settings.open()
-                onRemoveAdsClicked: app.removeAds()
-                onMultiplayerClicked: stack.push (multiPlayer)
-                onSingleplayerClicked: stack.push (singlePlayer)
+        MainMenu {
+            id: mainMenu
+            visible: false
+            onAboutClicked: about.open()
+            onSettingsClicked: settings.open()
+            onRemoveAdsClicked: app.removeAds()
+            onMultiplayerClicked: stack.push (multiPlayer)
+            onSingleplayerClicked: stack.push (singlePlayer)
 
-                onShareClicked: {
-                    if (Qt.platform.os === "android" || Qt.platform.os === "ios")
-                        shareUtils.share (AppName, website)
-                    else
-                        openWebsite()
-                }
-
-                onVisibleChanged: {
-                    if (visible)
-                        title.text = ""
-                }
+            onShareClicked: {
+                if (Qt.platform.os === "android" || Qt.platform.os === "ios")
+                    shareUtils.share (AppName, website)
+                else
+                    openWebsite()
             }
 
-            Singleplayer {
-                visible: false
-                id: singlePlayer
-
-                onVisibleChanged: {
-                    settings.applySettings()
-                    philosophicalAi.enableDialog = visible
-                    if (visible)
-                        title.text = qsTr ("Match") + Translator.dummy
-                }
-            }
-
-            Multiplayer {
-                visible: false
-                id: multiPlayer
-
-                onVisibleChanged: {
-                    if (visible)
-                        title.text = qsTr ("Match") + Translator.dummy
-                }
+            onVisibleChanged: {
+                if (visible)
+                    title.text = ""
             }
         }
 
-        //
-        // Banner ad spacer
-        //
-        Item {
-            Layout.fillWidth: true
-            visible: app.adsEnabled
-            height: app.bannerHeight
+        Singleplayer {
+            visible: false
+            id: singlePlayer
+
+            onVisibleChanged: {
+                settings.applySettings()
+                philosophicalAi.enableDialog = visible
+                if (visible)
+                    title.text = qsTr ("Match") + Translator.dummy
+            }
+        }
+
+        Multiplayer {
+            visible: false
+            id: multiPlayer
+
+            onVisibleChanged: {
+                if (visible)
+                    title.text = qsTr ("Match") + Translator.dummy
+            }
         }
     }
 
