@@ -21,14 +21,37 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
+
+import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
-Item {
-    id: ads
-
+Item {    
     function showInterstitialAd() {
         if (interstitialAd.isLoaded)
             interstitialAd.visible = true
+    }
+
+    function locateBanner() {
+        bannerAd.visible = false
+        bannerAd.x = 2 * app.width * DevicePixelRatio
+        bannerAd.y = 2 * app.height * DevicePixelRatio
+    }
+
+    Connections {
+        target: app
+        onWidthChanged: locateBanner()
+        onHeightChanged: locateBanner()
+    }
+
+    AdMobBanner {
+        id: bannerAd
+        onLoaded: locateBanner()
+        Component.onCompleted: {
+            visible = false
+            unitId = BannerId
+            size = AdMobBanner.Banner
+        }
     }
 
     AdMobInterstitial {

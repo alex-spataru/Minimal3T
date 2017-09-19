@@ -39,7 +39,7 @@ ApplicationWindow {
     // Constants
     //
     readonly property int spacing: 8
-    readonly property int pieceAnimation: 200
+    readonly property int pieceAnimation: 250
     readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3
     readonly property int mediumLabel: xLargeLabel * 1/2
@@ -138,7 +138,7 @@ ApplicationWindow {
     // Configure font
     //
     font.family: regular.name
-    font.pixelSize: Math.max (14, Math.min (app.height / 34, 18))
+    font.pixelSize: Math.min (Math.max (14, app.height / 34), 22)
 
     //
     // Background rectangle

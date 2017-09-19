@@ -23,15 +23,16 @@
 #ifndef _AD_INFO_H
 #define _AD_INFO_H
 
-#include <QStringList>
-
 #ifdef QTADMOB_QML
     #ifdef ENABLE_REAL_ADS
+        #define BANNER_ID        "ca-app-pub-5828460259173662/2959223234"
         #define INTERSTITIAL_ID  "ca-app-pub-5828460259173662/4859337768"
     #else
+        #define BANNER_ID        "ca-app-pub-3940256099942544/6300978111"
         #define INTERSTITIAL_ID  "ca-app-pub-3940256099942544/1033173712"
     #endif
 #else
+    #define BANNER_ID            ""
     #define INTERSTITIAL_ID      ""
 #endif
 

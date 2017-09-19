@@ -134,6 +134,7 @@ Item {
                 id: menu
                 x: app.width - width
                 transformOrigin: Menu.TopRight
+                width: implicitWidth * app.scaleRatio
 
                 MenuItem {
                     text: qsTr ("New Game") + Translator.dummy
@@ -152,11 +153,6 @@ Item {
                         app.playSoundEffect ("click")
                     }
                 }
-
-                MenuItem {
-                    onClicked: app.restorePurchases()
-                    text: qsTr ("Restore Purchases") + Translator.dummy
-                }
             }
 
         }
@@ -171,7 +167,6 @@ Item {
         anchors.fill: parent
         anchors.margins: app.spacing
         anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
-
 
         MainMenu {
             id: mainMenu
