@@ -35,7 +35,7 @@ Item {
     // Aliases
     //
     property alias stackDepth: stack.depth
-    property alias useCross: settings.useCross
+    property alias useNought: settings.useNought
     property alias humanFirst: settings.humanFirst
     property alias enableMusic: settings.enableMusic
     property alias showAllBorders: settings.showAllBorders

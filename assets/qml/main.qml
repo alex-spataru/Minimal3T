@@ -80,13 +80,13 @@ ApplicationWindow {
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //
-    // Returns true if we should display a cross for the given player
+    // Returns true if we should display a nought for the given player
     //
-    function getSymbol (player) {
+    function useNought (player) {
         if (player === TicTacToe.Player1)
-            return ui.useCross
+            return ui.useNought
 
-        return !ui.useCross
+        return !ui.useNought
     }
 
     //

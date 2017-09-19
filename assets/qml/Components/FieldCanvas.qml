@@ -24,6 +24,7 @@ import QtQuick 2.0
 
 Item {
     id: item
+    height: width
 
     //
     // If set to true, the piece shall not be drawn at start
@@ -52,6 +53,11 @@ Item {
     // Used to draw the circle, do not change
     //
     property real _angle: hidden ? 0 : 2 * Math.PI
+
+    //
+    // Clear canvas on start
+    //
+    Component.onCompleted: canvas.requestPaint()
 
     //
     // Redraw the canvas when the angle is changed

@@ -222,7 +222,7 @@ Page {
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
-                text: app.getSymbol (TicTacToe.Player1) ? p1TotalWins : p2TotalWins
+                text: app.useNought (TicTacToe.Player1) ? p1TotalWins : p2TotalWins
             }
 
             Label {
@@ -240,7 +240,7 @@ Page {
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
-                text: app.getSymbol (TicTacToe.Player2) ? p1TotalWins : p2TotalWins
+                text: app.useNought (TicTacToe.Player2) ? p1TotalWins : p2TotalWins
             }
 
             Item {

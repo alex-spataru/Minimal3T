@@ -34,7 +34,7 @@ Overlay {
     //
     // Properties
     //
-    property bool useCross: false
+    property bool useNought: true
     property bool humanFirst: true
     property bool enableMusic: true
     property bool showAllBorders: false
@@ -84,7 +84,7 @@ Overlay {
     //
     Settings {
         category: "Settings"
-        property alias cross: page.useCross
+        property alias nought: page.useNought
         property alias music: page.enableMusic
         property alias humanFirst: page.humanFirst
         property alias boardSize: _boardSize.value
@@ -121,11 +121,11 @@ Overlay {
 
             ImageButton {
                 btSize: 0
-                onClicked: useCross = !useCross
+                onClicked: useNought = !useNought
                 font.pixelSize: app.font.pixelSize - 6
                 text: qsTr ("Piece") + Translator.dummy
-                source: useCross ? "qrc:/images/settings/cross.svg" :
-                                   "qrc:/images/settings/circle.svg"
+                source: useNought ? "qrc:/images/settings/circle.svg" :
+                                    "qrc:/images/settings/cross.svg"
             }
 
             ImageButton {

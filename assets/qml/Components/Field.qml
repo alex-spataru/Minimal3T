@@ -36,7 +36,6 @@ Item {
     property int fieldNumber: -1
     property bool clickable: true
 
-
     //
     // Randomize array element order in-place.
     // Using Durstenfeld shuffle algorithm.
@@ -74,11 +73,10 @@ Item {
         if (fieldNumber < 0 || fieldNumber >= Board.numFields)
             return
 
-        _symbol.opacity = 1
-
+        canvas.opacity = 0.9
         var owner = Board.fieldOwner (fieldNumber)
         if (field.enabled && owner > TicTacToe.Undefined) {
-            canvas.isNought = app.getSymbol (owner)
+            canvas.isNought = app.useNought (owner)
             playRandomNote()
             canvas.show()
         }
@@ -96,13 +94,13 @@ Item {
             clickable = true
 
             if (Board.gameDraw)
-                _symbol.opacity = 0.2
+                canvas.opacity = 0.2
 
             else if (Board.gameWon) {
-                _symbol.opacity = 0.2
+                canvas.opacity = 0.2
                 for (var i = 0; i < Board.allignedFields().length; ++i)
                     if (Board.allignedFields()[i] === field.fieldNumber)
-                        _symbol.opacity = 1
+                        canvas.opacity = 0.9
             }
         }
     }
@@ -124,22 +122,16 @@ Item {
     //
     // Symbol icon
     //
-    Item {
-        id: _symbol
+    FieldCanvas {
+        id: canvas
+        opacity: 0
+        hidden: true
         anchors.centerIn: parent
         width: field.width * 0.7
         height: field.height * 0.7
+        lineWidth: 1/5 * app.spacing
 
         Behavior on opacity { NumberAnimation{} }
-
-        FieldCanvas {
-            id: canvas
-            hidden: true
-            opacity: 0.90
-            anchors.fill: parent
-            anchors.centerIn: parent
-            lineWidth: 1/5 * app.spacing
-        }
     }
 
     //
