@@ -27,6 +27,7 @@
 #include <QQmlApplicationEngine>
 
 #include "shareutils.h"
+#include "QtAdMobBanner.h"
 #include "QtAdMobInterstitial.h"
 
 #include "AdInfo.h"
@@ -51,6 +52,7 @@ int main (int argc, char** argv)
     ShareUtils::DeclareQML();
     Translator::DeclareQML();
     ComputerPlayer::DeclareQML();
+    QmlAdMobBanner::DeclareQML();
     QmlAdMobInterstitial::DeclareQML();
 
     qreal dpr = app.primaryScreen()->devicePixelRatio();

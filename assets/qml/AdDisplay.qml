@@ -24,16 +24,11 @@ import QtQuick 2.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
 Item {
-    property bool adsEnabled: false
+    id: ads
 
     function showInterstitialAd() {
-        if (interstitialAd.isLoaded && adsEnabled)
+        if (interstitialAd.isLoaded)
             interstitialAd.visible = true
-    }
-
-    Component.onCompleted: {
-        if (Qt.platform.os === "android" || Qt.platform.os === "ios")
-            adsEnabled = true
     }
 
     AdMobInterstitial {

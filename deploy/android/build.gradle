@@ -4,8 +4,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
-        classpath 'com.google.gms:google-services:3.1.0'
+        classpath 'com.android.tools.build:gradle'
+        classpath 'com.google.gms:google-services'
     }
 }
 
@@ -20,28 +20,13 @@ allprojects {
 
 apply plugin: 'com.android.application'
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.gms:play-services-ads:+'
-}
-
 android {
-    /*******************************************************
-     * The following variables:
-     * - androidBuildToolsVersion,
-     * - androidCompileSdkVersion
-     * - qt5AndroidDir - holds the path to qt android files
-     *                   needed to build any Qt application
-     *                   on Android.
-     *
-     * are defined in gradle.properties file. This file is
-     * updated by QtCreator and androiddeployqt tools.
-     * Changing them manually might break the compilation!
-     *******************************************************/
-
     compileSdkVersion androidCompileSdkVersion.toInteger()
-
     buildToolsVersion androidBuildToolsVersion
+
+    defaultConfig {
+        applicationId "org.alexspataru.supertac"
+    }
 
     sourceSets {
         main {
@@ -59,4 +44,9 @@ android {
     lintOptions {
         abortOnError false
     }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.android.gms:play-services-ads:+'
 }

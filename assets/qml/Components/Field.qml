@@ -122,16 +122,21 @@ Item {
     //
     // Symbol icon
     //
-    FieldCanvas {
-        id: canvas
-        opacity: 0
-        hidden: true
+    Item {
+        anchors.fill: parent
         anchors.centerIn: parent
-        width: field.width * 0.7
-        height: field.height * 0.7
-        lineWidth: 1/5 * app.spacing
+        anchors.margins: parent.width * 0.15
 
-        Behavior on opacity { NumberAnimation{} }
+        FieldCanvas {
+            id: canvas
+            opacity: 0
+            hidden: true
+            anchors.fill: parent
+            anchors.centerIn: parent
+            lineWidth: 1/5 * app.spacing
+
+            Behavior on opacity { NumberAnimation{} }
+        }
     }
 
     //
