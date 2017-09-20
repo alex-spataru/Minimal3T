@@ -45,6 +45,7 @@ Overlay {
     //
     function applySettings() {
         Board.boardSize = _boardSize.value + 3
+        showAllBorders = Board.boardSize > 3
 
         switch (_aiLevel.value) {
         case 0:
@@ -90,7 +91,6 @@ Overlay {
         property alias boardSize: _boardSize.value
         property alias aiDifficulty: _aiLevel.value
         property alias effects: page.enableSoundEffects
-        property alias showAllBorders: page.showAllBorders
         property alias fieldsToAllign: _fieldsToAllign.value
     }
 
@@ -154,15 +154,6 @@ Overlay {
                 source: enableSoundEffects ? "qrc:/images/settings/volume-on.svg" :
                                              "qrc:/images/settings/volume-off.svg"
             }
-
-            ImageButton {
-                btSize: 0
-                font.pixelSize: app.font.pixelSize - 6
-                text: qsTr ("Margins") + Translator.dummy
-                onClicked: showAllBorders = !showAllBorders
-                source: showAllBorders ? "qrc:/images/settings/border-all.svg" :
-                                         "qrc:/images/settings/border-inner.svg"
-            }
         }
 
         //
@@ -180,7 +171,7 @@ Overlay {
             Layout.preferredWidth: app.paneWidth
             title: qsTr ("Map Dimension") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
-            model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10"]
+            model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8"]
 
             onValueChanged: {
                 applySettings()

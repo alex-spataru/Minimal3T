@@ -34,7 +34,7 @@ ComputerPlayer::ComputerPlayer() :
     m_defensiveMoves (false),
     m_preferOffensive (false)
 {
-    m_aiWatchdog.setInterval (2000);
+    m_aiWatchdog.setInterval (1000);
     connect (&m_aiWatchdog, SIGNAL (timeout()),
              this, SLOT (selectRandomField()));
 }

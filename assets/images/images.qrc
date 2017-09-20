@@ -23,8 +23,6 @@
         <file>logo.png</file>
         <file>chevron-right.svg</file>
         <file>chevron-left.svg</file>
-        <file>settings/border-inner.svg</file>
-        <file>settings/border-all.svg</file>
         <file>rate.svg</file>
     </qresource>
 </RCC>
