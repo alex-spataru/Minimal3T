@@ -44,6 +44,7 @@ public:
     ComputerPlayer* cpuPlayer() const;
 
     int maximumDepth (const Board& board);
+    static int RandomField (const Board& board);
 
 public slots:
     void makeAiMove();
@@ -56,10 +57,10 @@ private slots:
 private:
     int minimax (Board& board, int depth, int alpha, int beta);
 
-    QVector<int> availableCorners (const Board& board);
-    QVector<int> availableCentralFields (const Board& board);
-    QVector<int> considerableFields (const Board& board, const int depth);
-    QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
+    static QVector<int> availableCorners (const Board& board);
+    static QVector<int> availableCentralFields (const Board& board);
+    static QVector<int> considerableFields (const Board& board, const int depth);
+    static QVector<int> nearbyFields (const Board& board, const BoardPlayer player);
 
 private:
     int m_decision;

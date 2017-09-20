@@ -27,7 +27,6 @@ import QtQuick.Controls 2.0
 import com.lasconic 1.0
 
 import "Pages"
-import "Dialogs"
 import "Components"
 
 Item {
@@ -195,7 +194,6 @@ Item {
 
             onVisibleChanged: {
                 settings.applySettings()
-                philosophicalAi.enableDialog = visible
                 if (visible)
                     title.text = qsTr ("Match") + Translator.dummy
             }
@@ -217,13 +215,6 @@ Item {
     //
     ShareUtils {
         id: shareUtils
-    }
-
-    //
-    // Philosophical AI dialog
-    //
-    PhilosophicalAi {
-        id: philosophicalAi
     }
 
     //

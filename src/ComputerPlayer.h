@@ -104,8 +104,14 @@ public slots:
     void setPreferOffensive (const bool enabled);
     void setPlayer (const QmlBoard::Player player);
 
+private slots:
+    void selectRandomField();
+    void selectField (const int field);
+
 private:
+    bool m_played;
     int m_randomness;
+    QTimer m_aiWatchdog;
     BoardPlayer m_player;
     bool m_offensiveMoves;
     bool m_defensiveMoves;

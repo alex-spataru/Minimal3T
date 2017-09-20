@@ -23,14 +23,21 @@
 #include "ComputerPlayer.h"
 
 /**
- * Initializes the internal variables of the class
+ * Initializes the internal variables of the class and configures the AI
+ * watchdog
  */
 ComputerPlayer::ComputerPlayer() :
+    m_played (false),
     m_randomness (0),
     m_player (kUndefined),
     m_offensiveMoves (false),
     m_defensiveMoves (false),
-    m_preferOffensive (false) {}
+    m_preferOffensive (false)
+{
+    m_aiWatchdog.setInterval (2000);
+    connect (&m_aiWatchdog, SIGNAL (timeout()),
+             this, SLOT (selectRandomField()));
+}
 
 /**
  * Returns \c true if the AI shall directly select fields that represent an
@@ -90,6 +97,9 @@ BoardPlayer ComputerPlayer::opponent() const
  */
 void ComputerPlayer::makeMove()
 {
+    /* Reset the "played" variable */
+    m_played = false;
+
     /* Create new thread and minimax object */
     QThread* thread = new QThread;
     Minimax* minmax = new Minimax;
@@ -99,12 +109,16 @@ void ComputerPlayer::makeMove()
     minmax->setComputerPlayer (this);
     thread->start (QThread::HighPriority);
 
+    /* Do not let the AI think to much */
+    m_aiWatchdog.start();
+
     /* Configure signals/slots */
     connect (minmax, SIGNAL (finished()), thread, SLOT (quit()));
     connect (thread, SIGNAL (started()), minmax,  SLOT (makeAiMove()));
     connect (thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
     connect (minmax, SIGNAL (finished()), minmax, SLOT (deleteLater()));
-    connect (minmax, SIGNAL (aiFinished (int)), QmlBoard::getInstance(), SLOT (selectField (int)));
+    connect (minmax, SIGNAL (finished()), &m_aiWatchdog, SLOT (stop()));
+    connect (minmax, SIGNAL (aiFinished (int)), this, SLOT (selectField (int)));
 }
 
 /**
@@ -153,5 +167,25 @@ void ComputerPlayer::setPlayer (const QmlBoard::Player player)
 {
     m_player = (BoardPlayer) player;
     emit playerChanged();
+}
+
+/**
+ * Selects a random field from the board ONLY IF the AI has not selected
+ * another field
+ */
+void ComputerPlayer::selectRandomField() {
+    if (!m_played)
+        selectField (Minimax::RandomField (QmlBoard::getInstance()->board()));
+}
+
+/**
+ * Selects the given field on the board ONLY IF the AI has not selected another
+ * field yet (which can happen when the MM function takes to long to run)
+ */
+void ComputerPlayer::selectField (const int field) {
+    if (!m_played) {
+        m_played = true;
+        QmlBoard::getInstance()->selectField (field);
+    }
 }
 

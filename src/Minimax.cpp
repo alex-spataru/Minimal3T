@@ -73,6 +73,15 @@ int Minimax::maximumDepth (const Board& board)
 }
 
 /**
+ * Returns a random field from any of the considerable fields of the given
+ * \a board
+ */
+int Minimax::RandomField (const Board &board) {
+    QVector<int> desirableFields = considerableFields (board, 0);
+    return desirableFields.at (RANDOM (0, desirableFields.count() - 1));
+}
+
+/**
  * Returns \c true if the AI has already made a decision
  */
 bool Minimax::decisionTaken() const
@@ -111,9 +120,6 @@ void Minimax::makeAiMove()
     /* Initialize board objects */
     Board copy, aiMove, enemyMove;
     Board board = QmlBoard::getInstance()->board();
-
-    /* Select a random field in the case that the AI is too slow */
-    QTimer::singleShot (5 * 1000, this, SLOT (selectRandomField()));
 
     /* Get a list of strategic fields */
     QVector<int> desirableFields = considerableFields (board, 0);
@@ -189,8 +195,7 @@ void Minimax::setComputerPlayer (ComputerPlayer* player)
 void Minimax::selectRandomField()
 {
     Board board = QmlBoard::getInstance()->board();
-    QVector<int> desirableFields = considerableFields (board, 0);
-    setDecision (desirableFields.at (RANDOM (0, desirableFields.count() - 1)));
+    setDecision (Minimax::RandomField (board));
 }
 
 /**
@@ -301,8 +306,8 @@ QVector<int> Minimax::considerableFields (const Board& board, const int depth)
 
     /* Scan for fields to block or complete only on very possible sitations */
     if (depth < 2) {
-        fields.append (nearbyFields (board, cpuPlayer()->player()));
-        fields.append (nearbyFields (board, cpuPlayer()->opponent()));
+        fields.append (nearbyFields (board, kPlayer1));
+        fields.append (nearbyFields (board, kPlayer2));
     }
 
     /* No fields to block or complete, try the corners */
