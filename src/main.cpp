@@ -37,7 +37,7 @@
 
 int main (int argc, char** argv)
 {
-    QGuiApplication::setApplicationVersion ("1.3.3");
+    QGuiApplication::setApplicationVersion ("1.3.4");
     QGuiApplication::setApplicationName ("SuperTac");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
