@@ -34,6 +34,7 @@ Page {
     signal aboutClicked
     signal shareClicked
     signal settingsClicked
+    signal removeAdsClicked
     signal multiplayerClicked
     signal singleplayerClicked
 
@@ -156,25 +157,37 @@ Page {
         // Utility buttons
         //
         RowLayout {
-            id: buttons           
+            id: buttons
             Layout.fillWidth: true
             Layout.fillHeight: false
             Layout.maximumWidth: 512
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
+            property int pxSixe: app.adsEnabled ? app.font.pixelSize - 5 :
+                                                  app.font.pixelSize
+
             ImageButton {
                 btSize: 0
                 onClicked: aboutClicked()
                 source: "qrc:/images/info.svg"
-                font.pixelSize: app.font.pixelSize
+                font.pixelSize: buttons.pxSixe
                 text: qsTr ("About") + Translator.dummy
             }
 
             ImageButton {
                 btSize: 0
+                visible: app.adsEnabled
+                onClicked: removeAdsClicked()
+                font.pixelSize: buttons.pxSixe
+                source: "qrc:/images/no-ads.svg"
+                text: qsTr ("Remove Ads") + Translator.dummy
+            }
+
+            ImageButton {
+                btSize: 0
                 onClicked: shareClicked()
-                font.pixelSize: app.font.pixelSize
+                font.pixelSize: buttons.pxSixe
                 source: "qrc:/images/share.svg"
                 text: qsTr ("Share") + Translator.dummy
             }
@@ -182,7 +195,7 @@ Page {
             ImageButton {
                 btSize: 0
                 onClicked: settingsClicked()
-                font.pixelSize: app.font.pixelSize
+                font.pixelSize: buttons.pxSixe
                 source: "qrc:/images/settings.svg"
                 text: qsTr ("Settings") + Translator.dummy
             }

@@ -145,6 +145,11 @@ Item {
                 }
 
                 MenuItem {
+                    onClicked: app.restorePurchases()
+                    text: qsTr ("Restore Purchases") + Translator.dummy
+                }
+
+                MenuItem {
                     enabled: singlePlayer.visible ? Board.currentPlayer !== AiPlayer.player : true
                     text: qsTr ("Settings") + Translator.dummy
                     onClicked: {
@@ -166,12 +171,14 @@ Item {
         anchors.fill: parent
         anchors.margins: app.spacing
         anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
+        anchors.bottomMargin: (app.adsEnabled ? app.bannerHeight : 0) + app.spacing
 
         MainMenu {
             id: mainMenu
             visible: false
             onAboutClicked: about.open()
             onSettingsClicked: settings.open()
+            onRemoveAdsClicked: app.removeAds()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
 

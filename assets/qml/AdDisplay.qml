@@ -21,39 +21,166 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtPurchasing 1.0
+import QtQuick.Window 2.2
+import QtQuick.Dialogs 1.2
 
+import Qt.labs.settings 1.0
 import com.dreamdev.QtAdMobBanner 1.0
 import com.dreamdev.QtAdMobInterstitial 1.0
 
-Item {    
+Item {
+    id: ads
+    property bool adsEnabled: false
+    property bool removeAdsBought: false
+
+    //
+    // Locate the banner when the custom properties are changed
+    //
+    onAdsEnabledChanged: {
+        displayBanner()
+        bannerAd.visible = adsEnabled
+    }
+
+    //
+    // Save ad-settings (used by the purchases)
+    //
+    Settings {
+        category: "ads"
+        property alias enabled: ads.adsEnabled
+        property alias bought:  ads.removeAdsBought
+    }
+
+    //
+    // Tries to buy the 'remove ads' extension
+    //
+    function removeAds() {
+        productRemoveAds.purchase()
+    }
+
+    //
+    // Restores the user's purchased items
+    //
+    function restorePurchases() {
+        store.restorePurchases()
+    }
+
+    //
+    // Shows the interstitial ad
+    //
     function showInterstitialAd() {
-        if (interstitialAd.isLoaded)
+        if (interstitialAd.isLoaded && adsEnabled && !removeAdsBought)
             interstitialAd.visible = true
     }
 
+    //
+    // Locates the banner on the bottom of the screen
+    //
     function locateBanner() {
-        bannerAd.visible = false
-        bannerAd.x = 2 * app.width * DevicePixelRatio
-        bannerAd.y = 2 * app.height * DevicePixelRatio
+        var w = bannerAd.width / DevicePixelRatio
+        var h = bannerAd.height / DevicePixelRatio
+
+        if (adsEnabled && !removeAdsBought) {
+            var sbHeight = Screen.height - Screen.desktopAvailableHeight
+            bannerAd.x = (app.width - w) * DevicePixelRatio / 2
+            bannerAd.y = (app.height - h - app.spacing + sbHeight + 1) * DevicePixelRatio
+        }
+
+        else {
+            bannerAd.x = app.width * 2 * DevicePixelRatio
+            bannerAd.y = app.height * 2 * DevicePixelRatio
+        }
     }
 
+    //
+    // Update banner location when window size changes
+    //
     Connections {
         target: app
         onWidthChanged: locateBanner()
         onHeightChanged: locateBanner()
     }
 
+    //
+    // Shows or hides the ads
+    //
+    Component.onCompleted: {
+        /* Register test devices */
+        bannerAd.addTestDevice ("48C11D0DCD22F2BC4F9EC1AEB3434CBE")
+        interstitialAd.addTestDevice ("48C11D0DCD22F2BC4F9EC1AEB3434CBE")
+
+        /* Enable ads if needed */
+        if (!removeAdsBought && Qt.platform.os === "android" || Qt.platform.os === "ios")
+            adsEnabled = true
+
+        /* Hide ads */
+        else {
+            adsEnabled = false
+            removeAdsBought = true
+        }
+    }
+
+    //
+    // Available purchase items
+    //
+    Store {
+        id: store
+
+        Product {
+            id: productRemoveAds
+            type: Product.Unlockable
+            identifier: "com.alexspataru.supertac.remove_ads"
+
+            onPurchaseSucceeded: {
+                transaction.finalize()
+                messageBox.text = qsTr ("Thanks for your purchase!") + Translator.dummy
+                messageBox.open()
+
+                adsEnabled = false
+                removeAdsBought = true
+            }
+
+            onPurchaseFailed: {
+                transition.finalize()
+                messageBox.text = qsTr ("Failed to perform transaction") + Translator.dummy
+                messageBox.open()
+            }
+
+            onPurchaseRestored: {
+                adsEnabled = false
+                removeAdsBought = true
+                messageBox.title = qsTr ("Purchases Restored!") + Translator.dummy
+                messageBox.open()
+            }
+        }
+    }
+
+    //
+    // Used to confirm purchases
+    //
+    MessageDialog {
+        id: messageBox
+        title: app.title
+        icon: StandardIcon.Information
+        standardButtons: StandardButton.Close
+    }
+
+    //
+    // Banner ad
+    //
     AdMobBanner {
         id: bannerAd
         onLoaded: locateBanner()
         Component.onCompleted: {
-            visible = false
+            visible = true
             unitId = BannerId
             size = AdMobBanner.Banner
         }
     }
 
+    //
+    // Interstitial ad
+    //
     AdMobInterstitial {
         id: interstitialAd
         onClosed: interstitialAd.unitId = InterstitialId

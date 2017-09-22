@@ -39,6 +39,7 @@ ApplicationWindow {
     // Constants
     //
     readonly property int spacing: 8
+    readonly property int bannerHeight: 50
     readonly property int pieceAnimation: 250
     readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3
@@ -52,6 +53,7 @@ ApplicationWindow {
     //
     // Aliases
     //
+    property alias adsEnabled: ads.adsEnabled
     property alias showBoardMargins: ui.showAllBorders
 
     //
@@ -76,6 +78,8 @@ ApplicationWindow {
     //
     // Function aliases
     //
+    function removeAds()              { ads.removeAds() }
+    function restorePurchases()       { ads.restorePurchases() }
     function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 

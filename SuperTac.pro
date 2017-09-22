@@ -43,6 +43,7 @@ QT += svg
 QT += core
 QT += quick
 QT += multimedia
+QT += purchasing
 QT += quickcontrols2
 
 DEFINES += QTADMOB_QML
