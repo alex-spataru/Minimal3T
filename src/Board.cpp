@@ -68,19 +68,44 @@ void ResetBoard (Board& board)
 void UpdateGameState (Board& board)
 {
     bool won = false;
+    int availableFields = AvailableFields (board).count();
+
     won |= checkRows (board);
     won |= checkColumns (board);
     won |= checkLtrDiagonals (board);
     won |= checkRtlDiagonals (board);
 
-    if (won)
+    if (won) {
         board.state = kGameWon;
+        return;
+    }
 
-    else if (!won && AvailableFields (board).count() == 0)
+    else if (availableFields < board.fieldsToAllign) {
+        Board playerCopy;
+        Board opponentCopy;
+
+        foreach (int field, AvailableFields (board)) {
+            playerCopy = board;
+            opponentCopy = board;
+
+            SelectField (playerCopy, field);
+
+            if (availableFields > 1) {
+                opponentCopy.turn = OpponentOf (board.turn);
+                SelectField (opponentCopy, field);
+            }
+
+            if (playerCopy.state == kGameWon || opponentCopy.state == kGameWon) {
+                board.state = kGameInProgress;
+                return;
+            }
+        }
+
         board.state = kDraw;
+        return;
+    }
 
-    else
-        board.state = kGameInProgress;
+    board.state = kGameInProgress;
 }
 
 /**

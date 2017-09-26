@@ -13,7 +13,6 @@
         <file>Components/TextSpinBox.qml</file>
         <file>Pages/About.qml</file>
         <file>UI.qml</file>
-        <file>AdDisplay.qml</file>
         <file>Components/Overlay.qml</file>
         <file>AudioPlayer.qml</file>
         <file>Components/Dots.qml</file>

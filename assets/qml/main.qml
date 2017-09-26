@@ -44,6 +44,7 @@ ApplicationWindow {
     readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3
     readonly property int mediumLabel: xLargeLabel * 1/2
+    readonly property bool adsEnabled: AdEngine.adsEnabled
     readonly property int iconSize: Math.min (128, height / 5)
     readonly property int paneWidth: Math.min (width * 0.9, 512)
     readonly property int xLargeLabel: Math.min (font.pixelSize * 2.5,
@@ -53,7 +54,6 @@ ApplicationWindow {
     //
     // Aliases
     //
-    property alias adsEnabled: ads.adsEnabled
     property alias showBoardMargins: ui.showAllBorders
 
     //
@@ -69,8 +69,12 @@ ApplicationWindow {
     // Return a specific 'website' link for each platform
     //
     readonly property string website: {
-        if (Qt.platform.os === "android")
-            return "market://details?id=org.alexspataru.supertac"
+        if (Qt.platform.os === "android") {
+            if (adsEnabled)
+                return "market://details?id=org.alexspataru.supertac"
+            else
+                return "market://details?id=org.alexspataru.supertacpremium"
+        }
 
         return "https://github.com/alex-spataru/supertac"
     }
@@ -78,9 +82,7 @@ ApplicationWindow {
     //
     // Function aliases
     //
-    function removeAds()              { ads.removeAds() }
-    function restorePurchases()       { ads.restorePurchases() }
-    function showInterstitialAd()     { ads.showInterstitialAd() }
+    function showInterstitialAd()     { AdEngine.showInterstitial() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //
@@ -91,6 +93,20 @@ ApplicationWindow {
             return ui.useNought
 
         return !ui.useNought
+    }
+
+    //
+    // Prompts the user to buy the ad-free version of the app
+    //
+    function removeAds() {
+        function premiumAppLink() {
+            if (Qt.platform.os === "android")
+                return "market://details?id=org.alexspataru.supertacpremium"
+
+            return "https://github.com/alex-spataru/supertac"
+        }
+
+        Qt.openUrlExternally (premiumAppLink())
     }
 
     //
@@ -193,14 +209,6 @@ ApplicationWindow {
     Pages.Rate {
         id: ratePage
         anchors.centerIn: parent
-    }
-
-    //
-    // Ads
-    //
-    AdDisplay {
-        id: ads
-        anchors.fill: parent
     }
 
     //

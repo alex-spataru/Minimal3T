@@ -164,8 +164,8 @@ Page {
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
-            property int pxSixe: app.adsEnabled ? app.font.pixelSize - 5 :
-                                                  app.font.pixelSize
+            property int pxSixe: adsEnabled ? app.font.pixelSize - 5 :
+                                              app.font.pixelSize
 
             ImageButton {
                 btSize: 0
@@ -177,7 +177,7 @@ Page {
 
             ImageButton {
                 btSize: 0
-                visible: app.adsEnabled
+                visible: adsEnabled
                 onClicked: removeAdsClicked()
                 font.pixelSize: buttons.pxSixe
                 source: "qrc:/images/no-ads.svg"
