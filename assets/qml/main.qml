@@ -44,7 +44,6 @@ ApplicationWindow {
     readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3
     readonly property int mediumLabel: xLargeLabel * 1/2
-    readonly property bool adsEnabled: AdEngine.adsEnabled
     readonly property int iconSize: Math.min (128, height / 5)
     readonly property int paneWidth: Math.min (width * 0.9, 512)
     readonly property int xLargeLabel: Math.min (font.pixelSize * 2.5,
@@ -138,7 +137,7 @@ ApplicationWindow {
     width: 320
     height: 533
     visible: true
-    title: qsTr ("SuperTac") + Translator.dummy
+    title: qsTr ("Minimal3T") + Translator.dummy
 
     //
     // Material theme options

@@ -34,7 +34,6 @@ Page {
     signal aboutClicked
     signal shareClicked
     signal settingsClicked
-    signal removeAdsClicked
     signal multiplayerClicked
     signal singleplayerClicked
 
@@ -70,11 +69,11 @@ Page {
         //
         Label {
             Layout.fillHeight: false
-            font.pixelSize: app.xLargeLabel
+            font.pixelSize: app.xLargeLabel * 1.2
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
-            text: qsTr ("SuperTac") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("Minimal") + Translator.dummy
         }
 
         //
@@ -86,7 +85,7 @@ Page {
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr ("Tic-Tac-Toe Game") + Translator.dummy
+            text: qsTr ("Tic Tac Toe Game") + Translator.dummy
         }
 
         //
@@ -164,8 +163,7 @@ Page {
             opacity: 1 - settings.opacity
             anchors.horizontalCenter: parent.horizontalCenter
 
-            property int pxSixe: adsEnabled ? app.font.pixelSize - 5 :
-                                              app.font.pixelSize
+            property int pxSixe: app.font.pixelSize - 1
 
             ImageButton {
                 btSize: 0
@@ -173,15 +171,6 @@ Page {
                 source: "qrc:/images/info.svg"
                 font.pixelSize: buttons.pxSixe
                 text: qsTr ("About") + Translator.dummy
-            }
-
-            ImageButton {
-                btSize: 0
-                visible: adsEnabled
-                onClicked: removeAdsClicked()
-                font.pixelSize: buttons.pxSixe
-                source: "qrc:/images/no-ads.svg"
-                text: qsTr ("Remove Ads") + Translator.dummy
             }
 
             ImageButton {

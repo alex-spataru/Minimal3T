@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+import Board 1.0
 import QtQuick 2.0
 
 Item {
@@ -36,6 +37,11 @@ Item {
     //
     property bool isNought: false
     readonly property bool isCross: !isNought
+
+    //
+    // Animation control
+    //
+    readonly property bool animationsEnabled: Board.boardSize < 5
 
     //
     // Line properties
@@ -74,16 +80,18 @@ Item {
     // Draws the piece
     //
     function show() {
-        if (isCross) {
-            _dABehavior.enabled = true
-            _dBBehavior.enabled = true
+        opacity = 0.9
 
-            _diagB = 0
+        if (isCross) {
+            _dABehavior.enabled = animationsEnabled
+            _dBBehavior.enabled = animationsEnabled
+
             _diagA = canvas.width
+            _diagB = animationsEnabled ? 0 : canvas.width
         }
 
         else if (isNought) {
-            _anBehavior.enabled = true
+            _anBehavior.enabled = animationsEnabled
             _angle = 2 * Math.PI
         }
     }
@@ -92,6 +100,8 @@ Item {
     // Reset the lines
     //
     function hide() {
+        opacity = 0
+
         _anBehavior.enabled = false
         _dABehavior.enabled = false
         _dBBehavior.enabled = false
@@ -100,6 +110,11 @@ Item {
         _diagA = 0
         _diagB = 0
     }
+
+    //
+    // Be fancy
+    //
+    Behavior on opacity { NumberAnimation { duration: app.pieceAnimation / 2 } }
 
     //
     // Draw the first line, when finished, draw the second line

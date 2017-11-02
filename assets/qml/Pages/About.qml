@@ -47,11 +47,11 @@ Overlay {
 
         Label {
             Layout.fillWidth: true
-            font.pixelSize: app.largeLabel
+            font.pixelSize: app.mediumLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr ("SuperTac %1").arg (Version) + Translator.dummy
+            text: qsTr ("Minimal3T %1").arg (Version) + Translator.dummy
         }
 
         Label {

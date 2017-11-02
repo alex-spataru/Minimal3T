@@ -4,9 +4,13 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../qml/Pages/About.qml" line="54"/>
         <source>SuperTac %1</source>
-        <translation>SuperTac %1</translation>
+        <translation type="vanished">SuperTac %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/About.qml" line="54"/>
+        <source>Minimal Tic Tac Toe %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="63"/>
@@ -42,60 +46,60 @@
 <context>
     <name>AdDisplay</name>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="81"/>
         <source>Thanks for your purchase!</source>
-        <translation>Cảm ơn bạn đã mua!</translation>
+        <translation type="vanished">Cảm ơn bạn đã mua!</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="90"/>
         <source>Failed to perform transaction</source>
-        <translation>Không thể thực hiện giao dịch</translation>
+        <translation type="vanished">Không thể thực hiện giao dịch</translation>
     </message>
     <message>
-        <location filename="../qml/AdDisplay.qml" line="97"/>
         <source>Purchases Restored!</source>
-        <translation>Đã khôi phục mua hàng!</translation>
+        <translation type="vanished">Đã khôi phục mua hàng!</translation>
     </message>
 </context>
 <context>
     <name>MainMenu</name>
     <message>
+        <source>Tic-Tac-Toe Game</source>
+        <translation type="vanished">Trò chơi Tic-Tac-Toe</translation>
+    </message>
+    <message>
         <location filename="../qml/Pages/MainMenu.qml" line="76"/>
-        <source>SuperTac</source>
-        <translation></translation>
+        <source>Minimal</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="88"/>
-        <source>Tic-Tac-Toe Game</source>
-        <translation>Trò chơi Tic-Tac-Toe</translation>
+        <source>Tic Tac Toe Game</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="122"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="123"/>
         <source>Play</source>
         <translation>Chơi</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="142"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="144"/>
         <source>Multiplayer</source>
         <translation>Nhiều người chơi</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="171"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="173"/>
         <source>About</source>
         <translation>Thông tin</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="180"/>
         <source>Remove Ads</source>
-        <translation>Quảng cáo</translation>
+        <translation type="vanished">Quảng cáo</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="188"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="181"/>
         <source>Share</source>
         <translation>Chia sẻ</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/MainMenu.qml" line="196"/>
+        <location filename="../qml/Pages/MainMenu.qml" line="189"/>
         <source>Settings</source>
         <translation>Tùy chọn</translation>
     </message>
@@ -103,9 +107,8 @@
 <context>
     <name>PhilosophicalAi</name>
     <message>
-        <location filename="../qml/Dialogs/PhilosophicalAi.qml" line="84"/>
         <source>AI is thinking</source>
-        <translation>AI đang nghĩ</translation>
+        <translation type="vanished">AI đang nghĩ</translation>
     </message>
 </context>
 <context>
@@ -163,52 +166,51 @@
         <translation type="vanished">Lề</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="161"/>
         <source>Margins</source>
-        <translation>Lề</translation>
+        <translation type="vanished">Lề</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="181"/>
+        <location filename="../qml/Pages/Settings.qml" line="172"/>
         <source>Map Dimension</source>
         <translation>Thứ nguyên Bản đồ</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="199"/>
+        <location filename="../qml/Pages/Settings.qml" line="190"/>
         <source>AI Level</source>
         <translation>Cấp AI</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="203"/>
+        <location filename="../qml/Pages/Settings.qml" line="194"/>
         <source>Easy</source>
         <translation>Dễ dàng</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="204"/>
+        <location filename="../qml/Pages/Settings.qml" line="195"/>
         <source>Normal</source>
         <translation>Bình thường</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="205"/>
+        <location filename="../qml/Pages/Settings.qml" line="196"/>
         <source>Hard</source>
         <translation>Cứng</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="206"/>
+        <location filename="../qml/Pages/Settings.qml" line="197"/>
         <source>Very Hard</source>
         <translation>Rất cứng</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="225"/>
+        <location filename="../qml/Pages/Settings.qml" line="216"/>
         <source>Pieces to Align</source>
         <translation>Các miếng để căn chỉnh</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="242"/>
+        <location filename="../qml/Pages/Settings.qml" line="233"/>
         <source>Language</source>
         <translation>Ngôn ngữ</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="278"/>
+        <location filename="../qml/Pages/Settings.qml" line="269"/>
         <source>Back</source>
         <translation>Trở về</translation>
     </message>
@@ -216,32 +218,32 @@
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="313"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="326"/>
         <source>You lost the game!</source>
         <translation>Bạn bị mất trò chơi!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="318"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="331"/>
         <source>You won the game!</source>
         <translation>Bạn thắng cuộc chơi!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="324"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="337"/>
         <source>Draw</source>
         <translation>Không ai thắng</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="370"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="383"/>
         <source>New Game</source>
         <translation>Trò chơi mới</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="386"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="399"/>
         <source>Main Menu</source>
         <translation>Thực đơn chính</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="399"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="412"/>
         <source>Settings</source>
         <translation>Tùy chọn</translation>
     </message>
@@ -259,13 +261,17 @@
         <translation>Tùy chọn</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="158"/>
-        <source>Restore Purchases</source>
-        <translation>Khôi phục mua hàng</translation>
+        <location filename="../qml/UI.qml" line="161"/>
+        <source>Ads-Free Version</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="212"/>
-        <location filename="../qml/UI.qml" line="222"/>
+        <source>Restore Purchases</source>
+        <translation type="vanished">Khôi phục mua hàng</translation>
+    </message>
+    <message>
+        <location filename="../qml/UI.qml" line="206"/>
+        <location filename="../qml/UI.qml" line="216"/>
         <source>Match</source>
         <translation>Trò chơi</translation>
     </message>
@@ -273,9 +279,9 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="125"/>
-        <source>SuperTac</source>
-        <translation></translation>
+        <location filename="../qml/main.qml" line="140"/>
+        <source>Minimal Tic Tac Toe</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

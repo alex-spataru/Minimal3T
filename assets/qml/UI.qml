@@ -152,6 +152,14 @@ Item {
                         app.playSoundEffect ("click")
                     }
                 }
+
+                MenuItem {
+                    visible: enabled
+                    enabled: AdsEnabled
+                    onClicked: app.removeAds()
+                    height: enabled ? implicitHeight : 0
+                    text: qsTr ("Ads-Free Version") + Translator.dummy
+                }
             }
 
         }
@@ -166,14 +174,12 @@ Item {
         anchors.fill: parent
         anchors.margins: app.spacing
         anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
-        anchors.bottomMargin: (adsEnabled ? app.bannerHeight : 0) + app.spacing
 
         MainMenu {
             id: mainMenu
             visible: false
             onAboutClicked: about.open()
             onSettingsClicked: settings.open()
-            onRemoveAdsClicked: app.removeAds()
             onMultiplayerClicked: stack.push (multiPlayer)
             onSingleplayerClicked: stack.push (singlePlayer)
 

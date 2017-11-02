@@ -34,7 +34,7 @@ ComputerPlayer::ComputerPlayer() :
     m_defensiveMoves (false),
     m_preferOffensive (false)
 {
-    m_aiWatchdog.setInterval (1000);
+    m_aiWatchdog.setInterval (2000);
     connect (&m_aiWatchdog, SIGNAL (timeout()),
              this, SLOT (selectRandomField()));
 }
@@ -174,7 +174,7 @@ void ComputerPlayer::setPlayer (const QmlBoard::Player player)
  * another field
  */
 void ComputerPlayer::selectRandomField() {
-    if (!m_played)
+    if (!m_played && QmlBoard::getInstance()->boardSize() > 3)
         selectField (Minimax::RandomField (QmlBoard::getInstance()->board()));
 }
 

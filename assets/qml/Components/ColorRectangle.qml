@@ -30,13 +30,13 @@ Rectangle {
     // Custom properties
     //
     property int transitionTime: 5000
+    property color skyColor: horizonColor
     property color horizonColor: randomColor (96)
-    property color skyColor: Qt.lighter (horizonColor, 1.2)
 
     //
     // Fade when changing colors
     //
-    Behavior on skyColor { ColorAnimation {duration: bg.transitionTime} }
+    Behavior on skyColor { ColorAnimation {duration: bg.transitionTime * 2} }
     Behavior on horizonColor { ColorAnimation {duration: bg.transitionTime} }
 
     //
@@ -44,10 +44,8 @@ Rectangle {
     // randomly generated color
     //
     function updateColors() {
-        skyColor = Qt.lighter (horizonColor, 1.2)
         horizonColor = randomColor (96)
     }
-
 
     //
     // Obtained from: https://stackoverflow.com/a/17373688
