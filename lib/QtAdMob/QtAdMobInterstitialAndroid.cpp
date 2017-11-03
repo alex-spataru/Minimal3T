@@ -141,6 +141,7 @@ void QtAdMobInterstitialAndroid::setVisible (bool isVisible)
 {
     if (!isValid())
         return;
+
     // TODO: implement hide
     m_Activity->callMethod<void> ("ShowAdInterstitial");
 }

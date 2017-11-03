@@ -174,6 +174,7 @@ Item {
         anchors.fill: parent
         anchors.margins: app.spacing
         anchors.topMargin: toolbar.implicitHeight + 2 * app.spacing
+        anchors.bottomMargin: (AdsEnabled ? app.bannerHeight : 0) + app.spacing
 
         MainMenu {
             id: mainMenu

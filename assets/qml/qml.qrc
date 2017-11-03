@@ -18,5 +18,6 @@
         <file>Components/Dots.qml</file>
         <file>Pages/Rate.qml</file>
         <file>Components/FieldCanvas.qml</file>
+        <file>AdDisplay.qml</file>
     </qresource>
 </RCC>

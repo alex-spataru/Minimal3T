@@ -81,7 +81,7 @@ ApplicationWindow {
     //
     // Function aliases
     //
-    function showInterstitialAd()     { AdEngine.showInterstitial() }
+    function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //
@@ -208,6 +208,15 @@ ApplicationWindow {
     Pages.Rate {
         id: ratePage
         anchors.centerIn: parent
+    }
+
+    //
+    // Ad page
+    //
+    AdDisplay {
+        id: ads
+        enabled: AdsEnabled
+        anchors.fill: parent
     }
 
     //
