@@ -57,8 +57,7 @@ TRANSLATIONS += \
     $$PWD/assets/translations/fr.ts \
     $$PWD/assets/translations/ch.ts \
     $$PWD/assets/translations/ru.ts \
-    $$PWD/assets/translations/it.ts \
-    $$PWD/assets/translations/vi.ts
+    $$PWD/assets/translations/it.ts
 
 #-------------------------------------------------------------------------------
 # Include libraries

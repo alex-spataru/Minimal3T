@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en" sourcelanguage="en">
+<TS version="2.0" language="en" sourcelanguage="en">
 <context>
     <name>About</name>
     <message>
-        <location filename="../qml/Pages/About.qml" line="54"/>
         <source>Minimal Tic Tac Toe %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimal3T %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/About.qml" line="54"/>
+        <source>Minimal3T %1</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="63"/>
@@ -44,12 +48,12 @@
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="76"/>
         <source>Minimal</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimal</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="88"/>
         <source>Tic Tac Toe Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Tic Tac Toe Game</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="123"/>
@@ -220,12 +224,16 @@
     </message>
     <message>
         <location filename="../qml/UI.qml" line="161"/>
-        <source>Ads-Free Version</source>
-        <translation type="unfinished"></translation>
+        <source>Remove Ads</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="206"/>
-        <location filename="../qml/UI.qml" line="216"/>
+        <source>Ads-Free Version</source>
+        <translation>Ads-Free Version</translation>
+    </message>
+    <message>
+        <location filename="../qml/UI.qml" line="207"/>
+        <location filename="../qml/UI.qml" line="217"/>
         <source>Match</source>
         <translation></translation>
     </message>
@@ -233,9 +241,13 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="140"/>
         <source>Minimal Tic Tac Toe</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimal3T</translation>
+    </message>
+    <message>
+        <location filename="../qml/main.qml" line="140"/>
+        <source>Minimal3T</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

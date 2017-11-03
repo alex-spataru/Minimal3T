@@ -78,8 +78,7 @@ QStringList Translator::availableLanguages() const
         "Français",
         "Italiano",
         "Русский",
-        "中文",
-        "Tiếng Việt"
+        "中文"
     };
 }
 

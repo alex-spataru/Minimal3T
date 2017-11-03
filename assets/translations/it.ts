@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it">
+<TS version="2.0" language="it">
 <context>
     <name>About</name>
     <message>
         <source>SuperTac %1</source>
-        <translation type="vanished">SuperTac %1</translation>
+        <translation>SuperTac %1</translation>
+    </message>
+    <message>
+        <source>Minimal Tic Tac Toe %1</source>
+        <translation>Minimal3T %1</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="54"/>
-        <source>Minimal Tic Tac Toe %1</source>
-        <translation type="unfinished"></translation>
+        <source>Minimal3T %1</source>
+        <translation>Minimal3T %1</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="63"/>
@@ -47,32 +51,32 @@
     <name>AdDisplay</name>
     <message>
         <source>Thanks for your purchase!</source>
-        <translation type="vanished">Grazie per il tuo acquisto!</translation>
+        <translation>Grazie per il tuo acquisto!</translation>
     </message>
     <message>
         <source>Failed to perform transaction</source>
-        <translation type="vanished">Impossibile eseguire la transazione</translation>
+        <translation>Impossibile eseguire la transazione</translation>
     </message>
     <message>
         <source>Purchases Restored!</source>
-        <translation type="vanished">Acquisti ripristinati!</translation>
+        <translation>Acquisti ripristinati!</translation>
     </message>
 </context>
 <context>
     <name>MainMenu</name>
     <message>
         <source>Tic-Tac-Toe Game</source>
-        <translation type="vanished">Gioco di Tris</translation>
+        <translation>Gioco di Tris</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="76"/>
         <source>Minimal</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimal</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="88"/>
         <source>Tic Tac Toe Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Gioco di Tris</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="123"/>
@@ -91,7 +95,7 @@
     </message>
     <message>
         <source>Remove Ads</source>
-        <translation type="vanished">Rimuovere Annunci</translation>
+        <translation>Rimuovere Annunci</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="181"/>
@@ -108,7 +112,7 @@
     <name>PhilosophicalAi</name>
     <message>
         <source>AI is thinking</source>
-        <translation type="vanished">IA sta pensando</translation>
+        <translation>IA sta pensando</translation>
     </message>
 </context>
 <context>
@@ -163,11 +167,11 @@
     </message>
     <message>
         <source>Borders</source>
-        <translation type="vanished">Margini</translation>
+        <translation>Margini</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="vanished">Margini</translation>
+        <translation>Margini</translation>
     </message>
     <message>
         <location filename="../qml/Pages/Settings.qml" line="172"/>
@@ -262,16 +266,20 @@
     </message>
     <message>
         <location filename="../qml/UI.qml" line="161"/>
+        <source>Remove Ads</source>
+        <translation>Rimuovere Annunci</translation>
+    </message>
+    <message>
         <source>Ads-Free Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovere Annunci</translation>
     </message>
     <message>
         <source>Restore Purchases</source>
-        <translation type="vanished">Ripristinare gli Acquisti</translation>
+        <translation>Ripristinare gli Acquisti</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="206"/>
-        <location filename="../qml/UI.qml" line="216"/>
+        <location filename="../qml/UI.qml" line="207"/>
+        <location filename="../qml/UI.qml" line="217"/>
         <source>Match</source>
         <translation>Incontro</translation>
     </message>
@@ -279,9 +287,13 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="140"/>
         <source>Minimal Tic Tac Toe</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimal3T</translation>
+    </message>
+    <message>
+        <location filename="../qml/main.qml" line="140"/>
+        <source>Minimal3T</source>
+        <translation>Minimal3T</translation>
     </message>
 </context>
 </TS>

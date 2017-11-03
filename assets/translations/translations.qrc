@@ -1,11 +1,10 @@
 <RCC>
     <qresource prefix="/translations">
+        <file>ch.qm</file>
         <file>en.qm</file>
         <file>es.qm</file>
         <file>fr.qm</file>
-        <file>ru.qm</file>
-        <file>ch.qm</file>
         <file>it.qm</file>
-        <file>vi.qm</file>
+        <file>ru.qm</file>
     </qresource>
 </RCC>

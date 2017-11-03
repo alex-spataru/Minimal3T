@@ -158,7 +158,7 @@ Item {
                     enabled: AdsEnabled
                     onClicked: app.removeAds()
                     height: enabled ? implicitHeight : 0
-                    text: qsTr ("Ads-Free Version") + Translator.dummy
+                    text: qsTr ("Remove Ads") + Translator.dummy
                 }
             }
 
