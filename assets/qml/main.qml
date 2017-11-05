@@ -75,7 +75,7 @@ ApplicationWindow {
                 return "market://details?id=org.alexspataru.supertacpremium"
         }
 
-        return "https://github.com/alex-spataru/supertac"
+        return "https://alex-spataru.github.io/Minimal3T"
     }
 
     //
@@ -102,7 +102,7 @@ ApplicationWindow {
             if (Qt.platform.os === "android")
                 return "market://details?id=org.alexspataru.supertacpremium"
 
-            return "https://github.com/alex-spataru/supertac"
+            return "https://alex-spataru.github.io/Minimal3T/"
         }
 
         Qt.openUrlExternally (premiumAppLink())

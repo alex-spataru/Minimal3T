@@ -92,7 +92,7 @@ Overlay {
             Layout.fillWidth: true
             text: qsTr ("GitHub Project") + Translator.dummy
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: Qt.openUrlExternally ("https://github.com/alex-spataru/SuperTac")
+            onClicked: Qt.openUrlExternally ("https://github.com/alex-spataru/Minimal3T")
         }
 
         Button {
