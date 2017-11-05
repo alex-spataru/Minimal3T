@@ -5,21 +5,20 @@ Minimal Tic Tac Toe is a mobile-friendly implementation of Tic-Tac-Toe written w
 <a href="https://play.google.com/store/apps/details?id=org.alexspataru.supertac"><img alt="Get it on Google Play" src="http://emanual.github.io/Android-docs/images/brand/en_generic_rgb_wo_60.png"/></a> 
 <a href="http://apps.opera.com/badge.php?a=c&v=dark_v2&did=221420&pid=931644" target="_blank"><img src="https://apps.opera.com/badge.php?a=s&v=dark_v2&did=221420&pid=931644" height="60" alt="Opera Mobile Store"  title="Opera Mobile Store" /></a>
 
-### TODOs
-- [x] Implement the Alpha-Beta algorithm in order to improve the speed of the AI
-- [x] Set Android icon
-- [x] Configure AdMob
-- [x] Modularize main.qml code
-- [x] Add base overlay QML type
-- [x] Get a good music source
-- [ ] Write a meaningful README
-- [ ] Fix app for xDPI Android devices
-- [x] Fix full-grid generation glitches
-- [x] Configure Android splash screen
-- [x] Write custom spinbox controls for settings page
-- [x] Translations
-- [x] Create Tic Tac Toe style grid
-- [x] Fix inverted cross animation on new fields
+A simple game for children and adults to have fun, practice their strategy skills and kill some time. Minimal3T allows you to play Tic-Tac-Toe on your Android phone with a modern and pleasing visual design for free.
+
+This game has numerous features, such as customizable game rules, random note generation (each game results in a simple melody) and an ingenious AI player.
+
+The AI for this game has 4 difficulty levels, from "easy" to "very hard". Each difficulty level results in a set of different behavior patterns and strategies. The AI can play a perfect 3x3 game, and challenge you on larger boards.
+
+Features:
+- Beautiful music and sound effects
+- Simple and lightweight visual design
+- Play with your friends or with the AI
+- 4 levels of AI difficulty
+- Configurable board size (from 3x3 to 8x8)
+- Configurable pieces to align (from 3 to the current board size)
+- Translated to multiple languages
 
 ## License
 
