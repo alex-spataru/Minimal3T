@@ -1,9 +1,8 @@
-# Minimal3T
+# Minimal Tic Tac Toe
 
 Minimal Tic Tac Toe is a mobile-friendly implementation of Tic-Tac-Toe written with Qt and QML.
 
 <a href="https://play.google.com/store/apps/details?id=org.alexspataru.supertac"><img alt="Get it on Google Play" src="http://emanual.github.io/Android-docs/images/brand/en_generic_rgb_wo_60.png"/></a> 
-<a href="http://apps.opera.com/badge.php?a=c&v=dark_v2&did=221420&pid=931644" target="_blank"><img src="https://apps.opera.com/badge.php?a=s&v=dark_v2&did=221420&pid=931644" height="60" alt="Opera Mobile Store"  title="Opera Mobile Store" /></a>
 
 A simple game for children and adults to have fun, practice their strategy skills and kill some time. Minimal3T allows you to play Tic-Tac-Toe on your Android phone with a modern and pleasing visual design for free.
 
