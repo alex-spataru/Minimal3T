@@ -21,49 +21,22 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.0
+import UiGradients 1.0
 
-Item {
-    id: button
+GradientStop {
+    property int index: 0
+    color: index < Gradients.colorCount ? Gradients.colors [index] : "transparent"
+    position: index < Gradients.colorCount ? index * (1 / Gradients.colorCount) : 0
 
-    signal clicked
-    property int btSize: 81
-    property alias font: label.font
-    property alias text: label.text
-    property alias source: image.source
-
-    Layout.fillWidth: btSize === 0
-    Layout.preferredWidth: btSize > 0 ? btSize : 81
-    Layout.preferredHeight: btSize > 0 ? btSize : 81
-
-    onClicked: app.playSoundEffect ("click")
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: button.clicked()
+    Behavior on color {
+        ColorAnimation {
+            duration: Gradients.time * 0.72
+        }
     }
 
-    ColumnLayout {
-        spacing: app.spacing
-        anchors.centerIn: parent
-
-        SvgImage {
-            id: image
-            fillMode: Image.Pad
-            verticalAlignment: Image.AlignVCenter
-            horizontalAlignment: Image.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Label {
-            id: label
-            visible: text.length > 0
-            font.weight: Font.ExtraLight
-            Layout.preferredWidth: btSize
-            font.pixelSize: app.font.pixelSize - 3
-            horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+    Behavior on position {
+        NumberAnimation {
+            duration: Gradients.time * 0.72
         }
     }
 }

@@ -76,7 +76,8 @@ HEADERS += \
     $$PWD/src/Minimax.h \
     $$PWD/src/ComputerPlayer.h \
     $$PWD/src/QmlBoard.h \
-    $$PWD/src/Translator.h
+    $$PWD/src/Translator.h \
+    $$PWD/src/UiGradients.h
 
 SOURCES += \
     $$PWD/src/main.cpp \
@@ -84,7 +85,8 @@ SOURCES += \
     $$PWD/src/Minimax.cpp \
     $$PWD/src/ComputerPlayer.cpp \
     $$PWD/src/QmlBoard.cpp \
-    $$PWD/src/Translator.cpp
+    $$PWD/src/Translator.cpp \
+    $$PWD/src/UiGradients.cpp
 
 OTHER_FILES += \
     $$PWD/assets/qml/*.qml \
@@ -97,7 +99,8 @@ RESOURCES += \
     $$PWD/assets/fonts/fonts.qrc \
     $$PWD/assets/images/images.qrc \
     $$PWD/assets/sounds/sounds.qrc \
-    $$PWD/assets/translations/translations.qrc
+    $$PWD/assets/translations/translations.qrc \
+    $$PWD/assets/gradients/gradients.qrc
 
 #-------------------------------------------------------------------------------
 # Deploy configurations

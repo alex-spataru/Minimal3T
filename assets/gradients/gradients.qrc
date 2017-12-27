@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/gradients">
+        <file>gradients.json</file>
+    </qresource>
+</RCC>

@@ -69,7 +69,7 @@ ApplicationWindow {
     //
     readonly property string website: {
         if (Qt.platform.os === "android") {
-            if (adsEnabled)
+            if (AdsEnabled)
                 return "market://details?id=org.alexspataru.supertac"
             else
                 return "market://details?id=org.alexspataru.supertacpremium"
@@ -215,8 +215,8 @@ ApplicationWindow {
     //
     AdDisplay {
         id: ads
-        enabled: AdsEnabled
         anchors.fill: parent
+        anchors.centerIn: parent
     }
 
     //

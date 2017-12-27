@@ -27,71 +27,13 @@ import com.dreamdev.QtAdMobInterstitial 1.0
 
 Item {
     id: ads
-    property alias adsEnabled: ads.enabled
-
-    //
-    // Locate the banner when the custom properties are changed
-    //
-    onAdsEnabledChanged: {
-        locateBanner()
-        bannerAd.visible = adsEnabled
-    }
 
     //
     // Shows the interstitial ad
     //
     function showInterstitialAd() {
-        if (interstitialAd.isLoaded && adsEnabled)
+        if (interstitialAd.isLoaded && AdsEnabled)
             interstitialAd.visible = true
-    }
-
-    //
-    // Locates the banner on the bottom of the screen
-    //
-    function locateBanner() {
-        var w = bannerAd.width / DevicePixelRatio
-        var h = bannerAd.height / DevicePixelRatio
-
-        if (adsEnabled) {
-            var sbHeight = Screen.height - Screen.desktopAvailableHeight
-            bannerAd.x = (app.width - w) * DevicePixelRatio / 2
-            bannerAd.y = (app.height - h - app.spacing + sbHeight + 1) * DevicePixelRatio
-        }
-
-        else {
-            bannerAd.x = app.width * 2 * DevicePixelRatio
-            bannerAd.y = app.height * 2 * DevicePixelRatio
-        }
-    }
-
-    //
-    // Update banner location when window size changes
-    //
-    Connections {
-        target: app
-        onWidthChanged: locateBanner()
-        onHeightChanged: locateBanner()
-    }
-
-    //
-    // Show ads
-    //
-    Component.onCompleted: {
-        locateBanner()
-        bannerAd.visible = adsEnabled
-    }
-
-    //
-    // Banner ad
-    //
-    AdMobBanner {
-        id: bannerAd
-        onLoaded: locateBanner()
-        Component.onCompleted: {
-            visible = true
-            unitId = BannerId
-            size = AdMobBanner.Banner
-        }
     }
 
     //
@@ -102,4 +44,9 @@ Item {
         onClosed: interstitialAd.unitId = InterstitialId
         Component.onCompleted: interstitialAd.unitId = InterstitialId
     }
+
+    //
+    // Dummy banner
+    //
+    AdMobBanner {}
 }

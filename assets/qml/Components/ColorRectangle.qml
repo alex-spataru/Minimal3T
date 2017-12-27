@@ -21,85 +21,26 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 
 Rectangle {
     id: bg
-    Component.onCompleted: updateColors()
 
-    //
-    // Custom properties
-    //
-    property int transitionTime: 5000
-    property color skyColor: horizonColor
-    property color horizonColor: randomColor (96)
-
-    //
-    // Fade when changing colors
-    //
-    Behavior on skyColor { ColorAnimation {duration: bg.transitionTime * 2} }
-    Behavior on horizonColor { ColorAnimation {duration: bg.transitionTime} }
-
-    //
-    // Generates a random color and another color that complements the
-    // randomly generated color
-    //
-    function updateColors() {
-        horizonColor = randomColor (96)
-    }
-
-    //
-    // Obtained from: https://stackoverflow.com/a/17373688
-    //
-    function randomColor (brightness){
-        function randomChannel (brightness) {
-            var r = 255 - brightness
-            var n = 0 | ((Math.random() * r) + brightness)
-            var s = n.toString (16)
-            return (s.length == 1) ? '0' + s : s
-        }
-
-        return '#' +
-                randomChannel (brightness) +
-                randomChannel (brightness) +
-                randomChannel (brightness)
-    }
-
-    //
-    // Changes the speed at which the colors change
-    //
-    function setBackgroundSpeed (speed) {
-        bgTimer.interval = bg.transitionTime * (speed / 100)
-    }
-
-    //
-    // Change the background colors from time to time
-    //
-    Timer {
-        id: bgTimer
-        repeat: true
-        interval: bg.transitionTime
-        onTriggered: bg.updateColors()
-        Component.onCompleted: start()
-    }
-
-    //
-    // Represent the generated colors in a gradient
-    //
     gradient: Gradient {
-        GradientStop {
-            position: 0
-            color: bg.skyColor
+        UiGradientStop {
+            index: 0
         }
 
-        GradientStop {
-            position: 1
-            color: bg.horizonColor
+        UiGradientStop {
+            index: 1
         }
-    }
 
-    Rectangle {
-        opacity: 0.2
-        color: "#000000"
-        anchors.fill: parent
+        UiGradientStop {
+            index: 2
+        }
+
+        UiGradientStop {
+            index: 3
+        }
     }
 }

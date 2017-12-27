@@ -139,6 +139,8 @@ const QString& QtAdMobInterstitialAndroid::unitId() const
 
 void QtAdMobInterstitialAndroid::setVisible (bool isVisible)
 {
+    (void) isVisible;
+
     if (!isValid())
         return;
 

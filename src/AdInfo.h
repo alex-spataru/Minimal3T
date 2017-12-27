@@ -28,17 +28,14 @@
 #if defined (QTADMOB_QML) && defined (Q_OS_ANDROID) && !defined (PREMIUM)
   #ifdef ENABLE_REAL_ADS
     static const bool ADS_ENABLED        = true;
-    static const QString BANNER_ID       = "ca-app-pub-5828460259173662/2959223234";
     static const QString INTERSTITIAL_ID = "ca-app-pub-5828460259173662/4859337768";
   #else
     static const bool ADS_ENABLED        = true;
-    static const QString BANNER_ID       = "ca-app-pub-3940256099942544/6300978111";
     static const QString INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
   #endif
 
   #else
-    static const bool ADS_ENABLED        = 0;
-    static const QString BANNER_ID       = "";
+    static const bool ADS_ENABLED        = false;
     static const QString INTERSTITIAL_ID = "";
   #endif
 #endif

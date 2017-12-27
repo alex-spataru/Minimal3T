@@ -32,23 +32,26 @@
 
 #include "AdInfo.h"
 #include "QmlBoard.h"
+#include "UiGradients.h"
 #include "Translator.h"
 #include "ComputerPlayer.h"
 
 int main (int argc, char** argv)
 {
-    QGuiApplication::setApplicationVersion ("1.5.0");
+    QGuiApplication::setApplicationVersion ("1.5.2");
     QGuiApplication::setApplicationName ("Minimal3T");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app (argc, argv);
 
+    UiGradients gradients;
     Translator translator;
     ComputerPlayer aiPlayer;
     aiPlayer.setPlayer (QmlBoard::Player2);
 
     QmlBoard::DeclareQML();
+    UiGradients::DeclareQML();
     ShareUtils::DeclareQML();
     Translator::DeclareQML();
     ComputerPlayer::DeclareQML();
@@ -58,9 +61,9 @@ int main (int argc, char** argv)
 
     QQmlApplicationEngine engine;
     QQuickStyle::setStyle ("Universal");
-    engine.rootContext()->setContextProperty ("BannerId", BANNER_ID);
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
     engine.rootContext()->setContextProperty ("DevicePixelRatio", dpr);
+    engine.rootContext()->setContextProperty ("Gradients", &gradients);
     engine.rootContext()->setContextProperty ("Translator", &translator);
     engine.rootContext()->setContextProperty ("AdsEnabled", ADS_ENABLED);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
