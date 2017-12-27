@@ -74,12 +74,9 @@ Item {
     }
 
     //
-    // Register test devices and show ads
+    // Show ads
     //
     Component.onCompleted: {
-        bannerAd.addTestDevice ("48C11D0DCD22F2BC4F9EC1AEB3434CBE")
-        interstitialAd.addTestDevice ("48C11D0DCD22F2BC4F9EC1AEB3434CBE")
-
         locateBanner()
         bannerAd.visible = adsEnabled
     }

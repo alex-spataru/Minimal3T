@@ -117,7 +117,7 @@ android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
 
     android:DEFINES += ENABLE_REAL_ADS
-    android:DEFINES += PREMIUM
+    #android:DEFINES += PREMIUM
 
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
