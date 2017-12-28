@@ -45,8 +45,6 @@ QT += quick
 QT += multimedia
 QT += quickcontrols2
 
-DEFINES += QTADMOB_QML
-
 #-------------------------------------------------------------------------------
 # Translations
 #-------------------------------------------------------------------------------
@@ -63,7 +61,6 @@ TRANSLATIONS += \
 # Include libraries
 #-------------------------------------------------------------------------------
 
-include ($$PWD/lib/QtAdMob/QtAdMob.pri)
 include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 #-------------------------------------------------------------------------------
@@ -71,7 +68,6 @@ include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 #-------------------------------------------------------------------------------
 
 HEADERS += \
-    $$PWD/src/AdInfo.h \
     $$PWD/src/Board.h \
     $$PWD/src/Minimax.h \
     $$PWD/src/ComputerPlayer.h \
@@ -118,10 +114,6 @@ linux:!android {
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
-
-    android:DEFINES += ENABLE_REAL_ADS
-    #android:DEFINES += PREMIUM
-
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/build.gradle \

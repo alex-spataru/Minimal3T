@@ -41,7 +41,6 @@ ApplicationWindow {
     readonly property int spacing: 8
     readonly property int bannerHeight: 50
     readonly property int pieceAnimation: 250
-    readonly property int interstitialAdFreq: 2
     readonly property int largeLabel: xLargeLabel * 2/3
     readonly property int mediumLabel: xLargeLabel * 1/2
     readonly property int iconSize: Math.min (128, height / 5)
@@ -71,12 +70,8 @@ ApplicationWindow {
     // Return a specific 'website' link for each platform
     //
     readonly property string website: {
-        if (Qt.platform.os === "android") {
-            if (AdsEnabled)
-                return "market://details?id=org.alexspataru.supertac"
-            else
-                return "market://details?id=org.alexspataru.supertacpremium"
-        }
+        if (Qt.platform.os === "android")
+            return "market://details?id=org.alexspataru.supertac"
 
         return "https://alex-spataru.github.io/Minimal3T"
     }
@@ -84,7 +79,6 @@ ApplicationWindow {
     //
     // Function aliases
     //
-    function showInterstitialAd()     { ads.showInterstitialAd() }
     function playSoundEffect (effect) { audioPlayer.playSoundEffect (effect) }
 
     //
@@ -95,20 +89,6 @@ ApplicationWindow {
             return ui.useNought
 
         return !ui.useNought
-    }
-
-    //
-    // Prompts the user to buy the ad-free version of the app
-    //
-    function removeAds() {
-        function premiumAppLink() {
-            if (Qt.platform.os === "android")
-                return "market://details?id=org.alexspataru.supertacpremium"
-
-            return "https://alex-spataru.github.io/Minimal3T/"
-        }
-
-        Qt.openUrlExternally (premiumAppLink())
     }
 
     //
@@ -210,15 +190,6 @@ ApplicationWindow {
     //
     Pages.Rate {
         id: ratePage
-        anchors.centerIn: parent
-    }
-
-    //
-    // Ad page
-    //
-    AdDisplay {
-        id: ads
-        anchors.fill: parent
         anchors.centerIn: parent
     }
 

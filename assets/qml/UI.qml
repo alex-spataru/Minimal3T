@@ -155,14 +155,6 @@ Item {
                         app.playSoundEffect ("click")
                     }
                 }
-
-                MenuItem {
-                    visible: enabled
-                    enabled: AdsEnabled
-                    onClicked: app.removeAds()
-                    height: enabled ? implicitHeight : 0
-                    text: qsTr ("Remove Ads") + Translator.dummy
-                }
             }
 
         }

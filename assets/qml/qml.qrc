@@ -18,10 +18,6 @@
         <file>Components/Dots.qml</file>
         <file>Pages/Rate.qml</file>
         <file>Components/FieldCanvas.qml</file>
-        <file>AdDisplay.qml</file>
         <file>Components/UiGradientStop.qml</file>
-        <file>Pages/Multiplayer/LAN.qml</file>
-        <file>Pages/Multiplayer/Online.qml</file>
-        <file>Pages/Multiplayer/SameDevice.qml</file>
     </qresource>
 </RCC>

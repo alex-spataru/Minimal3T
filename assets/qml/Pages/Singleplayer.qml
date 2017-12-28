@@ -56,18 +56,6 @@ Page {
     }
 
     //
-    // Holds the number of games played, used to show
-    // the interstital ad every x games
-    //
-    property int gamesPlayed: 0
-    onGamesPlayedChanged: {
-        if (gamesPlayed >= app.interstitialAdFreq) {
-            gamesPlayed = 0
-            app.showInterstitialAd()
-        }
-    }
-
-    //
     // Disable AI when page is not visible
     //
     enabled: visible

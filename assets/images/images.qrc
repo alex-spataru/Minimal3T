@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>more.svg</file>
-        <file>no-ads.svg</file>
         <file>share.svg</file>
         <file>smile.svg</file>
         <file>back.svg</file>
@@ -25,6 +24,5 @@
         <file>chevron-left.svg</file>
         <file>rate.svg</file>
         <file>settings/next.svg</file>
-        <file>multiplayer.svg</file>
     </qresource>
 </RCC>
