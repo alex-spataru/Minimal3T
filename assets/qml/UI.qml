@@ -38,7 +38,10 @@ Item {
     property alias humanFirst: settings.humanFirst
     property alias enableMusic: settings.enableMusic
     property alias showAllBorders: settings.showAllBorders
+    property alias randomMelodies: settings.randomMelodies
     property alias enableSoundEffects: settings.enableSoundEffects
+    property alias backgroundGradient: settings.backgroundGradient
+    property alias enableWinLooseSounds: settings.enableWinLooseSounds
 
     //
     // Closes the overlay pages or decreases the stack depth

@@ -57,13 +57,14 @@ Item {
     // Plays a random note when the field is selected
     //
     function playRandomNote() {
-        var note = fieldNumber
-        var notes = shuffleArray (["a", "b", "c", "d", "e", "f", "g"])
+        if (app.randomMelodies) {
+            var notes = shuffleArray (["a", "b", "c", "d", "e", "f", "g"])
+            var index = Math.round (Math.random() * 6)
+            app.playSoundEffect ("notes/" + notes [index])
+        }
 
-        while (note >= notes.length)
-            note -= notes.length
-
-        app.playSoundEffect ("notes/" + notes [note])
+        else
+            app.playSoundEffect ("click")
     }
 
     //

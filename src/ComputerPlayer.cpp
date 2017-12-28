@@ -34,7 +34,7 @@ ComputerPlayer::ComputerPlayer() :
     m_defensiveMoves (false),
     m_preferOffensive (false)
 {
-    m_aiWatchdog.setInterval (2000);
+    setAiTimeLimit (2000);
     connect (&m_aiWatchdog, SIGNAL (timeout()),
              this, SLOT (selectRandomField()));
 }
@@ -119,6 +119,15 @@ void ComputerPlayer::makeMove()
     connect (minmax, SIGNAL (finished()), minmax, SLOT (deleteLater()));
     connect (minmax, SIGNAL (finished()), &m_aiWatchdog, SLOT (stop()));
     connect (minmax, SIGNAL (aiFinished (int)), this, SLOT (selectField (int)));
+}
+
+/**
+ * Changes the watchdog time limit to wait for the AI to make a decision.
+ * If the time limit is exceeded, then the AI shall make a random choice
+ */
+void ComputerPlayer::setAiTimeLimit (const int ms)
+{
+    m_aiWatchdog.setInterval (ms);
 }
 
 /**

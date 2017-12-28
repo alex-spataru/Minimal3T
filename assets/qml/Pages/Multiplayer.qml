@@ -23,13 +23,24 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
-
-import Board 1.0
+import QtQuick.Controls.Material 2.0
 
 import "../Components"
 
 Page {
-    id: page
+    //
+    // Signals
+    //
+    signal lanClicked
+    signal onlineClicked
+    signal sameDeviceClicked
+
+    //
+    // Sound effects
+    //
+    onLanClicked: app.playSoundEffect ("click")
+    onOnlineClicked: app.playSoundEffect ("click")
+    onSameDeviceClicked: app.playSoundEffect ("click")
 
     //
     // Transparent bacground
@@ -37,135 +48,97 @@ Page {
     background: Item {}
 
     //
-    // Disable AI when page is not visible
-    //
-    enabled: visible
-    onEnabledChanged: {
-        Board.resetBoard()
-
-        if (enabled)
-            app.startNewGame()
-
-        else {
-            p1Wins = 0
-            p2Wins = 0
-        }
-    }
-
-    //
-    // Used to count the number of wins by each player
-    //
-    property int p1Wins: 0
-    property int p2Wins: 0
-
-    //
-    // Updates number of dots shown above and below the game board
-    //
-    function getScoreDifference() {
-        while (p1Wins > 0 && p2Wins > 0) {
-            --p1Wins
-            --p2Wins
-        }
-    }
-
-    //
-    // Updates the win indicators
-    //
-    function updateScores() {
-        board.clickableFields = Board.gameInProgress
-
-        if (Board.gameWon) {
-            if (Board.winner === TicTacToe.Player1) {
-                if (p2Wins > 0)
-                    --p2Wins
-                else
-                    ++p1Wins
-            }
-
-            else if (Board.winner === TicTacToe.Player2) {
-                if (p1Wins > 0)
-                    --p1Wins
-                else
-                    ++p2Wins
-            }
-        }
-
-        if (!Board.gameInProgress) {
-            app.showInterstitialAd()
-            Board.resetBoard()
-        }
-
-        getScoreDifference()
-    }
-
-    //
-    // React to game events
-    //
-    Connections {
-        target: Board
-        onBoardReset: board.clickableFields = Board.gameInProgress
-        onGameStateChanged: {
-            if (!page.enabled)
-                return
-
-            if (!Board.gameInProgress)
-                timer.start()
-
-            if (Board.gameWon)
-                app.playSoundEffect ("win")
-
-            else if (Board.gameDraw)
-                app.playSoundEffect ("loose")
-        }
-    }
-
-    //
-    // Waits a little before starting a new game
-    //
-    Timer {
-        id: timer
-        interval: 1680
-        onTriggered: updateScores()
-    }
-
-    //
     // Main layout
     //
     ColumnLayout {
+        spacing: 0
         anchors.fill: parent
         anchors.centerIn: parent
-        spacing: 2 * app.spacing
         anchors.margins: 2 * app.spacing
 
+        //
+        // Spacer
+        //
         Item {
             Layout.fillHeight: true
         }
 
-        Dots {
-            mirror: true
-            invertedText: true
-            highlightedDots: p1Wins
-            Layout.fillHeight: false
-        }
-
-        Item {
-            Layout.fillHeight: false
+        //
+        // Multiplayer icon
+        //
+        SvgImage {
+            fillMode: Image.Pad
+            source: "qrc:/images/multiplayer.svg"
+            verticalAlignment: Image.AlignVCenter
+            horizontalAlignment: Image.AlignHCenter
+            sourceSize: Qt.size (app.iconSize, app.iconSize)
             anchors.horizontalCenter: parent.horizontalCenter
-            Layout.preferredWidth: board.gridSize + 2 * app.spacing
-            Layout.preferredHeight: board.gridSize + 2 * app.spacing
-
-            GameBoard {
-                id: board
-                enabled: parent.visible
-                anchors.centerIn: parent
-            }
         }
 
-        Dots {
-            highlightedDots: p2Wins
+        //
+        // Subtitle
+        //
+        Label {
             Layout.fillHeight: false
+            font.pixelSize: app.mediumLabel
+            font.capitalization: Font.AllUppercase
+            horizontalAlignment: Label.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr ("Choose game type") + Translator.dummy
         }
 
+        //
+        // Spacer
+        //
+        Item {
+            Layout.fillHeight: true
+        }
+
+        //
+        // Same device button
+        //
+        Button {
+            flat: true
+            onClicked: lanClicked()
+            Layout.fillHeight: false
+            font.pixelSize: app.largeLabel
+            font.capitalization: Font.MixedCase
+            Layout.preferredWidth: app.paneWidth
+            text: qsTr ("Same Device") + Translator.dummy
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        //
+        // LAN button
+        //
+        Button {
+            flat: true
+            onClicked: lanClicked()
+            Layout.fillHeight: false
+            font.pixelSize: app.largeLabel
+            font.capitalization: Font.MixedCase
+            Layout.preferredWidth: app.paneWidth
+            text: qsTr ("LAN Game") + Translator.dummy
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        //
+        // Online button
+        //
+        Button {
+            flat: true
+            onClicked: lanClicked()
+            Layout.fillHeight: false
+            font.pixelSize: app.largeLabel
+            font.capitalization: Font.MixedCase
+            Layout.preferredWidth: app.paneWidth
+            text: qsTr ("Online") + Translator.dummy
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        //
+        // Spacer
+        //
         Item {
             Layout.fillHeight: true
         }

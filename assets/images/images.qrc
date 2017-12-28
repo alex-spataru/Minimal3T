@@ -24,5 +24,7 @@
         <file>chevron-right.svg</file>
         <file>chevron-left.svg</file>
         <file>rate.svg</file>
+        <file>settings/next.svg</file>
+        <file>multiplayer.svg</file>
     </qresource>
 </RCC>

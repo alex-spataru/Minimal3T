@@ -21,11 +21,8 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Controls 2.0
 
 Rectangle {
-    id: bg
-
     gradient: Gradient {
         UiGradientStop {
             index: 0

@@ -98,6 +98,7 @@ public:
 
 public slots:
     void makeMove();
+    void setAiTimeLimit (const int ms);
     void setRandomness (const int randomness);
     void setOffensiveMoves (const bool enabled);
     void setDefensiveMoves (const bool enabled);

@@ -25,17 +25,13 @@ import UiGradients 1.0
 
 GradientStop {
     property int index: 0
-    color: index < Gradients.colorCount ? Gradients.colors [index] : "transparent"
-    position: index < Gradients.colorCount ? index * (1 / Gradients.colorCount) : 0
+    property bool indexValid: index < Gradients.colorCount
+
+    position: indexValid ? index * (1 / Gradients.colorCount) : 0
+    color: indexValid ? Gradients.colors [app.backgroundGradient ? index : 0] : "transparent"
 
     Behavior on color {
         ColorAnimation {
-            duration: Gradients.time * 0.72
-        }
-    }
-
-    Behavior on position {
-        NumberAnimation {
             duration: Gradients.time * 0.72
         }
     }

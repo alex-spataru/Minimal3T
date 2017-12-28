@@ -21,6 +21,7 @@
  */
 
 #include "UiGradients.h"
+#define MAX_COLORS 2
 
 /**
  * Returns a random number between \a min and \a max
@@ -106,7 +107,7 @@ void UiGradients::setTime (const int time)
 void UiGradients::updateColors()
 {
     /* Generate random gradient index */
-    int index = RANDOM (0, m_gradients.count());
+    int index = RANDOM (0, m_gradients.count() - 1);
 
     /* Get color list */
     QJsonObject obj = m_gradients.at (index).toObject();
@@ -118,9 +119,9 @@ void UiGradients::updateColors()
 
     /* Update colors (and ensure that they are not to dark or too bright) */
     m_colors.clear();
-    for (int i = 0; i < list.count(); ++i) {
+    for (int i = 0; i < qMin (list.count(), MAX_COLORS); ++i) {
         QColor color (list.at (i).toString());
-        color.setHsl (color.hslHue(), 156, 156, 255);
+        color.setHsl (color.hslHue(), 128, 156, 255);
         m_colors.append (color.name());
     }
 

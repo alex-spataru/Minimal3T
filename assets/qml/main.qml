@@ -53,7 +53,10 @@ ApplicationWindow {
     //
     // Aliases
     //
+    property alias randomMelodies: ui.randomMelodies
     property alias showBoardMargins: ui.showAllBorders
+    property alias backgroundGradient: ui.backgroundGradient
+    property alias enableWinLooseSounds: ui.enableWinLooseSounds
 
     //
     // Theme options

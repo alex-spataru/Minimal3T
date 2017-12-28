@@ -39,19 +39,19 @@ Page {
     //
     // Used to count the number of wins by each player
     //
-    property int p1Wins: 0
-    property int p2Wins: 0
-    property int p1TotalWins: 0
-    property int p2TotalWins: 0
+    property int humanWins: 0
+    property int aiWins: 0
+    property int humanTotalWins: 0
+    property int aiTotalWins: 0
     property string overlayTitle: ""
 
     //
     // Updates number of dots shown above and below the game board
     //
     function getScoreDifference() {
-        while (p1Wins > 0 && p2Wins > 0) {
-            --p1Wins
-            --p2Wins
+        while (humanWins > 0 && aiWins > 0) {
+            --aiWins
+            --humanWins
         }
     }
 
@@ -80,10 +80,10 @@ Page {
         }
 
         else {
-            p1Wins = 0
-            p2Wins = 0
-            p1TotalWins = 0
-            p2TotalWins = 0
+            humanWins = 0
+            aiWins = 0
+            humanTotalWins = 0
+            aiTotalWins = 0
         }
 
         prompt.opacity = 0
@@ -108,21 +108,21 @@ Page {
 
         if (Board.gameWon) {
             if (Board.winner === TicTacToe.Player1) {
-                ++p1TotalWins
+                ++humanTotalWins
 
-                if (p2Wins > 0)
-                    --p2Wins
+                if (aiWins > 0)
+                    --aiWins
                 else
-                    ++p1Wins
+                    ++humanWins
             }
 
             else if (Board.winner === TicTacToe.Player2) {
-                ++p2TotalWins
+                ++aiTotalWins
 
-                if (p1Wins > 0)
-                    --p1Wins
+                if (humanWins > 0)
+                    --humanWins
                 else
-                    ++p2Wins
+                    ++aiWins
             }
         }
 
@@ -172,15 +172,17 @@ Page {
             if (!page.enabled)
                 return
 
-            if (Board.gameWon) {
-                if (Board.winner === AiPlayer.opponent)
-                    app.playSoundEffect ("win")
-                else
+            if (app.enableWinLooseSounds) {
+                if (Board.gameWon) {
+                    if (Board.winner === AiPlayer.opponent)
+                        app.playSoundEffect ("win")
+                    else
+                        app.playSoundEffect ("loose")
+                }
+
+                else if (Board.gameDraw)
                     app.playSoundEffect ("loose")
             }
-
-            if (Board.gameDraw)
-                app.playSoundEffect ("loose")
 
             updateScores()
             updateClickableFields()
@@ -205,11 +207,10 @@ Page {
             Layout.fillHeight: false
             anchors.horizontalCenter: parent.horizontalCenter
 
-            FieldCanvas {
-                isNought: false
-                width: app.largeLabel * 0.75
-                height: app.largeLabel * 0.75
+            SvgImage {
+                source: "qrc:/images/settings/human.svg"
                 anchors.verticalCenter: parent.verticalCenter
+                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
 
             Item {
@@ -217,12 +218,12 @@ Page {
             }
 
             Label {
+                text: humanTotalWins
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
-                text: app.useNought (TicTacToe.Player1) ? p2TotalWins : p1TotalWins
             }
 
             Label {
@@ -235,29 +236,28 @@ Page {
             }
 
             Label {
+                text: aiTotalWins
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
-                text: app.useNought (TicTacToe.Player2) ? p2TotalWins : p1TotalWins
             }
 
             Item {
                 Layout.fillHeight: true
             }
 
-            FieldCanvas {
-                isNought: true
-                width: app.largeLabel * 0.75
-                height: app.largeLabel * 0.75
+            SvgImage {
+                source: "qrc:/images/settings/ai.svg"
                 anchors.verticalCenter: parent.verticalCenter
+                sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
         }
 
         Dots {
             mirror: true
-            highlightedDots: p1Wins
+            highlightedDots: humanWins
             Layout.fillHeight: false
         }
 
@@ -275,7 +275,7 @@ Page {
         }
 
         Dots {
-            highlightedDots: p2Wins
+            highlightedDots: aiWins
             Layout.fillHeight: false
         }
 

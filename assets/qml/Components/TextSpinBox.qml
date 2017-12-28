@@ -29,7 +29,7 @@ Item {
     property int from: 0
     property int value: 0
     property var model: [""]
-    property alias title:  title.text
+    property alias title: title.text
     readonly property alias text: currentText.text
     property size iconSize: Qt.size (app.font.pixelSize * 2,
                                      app.font.pixelSize * 2)
@@ -84,7 +84,7 @@ Item {
 
             SvgImage {
                 sourceSize: iconSize
-                opacity: value > from ? 1 : 0.4
+                opacity: value > from ? 1 : 0.2
                 source: "qrc:/images/chevron-left.svg"
                 anchors.verticalCenter: parent.verticalCenter
 
