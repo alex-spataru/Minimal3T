@@ -118,3 +118,12 @@ android {
         $$PWD/deploy/android/AndroidManifest.xml \
         $$PWD/deploy/android/build.gradle \
 }
+
+DISTFILES += \
+    deploy/android/AndroidManifest.xml \
+    deploy/android/gradle/wrapper/gradle-wrapper.jar \
+    deploy/android/gradlew \
+    deploy/android/res/values/libs.xml \
+    deploy/android/build.gradle \
+    deploy/android/gradle/wrapper/gradle-wrapper.properties \
+    deploy/android/gradlew.bat
