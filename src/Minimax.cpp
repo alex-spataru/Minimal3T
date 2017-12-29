@@ -76,7 +76,8 @@ int Minimax::maximumDepth (const Board& board)
  * Returns a random field from any of the considerable fields of the given
  * \a board
  */
-int Minimax::RandomField (const Board &board) {
+int Minimax::RandomField (const Board& board)
+{
     QVector<int> desirableFields = considerableFields (board, 0);
     return desirableFields.at (RANDOM (0, desirableFields.count() - 1));
 }

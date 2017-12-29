@@ -182,7 +182,8 @@ void ComputerPlayer::setPlayer (const QmlBoard::Player player)
  * Selects a random field from the board ONLY IF the AI has not selected
  * another field
  */
-void ComputerPlayer::selectRandomField() {
+void ComputerPlayer::selectRandomField()
+{
     if (!m_played && QmlBoard::getInstance()->boardSize() > 3)
         selectField (Minimax::RandomField (QmlBoard::getInstance()->board()));
 }
@@ -191,7 +192,8 @@ void ComputerPlayer::selectRandomField() {
  * Selects the given field on the board ONLY IF the AI has not selected another
  * field yet (which can happen when the MM function takes to long to run)
  */
-void ComputerPlayer::selectField (const int field) {
+void ComputerPlayer::selectField (const int field)
+{
     if (!m_played) {
         m_played = true;
         QmlBoard::getInstance()->selectField (field);

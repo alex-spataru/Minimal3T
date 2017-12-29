@@ -95,7 +95,7 @@ QStringList UiGradients::colors() const
 /**
  * Changes the interval in which the gradient colors are updated
  */
-void UiGradients::setTime (const int time) 
+void UiGradients::setTime (const int time)
 {
     m_time = abs (time);
     emit timeChanged();

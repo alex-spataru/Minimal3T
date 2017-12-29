@@ -26,16 +26,16 @@
 #include <QString>
 
 #if defined (QTADMOB_QML) && defined (Q_OS_ANDROID) && !defined (PREMIUM)
-  #ifdef ENABLE_REAL_ADS
-    static const bool ADS_ENABLED        = true;
-    static const QString INTERSTITIAL_ID = "ca-app-pub-5828460259173662/4859337768";
-  #else
-    static const bool ADS_ENABLED        = true;
-    static const QString INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
-  #endif
+    #ifdef ENABLE_REAL_ADS
+        static const bool ADS_ENABLED        = true;
+        static const QString INTERSTITIAL_ID = "ca-app-pub-5828460259173662/4859337768";
+    #else
+        static const bool ADS_ENABLED        = true;
+        static const QString INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
+    #endif
 
-  #else
+#else
     static const bool ADS_ENABLED        = false;
     static const QString INTERSTITIAL_ID = "";
-  #endif
+#endif
 #endif
