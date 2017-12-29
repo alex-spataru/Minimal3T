@@ -128,6 +128,10 @@ android {
         $$PWD/deploy/android/build.gradle \
 }
 
+win32* {
+	 RC_FILE = $$PWD/deploy/windows/resources/info.rc
+}
+
 DISTFILES += \
     deploy/android/AndroidManifest.xml \
     deploy/android/gradle/wrapper/gradle-wrapper.jar \
