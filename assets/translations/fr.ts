@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr" sourcelanguage="en">
+<TS version="2.1" language="fr" sourcelanguage="en">
 <context>
     <name>About</name>
     <message>
         <source>Minimal Tic Tac Toe %1</source>
-        <translation>Minimal3T %1</translation>
+        <translation type="vanished">Minimal3T %1</translation>
     </message>
     <message>
         <location filename="../qml/Pages/About.qml" line="54"/>
@@ -47,26 +47,26 @@
     <name>AdDisplay</name>
     <message>
         <source>Thanks for your purchase!</source>
-        <translation>Merci pour votre achat!</translation>
+        <translation type="vanished">Merci pour votre achat!</translation>
     </message>
     <message>
         <source>Failed to perform transaction</source>
-        <translation>Échec de l&apos;exécution de la transaction</translation>
+        <translation type="vanished">Échec de l&apos;exécution de la transaction</translation>
     </message>
     <message>
         <source>Purchases Restored!</source>
-        <translation>Achats restaurés!</translation>
+        <translation type="vanished">Achats restaurés!</translation>
     </message>
     <message>
         <source>Purchases restored!</source>
-        <translation>Achats restaurés!</translation>
+        <translation type="vanished">Achats restaurés!</translation>
     </message>
 </context>
 <context>
     <name>MainMenu</name>
     <message>
         <source>Tic-Tac-Toe Game</source>
-        <translation>Jeu de Tic-Tac-Toe</translation>
+        <translation type="vanished">Jeu de Tic-Tac-Toe</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="76"/>
@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>Remove Ads</source>
-        <translation>Supprimer Pub</translation>
+        <translation type="vanished">Supprimer Pub</translation>
     </message>
     <message>
         <location filename="../qml/Pages/MainMenu.qml" line="181"/>
@@ -112,14 +112,14 @@
     <name>PhilosophicalAi</name>
     <message>
         <source>AI is thinking</source>
-        <translation>L&apos;IA pense</translation>
+        <translation type="vanished">L&apos;IA pense</translation>
     </message>
 </context>
 <context>
     <name>PurchaseItem</name>
     <message>
         <source>Purchase</source>
-        <translation>Achat</translation>
+        <translation type="vanished">Achat</translation>
     </message>
 </context>
 <context>
@@ -153,108 +153,133 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="126"/>
+        <location filename="../qml/Pages/Settings.qml" line="144"/>
         <source>Piece</source>
         <translation>Pièce</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="135"/>
+        <location filename="../qml/Pages/Settings.qml" line="153"/>
         <source>First Turn</source>
         <translation>Premier Tour</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="144"/>
+        <location filename="../qml/Pages/Settings.qml" line="162"/>
         <source>Music</source>
         <translation>Musique</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="152"/>
+        <location filename="../qml/Pages/Settings.qml" line="170"/>
         <source>Effects</source>
         <translation>Effets</translation>
     </message>
     <message>
         <source>Borders</source>
-        <translation>Bordures</translation>
+        <translation type="vanished">Bordures</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation>Marges</translation>
+        <translation type="vanished">Marges</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="172"/>
+        <location filename="../qml/Pages/Settings.qml" line="210"/>
         <source>Map Dimension</source>
         <translation>Dimension de la Carte</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="190"/>
+        <location filename="../qml/Pages/Settings.qml" line="225"/>
         <source>AI Level</source>
         <translation>Niveau IA</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="194"/>
+        <location filename="../qml/Pages/Settings.qml" line="229"/>
         <source>Easy</source>
         <translation>Facile</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="195"/>
+        <location filename="../qml/Pages/Settings.qml" line="230"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="196"/>
+        <location filename="../qml/Pages/Settings.qml" line="231"/>
         <source>Hard</source>
         <translation>Difficile</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="197"/>
+        <location filename="../qml/Pages/Settings.qml" line="232"/>
         <source>Very Hard</source>
         <translation>Très Difficile</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="216"/>
+        <location filename="../qml/Pages/Settings.qml" line="248"/>
         <source>Pieces to Align</source>
         <translation>Pièces à Aligner</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="233"/>
+        <location filename="../qml/Pages/Settings.qml" line="262"/>
         <source>Language</source>
         <translation>Langue</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Settings.qml" line="269"/>
+        <location filename="../qml/Pages/Settings.qml" line="292"/>
+        <source>Random melody while playing</source>
+        <translation>Mélodie aléatoire en jouant</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="305"/>
+        <source>Reduce AI thinking time</source>
+        <translation>Réduire temps de réflexion d&apos;IA</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="319"/>
+        <source>Background gradient</source>
+        <translation>Dégradé de fond</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="333"/>
+        <source>Win/Lose sounds</source>
+        <translation>Sons de fin de jeu</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="382"/>
         <source>Back</source>
         <translation>Retourner</translation>
+    </message>
+    <message>
+        <location filename="../qml/Pages/Settings.qml" line="409"/>
+        <source>More</source>
+        <translation>Plus</translation>
     </message>
 </context>
 <context>
     <name>Singleplayer</name>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="326"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="327"/>
         <source>You lost the game!</source>
         <translation>Vous avez perdu le jeu!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="331"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="332"/>
         <source>You won the game!</source>
         <translation>Vous avez gagné le jeu!</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="337"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="338"/>
         <source>Draw</source>
         <translation>Match nul</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="383"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="384"/>
         <source>New Game</source>
         <translation>Nouveau Jeu</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="399"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="400"/>
         <source>Main Menu</source>
         <translation>Menu Principal</translation>
     </message>
     <message>
-        <location filename="../qml/Pages/Singleplayer.qml" line="412"/>
+        <location filename="../qml/Pages/Singleplayer.qml" line="413"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
@@ -262,35 +287,35 @@
 <context>
     <name>UI</name>
     <message>
-        <location filename="../qml/UI.qml" line="139"/>
+        <location filename="../qml/UI.qml" line="142"/>
         <source>New Game</source>
         <translation>Nouveau Jeu</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="149"/>
+        <location filename="../qml/UI.qml" line="152"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="161"/>
+        <location filename="../qml/UI.qml" line="164"/>
         <source>Remove Ads</source>
         <translation>Supprimer Pub</translation>
     </message>
     <message>
         <source>Ads-Free Version</source>
-        <translation>Supprimer Pub</translation>
+        <translation type="vanished">Supprimer Pub</translation>
     </message>
     <message>
         <source>Restore Purchases</source>
-        <translation>Restaurer les Achats</translation>
+        <translation type="vanished">Restaurer les Achats</translation>
     </message>
     <message>
         <source>Rate</source>
-        <translation>Évaluer</translation>
+        <translation type="vanished">Évaluer</translation>
     </message>
     <message>
-        <location filename="../qml/UI.qml" line="207"/>
-        <location filename="../qml/UI.qml" line="217"/>
+        <location filename="../qml/UI.qml" line="209"/>
+        <location filename="../qml/UI.qml" line="219"/>
         <source>Match</source>
         <translation>Rencontre</translation>
     </message>
@@ -299,10 +324,10 @@
     <name>main</name>
     <message>
         <source>Minimal Tic Tac Toe</source>
-        <translation>Minimal3T</translation>
+        <translation type="vanished">Minimal3T</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="140"/>
+        <location filename="../qml/main.qml" line="143"/>
         <source>Minimal3T</source>
         <translation>Minimal3T</translation>
     </message>

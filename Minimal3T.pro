@@ -39,11 +39,16 @@ TARGET = minimal3t
 CONFIG += qtc_runnable
 CONFIG += resources_big
 
+QT += xml
 QT += svg
 QT += core
 QT += quick
 QT += multimedia
 QT += quickcontrols2
+
+QTPLUGIN += qsvg
+
+DEFINES += QTADMOB_QML
 
 #-------------------------------------------------------------------------------
 # Translations
@@ -61,6 +66,7 @@ TRANSLATIONS += \
 # Include libraries
 #-------------------------------------------------------------------------------
 
+include ($$PWD/lib/QtAdMob/QtAdMob.pri)
 include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 #-------------------------------------------------------------------------------
@@ -106,13 +112,16 @@ linux:!android {
     target.path = /usr/bin
     icon.path = /usr/share/pixmaps
     desktop.path = /usr/share/applications
-    icon.files += $$PWD/deploy/linux/common/minimal3t.png
-    desktop.files += $$PWD/deploy/linux/common/minimal3t.desktop
+    icon.files += $$PWD/deploy/linux/minimal3t.png
+    desktop.files += $$PWD/deploy/linux/minimal3t.desktop
 
     INSTALLS += target desktop icon
 }
 
 android {
+    android:DEFINES += ENABLE_REAL_ADS
+    #android:DEFINES += PREMIUM
+
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \

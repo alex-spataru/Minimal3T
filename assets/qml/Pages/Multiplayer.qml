@@ -90,8 +90,10 @@ Page {
             }
         }
 
-        if (!Board.gameInProgress)
+        if (!Board.gameInProgress) {
+            app.showInterstitialAd()
             Board.resetBoard()
+        }
 
         getScoreDifference()
     }
@@ -109,7 +111,7 @@ Page {
             if (!Board.gameInProgress)
                 timer.start()
 
-            if (app.enableWinLooseSounds) {
+            if (app.enableWinLoseSounds) {
                 if (Board.gameWon)
                     app.playSoundEffect ("win")
                 else if (Board.gameDraw)

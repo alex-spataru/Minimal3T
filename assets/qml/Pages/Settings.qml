@@ -41,7 +41,7 @@ Overlay {
     property bool showAllBorders: false
     property bool enableSoundEffects: true
     property bool backgroundGradient: true
-    property bool enableWinLooseSounds: true
+    property bool enableWinLoseSounds: true
     property bool reduceAiThinkingTime: false
 
     //
@@ -108,7 +108,7 @@ Overlay {
         property alias randomMelodies: page.randomMelodies
         property alias fieldsToAllign: _fieldsToAllign.value
         property alias enableGradient: page.backgroundGradient
-        property alias winLooseSounds: page.enableWinLooseSounds
+        property alias winLooseSounds: page.enableWinLoseSounds
         property alias fastAndStupidAi: page.reduceAiThinkingTime
     }
 
@@ -286,10 +286,11 @@ Overlay {
                 }
 
                 Switch {
-                    font.pixelSize: 13
+                    font.pixelSize: 12
                     checked: randomMelodies
                     onCheckedChanged: randomMelodies = checked
-                    text: qsTr ("Random melody while playing")
+                    text: qsTr ("Random melody while playing") + Translator.dummy
+                    onClicked: app.playSoundEffect ("click")
 
                     anchors {
                         left: parent.left
@@ -299,10 +300,11 @@ Overlay {
                 }
 
                 Switch {
-                    font.pixelSize: 13
+                    font.pixelSize: 12
                     checked: reduceAiThinkingTime
-                    text: qsTr ("Reduce AI thinking time")
+                    text: qsTr ("Reduce AI thinking time") + Translator.dummy
                     onCheckedChanged: reduceAiThinkingTime = checked
+                    onClicked: app.playSoundEffect ("click")
 
                     anchors {
                         left: parent.left
@@ -312,10 +314,11 @@ Overlay {
                 }
 
                 Switch {
-                    font.pixelSize: 13
+                    font.pixelSize: 12
                     checked: backgroundGradient
-                    text: qsTr ("Background gradient")
+                    text: qsTr ("Background gradient") + Translator.dummy
                     onCheckedChanged: backgroundGradient = checked
+                    onClicked: app.playSoundEffect ("click")
 
                     anchors {
                         left: parent.left
@@ -325,10 +328,11 @@ Overlay {
                 }
 
                 Switch {
-                    font.pixelSize: 13
-                    checked: enableWinLooseSounds
-                    text: qsTr ("Win/Loose sounds")
-                    onCheckedChanged: enableWinLooseSounds = checked
+                    font.pixelSize: 12
+                    checked: enableWinLoseSounds
+                    text: qsTr ("Win/Lose sounds") + Translator.dummy
+                    onCheckedChanged: enableWinLoseSounds = checked
+                    onClicked: app.playSoundEffect ("click")
 
                     anchors {
                         left: parent.left

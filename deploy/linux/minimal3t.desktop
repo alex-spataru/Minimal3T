@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Minimal Tic Tac Toe
+Type=Application
+Exec=minimal3t
+Icon=minimal3t
+StartupNotify=true
+Categories=Qt;KDE;Game;StrategyGame;
+Comment=Play tic-tac-toe in a symphony of colors and sound
+GenericName=Play tic-tac-toe in a symphony of colors and sound
+Keywords=games;puzzle;tic-tac-toe;ai;strategy;

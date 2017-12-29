@@ -41,7 +41,7 @@ Item {
     property alias randomMelodies: settings.randomMelodies
     property alias enableSoundEffects: settings.enableSoundEffects
     property alias backgroundGradient: settings.backgroundGradient
-    property alias enableWinLooseSounds: settings.enableWinLooseSounds
+    property alias enableWinLoseSounds: settings.enableWinLoseSounds
 
     //
     // Closes the overlay pages or decreases the stack depth
@@ -155,8 +155,15 @@ Item {
                         app.playSoundEffect ("click")
                     }
                 }
-            }
 
+                MenuItem {
+                    visible: enabled
+                    enabled: AdsEnabled
+                    onClicked: app.removeAds()
+                    height: enabled ? implicitHeight : 0
+                    text: qsTr ("Remove Ads") + Translator.dummy
+                }
+            }
         }
     }
 

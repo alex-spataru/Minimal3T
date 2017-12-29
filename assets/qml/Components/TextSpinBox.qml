@@ -92,8 +92,10 @@ Item {
 
                 MouseArea {
                     onClicked: {
-                        if (value > from)
+                        if (value > from) {
                             --value
+                            app.playSoundEffect ("click")
+                        }
                     }
 
                     anchors.fill: parent
@@ -119,8 +121,10 @@ Item {
 
                 MouseArea {
                     onClicked: {
-                        if (value < to)
+                        if (value < to) {
                             ++value
+                            app.playSoundEffect ("click")
+                        }
                     }
 
                     anchors.fill: parent
