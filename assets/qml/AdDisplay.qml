@@ -45,7 +45,7 @@ Item {
         Component.onCompleted: {
             interstitialAd.unitId = InterstitialId
             for (var i = 0; i < TestDevices.length; ++i)
-                ad.addTestDevice (TestDevices.at (i))
+                ad.addTestDevice (TestDevices [i])
         }
     }
 
