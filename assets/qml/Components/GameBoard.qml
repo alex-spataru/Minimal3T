@@ -79,19 +79,25 @@ Item {
 
             /* Update the points to create a line between corners */
             if (_wl_yA == _wl_yB) {
+                _wl_xA += app.spacing
                 _wl_yA += cellSize / 2
+                _wl_xB += cellSize - app.spacing
                 _wl_yB += cellSize / 2
-                _wl_xB += cellSize
             } else if (_wl_xA > _wl_xB) {
-                _wl_xA += cellSize
-                _wl_yB += cellSize
+                _wl_xA += cellSize - app.spacing
+                _wl_yA += app.spacing
+                _wl_xB += app.spacing
+                _wl_yB += cellSize - app.spacing
             } else if (_wl_xA < _wl_xB) {
-                _wl_xB += cellSize
-                _wl_yB += cellSize
+                _wl_xA += app.spacing
+                _wl_yA += app.spacing
+                _wl_xB += cellSize - app.spacing
+                _wl_yB += cellSize - app.spacing
             } else if (_wl_xA == _wl_xB) {
                 _wl_xA += cellSize / 2
                 _wl_xB += cellSize / 2
-                _wl_yB += cellSize
+                _wl_yB += cellSize - app.spacing
+                _wl_yA += app.spacing
             }
 
             /* Set line length to 0 (inverse prop. to drawn line) */

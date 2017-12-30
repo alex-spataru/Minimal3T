@@ -94,14 +94,18 @@ Item {
         if (fieldNumber >= 0 && field.enabled) {
             clickable = true
 
-            if (Board.gameDraw)
+            if (Board.gameDraw) {
                 canvas.opacity = 0.2
+            }
 
             else if (Board.gameWon) {
                 canvas.opacity = 0.2
-                for (var i = 0; i < Board.allignedFields().length; ++i)
-                    if (Board.allignedFields()[i] === field.fieldNumber)
+
+                for (var i = 0; i < Board.allignedFields().length; ++i) {
+                    if (Board.allignedFields()[i] === field.fieldNumber) {
                         canvas.opacity = 0.9
+                    }
+                }
             }
         }
     }
@@ -158,7 +162,10 @@ Item {
     //
     Connections {
         target: Board
-        onGameStateChanged: updateFieldState()
+        onGameStateChanged: {
+            updateFieldState()
+        }
+
         onFieldStateChanged: {
             if (field.fieldNumber != fieldId)
                 return

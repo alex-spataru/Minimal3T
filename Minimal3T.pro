@@ -74,6 +74,7 @@ include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 #-------------------------------------------------------------------------------
 
 HEADERS += \
+    $$PWD/src/AdInfo.h \
     $$PWD/src/Board.h \
     $$PWD/src/Minimax.h \
     $$PWD/src/ComputerPlayer.h \
@@ -119,8 +120,9 @@ linux:!android {
 }
 
 android {
-    android:DEFINES += ENABLE_REAL_ADS
-    #android:DEFINES += PREMIUM
+    #android:DEFINES += NO_ADS
+    #android:DEFINES += REAL_ADS
+    android:DEFINES += TEST_ADS
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
     android:DISTFILES += \
@@ -129,14 +131,5 @@ android {
 }
 
 win32* {
-	 RC_FILE = $$PWD/deploy/windows/resources/info.rc
+    RC_FILE = $$PWD/deploy/windows/resources/info.rc
 }
-
-DISTFILES += \
-    deploy/android/AndroidManifest.xml \
-    deploy/android/gradle/wrapper/gradle-wrapper.jar \
-    deploy/android/gradlew \
-    deploy/android/res/values/libs.xml \
-    deploy/android/build.gradle \
-    deploy/android/gradle/wrapper/gradle-wrapper.properties \
-    deploy/android/gradlew.bat

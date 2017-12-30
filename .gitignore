@@ -31,9 +31,11 @@
 *.out
 *.app
 
-# Android deployment shit
-deploy/android/*.properties
-deploy/android/*.properties~
-
-# Qt Creator junk
+# Qt project files
 *.pro.user
+
+# Android deploy configuration
+gradle.properties
+gradle.properties~
+local.properties
+local.properties~

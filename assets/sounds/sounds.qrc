@@ -3,7 +3,6 @@
         <file>effects/click.wav</file>
         <file>effects/loose.wav</file>
         <file>effects/win.wav</file>
-        <file>loop.ogg</file>
         <file>notes/a.wav</file>
         <file>notes/b.wav</file>
         <file>notes/c.wav</file>
@@ -12,5 +11,7 @@
         <file>notes/f.wav</file>
         <file>notes/g.wav</file>
         <file>effects/game_start.wav</file>
+        <file>music/relax.ogg</file>
+        <file>music/legends.ogg</file>
     </qresource>
 </RCC>

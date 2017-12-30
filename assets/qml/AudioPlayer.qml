@@ -29,6 +29,15 @@ Item {
     //
     property bool enableMusic: true
     property bool enableSoundEffects: true
+    property alias musicFile: musicPlayer.source
+
+    //
+    // Song list
+    //
+    readonly property var songs: [
+        "qrc:/sounds/music/relax.ogg",
+        "qrc:/sounds/music/legends.ogg"
+    ]
 
     //
     // Play or pause the music when the program changes the enableMusic
@@ -76,9 +85,17 @@ Item {
     //
     function playMusic() {
         if (enableMusic && app.active)
-            player.play()
+            musicPlayer.play()
         else
-            player.stop()
+            musicPlayer.stop()
+    }
+
+    //
+    // Randomly selects one of the background songs
+    //
+    function setMusicSource() {
+        var track = Math.random() * (songs.length - 1)
+        musicFile = songs [Math.round (track)]
     }
 
     //
@@ -90,7 +107,7 @@ Item {
             if (Qt.application.state === Qt.ApplicationActive)
                 playMusic()
             else
-                player.pause()
+                musicPlayer.pause()
         }
     }
 
@@ -98,11 +115,11 @@ Item {
     // Background music player
     //
     Audio {
-        id: player
+        id: musicPlayer
         autoLoad: true
-        loops: Audio.Infinite
         audioRole: Audio.GameRole
-        source: "qrc:/sounds/loop.ogg"
+        onStopped: setMusicSource()
+        Component.onCompleted: setMusicSource()
     }
 
     //

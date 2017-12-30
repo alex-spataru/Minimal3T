@@ -38,7 +38,7 @@
 
 int main (int argc, char** argv)
 {
-    QGuiApplication::setApplicationVersion ("1.5.2");
+    QGuiApplication::setApplicationVersion ("1.5.3");
     QGuiApplication::setApplicationName ("Minimal3T");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
@@ -66,6 +66,7 @@ int main (int argc, char** argv)
     engine.rootContext()->setContextProperty ("Gradients", &gradients);
     engine.rootContext()->setContextProperty ("Translator", &translator);
     engine.rootContext()->setContextProperty ("AdsEnabled", ADS_ENABLED);
+    engine.rootContext()->setContextProperty ("TestDevices", TEST_DEVICES);
     engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("Board", QmlBoard::getInstance());
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());

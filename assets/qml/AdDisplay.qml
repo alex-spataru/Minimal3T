@@ -42,7 +42,11 @@ Item {
     AdMobInterstitial {
         id: interstitialAd
         onClosed: interstitialAd.unitId = InterstitialId
-        Component.onCompleted: interstitialAd.unitId = InterstitialId
+        Component.onCompleted: {
+            interstitialAd.unitId = InterstitialId
+            for (var i = 0; i < TestDevices.length; ++i)
+                ad.addTestDevice (TestDevices.at (i))
+        }
     }
 
     //
