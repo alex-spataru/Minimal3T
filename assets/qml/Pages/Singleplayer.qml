@@ -205,11 +205,11 @@ Page {
         RowLayout {
             spacing: app.spacing
             Layout.fillHeight: false
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 
-            SvgImage {
+            Image {
                 source: "qrc:/images/settings/human.svg"
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
 
@@ -222,7 +222,7 @@ Page {
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
             }
 
@@ -231,7 +231,7 @@ Page {
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
             }
 
@@ -240,7 +240,7 @@ Page {
                 font.pixelSize: app.largeLabel
                 verticalAlignment: Label.AlignVCenter
                 horizontalAlignment: Label.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 anchors.verticalCenterOffset: -1/6 * app.spacing
             }
 
@@ -248,9 +248,9 @@ Page {
                 Layout.fillHeight: true
             }
 
-            SvgImage {
+            Image {
                 source: "qrc:/images/settings/ai.svg"
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
         }
@@ -263,7 +263,7 @@ Page {
 
         Item {
             Layout.fillHeight: false
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: board.gridSize + 2 * app.spacing
             Layout.preferredHeight: board.gridSize + 2 * app.spacing
 
@@ -357,17 +357,17 @@ Page {
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -1/2 * toolbar.height
 
-            SvgImage {
+            Image {
                 id: logo
                 sourceSize: Qt.size (96, 96)
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
             }
 
             Label {
                 font.bold: true
                 font.pixelSize: 28
                 text: overlayTitle + Translator.dummy
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
             }
 
             Item {
@@ -379,7 +379,7 @@ Page {
                 font.bold: true
                 font.pixelSize: app.mediumLabel - 3
                 Layout.preferredWidth: app.paneWidth
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
 
                 text: qsTr ("New Game") + Translator.dummy
 
@@ -398,7 +398,7 @@ Page {
                 font.pixelSize: app.mediumLabel - 3
                 Layout.preferredWidth: app.paneWidth
                 text: qsTr ("Main Menu") + Translator.dummy
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
 
                 onClicked: {
                     stack.pop()
@@ -411,7 +411,7 @@ Page {
                 font.pixelSize: app.mediumLabel - 3
                 Layout.preferredWidth: app.paneWidth
                 text: qsTr ("Settings") + Translator.dummy
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
 
                 onClicked: {
                     settings.open()

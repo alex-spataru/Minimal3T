@@ -6,7 +6,6 @@
         <file>Pages/Multiplayer.qml</file>
         <file>Pages/MainMenu.qml</file>
         <file>Pages/Singleplayer.qml</file>
-        <file>Components/SvgImage.qml</file>
         <file>Components/ColorRectangle.qml</file>
         <file>Components/ImageButton.qml</file>
         <file>Pages/Settings.qml</file>

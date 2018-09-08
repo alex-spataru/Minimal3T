@@ -76,9 +76,9 @@ Overlay {
         spacing: app.spacing
         anchors.centerIn: parent
 
-        SvgImage {
+        Image {
             source: "qrc:/images/rate.svg"
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             sourceSize: Qt.size (app.iconSize * 0.75, app.iconSize * 0.75)
         }
 
@@ -91,7 +91,7 @@ Overlay {
             font.pixelSize: app.mediumLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("Rate %1").arg (app.title) + Translator.dummy
         }
 
@@ -100,7 +100,7 @@ Overlay {
             horizontalAlignment: Label.AlignHCenter
             font.pixelSize: app.font.pixelSize * 0.8
             wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("If you enjoy this app, would you like taking a moment to rate it?") + Translator.dummy
         }
 
@@ -113,7 +113,7 @@ Overlay {
             Layout.fillWidth: true
             text: qsTr ("Rate") + Translator.dummy
             font.capitalization: Font.AllUppercase
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
                 hide()
@@ -127,7 +127,7 @@ Overlay {
             Layout.fillWidth: true
             font.capitalization: Font.AllUppercase
             text: qsTr ("Later") + Translator.dummy
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
                 hide()
@@ -139,7 +139,7 @@ Overlay {
         Button {
             Layout.fillWidth: true
             font.capitalization: Font.AllUppercase
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("No, thanks") + Translator.dummy
 
             onClicked: {

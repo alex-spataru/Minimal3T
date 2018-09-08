@@ -60,7 +60,7 @@ int main (int argc, char** argv)
     qreal dpr = app.primaryScreen()->devicePixelRatio();
 
     QQmlApplicationEngine engine;
-    QQuickStyle::setStyle ("Universal");
+    QQuickStyle::setStyle ("Material");
     engine.rootContext()->setContextProperty ("AiPlayer", &aiPlayer);
     engine.rootContext()->setContextProperty ("DevicePixelRatio", dpr);
     engine.rootContext()->setContextProperty ("Gradients", &gradients);

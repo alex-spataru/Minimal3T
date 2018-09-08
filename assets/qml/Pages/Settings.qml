@@ -135,7 +135,7 @@ Overlay {
             Layout.fillWidth: true
             Layout.fillHeight: false
             Layout.preferredWidth: app.paneWidth
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 
             ImageButton {
                 btSize: 0
@@ -208,7 +208,7 @@ Overlay {
                     id: _boardSize
                     Layout.preferredWidth: app.paneWidth
                     title: qsTr ("Map Dimension") + Translator.dummy
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.alignment: Qt.AlignHCenter
                     model: ["3x3", "4x4", "5x5", "6x6", "7x7", "8x8"]
 
                     onValueChanged: {
@@ -223,7 +223,7 @@ Overlay {
                     value: 1
                     Layout.preferredWidth: app.paneWidth
                     title: qsTr ("AI Level") + Translator.dummy
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.alignment: Qt.AlignHCenter
 
                     model: [
                         qsTr ("Easy") + Translator.dummy,
@@ -244,7 +244,7 @@ Overlay {
                     id: _fieldsToAllign
                     to: Board.boardSize
                     Layout.preferredWidth: app.paneWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.alignment: Qt.AlignHCenter
                     title: qsTr ("Pieces to Align") + Translator.dummy
                     onValueChanged: {
                         if (value >= 3)
@@ -260,7 +260,7 @@ Overlay {
                     model: Translator.availableLanguages
                     Layout.preferredWidth: app.paneWidth
                     title: qsTr ("Language") + Translator.dummy
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    Layout.alignment: Qt.AlignHCenter
                     onValueChanged: {
                         if (Translator.language != value)
                             Translator.language = value
@@ -278,6 +278,7 @@ Overlay {
             ColumnLayout {
                 id: secondPage
                 visible: false
+                spacing: app.spacing
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -288,57 +289,41 @@ Overlay {
                 Switch {
                     font.pixelSize: 12
                     checked: randomMelodies
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: 3 * app.spacing
+                    onClicked: app.playSoundEffect ("click")
                     onCheckedChanged: randomMelodies = checked
                     text: qsTr ("Random melody while playing") + Translator.dummy
-                    onClicked: app.playSoundEffect ("click")
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        leftMargin: 3 * app.spacing
-                    }
                 }
 
                 Switch {
                     font.pixelSize: 12
                     checked: reduceAiThinkingTime
-                    text: qsTr ("Reduce AI thinking time") + Translator.dummy
-                    onCheckedChanged: reduceAiThinkingTime = checked
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: 3 * app.spacing
                     onClicked: app.playSoundEffect ("click")
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        leftMargin: 3 * app.spacing
-                    }
+                    onCheckedChanged: reduceAiThinkingTime = checked
+                    text: qsTr ("Reduce AI thinking time") + Translator.dummy
                 }
 
                 Switch {
                     font.pixelSize: 12
                     checked: backgroundGradient
-                    text: qsTr ("Background gradient") + Translator.dummy
-                    onCheckedChanged: backgroundGradient = checked
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: 3 * app.spacing
                     onClicked: app.playSoundEffect ("click")
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        leftMargin: 3 * app.spacing
-                    }
+                    onCheckedChanged: backgroundGradient = checked
+                    text: qsTr ("Background gradient") + Translator.dummy
                 }
 
                 Switch {
                     font.pixelSize: 12
                     checked: enableWinLoseSounds
-                    text: qsTr ("Win/Lose sounds") + Translator.dummy
-                    onCheckedChanged: enableWinLoseSounds = checked
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: 3 * app.spacing
                     onClicked: app.playSoundEffect ("click")
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        leftMargin: 3 * app.spacing
-                    }
+                    onCheckedChanged: enableWinLoseSounds = checked
+                    text: qsTr ("Win/Lose sounds") + Translator.dummy
                 }
 
                 Item {
@@ -360,7 +345,7 @@ Overlay {
         RowLayout {
             spacing: app.spacing
             Layout.fillWidth: true
-            anchors.horizontalCenter: parent.horizontalCentercd
+            Layout.alignment: Qt.AlignHCenter
 
             Button {
                 flat: true
@@ -370,18 +355,18 @@ Overlay {
                     spacing: app.spacing
                     anchors.centerIn: parent
 
-                    SvgImage {
+                    Image {
                         fillMode: Image.Pad
                         source: "qrc:/images/settings/back.svg"
                         verticalAlignment: Image.AlignVCenter
                         horizontalAlignment: Image.AlignHCenter
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
                     Label {
                         text: qsTr ("Back") + Translator.dummy
                         font.capitalization: Font.AllUppercase
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
                 }
 
@@ -408,16 +393,16 @@ Overlay {
                     Label {
                         text: qsTr ("More") + Translator.dummy
                         font.capitalization: Font.AllUppercase
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    SvgImage {
+                    Image {
                         fillMode: Image.Pad
                         opacity: more.enabled ? 1 : 0.2
                         source: "qrc:/images/settings/next.svg"
                         verticalAlignment: Image.AlignVCenter
                         horizontalAlignment: Image.AlignHCenter
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
                     }
                 }
 

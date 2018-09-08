@@ -21,6 +21,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
 Row {
@@ -32,14 +33,14 @@ Row {
 
     spacing: app.spacing * 2
     LayoutMirroring.enabled: mirror
-    anchors.horizontalCenter: parent.horizontalCenter
+    Layout.alignment: Qt.AlignHCenter
 
     Label {
         rotation: invertedText ? 180 : 0
         visible: highlightedDots > maxDots
         text: "+ " + (highlightedDots - maxDots)
         opacity: highlightedDots > maxDots ? 1 : 0
-        anchors.verticalCenter: parent.verticalCenter
+        Layout.alignment: Qt.AlignVCenter
 
         Behavior on opacity { NumberAnimation{} }
     }
@@ -54,7 +55,7 @@ Row {
             radius: width / 2
             Behavior on opacity { NumberAnimation{} }
             opacity: highlightedDots > index ? 1 : 0.4
-            anchors.verticalCenter: parent.verticalCenter
+            Layout.alignment: Qt.AlignVCenter
         }
     }
 }

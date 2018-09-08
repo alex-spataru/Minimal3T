@@ -46,14 +46,24 @@ Item {
 
     ColumnLayout {
         spacing: app.spacing
+        anchors.fill: parent
         anchors.centerIn: parent
 
-        SvgImage {
+        Item {
+            Layout.fillHeight: true
+        }
+
+        Image {
             id: image
             fillMode: Image.Pad
             verticalAlignment: Image.AlignVCenter
             horizontalAlignment: Image.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
+
+            sourceSize: {
+                var size = Math.min (button.width, button.height) * 0.4
+                return Qt.size (size, size)
+            }
         }
 
         Label {
@@ -63,7 +73,11 @@ Item {
             Layout.preferredWidth: btSize
             font.pixelSize: app.font.pixelSize - 3
             horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

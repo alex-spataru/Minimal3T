@@ -94,7 +94,7 @@ Item {
                 app.playSoundEffect ("click")
             }
 
-            contentItem: SvgImage {
+            contentItem: Image {
                 fillMode: Image.Pad
                 anchors.centerIn: parent
                 source: "qrc:/images/back.svg"
@@ -124,7 +124,7 @@ Item {
                 app.playSoundEffect ("click")
             }
 
-            contentItem: SvgImage {
+            contentItem: Image {
                 fillMode: Image.Pad
                 source: "qrc:/images/more.svg"
                 verticalAlignment: Image.AlignVCenter

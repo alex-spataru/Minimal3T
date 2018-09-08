@@ -74,7 +74,7 @@ Item {
             id: title
             visible: text.length > 0
             font.pixelSize: app.largeLabel * 2/3
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
         }
 
         RowLayout {
@@ -82,11 +82,11 @@ Item {
             Layout.fillWidth: true
             Layout.minimumWidth: 160
 
-            SvgImage {
+            Image {
                 sourceSize: iconSize
                 opacity: value > from ? 1 : 0.2
+                Layout.alignment: Qt.AlignVCenter
                 source: "qrc:/images/chevron-left.svg"
-                anchors.verticalCenter: parent.verticalCenter
 
                 Behavior on opacity { NumberAnimation{} }
 
@@ -106,16 +106,16 @@ Item {
             Label {
                 id: currentText
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignVCenter
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                anchors.verticalCenter: parent.verticalCenter
             }
 
-            SvgImage {
+            Image {
                 sourceSize: iconSize
                 opacity: value < to ? 1 : 0.4
+                Layout.alignment: Qt.AlignVCenter
                 source: "qrc:/images/chevron-right.svg"
-                anchors.verticalCenter: parent.verticalCenter
 
                 Behavior on opacity { NumberAnimation{} }
 

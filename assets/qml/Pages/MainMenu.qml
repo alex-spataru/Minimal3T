@@ -69,10 +69,10 @@ Page {
         //
         Label {
             Layout.fillHeight: false
+            Layout.alignment: Qt.AlignHCenter
             font.pixelSize: app.xLargeLabel * 1.2
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr ("Minimal") + Translator.dummy
         }
 
@@ -82,9 +82,9 @@ Page {
         Label {
             Layout.fillHeight: false
             font.pixelSize: app.mediumLabel
+            Layout.alignment: Qt.AlignHCenter
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr ("Tic Tac Toe Game") + Translator.dummy
         }
 
@@ -102,31 +102,37 @@ Page {
             flat: true
             Layout.fillHeight: false
             onClicked: singleplayerClicked()
+            Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: app.paneWidth
-            anchors.horizontalCenter: parent.horizontalCenter
 
             contentItem: ColumnLayout {
                 spacing: app.spacing
+                anchors.fill: parent
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                SvgImage {
+                Item {
+                    Layout.fillHeight: true
+                }
+
+                Image {
                     fillMode: Image.Pad
                     source: "qrc:/images/play.svg"
+                    Layout.alignment: Qt.AlignHCenter
                     verticalAlignment: Image.AlignVCenter
                     horizontalAlignment: Image.AlignHCenter
                     sourceSize: Qt.size (app.iconSize, app.iconSize)
-                    anchors.horizontalCenter: parent.horizontalCenter
                 }
 
                 Label {
                     font.pixelSize: app.largeLabel
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: app.paneWidth
                     text: qsTr ("Play") + Translator.dummy
                     horizontalAlignment: Label.AlignHCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
                 }
 
                 Item {
-                    height: app.spacing
+                    Layout.fillHeight: true
                 }
             }
         }
@@ -137,12 +143,12 @@ Page {
         Button {
             flat: true
             Layout.fillHeight: false
-            onClicked: multiplayerClicked()
             font.pixelSize: app.largeLabel
+            onClicked: multiplayerClicked()
+            Layout.alignment: Qt.AlignHCenter
             font.capitalization: Font.MixedCase
             Layout.preferredWidth: app.paneWidth
             text: qsTr ("Multiplayer") + Translator.dummy
-            anchors.horizontalCenter: parent.horizontalCenter
         }
 
         //
@@ -161,7 +167,7 @@ Page {
             Layout.fillHeight: false
             Layout.maximumWidth: 512
             opacity: 1 - settings.opacity
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 
             property int pxSixe: app.font.pixelSize - 1
 

@@ -38,7 +38,7 @@ Overlay {
             id: img
             source: "qrc:/images/logo.png"
             sourceSize: Qt.size (app.iconSize, app.iconSize)
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
         }
 
         Item {
@@ -50,7 +50,7 @@ Overlay {
             font.pixelSize: app.mediumLabel
             font.capitalization: Font.AllUppercase
             horizontalAlignment: Label.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("Minimal3T %1").arg (Version) + Translator.dummy
         }
 
@@ -59,7 +59,7 @@ Overlay {
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("Developed by %1").arg (
                       "<a href='https://github.com/alex-spataru/'>" +
                       "Alex Spataru</a>") + Translator.dummy
@@ -70,7 +70,7 @@ Overlay {
             Layout.fillWidth: true
             horizontalAlignment: Label.AlignHCenter
             onLinkActivated: Qt.openUrlExternally (link)
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("Music by %1").arg (
                       "<a href='https://open.spotify.com/artist/1GgIbWzylPISVk6mMluL7O'>" +
                       "Daniel Spataru</a>") + Translator.dummy
@@ -85,19 +85,19 @@ Overlay {
             Layout.fillWidth: true
             onClicked: app.openWebsite()
             text: qsTr ("Rate") + Translator.dummy
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
         }
 
         Button {
             Layout.fillWidth: true
             text: qsTr ("GitHub Project") + Translator.dummy
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             onClicked: Qt.openUrlExternally ("https://github.com/alex-spataru/Minimal3T")
         }
 
         Button {
             Layout.fillWidth: true
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr ("Contact Developer") + Translator.dummy
             onClicked: Qt.openUrlExternally ("mailto:alex_spataru@outlook.com")
         }
@@ -109,25 +109,25 @@ Overlay {
 
         Button {
             flat: true
+            Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: app.paneWidth
-            anchors.horizontalCenter: parent.horizontalCentercd
 
             RowLayout {
                 spacing: app.spacing
                 anchors.centerIn: parent
 
-                SvgImage {
+                Image {
                     fillMode: Image.Pad
                     source: "qrc:/images/settings/back.svg"
                     verticalAlignment: Image.AlignVCenter
                     horizontalAlignment: Image.AlignHCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    Layout.alignment: Qt.AlignVCenter
                 }
 
                 Label {
                     text: qsTr ("Back") + Translator.dummy
                     font.capitalization: Font.AllUppercase
-                    anchors.verticalCenter: parent.verticalCenter
+                    Layout.alignment: Qt.AlignVCenter
                 }
             }
 

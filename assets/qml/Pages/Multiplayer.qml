@@ -151,7 +151,7 @@ Page {
 
         Item {
             Layout.fillHeight: false
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: board.gridSize + 2 * app.spacing
             Layout.preferredHeight: board.gridSize + 2 * app.spacing
 
