@@ -35,7 +35,7 @@ Item {
     property real cellSize: 0
     property bool clickableFields: false
     property real lineWidth: app.spacing / 5
-    property real gridSize: Math.min (app.width, app.height) * (app.height > app.width ? 0.75 : 0.50)
+    property real gridSize: Math.min (app.width, app.height) * ((app.height * 3/4) > app.width ? 2/3 : 1/2)
 
     //
     // For drawing the winning line
