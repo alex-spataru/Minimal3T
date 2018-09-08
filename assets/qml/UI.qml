@@ -77,7 +77,7 @@ Item {
     //
     RowLayout {
         id: toolbar
-        Layout.preferredHeight: app.mediumLabel
+        height: app.mediumLabel * 3
 
         anchors {
             top: parent.top
@@ -88,6 +88,7 @@ Item {
         ToolButton {
             opacity: enabled ? 1 : 0
             enabled: stack.depth > 1
+            Layout.alignment: Qt.AlignVCenter
 
             onClicked: {
                 stack.pop()
@@ -109,8 +110,10 @@ Item {
 
         Label {
             id: title
-            opacity: text.length > 0
+            opacity: 0
+            Layout.alignment: Qt.AlignVCenter
             font.pixelSize: app.largeLabel * 3/4
+            text: qsTr ("Match") + Translator.dummy
             Behavior on opacity { NumberAnimation{} }
         }
 
@@ -119,6 +122,8 @@ Item {
         }
 
         ToolButton {
+            Layout.alignment: Qt.AlignVCenter
+            
             onClicked: {
                 menu.open()
                 app.playSoundEffect ("click")
@@ -195,7 +200,7 @@ Item {
 
             onVisibleChanged: {
                 if (visible)
-                    title.text = ""
+                    title.opacity = 0
             }
         }
 
@@ -206,7 +211,7 @@ Item {
             onVisibleChanged: {
                 settings.applySettings()
                 if (visible)
-                    title.text = qsTr ("Match") + Translator.dummy
+                    title.opacity = 1
             }
         }
 
@@ -216,7 +221,7 @@ Item {
 
             onVisibleChanged: {
                 if (visible)
-                    title.text = qsTr ("Match") + Translator.dummy
+                    title.opacity = 1
             }
         }
     }

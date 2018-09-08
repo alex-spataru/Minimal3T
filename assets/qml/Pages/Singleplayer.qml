@@ -254,11 +254,15 @@ Page {
                 sourceSize: Qt.size (app.largeLabel, app.largeLabel)
             }
         }
-
+       
         Dots {
             mirror: true
             highlightedDots: humanWins
             Layout.fillHeight: false
+        }
+        
+        Item {
+            height: app.mediumLabel / 2
         }
 
         Item {
@@ -272,6 +276,10 @@ Page {
                 enabled: parent.visible
                 anchors.centerIn: parent
             }
+        }
+        
+        Item {
+            height: app.mediumLabel / 2
         }
 
         Dots {

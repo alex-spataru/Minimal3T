@@ -148,6 +148,10 @@ Page {
             highlightedDots: p1Wins
             Layout.fillHeight: false
         }
+        
+        Item {
+            height: app.mediumLabel / 2
+        }
 
         Item {
             Layout.fillHeight: false
@@ -160,6 +164,10 @@ Page {
                 enabled: parent.visible
                 anchors.centerIn: parent
             }
+        }
+        
+        Item {
+            height: app.mediumLabel / 2
         }
 
         Dots {
