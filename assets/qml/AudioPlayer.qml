@@ -35,8 +35,9 @@ Item {
     // Song list
     //
     readonly property var songs: [
-        "qrc:/sounds/music/relax.ogg",
-        "qrc:/sounds/music/legends.ogg"
+        "qrc:/sounds/music/drive.mp3",
+        "qrc:/sounds/music/relax.mp3",
+        "qrc:/sounds/music/legends.mp3"
     ]
 
     //
@@ -95,7 +96,7 @@ Item {
     //
     function setMusicSource() {
         var track = Math.random() * (songs.length - 1)
-        musicFile = songs [Math.round (track)]
+        musicFile = songs[Math.round (track)]
     }
 
     //

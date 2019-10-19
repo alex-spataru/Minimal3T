@@ -40,6 +40,7 @@ TARGET = minimal3t
 
 CONFIG += qtc_runnable
 CONFIG += resources_big
+CONFIG += qtquickcompiler
 
 QT += xml
 QT += svg
@@ -68,7 +69,6 @@ TRANSLATIONS += \
 # Include libraries
 #-------------------------------------------------------------------------------
 
-include ($$PWD/lib/QtAdMob/QtAdMob.pri)
 include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 
 #-------------------------------------------------------------------------------
@@ -76,7 +76,6 @@ include ($$PWD/lib/ShareUtils-QML/ShareUtils-QML.pri)
 #-------------------------------------------------------------------------------
 
 HEADERS += \
-    $$PWD/src/AdInfo.h \
     $$PWD/src/Board.h \
     $$PWD/src/Minimax.h \
     $$PWD/src/ComputerPlayer.h \
@@ -122,10 +121,6 @@ linux:!android {
 }
 
 android {
-    #android:DEFINES += NO_ADS
-    #android:DEFINES += REAL_ADS
-    android:DEFINES += TEST_ADS
-
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/deploy/android
     android:DISTFILES += \
         $$PWD/deploy/android/AndroidManifest.xml \
@@ -135,3 +130,10 @@ android {
 win32* {
     RC_FILE = $$PWD/deploy/windows/resources/info.rc
 }
+
+DISTFILES += \
+    deploy/android/gradle/wrapper/gradle-wrapper.jar \
+    deploy/android/gradle/wrapper/gradle-wrapper.properties \
+    deploy/android/gradlew \
+    deploy/android/gradlew.bat \
+    deploy/android/res/values/libs.xml

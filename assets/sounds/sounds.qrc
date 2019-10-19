@@ -11,7 +11,8 @@
         <file>notes/f.wav</file>
         <file>notes/g.wav</file>
         <file>effects/game_start.wav</file>
-        <file>music/relax.ogg</file>
-        <file>music/legends.ogg</file>
+        <file>music/drive.mp3</file>
+        <file>music/legends.mp3</file>
+        <file>music/relax.mp3</file>
     </qresource>
 </RCC>

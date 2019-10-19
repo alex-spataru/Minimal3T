@@ -18,6 +18,5 @@
         <file>Pages/Rate.qml</file>
         <file>Components/FieldCanvas.qml</file>
         <file>Components/UiGradientStop.qml</file>
-        <file>AdDisplay.qml</file>
     </qresource>
 </RCC>

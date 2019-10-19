@@ -65,17 +65,6 @@ Overlay {
                       "Alex Spataru</a>") + Translator.dummy
         }
 
-        Label {
-            opacity: 0.75
-            Layout.fillWidth: true
-            horizontalAlignment: Label.AlignHCenter
-            onLinkActivated: Qt.openUrlExternally (link)
-            Layout.alignment: Qt.AlignHCenter
-            text: qsTr ("Music by %1").arg (
-                      "<a href='https://open.spotify.com/artist/1GgIbWzylPISVk6mMluL7O'>" +
-                      "Daniel Spataru</a>") + Translator.dummy
-        }
-
         Item {
             Layout.fillHeight: true
             Layout.minimumHeight: 2 * app.spacing

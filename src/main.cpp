@@ -27,10 +27,7 @@
 #include <QQmlApplicationEngine>
 
 #include "shareutils.h"
-#include "QtAdMobBanner.h"
-#include "QtAdMobInterstitial.h"
 
-#include "AdInfo.h"
 #include "QmlBoard.h"
 #include "UiGradients.h"
 #include "Translator.h"
@@ -38,7 +35,7 @@
 
 int main (int argc, char** argv)
 {
-    QGuiApplication::setApplicationVersion ("1.5.3");
+    QGuiApplication::setApplicationVersion ("1.6.0");
     QGuiApplication::setApplicationName ("Minimal3T");
     QGuiApplication::setOrganizationName ("Alex Spataru");
     QGuiApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
@@ -55,8 +52,6 @@ int main (int argc, char** argv)
     ShareUtils::DeclareQML();
     Translator::DeclareQML();
     ComputerPlayer::DeclareQML();
-    QmlAdMobBanner::DeclareQML();
-    QmlAdMobInterstitial::DeclareQML();
     qreal dpr = app.primaryScreen()->devicePixelRatio();
 
     QQmlApplicationEngine engine;
@@ -65,9 +60,6 @@ int main (int argc, char** argv)
     engine.rootContext()->setContextProperty ("DevicePixelRatio", dpr);
     engine.rootContext()->setContextProperty ("Gradients", &gradients);
     engine.rootContext()->setContextProperty ("Translator", &translator);
-    engine.rootContext()->setContextProperty ("AdsEnabled", ADS_ENABLED);
-    engine.rootContext()->setContextProperty ("TestDevices", TEST_DEVICES);
-    engine.rootContext()->setContextProperty ("InterstitialId", INTERSTITIAL_ID);
     engine.rootContext()->setContextProperty ("Board", QmlBoard::getInstance());
     engine.rootContext()->setContextProperty ("AppName", app.applicationName());
     engine.rootContext()->setContextProperty ("Company", app.organizationName());

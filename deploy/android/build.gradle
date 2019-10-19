@@ -1,28 +1,23 @@
 buildscript {
     repositories {
+        google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
-        classpath 'com.google.gms:google-services:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.2.0'
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
-    }
+repositories {
+    google()
+    jcenter()
 }
 
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.gms:play-services-ads:+'
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
 android {

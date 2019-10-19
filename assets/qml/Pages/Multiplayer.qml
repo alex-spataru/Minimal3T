@@ -90,10 +90,8 @@ Page {
             }
         }
 
-        if (!Board.gameInProgress) {
-            app.showInterstitialAd()
+        if (!Board.gameInProgress)
             Board.resetBoard()
-        }
 
         getScoreDifference()
     }

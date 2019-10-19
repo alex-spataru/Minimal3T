@@ -46,18 +46,6 @@ Page {
     property string overlayTitle: ""
 
     //
-    // Holds the number of games played, used to show
-    // the interstital ad every x games
-    //
-    property int gamesPlayed: 0
-    onGamesPlayedChanged: {
-        if (gamesPlayed >= app.interstitialAdFreq) {
-            gamesPlayed = 0
-            app.showInterstitialAd()
-        }
-    }
-
-    //
     // Updates number of dots shown above and below the game board
     //
     function getScoreDifference() {
@@ -327,8 +315,6 @@ Page {
         // the overlay
         //
         function display() {
-            ++gamesPlayed
-
             if (Board.gameWon) {
                 if (Board.winner === AiPlayer.player) {
                     logo.source = "qrc:/images/frown.svg"
